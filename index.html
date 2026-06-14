@@ -231,9 +231,6 @@
       <span data-i18n="foot.maps">歷史圖資</span> ·
       <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> /
       <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a><br>
-      <span data-i18n="foot.base">底圖</span> ·
-      <a href="https://www.esri.nl" target="_blank" rel="noopener">Esri NL</a> /
-      <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a><br>
       <span data-i18n="foot.made">設計・製作</span> ·
       <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昃慶 Yunching Wu</a>
 
@@ -308,8 +305,8 @@
   });
 
   const ARC = 'https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/';
-  const BASE_URL = ARC + 'Topografie_2024/MapServer/tile/{z}/{y}/{x}';
-  const BASE_ATTR = '&copy; <a href="https://www.esri.nl" target="_blank" rel="noopener">Esri Nederland</a> / Kadaster';
+  const BASE_URL = ARC + 'Historische_tijdreis_2021/MapServer/tile/{z}/{y}/{x}';
+  const BASE_ATTR = 'Basis &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis 2021</a> / Kadaster';
   const HIST_ATTR = 'Historie &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> / Kadaster';
   function histUrl(id) { return ARC + 'Historische_tijdreis_' + id + '/MapServer/tile/{z}/{y}/{x}'; }
 
@@ -333,7 +330,7 @@
       'sec.locate': 'Locatie', 'sec.locate.en': 'locatie',
       'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
-      'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw',
+      'foot.maps': 'Historie', 'foot.made': 'Ontwerp & bouw',
       'theme.light': 'Papier', 'theme.dark': 'Inkt', 'loading': 'Laden…', 'sheet.hint': 'Tik om te openen',
       'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
       'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
@@ -345,7 +342,7 @@
       'sec.locate': 'Locate', 'sec.locate.en': 'locate',
       'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
-      'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build',
+      'foot.maps': 'History', 'foot.made': 'Design & build',
       'theme.light': 'Paper', 'theme.dark': 'Ink', 'loading': 'Loading…', 'sheet.hint': 'Tap to open',
       'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
       'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
@@ -357,7 +354,7 @@
       'sec.locate': '定位', 'sec.locate.en': '定位',
       'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
-      'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作',
+      'foot.maps': '歷史圖資', 'foot.made': '設計・製作',
       'theme.light': '紙色', 'theme.dark': '墨色', 'loading': '載入中…', 'sheet.hint': '點此展開',
       'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
       'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
