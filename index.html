@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <meta name="theme-color" content="#F1EFE9" />
-<!-- Pas thema-voorkeur zo vroeg mogelijk toe, om een lichte flits bij het openen te voorkomen -->
 <script>
   try {
     if (localStorage.getItem('nlOldMaps.theme') === 'dark') {
@@ -18,333 +17,128 @@
 </script>
 <meta name="google" content="notranslate" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Wandeling" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
 <link rel="mask-icon" href="icons/icon.svg" color="#C15F3C" />
 <link rel="apple-touch-icon" href="icons/icon.svg" />
 <title>荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland</title>
-
 <meta name="description" content="Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten. 把 1815 年以來的荷蘭歷史地圖疊在今日街道上。" />
 <meta name="author" content="吳昃慶 Yunching Wu" />
-
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="荷蘭古地圖散策" />
 <meta property="og:title" content="荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland" />
 <meta property="og:description" content="Schuif door twee eeuwen Nederlandse topografische kaarten, over de straten van vandaag." />
 <meta property="og:locale" content="nl_NL" />
-
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin="" />
 <style>
   :root {
-    --paper:    #F1EFE9;
-    --paper-2:  #EAE8E2;
-    --mist:     #D6D3CB;
-    --stone:    #BBB8AE;
-    --silver:   #A6A399;
-    --ash:      #807C73;
-    --graphite: #565347;
-    --ink:      #1F1D19;
-    --vermilion:   #C15F3C;
-    --vermilion-d: #9E4B2E;
-    --vermilion-l: rgba(193, 95, 60, 0.08);
-    --serif: 'Noto Serif TC', 'Songti TC', Georgia, serif;
-    --sans:  'Noto Sans TC', system-ui, sans-serif;
-    --en-serif: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
-    --mono:  'JetBrains Mono', 'Courier New', monospace;
+    --paper:#F1EFE9; --paper-2:#EAE8E2; --mist:#D6D3CB; --stone:#BBB8AE; --silver:#A6A399;
+    --ash:#807C73; --graphite:#565347; --ink:#1F1D19; --vermilion:#C15F3C; --vermilion-d:#9E4B2E;
+    --vermilion-l:rgba(193,95,60,0.08);
+    --serif:'Noto Serif TC','Songti TC',Georgia,serif; --sans:'Noto Sans TC',system-ui,sans-serif;
+    --en-serif:'EB Garamond','Cormorant Garamond',Georgia,serif; --mono:'JetBrains Mono','Courier New',monospace;
   }
-  html.theme-dark {
-    --paper:    #1A1A1A;
-    --paper-2:  #242320;
-    --mist:     #302E2A;
-    --stone:    #3D3A35;
-    --silver:   #6E6A62;
-    --ash:      #918C82;
-    --graphite: #C6C1B7;
-    --ink:      #F1EFE9;
-    --vermilion-l: rgba(193, 95, 60, 0.18);
+  html.theme-dark { --paper:#1A1A1A; --paper-2:#242320; --mist:#302E2A; --stone:#3D3A35; --silver:#6E6A62; --ash:#918C82; --graphite:#C6C1B7; --ink:#F1EFE9; --vermilion-l:rgba(193,95,60,0.18); }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; }
+  body { font-family:var(--sans); background:var(--paper); color:var(--ink); font-weight:300; -webkit-font-smoothing:antialiased; overflow:hidden; }
+  #map { position:absolute; inset:0; background:var(--paper); }
+  .grain::before { content:''; position:absolute; inset:0; pointer-events:none; z-index:1; opacity:0.5; background-image:radial-gradient(var(--stone) 0.5px,transparent 0.5px); background-size:4px 4px; mix-blend-mode:multiply; }
+  html.theme-dark .grain::before { mix-blend-mode:screen; opacity:0.06; }
+  .panel { position:absolute; top:20px; right:20px; z-index:1000; background:var(--paper-2); border:1px solid var(--stone); width:344px; max-width:calc(100vw - 32px); max-height:calc(100vh - 40px); overflow-y:auto; padding:26px 26px 20px; box-shadow:0 1px 0 var(--mist),0 24px 60px -28px rgba(31,29,25,0.3); }
+  .panel-head { position:relative; padding-bottom:20px; border-bottom:1px solid var(--ink); margin-bottom:4px; }
+  .panel-head::before { content:''; position:absolute; bottom:-1px; left:0; width:48px; height:3px; background:var(--vermilion); }
+  .head-en { font-family:var(--en-serif); font-style:italic; font-size:13px; color:var(--vermilion); letter-spacing:0.02em; margin-bottom:6px; }
+  .head-zh { font-family:var(--serif); font-size:23px; font-weight:600; letter-spacing:0.14em; color:var(--ink); line-height:1.3; }
+  .head-meta { margin-top:10px; font-family:var(--mono); font-size:10px; letter-spacing:0.18em; color:var(--ash); text-transform:uppercase; }
+  .section-label { display:flex; align-items:baseline; gap:12px; margin:24px 0 8px; }
+  .section-label .num { font-family:var(--mono); font-size:10px; color:var(--vermilion); letter-spacing:0.1em; }
+  .section-label .txt { font-family:var(--serif); font-size:13px; font-weight:500; letter-spacing:0.16em; color:var(--graphite); }
+  .section-label .en { font-family:var(--en-serif); font-style:italic; font-size:11px; color:var(--silver); margin-left:auto; }
+  .city-current { display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border:1px solid var(--stone); background:var(--paper); cursor:pointer; transition:border-color 0.2s; -webkit-tap-highlight-color:transparent; }
+  .city-current:hover { border-color:var(--vermilion); }
+  .city-zh { font-family:var(--serif); font-size:17px; font-weight:600; letter-spacing:0.08em; color:var(--ink); }
+  .city-en { font-family:var(--en-serif); font-style:italic; font-size:12px; color:var(--ash); margin-top:1px; }
+  .city-caret { font-size:10px; color:var(--silver); transition:transform 0.25s; }
+  .city-current[aria-expanded="true"] .city-caret { transform:rotate(180deg); }
+  .city-list { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .city-list.open { max-height:480px; overflow-y:auto; }
+  .region-label { font-family:var(--mono); font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--silver); margin:14px 0 6px; padding-left:2px; }
+  .city-chip { display:inline-flex; align-items:baseline; gap:6px; padding:6px 10px; margin:0 6px 6px 0; border:1px solid var(--mist); background:var(--paper); cursor:pointer; font-family:var(--serif); font-size:13px; color:var(--graphite); letter-spacing:0.04em; transition:all 0.18s; -webkit-tap-highlight-color:transparent; }
+  .city-chip .en { font-family:var(--en-serif); font-style:italic; font-size:10px; color:var(--silver); }
+  .city-chip:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  .city-chip.active { border-color:var(--vermilion); background:var(--vermilion-l); color:var(--vermilion); }
+  .year-display { display:flex; align-items:flex-end; gap:10px; margin:6px 0 2px; }
+  .year-big { font-family:var(--mono); font-weight:500; font-size:46px; line-height:1; color:var(--ink); letter-spacing:0.02em; }
+  .year-era { font-family:var(--en-serif); font-style:italic; font-size:12px; color:var(--vermilion); padding-bottom:6px; line-height:1.3; }
+  .year-era .sub { display:block; font-family:var(--sans); font-style:normal; font-size:10px; color:var(--ash); letter-spacing:0.04em; }
+  input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:24px; background:transparent; cursor:pointer; margin:4px 0; }
+  input[type=range]::-webkit-slider-runnable-track { height:2px; background:var(--stone); }
+  input[type=range]::-moz-range-track { height:2px; background:var(--stone); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:16px; height:16px; margin-top:-7px; border-radius:50%; background:var(--vermilion); border:2px solid var(--paper-2); box-shadow:0 1px 4px rgba(0,0,0,0.25); transition:transform 0.15s; }
+  input[type=range]::-webkit-slider-thumb:hover { transform:scale(1.18); }
+  input[type=range]::-moz-range-thumb { width:16px; height:16px; border-radius:50%; background:var(--vermilion); border:2px solid var(--paper-2); box-shadow:0 1px 4px rgba(0,0,0,0.25); }
+  .year-ticks { display:flex; justify-content:space-between; font-family:var(--mono); font-size:9px; color:var(--silver); margin-top:-2px; }
+  .year-ticks span { cursor:pointer; transition:color 0.15s; }
+  .year-ticks span:hover { color:var(--vermilion); }
+  .era-chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+  .era-chip { padding:4px 8px; border:1px solid var(--mist); background:var(--paper); cursor:pointer; font-family:var(--mono); font-size:10px; color:var(--graphite); transition:all 0.18s; -webkit-tap-highlight-color:transparent; }
+  .era-chip:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  .era-chip.active { border-color:var(--vermilion); background:var(--vermilion-l); color:var(--vermilion); }
+  .opa-row { display:flex; align-items:center; gap:12px; margin-top:14px; }
+  .opa-row .lbl { font-family:var(--mono); font-size:10px; letter-spacing:0.12em; color:var(--ash); text-transform:uppercase; white-space:nowrap; }
+  .opa-row .val { font-family:var(--mono); font-size:11px; color:var(--vermilion); width:38px; text-align:right; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:11px; margin-top:10px; border:1px solid var(--stone); background:var(--paper); font-family:var(--serif); font-size:14px; font-weight:500; letter-spacing:0.08em; color:var(--graphite); cursor:pointer; transition:all 0.2s; -webkit-tap-highlight-color:transparent; }
+  .btn:hover:not(:disabled) { border-color:var(--vermilion); color:var(--vermilion); }
+  .btn.active { border-color:var(--vermilion); background:var(--vermilion-l); color:var(--vermilion); }
+  .btn .dot { width:7px; height:7px; border-radius:50%; background:var(--stone); }
+  .btn.active .dot { background:var(--vermilion); }
+  .btn .en { font-family:var(--en-serif); font-style:italic; font-size:11px; color:var(--silver); }
+  .loc-status { display:none; margin-top:10px; padding:10px 12px; background:var(--paper); border:1px solid var(--mist); font-family:var(--mono); font-size:10px; color:var(--ash); line-height:1.7; }
+  .loc-status.show { display:block; }
+  .loc-status .label { color:var(--silver); letter-spacing:0.14em; text-transform:uppercase; font-size:9px; }
+  .panel-foot { margin-top:22px; padding-top:16px; border-top:1px solid var(--mist); font-family:var(--sans); font-size:10px; color:var(--ash); line-height:1.8; }
+  .panel-foot a { color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
+  .panel-foot a:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  .foot-toggles { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+  .pill-toggle { padding:4px 10px; border:1px solid var(--stone); background:var(--paper); font-family:var(--mono); font-size:10px; color:var(--graphite); cursor:pointer; transition:all 0.18s; -webkit-tap-highlight-color:transparent; }
+  .pill-toggle:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  .lang-switch { display:inline-flex; border:1px solid var(--stone); }
+  .lang-switch button { padding:4px 9px; border:none; background:var(--paper); cursor:pointer; font-family:var(--mono); font-size:10px; color:var(--graphite); border-right:1px solid var(--stone); }
+  .lang-switch button:last-child { border-right:none; }
+  .lang-switch button.active { background:var(--vermilion); color:#fff; }
+  .sheet-handle { display:none; }
+  @media (max-width:640px) {
+    .panel { top:auto; bottom:0; left:0; right:0; width:100%; max-width:100%; max-height:78vh; border-left:none; border-right:none; border-bottom:none; border-radius:16px 16px 0 0; padding:8px 20px 24px; transform:translateY(calc(100% - 64px)); transition:transform 0.32s cubic-bezier(0.4,0,0.2,1); }
+    .panel.open { transform:translateY(0); }
+    .sheet-handle { display:flex; flex-direction:column; align-items:center; gap:6px; padding:8px 0 10px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+    .sheet-handle .grip { width:38px; height:4px; border-radius:2px; background:var(--stone); }
+    .sheet-handle .hint { font-family:var(--mono); font-size:9px; letter-spacing:0.14em; color:var(--silver); text-transform:uppercase; }
+    .sheet-handle .hint .accent { color:var(--vermilion); }
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
-  body {
-    font-family: var(--sans);
-    background: var(--paper);
-    color: var(--ink);
-    font-weight: 300;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow: hidden;
-  }
-  #map { position: absolute; inset: 0; background: var(--paper); }
-  .grain::before {
-    content: '';
-    position: absolute; inset: 0;
-    pointer-events: none; z-index: 1;
-    opacity: 0.5;
-    background-image: radial-gradient(var(--stone) 0.5px, transparent 0.5px);
-    background-size: 4px 4px;
-    mix-blend-mode: multiply;
-  }
-  html.theme-dark .grain::before { mix-blend-mode: screen; opacity: 0.06; }
-  .panel {
-    position: absolute;
-    top: 20px; right: 20px;
-    z-index: 1000;
-    background: var(--paper-2);
-    border: 1px solid var(--stone);
-    width: 344px;
-    max-width: calc(100vw - 32px);
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    padding: 26px 26px 20px;
-    box-shadow: 0 1px 0 var(--mist), 0 24px 60px -28px rgba(31,29,25,0.3);
-  }
-  .panel-scroll { position: relative; }
-  .panel-head {
-    position: relative;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--ink);
-    margin-bottom: 4px;
-  }
-  .panel-head::before {
-    content: '';
-    position: absolute; bottom: -1px; left: 0;
-    width: 48px; height: 3px;
-    background: var(--vermilion);
-  }
-  .head-en {
-    font-family: var(--en-serif);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--vermilion);
-    letter-spacing: 0.02em;
-    margin-bottom: 6px;
-  }
-  .head-zh {
-    font-family: var(--serif);
-    font-size: 23px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: var(--ink);
-    line-height: 1.3;
-  }
-  .head-meta {
-    margin-top: 10px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    color: var(--ash);
-    text-transform: uppercase;
-  }
-  .section-label {
-    display: flex; align-items: baseline; gap: 12px;
-    margin: 24px 0 8px;
-  }
-  .section-label .num { font-family: var(--mono); font-size: 10px; color: var(--vermilion); letter-spacing: 0.1em; }
-  .section-label .txt { font-family: var(--serif); font-size: 13px; font-weight: 500; letter-spacing: 0.16em; color: var(--graphite); }
-  .section-label .en { font-family: var(--en-serif); font-style: italic; font-size: 11px; color: var(--silver); margin-left: auto; }
-  .city-current {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 14px;
-    border: 1px solid var(--stone);
-    background: var(--paper);
-    cursor: pointer;
-    transition: border-color 0.2s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .city-current:hover { border-color: var(--vermilion); }
-  .city-zh { font-family: var(--serif); font-size: 17px; font-weight: 600; letter-spacing: 0.08em; color: var(--ink); }
-  .city-en { font-family: var(--en-serif); font-style: italic; font-size: 12px; color: var(--ash); margin-top: 1px; }
-  .city-caret { font-size: 10px; color: var(--silver); transition: transform 0.25s; }
-  .city-current[aria-expanded="true"] .city-caret { transform: rotate(180deg); }
-  .city-list { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-  .city-list.open { max-height: 480px; overflow-y: auto; }
-  .region-label {
-    font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--silver);
-    margin: 14px 0 6px; padding-left: 2px;
-  }
-  .city-chip {
-    display: inline-flex; align-items: baseline; gap: 6px;
-    padding: 6px 10px; margin: 0 6px 6px 0;
-    border: 1px solid var(--mist);
-    background: var(--paper);
-    cursor: pointer; font-family: var(--serif); font-size: 13px;
-    color: var(--graphite); letter-spacing: 0.04em;
-    transition: all 0.18s; -webkit-tap-highlight-color: transparent;
-  }
-  .city-chip .en { font-family: var(--en-serif); font-style: italic; font-size: 10px; color: var(--silver); }
-  .city-chip:hover { border-color: var(--vermilion); color: var(--vermilion); }
-  .city-chip.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
-  .base-pills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
-  .base-pill {
-    padding: 9px 4px 8px; border: 1px solid var(--stone); background: var(--paper);
-    cursor: pointer; text-align: center; font-family: var(--serif);
-    font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: var(--graphite);
-    line-height: 1.2; transition: all 0.2s; -webkit-tap-highlight-color: transparent;
-  }
-  .base-pill .en { display: block; font-family: var(--en-serif); font-style: italic; font-weight: 400; font-size: 9px; color: var(--ash); margin-top: 2px; }
-  .base-pill:hover { border-color: var(--vermilion); color: var(--vermilion); }
-  .base-pill.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
-  .base-pill.active .en { color: var(--vermilion-d); }
-  .year-display { display: flex; align-items: flex-end; gap: 10px; margin: 6px 0 2px; }
-  .year-big { font-family: var(--mono); font-weight: 500; font-size: 46px; line-height: 1; color: var(--ink); letter-spacing: 0.02em; }
-  .year-era { font-family: var(--en-serif); font-style: italic; font-size: 12px; color: var(--vermilion); padding-bottom: 6px; line-height: 1.3; }
-  .year-era .sub { display: block; font-family: var(--sans); font-style: normal; font-size: 10px; color: var(--ash); letter-spacing: 0.04em; }
-  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; background: transparent; cursor: pointer; margin: 4px 0; }
-  input[type=range].year::-webkit-slider-runnable-track,
-  input[type=range].opa::-webkit-slider-runnable-track { height: 2px; background: var(--stone); }
-  input[type=range].year::-moz-range-track,
-  input[type=range].opa::-moz-range-track { height: 2px; background: var(--stone); }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none; appearance: none;
-    width: 16px; height: 16px; margin-top: -7px; border-radius: 50%;
-    background: var(--vermilion); border: 2px solid var(--paper-2);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.25); transition: transform 0.15s;
-  }
-  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.18); }
-  input[type=range]::-moz-range-thumb {
-    width: 16px; height: 16px; border-radius: 50%;
-    background: var(--vermilion); border: 2px solid var(--paper-2);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
-  }
-  .year-ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 9px; color: var(--silver); margin-top: -2px; }
-  .year-ticks span { cursor: pointer; transition: color 0.15s; }
-  .year-ticks span:hover { color: var(--vermilion); }
-  .era-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
-  .era-chip {
-    padding: 4px 8px; border: 1px solid var(--mist); background: var(--paper);
-    cursor: pointer; font-family: var(--mono); font-size: 10px; color: var(--graphite);
-    transition: all 0.18s; -webkit-tap-highlight-color: transparent;
-  }
-  .era-chip:hover { border-color: var(--vermilion); color: var(--vermilion); }
-  .era-chip.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
-  .opa-row { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
-  .opa-row .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--ash); text-transform: uppercase; white-space: nowrap; }
-  .opa-row .val { font-family: var(--mono); font-size: 11px; color: var(--vermilion); width: 38px; text-align: right; }
-  .btn {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; padding: 11px; margin-top: 10px;
-    border: 1px solid var(--stone); background: var(--paper);
-    font-family: var(--serif); font-size: 14px; font-weight: 500; letter-spacing: 0.08em;
-    color: var(--graphite); cursor: pointer; transition: all 0.2s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .btn:hover:not(:disabled) { border-color: var(--vermilion); color: var(--vermilion); }
-  .btn:disabled { opacity: 0.45; cursor: default; }
-  .btn.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
-  .btn .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--stone); }
-  .btn.active .dot { background: var(--vermilion); }
-  .btn .en { font-family: var(--en-serif); font-style: italic; font-size: 11px; color: var(--silver); }
-  .loc-status {
-    display: none; margin-top: 10px; padding: 10px 12px;
-    background: var(--paper); border: 1px solid var(--mist);
-    font-family: var(--mono); font-size: 10px; color: var(--ash); line-height: 1.7;
-  }
-  .loc-status.show { display: block; }
-  .loc-status .label { color: var(--silver); letter-spacing: 0.14em; text-transform: uppercase; font-size: 9px; }
-  .panel-foot {
-    margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--mist);
-    font-family: var(--sans); font-size: 10px; color: var(--ash); line-height: 1.8;
-  }
-  .panel-foot a { color: var(--graphite); text-decoration: none; border-bottom: 1px solid var(--stone); }
-  .panel-foot a:hover { color: var(--vermilion); border-color: var(--vermilion); }
-  .foot-toggles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-  .pill-toggle {
-    padding: 4px 10px; border: 1px solid var(--stone); background: var(--paper);
-    font-family: var(--mono); font-size: 10px; color: var(--graphite); cursor: pointer;
-    transition: all 0.18s; -webkit-tap-highlight-color: transparent;
-  }
-  .pill-toggle:hover { border-color: var(--vermilion); color: var(--vermilion); }
-  .pill-toggle.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
-  .lang-switch { display: inline-flex; border: 1px solid var(--stone); }
-  .lang-switch button {
-    padding: 4px 9px; border: none; background: var(--paper); cursor: pointer;
-    font-family: var(--mono); font-size: 10px; color: var(--graphite);
-    border-right: 1px solid var(--stone);
-  }
-  .lang-switch button:last-child { border-right: none; }
-  .lang-switch button.active { background: var(--vermilion); color: #fff; }
-  .sheet-handle { display: none; }
-  @media (max-width: 640px) {
-    .panel {
-      top: auto; bottom: 0; left: 0; right: 0;
-      width: 100%; max-width: 100%; max-height: 78vh;
-      border-left: none; border-right: none; border-bottom: none;
-      border-radius: 16px 16px 0 0;
-      padding: 8px 20px 24px;
-      transform: translateY(calc(100% - 64px));
-      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
-    }
-    .panel.open { transform: translateY(0); }
-    .sheet-handle {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      padding: 8px 0 10px; cursor: pointer; -webkit-tap-highlight-color: transparent;
-    }
-    .sheet-handle .grip { width: 38px; height: 4px; border-radius: 2px; background: var(--stone); }
-    .sheet-handle .hint { font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; color: var(--silver); text-transform: uppercase; }
-    .sheet-handle .hint .accent { color: var(--vermilion); }
-  }
-  .zoom-ctl {
-    position: absolute; left: 20px; top: 20px; z-index: 900;
-    display: flex; flex-direction: column; border: 1px solid var(--stone); background: var(--paper-2);
-  }
-  .zoom-ctl button {
-    width: 38px; height: 38px; border: none; background: transparent; cursor: pointer;
-    font-family: var(--mono); font-size: 18px; color: var(--graphite);
-    border-bottom: 1px solid var(--mist); -webkit-tap-highlight-color: transparent;
-  }
-  .zoom-ctl button:last-child { border-bottom: none; }
-  .zoom-ctl button:hover { color: var(--vermilion); background: var(--vermilion-l); }
-  .compare-divider {
-    position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
-    background: var(--vermilion); z-index: 850; cursor: ew-resize; display: none;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
-  }
-  .compare-divider.show { display: block; }
-  .compare-divider .knob {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 36px; height: 36px; border-radius: 50%; background: var(--vermilion);
-    border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    display: flex; align-items: center; justify-content: center; color: #fff;
-    font-family: var(--mono); font-size: 14px;
-  }
-  .compare-label {
-    position: absolute; top: 18px; z-index: 851; display: none;
-    font-family: var(--en-serif); font-style: italic; font-size: 13px; letter-spacing: 0.06em;
-    padding: 4px 12px; background: var(--paper-2); border: 1px solid var(--stone); color: var(--ink);
-  }
-  .compare-active .compare-label { display: block; }
-  .compare-label.then { left: 18px; color: var(--vermilion); }
-  .compare-label.now { right: 18px; }
-  .tile-spinner {
-    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-    z-index: 800; display: none; align-items: center; gap: 8px;
-    padding: 7px 14px; background: var(--paper-2); border: 1px solid var(--stone);
-    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ash);
-  }
-  .tile-spinner.show { display: inline-flex; }
-  .tile-spinner::before {
-    content: ''; width: 11px; height: 11px; border-radius: 50%;
-    border: 2px solid var(--stone); border-top-color: var(--vermilion);
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .me-dot {
-    width: 16px; height: 16px; border-radius: 50%; background: var(--vermilion);
-    border: 3px solid #fff; box-shadow: 0 0 0 2px var(--vermilion), 0 2px 6px rgba(0,0,0,0.4);
-  }
-  .leaflet-container { background: var(--paper); font-family: var(--sans); }
-  .leaflet-control-attribution {
-    background: rgba(241,239,233,0.78) !important; font-size: 9px !important;
-    font-family: var(--mono) !important; color: var(--ash) !important;
-  }
-  html.theme-dark .leaflet-control-attribution { background: rgba(26,26,26,0.78) !important; }
-  .leaflet-control-attribution a { color: var(--graphite) !important; }
+  .zoom-ctl { position:absolute; left:20px; top:20px; z-index:900; display:flex; flex-direction:column; border:1px solid var(--stone); background:var(--paper-2); }
+  .zoom-ctl button { width:38px; height:38px; border:none; background:transparent; cursor:pointer; font-family:var(--mono); font-size:18px; color:var(--graphite); border-bottom:1px solid var(--mist); -webkit-tap-highlight-color:transparent; }
+  .zoom-ctl button:last-child { border-bottom:none; }
+  .zoom-ctl button:hover { color:var(--vermilion); background:var(--vermilion-l); }
+  .compare-divider { position:absolute; top:0; bottom:0; left:50%; width:2px; background:var(--vermilion); z-index:850; cursor:ew-resize; display:none; box-shadow:0 0 0 1px rgba(255,255,255,0.4); }
+  .compare-divider.show { display:block; }
+  .compare-divider .knob { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:36px; height:36px; border-radius:50%; background:var(--vermilion); border:3px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center; color:#fff; font-family:var(--mono); font-size:14px; }
+  .compare-label { position:absolute; top:18px; z-index:851; display:none; font-family:var(--en-serif); font-style:italic; font-size:13px; letter-spacing:0.06em; padding:4px 12px; background:var(--paper-2); border:1px solid var(--stone); color:var(--ink); }
+  .compare-active .compare-label { display:block; }
+  .compare-label.then { left:18px; color:var(--vermilion); }
+  .compare-label.now { right:18px; }
+  .tile-spinner { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); z-index:800; display:none; align-items:center; gap:8px; padding:7px 14px; background:var(--paper-2); border:1px solid var(--stone); font-family:var(--mono); font-size:10px; letter-spacing:0.1em; color:var(--ash); }
+  .tile-spinner.show { display:inline-flex; }
+  .tile-spinner::before { content:''; width:11px; height:11px; border-radius:50%; border:2px solid var(--stone); border-top-color:var(--vermilion); animation:spin 0.8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .me-dot { width:16px; height:16px; border-radius:50%; background:var(--vermilion); border:3px solid #fff; box-shadow:0 0 0 2px var(--vermilion),0 2px 6px rgba(0,0,0,0.4); }
+  .leaflet-container { background:var(--paper); font-family:var(--sans); }
+  .leaflet-control-attribution { background:rgba(241,239,233,0.78) !important; font-size:9px !important; font-family:var(--mono) !important; color:var(--ash) !important; }
+  html.theme-dark .leaflet-control-attribution { background:rgba(26,26,26,0.78) !important; }
+  .leaflet-control-attribution a { color:var(--graphite) !important; }
 </style>
 </head>
 <body class="grain">
@@ -390,23 +184,6 @@
 
     <div class="section-label">
       <span class="num">02</span>
-      <span class="txt" data-i18n="sec.base">底圖</span>
-      <span class="en" data-i18n="sec.base.en">basiskaart</span>
-    </div>
-    <div class="base-pills" id="base-pills">
-      <button type="button" class="base-pill active" data-id="brt">
-        <span data-i18n="base.brt">街道</span><span class="en">Kaart</span>
-      </button>
-      <button type="button" class="base-pill" data-id="grijs">
-        <span data-i18n="base.grijs">灰階</span><span class="en">Grijs</span>
-      </button>
-      <button type="button" class="base-pill" data-id="luchtfoto">
-        <span data-i18n="base.aerial">空照</span><span class="en">Luchtfoto</span>
-      </button>
-    </div>
-
-    <div class="section-label">
-      <span class="num">03</span>
       <span class="txt" data-i18n="sec.time">時光</span>
       <span class="en" data-i18n="sec.time.en">tijdreis</span>
     </div>
@@ -417,7 +194,7 @@
         <span class="sub" id="era-sub" data-i18n="era.bonne.sub">1:25.000 chromotopografie</span>
       </div>
     </div>
-    <input type="range" class="year" id="year-slider" min="1815" max="2024" value="1900" step="1" />
+    <input type="range" class="year" id="year-slider" min="1815" max="2021" value="1900" step="1" />
     <div class="year-ticks" id="year-ticks"></div>
 
     <div class="era-chips" id="era-chips"></div>
@@ -435,7 +212,7 @@
     </button>
 
     <div class="section-label">
-      <span class="num">04</span>
+      <span class="num">03</span>
       <span class="txt" data-i18n="sec.locate">定位</span>
       <span class="en" data-i18n="sec.locate.en">locatie</span>
     </div>
@@ -455,8 +232,8 @@
       <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> /
       <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a><br>
       <span data-i18n="foot.base">底圖</span> ·
-      <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> /
-      <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a><br>
+      <a href="https://www.esri.nl" target="_blank" rel="noopener">Esri NL</a> /
+      <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a><br>
       <span data-i18n="foot.made">設計・製作</span> ·
       <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昃慶 Yunching Wu</a>
 
@@ -475,31 +252,33 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
+<script src="https://unpkg.com/proj4@2.11.0/dist/proj4.js"></script>
+<script src="https://unpkg.com/proj4leaflet@1.0.2/src/proj4leaflet.js"></script>
 <script>
 (function () {
   'use strict';
 
   const CITIES = [
-    { id: 'amsterdam',  region: 'randstad', zh: '阿姆斯特丹', en: 'Amsterdam',       center: [52.3731, 4.8922], zoom: 15 },
-    { id: 'rotterdam',  region: 'randstad', zh: '鹿特丹',     en: 'Rotterdam',       center: [51.9225, 4.4792], zoom: 15 },
-    { id: 'denhaag',    region: 'randstad', zh: '海牙',       en: 'Den Haag',        center: [52.0799, 4.3113], zoom: 15 },
-    { id: 'utrecht',    region: 'randstad', zh: '烏特勒支',   en: 'Utrecht',         center: [52.0908, 5.1222], zoom: 15 },
-    { id: 'leiden',     region: 'randstad', zh: '萊頓',       en: 'Leiden',          center: [52.1589, 4.4937], zoom: 15 },
-    { id: 'delft',      region: 'randstad', zh: '台夫特',     en: 'Delft',           center: [52.0116, 4.3571], zoom: 16 },
-    { id: 'haarlem',    region: 'randstad', zh: '哈勒姆',     en: 'Haarlem',         center: [52.3814, 4.6375], zoom: 15 },
-    { id: 'gouda',      region: 'randstad', zh: '豪達',       en: 'Gouda',           center: [52.0115, 4.7104], zoom: 16 },
-    { id: 'dordrecht',  region: 'randstad', zh: '多德雷赫特', en: 'Dordrecht',       center: [51.8133, 4.6901], zoom: 15 },
-    { id: 'amersfoort', region: 'randstad', zh: '阿默斯福特', en: 'Amersfoort',      center: [52.1561, 5.3878], zoom: 15 },
-    { id: 'groningen',  region: 'noord',    zh: '格羅寧根',   en: 'Groningen',       center: [53.2194, 6.5665], zoom: 15 },
-    { id: 'leeuwarden', region: 'noord',    zh: '呂伐登',     en: 'Leeuwarden',      center: [53.2012, 5.7999], zoom: 15 },
-    { id: 'zwolle',     region: 'noord',    zh: '茲沃勒',     en: 'Zwolle',          center: [52.5168, 6.0830], zoom: 15 },
-    { id: 'deventer',   region: 'noord',    zh: '代芬特爾',   en: 'Deventer',        center: [52.2552, 6.1639], zoom: 16 },
-    { id: 'arnhem',     region: 'noord',    zh: '阿納姆',     en: 'Arnhem',          center: [51.9851, 5.8987], zoom: 15 },
-    { id: 'nijmegen',   region: 'noord',    zh: '奈梅亨',     en: 'Nijmegen',        center: [51.8126, 5.8372], zoom: 15 },
-    { id: 'denbosch',   region: 'zuid',     zh: '斯海爾托亨博斯', en: "'s-Hertogenbosch", center: [51.6978, 5.3037], zoom: 16 },
-    { id: 'eindhoven',  region: 'zuid',     zh: '埃因霍溫',   en: 'Eindhoven',       center: [51.4416, 5.4697], zoom: 15 },
-    { id: 'maastricht', region: 'zuid',     zh: '馬斯特里赫特', en: 'Maastricht',     center: [50.8514, 5.6910], zoom: 16 },
-    { id: 'middelburg', region: 'zuid',     zh: '米德爾堡',   en: 'Middelburg',      center: [51.4988, 3.6111], zoom: 16 },
+    { id: 'amsterdam',  region: 'randstad', zh: '阿姆斯特丹', en: 'Amsterdam',       center: [52.3731, 4.8922] },
+    { id: 'rotterdam',  region: 'randstad', zh: '鹿特丹',     en: 'Rotterdam',       center: [51.9225, 4.4792] },
+    { id: 'denhaag',    region: 'randstad', zh: '海牙',       en: 'Den Haag',        center: [52.0799, 4.3113] },
+    { id: 'utrecht',    region: 'randstad', zh: '烏特勒支',   en: 'Utrecht',         center: [52.0908, 5.1222] },
+    { id: 'leiden',     region: 'randstad', zh: '萊頓',       en: 'Leiden',          center: [52.1589, 4.4937] },
+    { id: 'delft',      region: 'randstad', zh: '台夫特',     en: 'Delft',           center: [52.0116, 4.3571] },
+    { id: 'haarlem',    region: 'randstad', zh: '哈勒姆',     en: 'Haarlem',         center: [52.3814, 4.6375] },
+    { id: 'gouda',      region: 'randstad', zh: '豪達',       en: 'Gouda',           center: [52.0115, 4.7104] },
+    { id: 'dordrecht',  region: 'randstad', zh: '多德雷赫特', en: 'Dordrecht',       center: [51.8133, 4.6901] },
+    { id: 'amersfoort', region: 'randstad', zh: '阿默斯福特', en: 'Amersfoort',      center: [52.1561, 5.3878] },
+    { id: 'groningen',  region: 'noord',    zh: '格羅寧根',   en: 'Groningen',       center: [53.2194, 6.5665] },
+    { id: 'leeuwarden', region: 'noord',    zh: '呂伐登',     en: 'Leeuwarden',      center: [53.2012, 5.7999] },
+    { id: 'zwolle',     region: 'noord',    zh: '茲沃勒',     en: 'Zwolle',          center: [52.5168, 6.0830] },
+    { id: 'deventer',   region: 'noord',    zh: '代芬特爾',   en: 'Deventer',        center: [52.2552, 6.1639] },
+    { id: 'arnhem',     region: 'noord',    zh: '阿納姆',     en: 'Arnhem',          center: [51.9851, 5.8987] },
+    { id: 'nijmegen',   region: 'noord',    zh: '奈梅亨',     en: 'Nijmegen',        center: [51.8126, 5.8372] },
+    { id: 'denbosch',   region: 'zuid',     zh: '斯海爾托亨博斯', en: "'s-Hertogenbosch", center: [51.6978, 5.3037] },
+    { id: 'eindhoven',  region: 'zuid',     zh: '埃因霍溫',   en: 'Eindhoven',       center: [51.4416, 5.4697] },
+    { id: 'maastricht', region: 'zuid',     zh: '馬斯特里赫特', en: 'Maastricht',     center: [50.8514, 5.6910] },
+    { id: 'middelburg', region: 'zuid',     zh: '米德爾堡',   en: 'Middelburg',      center: [51.4988, 3.6111] },
   ];
 
   const REGIONS = {
@@ -514,43 +293,44 @@
     { from: 1933, to: 1989, key: 'top25', name: 'Topografische kaart' },
     { from: 1990, to: 2100, key: 'actueel', name: 'Actueel' },
   ];
-  function eraFor(year) {
-    return ERAS.find(e => year >= e.from && year <= e.to) || ERAS[ERAS.length - 1];
-  }
+  function eraFor(year) { return ERAS.find(e => year >= e.from && year <= e.to) || ERAS[ERAS.length - 1]; }
 
-  const ERA_YEARS = [1815, 1850, 1875, 1900, 1925, 1950, 1975, 2000, 2024];
-  const TICK_YEARS = [1815, 1900, 1950, 2000, 2024];
+  const ERA_YEARS = [1815, 1850, 1875, 1900, 1925, 1950, 1975, 2000, 2021];
+  const TICK_YEARS = [1815, 1900, 1950, 2000, 2021];
 
-  const HIST_URL = 'https://www.topotijdreis.nl/tile/{year}/{z}/{x}/{y}.png';
+  // Bron: Kadaster / Esri Nederland via ArcGIS (RD-grid, EPSG:28992).
+  // Basiskaart en historische kaarten komen uit dezelfde tilecache
+  // (default028mm) zodat ze exact op elkaar passen.
+  const RD_DEF = '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.4171,50.3319,465.5524,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs';
+  const RD = new L.Proj.CRS('EPSG:28992', RD_DEF, {
+    origin: [-30515500, 31112400],
+    resolutions: [3251.206502413005, 1625.6032512065026, 812.8016256032513, 406.40081280162565, 203.20040640081282, 101.60020320040641, 50.800101600203206, 25.400050800101603, 12.700025400050801, 6.350012700025401, 3.1750063500127004, 1.5875031750063502, 0.7937515875031751, 0.39687579375158755, 0.19843789687579377, 0.09921894843789689, 0.04960947421894844],
+  });
+
+  const ARC = 'https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/';
+  const BASE_URL = ARC + 'Topografie_2024/MapServer/tile/{z}/{y}/{x}';
+  const BASE_ATTR = '&copy; <a href="https://www.esri.nl" target="_blank" rel="noopener">Esri Nederland</a> / Kadaster';
   const HIST_ATTR = 'Historie &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> / Kadaster';
+  function histUrl(id) { return ARC + 'Historische_tijdreis_' + id + '/MapServer/tile/{z}/{y}/{x}'; }
 
-  const BASE_MAPS = {
-    brt: {
-      url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:3857/{z}/{x}/{y}.png',
-      opts: { maxNativeZoom: 19, attribution: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
-    },
-    grijs: {
-      url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png',
-      opts: { maxNativeZoom: 19, attribution: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
-    },
-    luchtfoto: {
-      url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0/Actueel_orthoHR/EPSG:3857/{z}/{x}/{y}.jpeg',
-      opts: { maxNativeZoom: 19, attribution: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> Luchtfoto / Beeldmateriaal NL' },
-    },
-  };
-  const FALLBACK_BASE = {
-    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    opts: { subdomains: 'abcd', maxNativeZoom: 19, attribution: '&copy; OpenStreetMap &copy; CARTO' },
-  };
+  // Beschikbare kaartjaren = ArcGIS-services (sommige zijn reeksen, bv. 1823_1829).
+  const AVAIL = ['1815','1820','1821','1823_1829','1830_1849','1850','1857','1858','1861','1862','1865','1866','1868','1870','1871','1872','1880','1883','1886','1888','1889','1893','1899','1900','1901','1902','1904','1908','1909','1910','1912','1915','1918','1919','1920','1922','1925','1929','1931','1935','1937','1940','1942','1943','1947','1948','1949','1950','1951','1952','1953','1955','1962','1963','1965','1970','1971','1973','1975','1976','1978','1980','1984','1988','1990','1994','1995','1996','1997','1999','2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021'];
+  const AVAIL_Y = AVAIL.map(s => parseInt(s, 10));
+  function nearestService(year) {
+    let best = 0, bd = Infinity;
+    for (let i = 0; i < AVAIL_Y.length; i++) {
+      const d = Math.abs(AVAIL_Y[i] - year);
+      if (d < bd) { bd = d; best = i; }
+    }
+    return { id: AVAIL[best], year: AVAIL_Y[best] };
+  }
 
   const I18N = {
     nl: {
       'app.title': 'Oude-Kaart Wandeling', 'app.tagline': 'Nederland · door de tijd',
       'sec.place': 'Plaats', 'sec.place.en': 'plaats',
-      'sec.base': 'Basiskaart', 'sec.base.en': 'basiskaart',
       'sec.time': 'Tijdreis', 'sec.time.en': 'tijdreis',
       'sec.locate': 'Locatie', 'sec.locate.en': 'locatie',
-      'base.brt': 'Kaart', 'base.grijs': 'Grijs', 'base.aerial': 'Luchtfoto',
       'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
       'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw',
@@ -561,10 +341,8 @@
     en: {
       'app.title': 'Old-Map Stroll', 'app.tagline': 'Netherlands · through time',
       'sec.place': 'Place', 'sec.place.en': 'place',
-      'sec.base': 'Base map', 'sec.base.en': 'base map',
       'sec.time': 'Time travel', 'sec.time.en': 'time travel',
       'sec.locate': 'Locate', 'sec.locate.en': 'locate',
-      'base.brt': 'Street', 'base.grijs': 'Grey', 'base.aerial': 'Aerial',
       'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
       'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build',
@@ -575,10 +353,8 @@
     zh: {
       'app.title': '荷蘭古地圖散策', 'app.tagline': '荷蘭 · 穿越時光',
       'sec.place': '城市', 'sec.place.en': '城市',
-      'sec.base': '底圖', 'sec.base.en': '底圖',
       'sec.time': '時光', 'sec.time.en': '時光旅行',
       'sec.locate': '定位', 'sec.locate.en': '定位',
-      'base.brt': '街道', 'base.grijs': '灰階', 'base.aerial': '空照',
       'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
       'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作',
@@ -627,47 +403,31 @@
   const state = {
     city: CITIES.find(c => c.id === startCity),
     year: startYear,
-    base: 'brt',
     opacity: 0.85,
     compare: false,
   };
 
-  function clampYear(y) { if (isNaN(y)) return 1900; return Math.max(1815, Math.min(2024, y)); }
+  function clampYear(y) { if (isNaN(y)) return 1900; return Math.max(1815, Math.min(2021, y)); }
 
-  const map = L.map('map', { zoomControl: false, attributionControl: true, maxZoom: 19 })
-    .setView(state.city.center, state.city.zoom);
+  const CITY_ZOOM = 12;
+  const map = L.map('map', { zoomControl: false, attributionControl: true, crs: RD, maxZoom: 16, minZoom: 5 })
+    .setView(state.city.center, CITY_ZOOM);
 
   map.createPane('basePane');   map.getPane('basePane').style.zIndex = 200;
   map.createPane('histPane');   map.getPane('histPane').style.zIndex = 350;
   map.getPane('histPane').id = 'hist-pane';
 
-  let baseLayer = null, histLayer = null, fallbackLayer = null;
-
-  function setBase(id) {
-    state.base = id;
-    document.querySelectorAll('.base-pill').forEach(p => p.classList.toggle('active', p.dataset.id === id));
-    if (baseLayer) map.removeLayer(baseLayer);
-    if (fallbackLayer) { map.removeLayer(fallbackLayer); fallbackLayer = null; }
-    const def = BASE_MAPS[id];
-    baseLayer = L.tileLayer(def.url, Object.assign({ pane: 'basePane', crossOrigin: true }, def.opts)).addTo(map);
-    if (id !== 'luchtfoto') {
-      let errs = 0;
-      baseLayer.on('tileerror', function () {
-        errs++;
-        if (errs === 6 && !fallbackLayer) {
-          fallbackLayer = L.tileLayer(FALLBACK_BASE.url,
-            Object.assign({ pane: 'basePane', crossOrigin: true }, FALLBACK_BASE.opts)).addTo(map);
-        }
-      });
-    }
-    try { localStorage.setItem('nlOldMaps.base', id); } catch (e) {}
-  }
+  let histLayer = null;
+  const baseLayer = L.tileLayer(BASE_URL, {
+    pane: 'basePane', maxNativeZoom: 16, attribution: BASE_ATTR,
+  }).addTo(map);
 
   const spinner = document.getElementById('tile-spinner');
   function setHistYear(year) {
-    state.year = clampYear(year);
+    const snap = nearestService(clampYear(year));
+    state.year = snap.year;
     if (histLayer) map.removeLayer(histLayer);
-    histLayer = L.tileLayer(HIST_URL.replace('{year}', state.year), {
+    histLayer = L.tileLayer(histUrl(snap.id), {
       pane: 'histPane', opacity: state.opacity,
       maxNativeZoom: 16, attribution: HIST_ATTR,
     }).addTo(map);
@@ -717,7 +477,7 @@
     const c = CITIES.find(x => x.id === id);
     if (!c) return;
     state.city = c;
-    map.setView(c.center, c.zoom);
+    map.setView(c.center, CITY_ZOOM);
     updateCurrentCity();
     renderCityList();
     try { localStorage.setItem('nlOldMaps.city', id); } catch (e) {}
@@ -747,7 +507,7 @@
   }
   function updateEraChips() {
     document.querySelectorAll('.era-chip').forEach(b =>
-      b.classList.toggle('active', parseInt(b.dataset.year, 10) === state.year));
+      b.classList.toggle('active', nearestService(parseInt(b.dataset.year, 10)).year === state.year));
   }
 
   const divider = document.getElementById('compare-divider');
@@ -780,11 +540,7 @@
   (function bindDivider() {
     let dragging = false;
     const start = e => { dragging = true; e.preventDefault(); };
-    const move = e => {
-      if (!dragging) return;
-      const x = e.touches ? e.touches[0].clientX : e.clientX;
-      dragDivider(x);
-    };
+    const move = e => { if (!dragging) return; const x = e.touches ? e.touches[0].clientX : e.clientX; dragDivider(x); };
     const end = () => { dragging = false; };
     divider.addEventListener('mousedown', start);
     divider.addEventListener('touchstart', start, { passive: false });
@@ -819,7 +575,7 @@
       } else {
         meMarker.setLatLng(ll); meCircle.setLatLng(ll).setRadius(accuracy);
       }
-      if (first) { map.setView(ll, Math.max(map.getZoom(), 16)); first = false; }
+      if (first) { map.setView(ll, Math.max(map.getZoom(), 14)); first = false; }
       document.getElementById('loc-coords').textContent = 'N ' + latitude.toFixed(5) + ' · E ' + longitude.toFixed(5);
       document.getElementById('loc-accuracy').textContent = '± ' + Math.round(accuracy) + ' m';
     }, err => {
@@ -856,20 +612,14 @@
     document.getElementById('city-list').classList.toggle('open', !open);
   });
 
-  document.querySelectorAll('.base-pill').forEach(p =>
-    p.addEventListener('click', () => setBase(p.dataset.id)));
-
   const yearSlider = document.getElementById('year-slider');
   let scrubTimer = null;
   yearSlider.addEventListener('input', e => {
-    state.year = clampYear(parseInt(e.target.value, 10));
-    document.getElementById('year-big').textContent = state.year;
-    updateEraLabel(state.year);
-    updateEraChips();
+    const y = clampYear(parseInt(e.target.value, 10));
+    document.getElementById('year-big').textContent = y;
+    updateEraLabel(y);
     clearTimeout(scrubTimer);
-    scrubTimer = setTimeout(() => {
-      if (histLayer) histLayer.setUrl(HIST_URL.replace('{year}', state.year));
-    }, 140);
+    scrubTimer = setTimeout(() => { setHistYear(y); }, 160);
   });
   yearSlider.addEventListener('change', e => { clearTimeout(scrubTimer); setHistYear(parseInt(e.target.value, 10)); });
 
@@ -898,8 +648,6 @@
     this.textContent = dark ? t('theme.dark') : t('theme.light');
   });
 
-  try { const sb = localStorage.getItem('nlOldMaps.base'); if (sb && BASE_MAPS[sb]) state.base = sb; } catch (e) {}
-  setBase(state.base);
   renderTicks();
   renderEraChips();
   renderCityList();
@@ -910,14 +658,10 @@
   applyI18n();
   updateMeta();
 
-  // ── Service worker tijdelijk uitgeschakeld ─────────
-  // Verwijder elke oude SW en wis caches, zodat updates altijd direct
-  // doorkomen tijdens het ontwikkelen. (Offline-cache komt later terug.)
+  // Service worker tijdelijk uitgeschakeld: oude SW + caches opruimen.
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations()
-      .then(rs => rs.forEach(r => r.unregister())).catch(() => {});
-    if (window.caches) caches.keys()
-      .then(ks => ks.forEach(k => caches.delete(k))).catch(() => {});
+    navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {});
+    if (window.caches) caches.keys().then(ks => ks.forEach(k => caches.delete(k))).catch(() => {});
   }
 })();
 </script>
