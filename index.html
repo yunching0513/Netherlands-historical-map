@@ -507,7 +507,7 @@
         <span class="sub" id="era-sub" data-i18n="era.bonne.sub">1:25.000 chromotopografie</span>
       </div>
     </div>
-    <input type="range" class="year" id="year-slider" min="1815" max="2023" value="1900" step="1" />
+    <input type="range" class="year" id="year-slider" min="1815" max="2024" value="1900" step="1" />
     <div class="year-ticks" id="year-ticks"></div>
 
     <div class="era-chips" id="era-chips"></div>
@@ -605,18 +605,18 @@
   // ── Year eras (for the descriptive label) ─────────
   // Bron-series die Topotijdreis per periode toont.
   const ERAS = [
-    { from: 1815, to: 1854, key: 'tmk',   name: 'TMK' },
-    { from: 1855, to: 1933, key: 'bonne', name: 'Bonnebladen' },
-    { from: 1934, to: 1990, key: 'top25', name: 'Topografische kaart' },
-    { from: 1991, to: 2100, key: 'actueel', name: 'Actueel' },
+    { from: 1815, to: 1855, key: 'tmk',   name: 'TMK' },
+    { from: 1856, to: 1932, key: 'bonne', name: 'Bonnebladen' },
+    { from: 1933, to: 1989, key: 'top25', name: 'Topografische kaart' },
+    { from: 1990, to: 2100, key: 'actueel', name: 'Actueel' },
   ];
   function eraFor(year) {
     return ERAS.find(e => year >= e.from && year <= e.to) || ERAS[ERAS.length - 1];
   }
 
   // Markante peiljaren voor de snelkeuze-chips
-  const ERA_YEARS = [1815, 1850, 1880, 1900, 1925, 1950, 1975, 2000, 2023];
-  const TICK_YEARS = [1815, 1900, 1950, 2000, 2023];
+  const ERA_YEARS = [1815, 1850, 1875, 1900, 1925, 1950, 1975, 2000, 2024];
+  const TICK_YEARS = [1815, 1900, 1950, 2000, 2024];
 
   // ── Tile sources ─────────────────────────
   // Historisch: Topotijdreis (Kadaster) — landelijke topografische kaarten 1815→heden.
@@ -734,7 +734,7 @@
     compare: false,
   };
 
-  function clampYear(y) { if (isNaN(y)) return 1900; return Math.max(1815, Math.min(2023, y)); }
+  function clampYear(y) { if (isNaN(y)) return 1900; return Math.max(1815, Math.min(2024, y)); }
 
   // ── Map ─────────────────────────────────
   const map = L.map('map', { zoomControl: false, attributionControl: true, maxZoom: 19 })
