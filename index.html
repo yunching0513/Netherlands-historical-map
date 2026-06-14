@@ -106,6 +106,7 @@
   .foot-toggles { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
   .pill-toggle { padding:4px 10px; border:1px solid var(--stone); background:var(--paper); font-family:var(--mono); font-size:10px; color:var(--graphite); cursor:pointer; transition:all 0.18s; -webkit-tap-highlight-color:transparent; }
   .pill-toggle:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  .pill-toggle.active { border-color:var(--vermilion); background:var(--vermilion-l); color:var(--vermilion); }
   .lang-switch { display:inline-flex; border:1px solid var(--stone); }
   .lang-switch button { padding:4px 9px; border:none; background:var(--paper); cursor:pointer; font-family:var(--mono); font-size:10px; color:var(--graphite); border-right:1px solid var(--stone); }
   .lang-switch button:last-child { border-right:none; }
@@ -297,11 +298,11 @@
 
   // Bron: Kadaster / Esri Nederland via ArcGIS (RD-grid, EPSG:28992).
   // Basiskaart en historische kaarten komen uit dezelfde tilecache
-  // (default028mm) zodat ze exact op elkaar passen.
+  // (default028mm, 12 niveaus 0..11) zodat ze exact op elkaar passen.
   const RD_DEF = '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.4171,50.3319,465.5524,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs';
   const RD = new L.Proj.CRS('EPSG:28992', RD_DEF, {
     origin: [-30515500, 31112400],
-    resolutions: [3251.206502413005, 1625.6032512065026, 812.8016256032513, 406.40081280162565, 203.20040640081282, 101.60020320040641, 50.800101600203206, 25.400050800101603, 12.700025400050801, 6.350012700025401, 3.1750063500127004, 1.5875031750063502, 0.7937515875031751, 0.39687579375158755, 0.19843789687579377, 0.09921894843789689, 0.04960947421894844],
+    resolutions: [3251.206502413005, 1625.6032512065026, 812.8016256032513, 406.40081280162565, 203.20040640081282, 101.60020320040641, 50.800101600203206, 25.400050800101603, 12.700025400050801, 6.350012700025401, 3.1750063500127004, 1.5875031750063502],
   });
 
   const ARC = 'https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/';
@@ -406,8 +407,8 @@
 
   function clampYear(y) { if (isNaN(y)) return 1900; return Math.max(1815, Math.min(2021, y)); }
 
-  const CITY_ZOOM = 12;
-  const map = L.map('map', { zoomControl: false, attributionControl: true, crs: RD, maxZoom: 16, minZoom: 5 })
+  const CITY_ZOOM = 11;
+  const map = L.map('map', { zoomControl: false, attributionControl: true, crs: RD, maxZoom: 11, minZoom: 5 })
     .setView(state.city.center, CITY_ZOOM);
 
   map.createPane('basePane');   map.getPane('basePane').style.zIndex = 200;
@@ -416,7 +417,7 @@
 
   let histLayer = null;
   const baseLayer = L.tileLayer(BASE_URL, {
-    pane: 'basePane', maxNativeZoom: 16, attribution: BASE_ATTR,
+    pane: 'basePane', maxNativeZoom: 11, attribution: BASE_ATTR,
   }).addTo(map);
 
   const spinner = document.getElementById('tile-spinner');
@@ -426,7 +427,7 @@
     if (histLayer) map.removeLayer(histLayer);
     histLayer = L.tileLayer(histUrl(snap.id), {
       pane: 'histPane', opacity: state.opacity,
-      maxNativeZoom: 16, attribution: HIST_ATTR,
+      maxNativeZoom: 11, attribution: HIST_ATTR,
     }).addTo(map);
     histLayer.on('loading', () => { spinner.classList.add('show'); });
     histLayer.on('load', () => { spinner.classList.remove('show'); });
@@ -572,7 +573,7 @@
       } else {
         meMarker.setLatLng(ll); meCircle.setLatLng(ll).setRadius(accuracy);
       }
-      if (first) { map.setView(ll, Math.max(map.getZoom(), 14)); first = false; }
+      if (first) { map.setView(ll, Math.max(map.getZoom(), 11)); first = false; }
       document.getElementById('loc-coords').textContent = 'N ' + latitude.toFixed(5) + ' · E ' + longitude.toFixed(5);
       document.getElementById('loc-accuracy').textContent = '± ' + Math.round(accuracy) + ' m';
     }, err => {
