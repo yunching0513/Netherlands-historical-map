@@ -26,12 +26,12 @@
 <link rel="apple-touch-icon" href="icons/icon.svg" />
 <title>荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland</title>
 
-<!-- ── SEO ────────────────────────────────── -->
+<!-- ── SEO ──────────────────────────────────────────── -->
 <meta name="description" content="Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten. Schuif door de tijd, vergelijk toen en nu, en wandel door de geschiedenis. 把 1815 年以來的荷蘭歷史地圖疊在今日街道上。" />
 <meta name="keywords" content="Nederland historische kaart, oude kaart, topotijdreis, Kadaster, Bonnebladen, TMK, geschiedenis, Dutch historical maps, 荷蘭歷史地圖, 古地圖, 今昔對照" />
-<meta name="author" content="吳昃慶 Yunching Wu" />
+<meta name="author" content="吳昀慶 Yunching Wu" />
 
-<!-- ── Open Graph ─────────────────────────── -->
+<!-- ── Open Graph ──────────────────────────────────── -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="荷蘭古地圖散策" />
 <meta property="og:title" content="荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland" />
@@ -50,7 +50,7 @@
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
   "inLanguage": ["nl", "en", "zh-Hant"],
   "description": "Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten en wandel door de geschiedenis.",
-  "author": { "@type": "Person", "name": "吳昃慶 Yunching Wu", "url": "https://github.com/yunching0513" }
+  "author": { "@type": "Person", "name": "吳昀慶 Yunching Wu", "url": "https://github.com/yunching0513" }
 }
 </script>
 
@@ -118,7 +118,7 @@
   }
   html.theme-dark .grain::before { mix-blend-mode: screen; opacity: 0.06; }
 
-  /* ── Panel ──────────────────────────────── */
+  /* ── Panel ───────────────────────────────────────── */
   .panel {
     position: absolute;
     top: 20px; right: 20px;
@@ -196,7 +196,7 @@
     margin-left: auto;
   }
 
-  /* ── Current city ──────────────────────── */
+  /* ── Current city ────────────────────────────────── */
   .city-current {
     display: flex; align-items: center; justify-content: space-between;
     padding: 12px 14px;
@@ -232,7 +232,7 @@
   .city-chip:hover { border-color: var(--vermilion); color: var(--vermilion); }
   .city-chip.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
 
-  /* ── Base map pills ─────────────────────── */
+  /* ── Base map pills ──────────────────────────────── */
   .base-pills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
   .base-pill {
     padding: 9px 4px 8px; border: 1px solid var(--stone); background: var(--paper);
@@ -245,7 +245,7 @@
   .base-pill.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
   .base-pill.active .en { color: var(--vermilion-d); }
 
-  /* ── Year time-travel ───────────────────── */
+  /* ── Year time-travel ────────────────────────────── */
   .year-display {
     display: flex; align-items: flex-end; gap: 10px;
     margin: 6px 0 2px;
@@ -300,7 +300,7 @@
   .opa-row .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--ash); text-transform: uppercase; white-space: nowrap; }
   .opa-row .val { font-family: var(--mono); font-size: 11px; color: var(--vermilion); width: 38px; text-align: right; }
 
-  /* ── Buttons ──────────────────────────── */
+  /* ── Buttons ─────────────────────────────────────── */
   .btn {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     width: 100%; padding: 11px; margin-top: 10px;
@@ -324,7 +324,7 @@
   .loc-status.show { display: block; }
   .loc-status .label { color: var(--silver); letter-spacing: 0.14em; text-transform: uppercase; font-size: 9px; }
 
-  /* ── Footer ──────────────────────────── */
+  /* ── Footer ──────────────────────────────────────── */
   .panel-foot {
     margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--mist);
     font-family: var(--sans); font-size: 10px; color: var(--ash); line-height: 1.8;
@@ -348,7 +348,7 @@
   .lang-switch button:last-child { border-right: none; }
   .lang-switch button.active { background: var(--vermilion); color: #fff; }
 
-  /* ── Mobile sheet handle ───────────────── */
+  /* ── Mobile sheet handle ─────────────────────────── */
   .sheet-handle { display: none; }
 
   @media (max-width: 640px) {
@@ -371,7 +371,7 @@
     .sheet-handle .hint .accent { color: var(--vermilion); }
   }
 
-  /* ── Map controls (zoom) ───────────────── */
+  /* ── Map controls (zoom) ─────────────────────────── */
   .zoom-ctl {
     position: absolute; left: 20px; top: 20px; z-index: 900;
     display: flex; flex-direction: column; border: 1px solid var(--stone); background: var(--paper-2);
@@ -384,7 +384,7 @@
   .zoom-ctl button:last-child { border-bottom: none; }
   .zoom-ctl button:hover { color: var(--vermilion); background: var(--vermilion-l); }
 
-  /* ── Compare swipe ────────────────────── */
+  /* ── Compare swipe ───────────────────────────────── */
   .compare-divider {
     position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
     background: var(--vermilion); z-index: 850; cursor: ew-resize; display: none;
@@ -407,7 +407,7 @@
   .compare-label.then { left: 18px; color: var(--vermilion); }
   .compare-label.now { right: 18px; }
 
-  /* ── Loading spinner ──────────────────── */
+  /* ── Loading spinner ─────────────────────────────── */
   .tile-spinner {
     position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
     z-index: 800; display: none; align-items: center; gap: 8px;
@@ -507,7 +507,7 @@
         <span class="sub" id="era-sub" data-i18n="era.bonne.sub">1:25.000 chromotopografie</span>
       </div>
     </div>
-    <input type="range" class="year" id="year-slider" min="1815" max="2023" value="1900" step="1" />
+    <input type="range" class="year" id="year-slider" min="1815" max="2024" value="1900" step="1" />
     <div class="year-ticks" id="year-ticks"></div>
 
     <div class="era-chips" id="era-chips"></div>
@@ -548,7 +548,7 @@
       <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> /
       <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a><br>
       <span data-i18n="foot.made">設計・製作</span> ·
-      <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昃慶 Yunching Wu</a>
+      <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昀慶 Yunching Wu</a>
 
       <div class="foot-toggles">
         <span class="lang-switch" id="lang-switch">
@@ -569,7 +569,7 @@
 (function () {
   'use strict';
 
-  // ── Cities (grouped by landsdeel) ──────────────────
+  // ── Cities (grouped by landsdeel) ─────────────────
   const CITIES = [
     // Randstad
     { id: 'amsterdam',  region: 'randstad', zh: '阿姆斯特丹', en: 'Amsterdam',       center: [52.3731, 4.8922], zoom: 15 },
@@ -605,20 +605,20 @@
   // ── Year eras (for the descriptive label) ─────────
   // Bron-series die Topotijdreis per periode toont.
   const ERAS = [
-    { from: 1815, to: 1854, key: 'tmk',   name: 'TMK' },
-    { from: 1855, to: 1933, key: 'bonne', name: 'Bonnebladen' },
-    { from: 1934, to: 1990, key: 'top25', name: 'Topografische kaart' },
-    { from: 1991, to: 2100, key: 'actueel', name: 'Actueel' },
+    { from: 1815, to: 1855, key: 'tmk',   name: 'TMK' },
+    { from: 1856, to: 1932, key: 'bonne', name: 'Bonnebladen' },
+    { from: 1933, to: 1989, key: 'top25', name: 'Topografische kaart' },
+    { from: 1990, to: 2100, key: 'actueel', name: 'Actueel' },
   ];
   function eraFor(year) {
     return ERAS.find(e => year >= e.from && year <= e.to) || ERAS[ERAS.length - 1];
   }
 
   // Markante peiljaren voor de snelkeuze-chips
-  const ERA_YEARS = [1815, 1850, 1880, 1900, 1925, 1950, 1975, 2000, 2023];
-  const TICK_YEARS = [1815, 1900, 1950, 2000, 2023];
+  const ERA_YEARS = [1815, 1850, 1875, 1900, 1925, 1950, 1975, 2000, 2024];
+  const TICK_YEARS = [1815, 1900, 1950, 2000, 2024];
 
-  // ── Tile sources ─────────────────────────
+  // ── Tile sources ──────────────────────────────────
   // Historisch: Topotijdreis (Kadaster) — landelijke topografische kaarten 1815→heden.
   const HIST_URL = 'https://www.topotijdreis.nl/tile/{year}/{z}/{x}/{y}.png';
   const HIST_ATTR = 'Historie &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> / Kadaster';
@@ -643,7 +643,7 @@
     opts: { subdomains: 'abcd', maxNativeZoom: 19, attribution: '&copy; OpenStreetMap &copy; CARTO' },
   };
 
-  // ── i18n ──────────────────────────────────
+  // ── i18n ──────────────────────────────────────────
   const I18N = {
     nl: {
       'app.title': 'Oude-Kaart Wandeling', 'app.tagline': 'Nederland · door de tijd',
@@ -716,7 +716,7 @@
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
   }
 
-  // ── State ───────────────────────────────
+  // ── State ─────────────────────────────────────────
   const params = new URLSearchParams(location.search);
   let storedCity = null, storedYear = null;
   try { storedCity = localStorage.getItem('nlOldMaps.city'); storedYear = localStorage.getItem('nlOldMaps.year'); } catch (e) {}
@@ -734,9 +734,9 @@
     compare: false,
   };
 
-  function clampYear(y) { if (isNaN(y)) return 1900; return Math.max(1815, Math.min(2023, y)); }
+  function clampYear(y) { if (isNaN(y)) return 1900; return Math.max(1815, Math.min(2024, y)); }
 
-  // ── Map ─────────────────────────────────
+  // ── Map ───────────────────────────────────────────
   const map = L.map('map', { zoomControl: false, attributionControl: true, maxZoom: 19 })
     .setView(state.city.center, state.city.zoom);
 
@@ -772,7 +772,7 @@
     state.year = clampYear(year);
     if (histLayer) map.removeLayer(histLayer);
     histLayer = L.tileLayer(HIST_URL.replace('{year}', state.year), {
-      pane: 'histPane', crossOrigin: true, opacity: state.opacity,
+      pane: 'histPane', opacity: state.opacity,
       maxNativeZoom: 16, attribution: HIST_ATTR,
     }).addTo(map);
     let loading = 0;
@@ -793,7 +793,7 @@
     document.getElementById('era-sub').textContent = t('era.' + era.key + '.sub');
   }
 
-  // ── City list ───────────────────────────
+  // ── City list ─────────────────────────────────────
   function renderCityList() {
     const wrap = document.getElementById('city-list');
     wrap.innerHTML = '';
@@ -831,7 +831,7 @@
     if (window.innerWidth <= 640) closeSheet();
   }
 
-  // ── Year ticks & era chips ────────────────────
+  // ── Year ticks & era chips ────────────────────────
   function renderTicks() {
     const wrap = document.getElementById('year-ticks');
     wrap.innerHTML = '';
@@ -857,7 +857,7 @@
       b.classList.toggle('active', parseInt(b.dataset.year, 10) === state.year));
   }
 
-  // ── Compare swipe ────────────────────────
+  // ── Compare swipe ─────────────────────────────────
   const divider = document.getElementById('compare-divider');
   let comparePct = 50;
   // Clip de historische laag in layer-point-ruimte (zoals leaflet-side-by-side),
@@ -907,7 +907,7 @@
   })();
   map.on('move zoom moveend zoomend resize', applyCompareClip);
 
-  // ── Geolocation ──────────────────────────
+  // ── Geolocation ───────────────────────────────────
   let meMarker = null, meCircle = null, watchId = null;
   function toggleLocate() {
     const btn = document.getElementById('btn-locate');
@@ -941,7 +941,7 @@
     }, { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 });
   }
 
-  // ── Header coords ────────────────────────
+  // ── Header coords ─────────────────────────────────
   function updateMeta() {
     const c = map.getCenter();
     document.getElementById('head-meta').textContent =
@@ -956,13 +956,13 @@
     history.replaceState(null, '', u);
   }
 
-  // ── Mobile sheet ─────────────────────────
+  // ── Mobile sheet ──────────────────────────────────
   const panel = document.getElementById('panel');
   function openSheet() { panel.classList.add('open'); }
   function closeSheet() { panel.classList.remove('open'); }
   document.getElementById('sheet-handle').addEventListener('click', () => panel.classList.toggle('open'));
 
-  // ── Wire up controls ─────────────────────
+  // ── Wire up controls ──────────────────────────────
   document.getElementById('zoom-in').addEventListener('click', () => map.zoomIn());
   document.getElementById('zoom-out').addEventListener('click', () => map.zoomOut());
 
@@ -1015,7 +1015,7 @@
     this.textContent = dark ? t('theme.dark') : t('theme.light');
   });
 
-  // ── Init ────────────────────────────────
+  // ── Init ──────────────────────────────────────────
   try { const sb = localStorage.getItem('nlOldMaps.base'); if (sb && BASE_MAPS[sb]) state.base = sb; } catch (e) {}
   setBase(state.base);
   renderTicks();
@@ -1028,7 +1028,7 @@
   applyI18n();
   updateMeta();
 
-  // ── PWA ────────────────────────────────
+  // ── PWA ───────────────────────────────────────────
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
   }
