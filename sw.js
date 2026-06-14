@@ -1,8 +1,10 @@
 /* Service worker — Oude-Kaart Wandeling door Nederland
- * App-shell wordt vooraf gecached; kaarttegels gaan via het netwerk
- * (network-first met cache-fallback) zodat de kaart offline grofweg blijft werken. */
-const SHELL_CACHE = 'nlmaps-shell-v1';
-const TILE_CACHE  = 'nlmaps-tiles-v1';
+ * App-shell wordt vooraf gecached. Kaarttegels gebruiken stale-while-revalidate:
+ * eerder geziene tegels komen direct uit de cache (snel), terwijl ze op de
+ * achtergrond ververst worden. Historische kaarten veranderen toch niet. */
+const SHELL_CACHE = 'nlmaps-shell-v2';
+const TILE_CACHE  = 'nlmaps-tiles-v2';
+const TILE_MAX    = 1200;
 
 const SHELL = [
   './',
@@ -39,15 +41,17 @@ self.addEventListener('fetch', e => {
   const url = req.url;
 
   if (isTile(url)) {
-    // Network-first, val terug op gecachete tegel; bewaar tot ~600 tegels.
+    // Stale-while-revalidate: cache eerst (snel), op de achtergrond verversen.
     e.respondWith(
-      fetch(req).then(res => {
-        if (res && res.ok) {
-          const copy = res.clone();
-          caches.open(TILE_CACHE).then(c => { c.put(req, copy); trimCache(TILE_CACHE, 600); });
-        }
-        return res;
-      }).catch(() => caches.match(req))
+      caches.open(TILE_CACHE).then(cache =>
+        cache.match(req).then(cached => {
+          const fetching = fetch(req).then(res => {
+            if (res && res.ok) { cache.put(req, res.clone()); trimCache(cache); }
+            return res;
+          }).catch(() => cached);
+          return cached || fetching;
+        })
+      )
     );
     return;
   }
@@ -64,10 +68,9 @@ self.addEventListener('fetch', e => {
   );
 });
 
-async function trimCache(name, max) {
-  const c = await caches.open(name);
-  const keys = await c.keys();
-  if (keys.length > max) {
-    for (let i = 0; i < keys.length - max; i++) await c.delete(keys[i]);
+async function trimCache(cache) {
+  const keys = await cache.keys();
+  if (keys.length > TILE_MAX) {
+    for (let i = 0; i < keys.length - TILE_MAX; i++) await cache.delete(keys[i]);
   }
 }
