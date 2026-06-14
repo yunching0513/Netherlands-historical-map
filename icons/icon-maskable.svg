@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Oude-Kaart Wandeling">
+  <!-- Full-bleed achtergrond voor maskable safe-area -->
+  <rect width="512" height="512" fill="#C15F3C"/>
+  <!-- Gevouwen kaart binnen de veilige zone (~64%), in papiertinten -->
+  <g transform="translate(256 256) scale(0.62) translate(-256 -256)">
+    <polygon points="96,168 218,140 218,372 96,400" fill="#F1EFE9" stroke="#9E4B2E" stroke-width="6" stroke-linejoin="round"/>
+    <polygon points="218,140 340,168 340,400 218,372" fill="#EAE8E2" stroke="#9E4B2E" stroke-width="6" stroke-linejoin="round"/>
+    <polygon points="340,168 462,140 462,372 340,400" fill="#F1EFE9" stroke="#9E4B2E" stroke-width="6" stroke-linejoin="round"/>
+    <line x1="218" y1="140" x2="218" y2="372" stroke="#9E4B2E" stroke-width="4"/>
+    <line x1="340" y1="168" x2="340" y2="400" stroke="#9E4B2E" stroke-width="4"/>
+    <path d="M150,350 C 200,300 200,250 255,245 C 310,240 320,300 400,210"
+          fill="none" stroke="#242320" stroke-width="13" stroke-linecap="round" stroke-dasharray="2 26"/>
+    <g>
+      <path d="M400,150 c -26,0 -47,21 -47,47 c 0,33 47,72 47,72 c 0,0 47,-39 47,-72 c 0,-26 -21,-47 -47,-47 z" fill="#9E4B2E"/>
+      <circle cx="400" cy="197" r="17" fill="#F1EFE9"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#F1EFE9" />
+<!-- Pas thema-voorkeur zo vroeg mogelijk toe, om een lichte flits bij het openen te voorkomen -->
+<script>
+  try {
+    if (localStorage.getItem('nlOldMaps.theme') === 'dark') {
+      document.documentElement.classList.add('theme-dark');
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', '#1A1A1A');
+    }
+    var lng = localStorage.getItem('nlOldMaps.lang');
+    if (lng) document.documentElement.setAttribute('lang', lng);
+  } catch (e) {}
+</script>
+<meta name="google" content="notranslate" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Wandeling" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+<link rel="mask-icon" href="icons/icon.svg" color="#C15F3C" />
+<link rel="apple-touch-icon" href="icons/icon.svg" />
+<title>荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland</title>
+
+<!-- ── SEO ────────────────────────────────── -->
+<meta name="description" content="Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten. Schuif door de tijd, vergelijk toen en nu, en wandel door de geschiedenis. 把 1815 年以來的荷蘭歷史地圖疊在今日街道上。" />
+<meta name="keywords" content="Nederland historische kaart, oude kaart, topotijdreis, Kadaster, Bonnebladen, TMK, geschiedenis, Dutch historical maps, 荷蘭歷史地圖, 古地圖, 今昔對照" />
+<meta name="author" content="吳昃慶 Yunching Wu" />
+
+<!-- ── Open Graph ─────────────────────────── -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="荷蘭古地圖散策" />
+<meta property="og:title" content="荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland" />
+<meta property="og:description" content="Schuif door twee eeuwen Nederlandse topografische kaarten, over de straten van vandaag. Gratis, geen installatie, open in je browser." />
+<meta property="og:locale" content="nl_NL" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:locale:alternate" content="zh_TW" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "荷蘭古地圖散策 · Oude-Kaart Wandeling door Nederland",
+  "applicationCategory": "EducationApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "inLanguage": ["nl", "en", "zh-Hant"],
+  "description": "Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten en wandel door de geschiedenis.",
+  "author": { "@type": "Person", "name": "吳昃慶 Yunching Wu", "url": "https://github.com/yunching0513" }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+<style>
+  :root {
+    --paper:    #F1EFE9;
+    --paper-2:  #EAE8E2;
+    --mist:     #D6D3CB;
+    --stone:    #BBB8AE;
+    --silver:   #A6A399;
+    --ash:      #807C73;
+    --graphite: #565347;
+    --ink:      #1F1D19;
+    --sumi:     #0E0D0B;
+    --vermilion:   #C15F3C;
+    --vermilion-d: #9E4B2E;
+    --vermilion-l: rgba(193, 95, 60, 0.08);
+
+    --serif: 'Noto Serif TC', 'Songti TC', Georgia, serif;
+    --sans:  'Noto Sans TC', system-ui, sans-serif;
+    --en-serif: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    --mono:  'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  html.theme-dark {
+    --paper:    #1A1A1A;
+    --paper-2:  #242320;
+    --mist:     #302E2A;
+    --stone:    #3D3A35;
+    --silver:   #6E6A62;
+    --ash:      #918C82;
+    --graphite: #C6C1B7;
+    --ink:      #F1EFE9;
+    --sumi:     #FFFFFF;
+    --vermilion-l: rgba(193, 95, 60, 0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+  }
+
+  #map { position: absolute; inset: 0; background: var(--paper); }
+
+  /* Subtiele papier-korrel over de hele app */
+  .grain::before {
+    content: '';
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 1;
+    opacity: 0.5;
+    background-image: radial-gradient(var(--stone) 0.5px, transparent 0.5px);
+    background-size: 4px 4px;
+    mix-blend-mode: multiply;
+  }
+  html.theme-dark .grain::before { mix-blend-mode: screen; opacity: 0.06; }
+
+  /* ── Panel ──────────────────────────────── */
+  .panel {
+    position: absolute;
+    top: 20px; right: 20px;
+    z-index: 1000;
+    background: var(--paper-2);
+    border: 1px solid var(--stone);
+    width: 344px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    padding: 26px 26px 20px;
+    box-shadow: 0 1px 0 var(--mist), 0 24px 60px -28px rgba(31,29,25,0.3);
+  }
+  .panel-scroll { position: relative; }
+
+  .panel-head {
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 4px;
+  }
+  .panel-head::before {
+    content: '';
+    position: absolute; bottom: -1px; left: 0;
+    width: 48px; height: 3px;
+    background: var(--vermilion);
+  }
+  .head-en {
+    font-family: var(--en-serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--vermilion);
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .head-zh {
+    font-family: var(--serif);
+    font-size: 23px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .head-meta {
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--ash);
+    text-transform: uppercase;
+  }
+
+  .section-label {
+    display: flex; align-items: baseline; gap: 12px;
+    margin: 24px 0 8px;
+  }
+  .section-label .num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--vermilion);
+    letter-spacing: 0.1em;
+  }
+  .section-label .txt {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--graphite);
+  }
+  .section-label .en {
+    font-family: var(--en-serif);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--silver);
+    margin-left: auto;
+  }
+
+  /* ── Current city ──────────────────────── */
+  .city-current {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px;
+    border: 1px solid var(--stone);
+    background: var(--paper);
+    cursor: pointer;
+    transition: border-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .city-current:hover { border-color: var(--vermilion); }
+  .city-zh { font-family: var(--serif); font-size: 17px; font-weight: 600; letter-spacing: 0.08em; color: var(--ink); }
+  .city-en { font-family: var(--en-serif); font-style: italic; font-size: 12px; color: var(--ash); margin-top: 1px; }
+  .city-caret { font-size: 10px; color: var(--silver); transition: transform 0.25s; }
+  .city-current[aria-expanded="true"] .city-caret { transform: rotate(180deg); }
+
+  .city-list { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .city-list.open { max-height: 480px; overflow-y: auto; }
+  .region-label {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--silver);
+    margin: 14px 0 6px; padding-left: 2px;
+  }
+  .city-chip {
+    display: inline-flex; align-items: baseline; gap: 6px;
+    padding: 6px 10px; margin: 0 6px 6px 0;
+    border: 1px solid var(--mist);
+    background: var(--paper);
+    cursor: pointer; font-family: var(--serif); font-size: 13px;
+    color: var(--graphite); letter-spacing: 0.04em;
+    transition: all 0.18s; -webkit-tap-highlight-color: transparent;
+  }
+  .city-chip .en { font-family: var(--en-serif); font-style: italic; font-size: 10px; color: var(--silver); }
+  .city-chip:hover { border-color: var(--vermilion); color: var(--vermilion); }
+  .city-chip.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
+
+  /* ── Base map pills ─────────────────────── */
+  .base-pills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+  .base-pill {
+    padding: 9px 4px 8px; border: 1px solid var(--stone); background: var(--paper);
+    cursor: pointer; text-align: center; font-family: var(--serif);
+    font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: var(--graphite);
+    line-height: 1.2; transition: all 0.2s; -webkit-tap-highlight-color: transparent;
+  }
+  .base-pill .en { display: block; font-family: var(--en-serif); font-style: italic; font-weight: 400; font-size: 9px; color: var(--ash); margin-top: 2px; }
+  .base-pill:hover { border-color: var(--vermilion); color: var(--vermilion); }
+  .base-pill.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
+  .base-pill.active .en { color: var(--vermilion-d); }
+
+  /* ── Year time-travel ───────────────────── */
+  .year-display {
+    display: flex; align-items: flex-end; gap: 10px;
+    margin: 6px 0 2px;
+  }
+  .year-big {
+    font-family: var(--mono); font-weight: 500;
+    font-size: 46px; line-height: 1; color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .year-era {
+    font-family: var(--en-serif); font-style: italic;
+    font-size: 12px; color: var(--vermilion); padding-bottom: 6px; line-height: 1.3;
+  }
+  .year-era .sub { display: block; font-family: var(--sans); font-style: normal; font-size: 10px; color: var(--ash); letter-spacing: 0.04em; }
+
+  input[type=range] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 24px; background: transparent; cursor: pointer; margin: 4px 0;
+  }
+  input[type=range].year::-webkit-slider-runnable-track,
+  input[type=range].opa::-webkit-slider-runnable-track {
+    height: 2px; background: var(--stone);
+  }
+  input[type=range].year::-moz-range-track,
+  input[type=range].opa::-moz-range-track { height: 2px; background: var(--stone); }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 16px; height: 16px; margin-top: -7px; border-radius: 50%;
+    background: var(--vermilion); border: 2px solid var(--paper-2);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25); transition: transform 0.15s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.18); }
+  input[type=range]::-moz-range-thumb {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--vermilion); border: 2px solid var(--paper-2);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  }
+  .year-ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 9px; color: var(--silver); margin-top: -2px; }
+  .year-ticks span { cursor: pointer; transition: color 0.15s; }
+  .year-ticks span:hover { color: var(--vermilion); }
+
+  .era-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+  .era-chip {
+    padding: 4px 8px; border: 1px solid var(--mist); background: var(--paper);
+    cursor: pointer; font-family: var(--mono); font-size: 10px; color: var(--graphite);
+    transition: all 0.18s; -webkit-tap-highlight-color: transparent;
+  }
+  .era-chip:hover { border-color: var(--vermilion); color: var(--vermilion); }
+  .era-chip.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
+
+  .opa-row { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+  .opa-row .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--ash); text-transform: uppercase; white-space: nowrap; }
+  .opa-row .val { font-family: var(--mono); font-size: 11px; color: var(--vermilion); width: 38px; text-align: right; }
+
+  /* ── Buttons ──────────────────────────── */
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 11px; margin-top: 10px;
+    border: 1px solid var(--stone); background: var(--paper);
+    font-family: var(--serif); font-size: 14px; font-weight: 500; letter-spacing: 0.08em;
+    color: var(--graphite); cursor: pointer; transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:hover:not(:disabled) { border-color: var(--vermilion); color: var(--vermilion); }
+  .btn:disabled { opacity: 0.45; cursor: default; }
+  .btn.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
+  .btn .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--stone); }
+  .btn.active .dot { background: var(--vermilion); }
+  .btn .en { font-family: var(--en-serif); font-style: italic; font-size: 11px; color: var(--silver); }
+
+  .loc-status {
+    display: none; margin-top: 10px; padding: 10px 12px;
+    background: var(--paper); border: 1px solid var(--mist);
+    font-family: var(--mono); font-size: 10px; color: var(--ash); line-height: 1.7;
+  }
+  .loc-status.show { display: block; }
+  .loc-status .label { color: var(--silver); letter-spacing: 0.14em; text-transform: uppercase; font-size: 9px; }
+
+  /* ── Footer ──────────────────────────── */
+  .panel-foot {
+    margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--mist);
+    font-family: var(--sans); font-size: 10px; color: var(--ash); line-height: 1.8;
+  }
+  .panel-foot a { color: var(--graphite); text-decoration: none; border-bottom: 1px solid var(--stone); }
+  .panel-foot a:hover { color: var(--vermilion); border-color: var(--vermilion); }
+  .foot-toggles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .pill-toggle {
+    padding: 4px 10px; border: 1px solid var(--stone); background: var(--paper);
+    font-family: var(--mono); font-size: 10px; color: var(--graphite); cursor: pointer;
+    transition: all 0.18s; -webkit-tap-highlight-color: transparent;
+  }
+  .pill-toggle:hover { border-color: var(--vermilion); color: var(--vermilion); }
+  .pill-toggle.active { border-color: var(--vermilion); background: var(--vermilion-l); color: var(--vermilion); }
+  .lang-switch { display: inline-flex; border: 1px solid var(--stone); }
+  .lang-switch button {
+    padding: 4px 9px; border: none; background: var(--paper); cursor: pointer;
+    font-family: var(--mono); font-size: 10px; color: var(--graphite);
+    border-right: 1px solid var(--stone);
+  }
+  .lang-switch button:last-child { border-right: none; }
+  .lang-switch button.active { background: var(--vermilion); color: #fff; }
+
+  /* ── Mobile sheet handle ───────────────── */
+  .sheet-handle { display: none; }
+
+  @media (max-width: 640px) {
+    .panel {
+      top: auto; bottom: 0; left: 0; right: 0;
+      width: 100%; max-width: 100%; max-height: 78vh;
+      border-left: none; border-right: none; border-bottom: none;
+      border-radius: 16px 16px 0 0;
+      padding: 8px 20px 24px;
+      transform: translateY(calc(100% - 64px));
+      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+    }
+    .panel.open { transform: translateY(0); }
+    .sheet-handle {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 8px 0 10px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .sheet-handle .grip { width: 38px; height: 4px; border-radius: 2px; background: var(--stone); }
+    .sheet-handle .hint { font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; color: var(--silver); text-transform: uppercase; }
+    .sheet-handle .hint .accent { color: var(--vermilion); }
+  }
+
+  /* ── Map controls (zoom) ───────────────── */
+  .zoom-ctl {
+    position: absolute; left: 20px; top: 20px; z-index: 900;
+    display: flex; flex-direction: column; border: 1px solid var(--stone); background: var(--paper-2);
+  }
+  .zoom-ctl button {
+    width: 38px; height: 38px; border: none; background: transparent; cursor: pointer;
+    font-family: var(--mono); font-size: 18px; color: var(--graphite);
+    border-bottom: 1px solid var(--mist); -webkit-tap-highlight-color: transparent;
+  }
+  .zoom-ctl button:last-child { border-bottom: none; }
+  .zoom-ctl button:hover { color: var(--vermilion); background: var(--vermilion-l); }
+
+  /* ── Compare swipe ────────────────────── */
+  .compare-divider {
+    position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
+    background: var(--vermilion); z-index: 850; cursor: ew-resize; display: none;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+  }
+  .compare-divider.show { display: block; }
+  .compare-divider .knob {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 36px; height: 36px; border-radius: 50%; background: var(--vermilion);
+    border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    display: flex; align-items: center; justify-content: center; color: #fff;
+    font-family: var(--mono); font-size: 14px;
+  }
+  .compare-label {
+    position: absolute; top: 18px; z-index: 851; display: none;
+    font-family: var(--en-serif); font-style: italic; font-size: 13px; letter-spacing: 0.06em;
+    padding: 4px 12px; background: var(--paper-2); border: 1px solid var(--stone); color: var(--ink);
+  }
+  .compare-active .compare-label { display: block; }
+  .compare-label.then { left: 18px; color: var(--vermilion); }
+  .compare-label.now { right: 18px; }
+
+  /* ── Loading spinner ──────────────────── */
+  .tile-spinner {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 800; display: none; align-items: center; gap: 8px;
+    padding: 7px 14px; background: var(--paper-2); border: 1px solid var(--stone);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ash);
+  }
+  .tile-spinner.show { display: inline-flex; }
+  .tile-spinner::before {
+    content: ''; width: 11px; height: 11px; border-radius: 50%;
+    border: 2px solid var(--stone); border-top-color: var(--vermilion);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* User location marker */
+  .me-dot {
+    width: 16px; height: 16px; border-radius: 50%; background: var(--vermilion);
+    border: 3px solid #fff; box-shadow: 0 0 0 2px var(--vermilion), 0 2px 6px rgba(0,0,0,0.4);
+  }
+
+  .leaflet-container { background: var(--paper); font-family: var(--sans); }
+  .leaflet-control-attribution {
+    background: rgba(241,239,233,0.78) !important; font-size: 9px !important;
+    font-family: var(--mono) !important; color: var(--ash) !important;
+  }
+  html.theme-dark .leaflet-control-attribution { background: rgba(26,26,26,0.78) !important; }
+  .leaflet-control-attribution a { color: var(--graphite) !important; }
+</style>
+</head>
+<body class="grain">
+
+<div id="map"></div>
+
+<div class="zoom-ctl">
+  <button type="button" id="zoom-in" aria-label="Inzoomen">+</button>
+  <button type="button" id="zoom-out" aria-label="Uitzoomen">−</button>
+</div>
+
+<div class="compare-divider" id="compare-divider"><span class="knob">↔</span></div>
+<div class="compare-label then" id="cmp-then" data-i18n="compare.then">TOEN</div>
+<div class="compare-label now" id="cmp-now" data-i18n="compare.now">NU</div>
+
+<div class="tile-spinner" id="tile-spinner" data-i18n="loading">Laden…</div>
+
+<aside class="panel grain" id="panel">
+  <div class="sheet-handle" id="sheet-handle" role="button" aria-label="Paneel wisselen">
+    <span class="grip"></span>
+    <span class="hint"><span class="accent">▲</span>&nbsp; <span data-i18n="sheet.hint">Tik om te openen</span></span>
+  </div>
+  <div class="panel-scroll">
+    <header class="panel-head">
+      <div class="head-en" data-i18n="app.tagline">Netherlands · Old-Map Stroll</div>
+      <div class="head-zh" data-i18n="app.title">荷蘭古地圖散策</div>
+      <div class="head-meta" id="head-meta">N — · E —</div>
+    </header>
+
+    <div class="section-label">
+      <span class="num">01</span>
+      <span class="txt" data-i18n="sec.place">城市</span>
+      <span class="en" data-i18n="sec.place.en">plaats</span>
+    </div>
+    <div class="city-current" id="city-current" role="button" aria-expanded="false">
+      <div>
+        <div class="city-zh" id="current-zh">—</div>
+        <div class="city-en" id="current-en">—</div>
+      </div>
+      <span class="city-caret">▼</span>
+    </div>
+    <div class="city-list" id="city-list"></div>
+
+    <div class="section-label">
+      <span class="num">02</span>
+      <span class="txt" data-i18n="sec.base">底圖</span>
+      <span class="en" data-i18n="sec.base.en">basiskaart</span>
+    </div>
+    <div class="base-pills" id="base-pills">
+      <button type="button" class="base-pill active" data-id="brt">
+        <span data-i18n="base.brt">街道</span><span class="en">Kaart</span>
+      </button>
+      <button type="button" class="base-pill" data-id="grijs">
+        <span data-i18n="base.grijs">灰階</span><span class="en">Grijs</span>
+      </button>
+      <button type="button" class="base-pill" data-id="luchtfoto">
+        <span data-i18n="base.aerial">空照</span><span class="en">Luchtfoto</span>
+      </button>
+    </div>
+
+    <div class="section-label">
+      <span class="num">03</span>
+      <span class="txt" data-i18n="sec.time">時光</span>
+      <span class="en" data-i18n="sec.time.en">tijdreis</span>
+    </div>
+    <div class="year-display">
+      <div class="year-big" id="year-big">1900</div>
+      <div class="year-era">
+        <span id="era-name">Bonnebladen</span>
+        <span class="sub" id="era-sub" data-i18n="era.bonne.sub">1:25.000 chromotopografie</span>
+      </div>
+    </div>
+    <input type="range" class="year" id="year-slider" min="1815" max="2023" value="1900" step="1" />
+    <div class="year-ticks" id="year-ticks"></div>
+
+    <div class="era-chips" id="era-chips"></div>
+
+    <div class="opa-row">
+      <span class="lbl" data-i18n="opacity">透明度</span>
+      <input type="range" class="opa" id="opa-slider" min="0" max="100" value="85" step="1" />
+      <span class="val" id="opa-val">85%</span>
+    </div>
+
+    <button type="button" class="btn" id="btn-compare">
+      <span class="dot"></span>
+      <span data-i18n="compare.btn">今昔對照</span>
+      <span class="en">swipe</span>
+    </button>
+
+    <div class="section-label">
+      <span class="num">04</span>
+      <span class="txt" data-i18n="sec.locate">定位</span>
+      <span class="en" data-i18n="sec.locate.en">locatie</span>
+    </div>
+    <button type="button" class="btn" id="btn-locate">
+      <span class="dot"></span>
+      <span data-i18n="locate.btn">找我的位置</span>
+      <span class="en">GPS</span>
+    </button>
+    <div class="loc-status" id="loc-status">
+      <div class="label" data-i18n="loc.fix">CURRENT FIX</div>
+      <div id="loc-coords">—</div>
+      <div id="loc-accuracy">—</div>
+    </div>
+
+    <div class="panel-foot">
+      <span data-i18n="foot.maps">歷史圖資</span> ·
+      <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> /
+      <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a><br>
+      <span data-i18n="foot.base">底圖</span> ·
+      <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> /
+      <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a><br>
+      <span data-i18n="foot.made">設計・製作</span> ·
+      <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昃慶 Yunching Wu</a>
+
+      <div class="foot-toggles">
+        <span class="lang-switch" id="lang-switch">
+          <button type="button" data-lang="nl">NL</button>
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="zh">中</button>
+        </span>
+        <button type="button" class="pill-toggle" id="theme-toggle" data-i18n="theme.light">紙色</button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script>
+(function () {
+  'use strict';
+
+  // ── Cities (grouped by landsdeel) ──────────────────
+  const CITIES = [
+    // Randstad
+    { id: 'amsterdam',  region: 'randstad', zh: '阿姆斯特丹', en: 'Amsterdam',       center: [52.3731, 4.8922], zoom: 15 },
+    { id: 'rotterdam',  region: 'randstad', zh: '鹿特丹',     en: 'Rotterdam',       center: [51.9225, 4.4792], zoom: 15 },
+    { id: 'denhaag',    region: 'randstad', zh: '海牙',       en: 'Den Haag',        center: [52.0799, 4.3113], zoom: 15 },
+    { id: 'utrecht',    region: 'randstad', zh: '烏特勒支',   en: 'Utrecht',         center: [52.0908, 5.1222], zoom: 15 },
+    { id: 'leiden',     region: 'randstad', zh: '萊頓',       en: 'Leiden',          center: [52.1589, 4.4937], zoom: 15 },
+    { id: 'delft',      region: 'randstad', zh: '台夫特',     en: 'Delft',           center: [52.0116, 4.3571], zoom: 16 },
+    { id: 'haarlem',    region: 'randstad', zh: '哈勒姆',     en: 'Haarlem',         center: [52.3814, 4.6375], zoom: 15 },
+    { id: 'gouda',      region: 'randstad', zh: '豪達',       en: 'Gouda',           center: [52.0115, 4.7104], zoom: 16 },
+    { id: 'dordrecht',  region: 'randstad', zh: '多德雷赫特', en: 'Dordrecht',       center: [51.8133, 4.6901], zoom: 15 },
+    { id: 'amersfoort', region: 'randstad', zh: '阿默斯福特', en: 'Amersfoort',      center: [52.1561, 5.3878], zoom: 15 },
+    // Noord & Oost
+    { id: 'groningen',  region: 'noord',    zh: '格羅寧根',   en: 'Groningen',       center: [53.2194, 6.5665], zoom: 15 },
+    { id: 'leeuwarden', region: 'noord',    zh: '呂伐登',     en: 'Leeuwarden',      center: [53.2012, 5.7999], zoom: 15 },
+    { id: 'zwolle',     region: 'noord',    zh: '茲沃勒',     en: 'Zwolle',          center: [52.5168, 6.0830], zoom: 15 },
+    { id: 'deventer',   region: 'noord',    zh: '代芬特爾',   en: 'Deventer',        center: [52.2552, 6.1639], zoom: 16 },
+    { id: 'arnhem',     region: 'noord',    zh: '阿納姆',     en: 'Arnhem',          center: [51.9851, 5.8987], zoom: 15 },
+    { id: 'nijmegen',   region: 'noord',    zh: '奈梅亨',     en: 'Nijmegen',        center: [51.8126, 5.8372], zoom: 15 },
+    // Zuid
+    { id: 'denbosch',   region: 'zuid',     zh: '斯海爾托亨博斯', en: "'s-Hertogenbosch", center: [51.6978, 5.3037], zoom: 16 },
+    { id: 'eindhoven',  region: 'zuid',     zh: '埃因霍溫',   en: 'Eindhoven',       center: [51.4416, 5.4697], zoom: 15 },
+    { id: 'maastricht', region: 'zuid',     zh: '馬斯特里赫特', en: 'Maastricht',     center: [50.8514, 5.6910], zoom: 16 },
+    { id: 'middelburg', region: 'zuid',     zh: '米德爾堡',   en: 'Middelburg',      center: [51.4988, 3.6111], zoom: 16 },
+  ];
+
+  const REGIONS = {
+    randstad: { zh: '蘭斯台德', en: 'Randstad' },
+    noord:    { zh: '北・東部', en: 'Noord & Oost' },
+    zuid:     { zh: '南部',     en: 'Zuid' },
+  };
+
+  // ── Year eras (for the descriptive label) ─────────
+  // Bron-series die Topotijdreis per periode toont.
+  const ERAS = [
+    { from: 1815, to: 1854, key: 'tmk',   name: 'TMK' },
+    { from: 1855, to: 1933, key: 'bonne', name: 'Bonnebladen' },
+    { from: 1934, to: 1990, key: 'top25', name: 'Topografische kaart' },
+    { from: 1991, to: 2100, key: 'actueel', name: 'Actueel' },
+  ];
+  function eraFor(year) {
+    return ERAS.find(e => year >= e.from && year <= e.to) || ERAS[ERAS.length - 1];
+  }
+
+  // Markante peiljaren voor de snelkeuze-chips
+  const ERA_YEARS = [1815, 1850, 1880, 1900, 1925, 1950, 1975, 2000, 2023];
+  const TICK_YEARS = [1815, 1900, 1950, 2000, 2023];
+
+  // ── Tile sources ─────────────────────────
+  // Historisch: Topotijdreis (Kadaster) — landelijke topografische kaarten 1815→heden.
+  const HIST_URL = 'https://www.topotijdreis.nl/tile/{year}/{z}/{x}/{y}.png';
+  const HIST_ATTR = 'Historie &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> / Kadaster';
+
+  const BASE_MAPS = {
+    brt: {
+      url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:3857/{z}/{x}/{y}.png',
+      opts: { maxNativeZoom: 19, attribution: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
+    },
+    grijs: {
+      url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png',
+      opts: { maxNativeZoom: 19, attribution: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
+    },
+    luchtfoto: {
+      url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0/Actueel_orthoHR/EPSG:3857/{z}/{x}/{y}.jpeg',
+      opts: { maxNativeZoom: 19, attribution: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> Luchtfoto / Beeldmateriaal NL' },
+    },
+  };
+  // Reservebasis als PDOK onbereikbaar is (CartoDB light).
+  const FALLBACK_BASE = {
+    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    opts: { subdomains: 'abcd', maxNativeZoom: 19, attribution: '&copy; OpenStreetMap &copy; CARTO' },
+  };
+
+  // ── i18n ──────────────────────────────────
+  const I18N = {
+    nl: {
+      'app.title': 'Oude-Kaart Wandeling', 'app.tagline': 'Nederland · door de tijd',
+      'sec.place': 'Plaats', 'sec.place.en': 'plaats',
+      'sec.base': 'Basiskaart', 'sec.base.en': 'basiskaart',
+      'sec.time': 'Tijdreis', 'sec.time.en': 'tijdreis',
+      'sec.locate': 'Locatie', 'sec.locate.en': 'locatie',
+      'base.brt': 'Kaart', 'base.grijs': 'Grijs', 'base.aerial': 'Luchtfoto',
+      'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
+      'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
+      'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw',
+      'theme.light': 'Papier', 'theme.dark': 'Inkt', 'loading': 'Laden…', 'sheet.hint': 'Tik om te openen',
+      'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
+      'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
+    },
+    en: {
+      'app.title': 'Old-Map Stroll', 'app.tagline': 'Netherlands · through time',
+      'sec.place': 'Place', 'sec.place.en': 'place',
+      'sec.base': 'Base map', 'sec.base.en': 'base map',
+      'sec.time': 'Time travel', 'sec.time.en': 'time travel',
+      'sec.locate': 'Locate', 'sec.locate.en': 'locate',
+      'base.brt': 'Street', 'base.grijs': 'Grey', 'base.aerial': 'Aerial',
+      'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
+      'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
+      'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build',
+      'theme.light': 'Paper', 'theme.dark': 'Ink', 'loading': 'Loading…', 'sheet.hint': 'Tap to open',
+      'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
+      'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
+    },
+    zh: {
+      'app.title': '荷蘭古地圖散策', 'app.tagline': '荷蘭 · 穿越時光',
+      'sec.place': '城市', 'sec.place.en': '城市',
+      'sec.base': '底圖', 'sec.base.en': '底圖',
+      'sec.time': '時光', 'sec.time.en': '時光旅行',
+      'sec.locate': '定位', 'sec.locate.en': '定位',
+      'base.brt': '街道', 'base.grijs': '灰階', 'base.aerial': '空照',
+      'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
+      'locate.btn': '找我的位置', 'loc.fix': '目前定位',
+      'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作',
+      'theme.light': '紙色', 'theme.dark': '墨色', 'loading': '載入中…', 'sheet.hint': '點此展開',
+      'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
+      'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
+    },
+  };
+
+  let lang = (function () {
+    try { return localStorage.getItem('nlOldMaps.lang') || pick(); } catch (e) { return pick(); }
+    function pick() {
+      const n = (navigator.language || 'nl').toLowerCase();
+      if (n.startsWith('zh')) return 'zh';
+      if (n.startsWith('nl')) return 'nl';
+      return 'en';
+    }
+  })();
+
+  function t(key) { return (I18N[lang] && I18N[lang][key]) || (I18N.nl[key]) || key; }
+
+  function applyI18n() {
+    document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : lang);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (I18N[lang] && I18N[lang][k] != null) el.textContent = I18N[lang][k];
+    });
+    document.querySelectorAll('#lang-switch button').forEach(b =>
+      b.classList.toggle('active', b.dataset.lang === lang));
+    updateEraLabel(state.year);
+    renderCityList();
+    updateCurrentCity();
+    document.getElementById('theme-toggle').textContent =
+      document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
+  }
+
+  // ── State ───────────────────────────────
+  const params = new URLSearchParams(location.search);
+  let storedCity = null, storedYear = null;
+  try { storedCity = localStorage.getItem('nlOldMaps.city'); storedYear = localStorage.getItem('nlOldMaps.year'); } catch (e) {}
+
+  const startCity =
+    (params.get('city') && CITIES.find(c => c.id === params.get('city'))) ? params.get('city') :
+    (storedCity && CITIES.find(c => c.id === storedCity)) ? storedCity : 'amsterdam';
+  const startYear = clampYear(parseInt(params.get('year') || storedYear || '1900', 10));
+
+  const state = {
+    city: CITIES.find(c => c.id === startCity),
+    year: startYear,
+    base: 'brt',
+    opacity: 0.85,
+    compare: false,
+  };
+
+  function clampYear(y) { if (isNaN(y)) return 1900; return Math.max(1815, Math.min(2023, y)); }
+
+  // ── Map ─────────────────────────────────
+  const map = L.map('map', { zoomControl: false, attributionControl: true, maxZoom: 19 })
+    .setView(state.city.center, state.city.zoom);
+
+  map.createPane('basePane');   map.getPane('basePane').style.zIndex = 200;
+  map.createPane('histPane');   map.getPane('histPane').style.zIndex = 350;
+  map.getPane('histPane').id = 'hist-pane';
+
+  let baseLayer = null, histLayer = null, fallbackLayer = null;
+
+  function setBase(id) {
+    state.base = id;
+    document.querySelectorAll('.base-pill').forEach(p => p.classList.toggle('active', p.dataset.id === id));
+    if (baseLayer) map.removeLayer(baseLayer);
+    if (fallbackLayer) { map.removeLayer(fallbackLayer); fallbackLayer = null; }
+    const def = BASE_MAPS[id];
+    baseLayer = L.tileLayer(def.url, Object.assign({ pane: 'basePane', crossOrigin: true }, def.opts)).addTo(map);
+    // Als PDOK-tegels niet laden, val terug op CartoDB (alleen voor de straatlagen).
+    if (id !== 'luchtfoto') {
+      let errs = 0;
+      baseLayer.on('tileerror', function () {
+        errs++;
+        if (errs === 6 && !fallbackLayer) {
+          fallbackLayer = L.tileLayer(FALLBACK_BASE.url,
+            Object.assign({ pane: 'basePane', crossOrigin: true }, FALLBACK_BASE.opts)).addTo(map);
+        }
+      });
+    }
+    try { localStorage.setItem('nlOldMaps.base', id); } catch (e) {}
+  }
+
+  const spinner = document.getElementById('tile-spinner');
+  function setHistYear(year) {
+    state.year = clampYear(year);
+    if (histLayer) map.removeLayer(histLayer);
+    histLayer = L.tileLayer(HIST_URL.replace('{year}', state.year), {
+      pane: 'histPane', crossOrigin: true, opacity: state.opacity,
+      maxNativeZoom: 16, attribution: HIST_ATTR,
+    }).addTo(map);
+    let loading = 0;
+    histLayer.on('loading', () => { loading++; spinner.classList.add('show'); });
+    histLayer.on('load', () => { spinner.classList.remove('show'); });
+    document.getElementById('year-slider').value = state.year;
+    document.getElementById('year-big').textContent = state.year;
+    updateEraLabel(state.year);
+    updateEraChips();
+    applyCompareClip();
+    try { localStorage.setItem('nlOldMaps.year', state.year); } catch (e) {}
+    syncURL();
+  }
+
+  function updateEraLabel(year) {
+    const era = eraFor(year);
+    document.getElementById('era-name').textContent = era.name;
+    document.getElementById('era-sub').textContent = t('era.' + era.key + '.sub');
+  }
+
+  // ── City list ───────────────────────────
+  function renderCityList() {
+    const wrap = document.getElementById('city-list');
+    wrap.innerHTML = '';
+    Object.keys(REGIONS).forEach(rid => {
+      const lab = document.createElement('div');
+      lab.className = 'region-label';
+      lab.textContent = REGIONS[rid][lang === 'zh' ? 'zh' : 'en'];
+      wrap.appendChild(lab);
+      CITIES.filter(c => c.region === rid).forEach(c => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'city-chip' + (c.id === state.city.id ? ' active' : '');
+        chip.innerHTML = (lang === 'zh' ? c.zh : c.en) +
+          (lang === 'zh' ? ' <span class="en">' + c.en + '</span>' : '');
+        chip.addEventListener('click', () => { selectCity(c.id); });
+        wrap.appendChild(chip);
+      });
+    });
+  }
+
+  function updateCurrentCity() {
+    document.getElementById('current-zh').textContent = lang === 'zh' ? state.city.zh : state.city.en;
+    document.getElementById('current-en').textContent = lang === 'zh' ? state.city.en : ('N ' + state.city.center[0].toFixed(3) + ' · E ' + state.city.center[1].toFixed(3));
+  }
+
+  function selectCity(id) {
+    const c = CITIES.find(x => x.id === id);
+    if (!c) return;
+    state.city = c;
+    map.setView(c.center, c.zoom);
+    updateCurrentCity();
+    renderCityList();
+    try { localStorage.setItem('nlOldMaps.city', id); } catch (e) {}
+    syncURL();
+    if (window.innerWidth <= 640) closeSheet();
+  }
+
+  // ── Year ticks & era chips ────────────────────
+  function renderTicks() {
+    const wrap = document.getElementById('year-ticks');
+    wrap.innerHTML = '';
+    TICK_YEARS.forEach(y => {
+      const s = document.createElement('span');
+      s.textContent = y;
+      s.addEventListener('click', () => setHistYear(y));
+      wrap.appendChild(s);
+    });
+  }
+  function renderEraChips() {
+    const wrap = document.getElementById('era-chips');
+    wrap.innerHTML = '';
+    ERA_YEARS.forEach(y => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'era-chip'; b.dataset.year = y; b.textContent = y;
+      b.addEventListener('click', () => setHistYear(y));
+      wrap.appendChild(b);
+    });
+  }
+  function updateEraChips() {
+    document.querySelectorAll('.era-chip').forEach(b =>
+      b.classList.toggle('active', parseInt(b.dataset.year, 10) === state.year));
+  }
+
+  // ── Compare swipe ────────────────────────
+  const divider = document.getElementById('compare-divider');
+  let comparePct = 50;
+  // Clip de historische laag in layer-point-ruimte (zoals leaflet-side-by-side),
+  // zodat de scheidingslijn op zijn plek blijft tijdens slepen en zoomen.
+  function applyCompareClip() {
+    if (!histLayer) return;
+    const c = histLayer.getContainer();
+    if (!c) return;
+    if (!state.compare) { c.style.clip = ''; return; }
+    const size = map.getSize();
+    const nw = map.containerPointToLayerPoint([0, 0]);
+    const se = map.containerPointToLayerPoint([size.x, size.y]);
+    const clipX = nw.x + size.x * (comparePct / 100);
+    c.style.clip = 'rect(' + nw.y + 'px,' + clipX + 'px,' + se.y + 'px,' + nw.x + 'px)';
+  }
+  function toggleCompare() {
+    state.compare = !state.compare;
+    document.getElementById('btn-compare').classList.toggle('active', state.compare);
+    document.body.classList.toggle('compare-active', state.compare);
+    divider.classList.toggle('show', state.compare);
+    if (state.compare) {
+      comparePct = 50; divider.style.left = '50%';
+    }
+    applyCompareClip();
+  }
+  function dragDivider(clientX) {
+    const pct = Math.max(4, Math.min(96, (clientX / window.innerWidth) * 100));
+    comparePct = pct;
+    divider.style.left = pct + '%';
+    applyCompareClip();
+  }
+  (function bindDivider() {
+    let dragging = false;
+    const start = e => { dragging = true; e.preventDefault(); };
+    const move = e => {
+      if (!dragging) return;
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      dragDivider(x);
+    };
+    const end = () => { dragging = false; };
+    divider.addEventListener('mousedown', start);
+    divider.addEventListener('touchstart', start, { passive: false });
+    window.addEventListener('mousemove', move);
+    window.addEventListener('touchmove', move, { passive: false });
+    window.addEventListener('mouseup', end);
+    window.addEventListener('touchend', end);
+  })();
+  map.on('move zoom moveend zoomend resize', applyCompareClip);
+
+  // ── Geolocation ──────────────────────────
+  let meMarker = null, meCircle = null, watchId = null;
+  function toggleLocate() {
+    const btn = document.getElementById('btn-locate');
+    if (watchId != null) {
+      navigator.geolocation.clearWatch(watchId); watchId = null;
+      btn.classList.remove('active');
+      document.getElementById('loc-status').classList.remove('show');
+      if (meMarker) { map.removeLayer(meMarker); meMarker = null; }
+      if (meCircle) { map.removeLayer(meCircle); meCircle = null; }
+      return;
+    }
+    if (!navigator.geolocation) { alert('Geolocatie niet beschikbaar'); return; }
+    btn.classList.add('active');
+    document.getElementById('loc-status').classList.add('show');
+    let first = true;
+    watchId = navigator.geolocation.watchPosition(pos => {
+      const { latitude, longitude, accuracy } = pos.coords;
+      const ll = [latitude, longitude];
+      if (!meMarker) {
+        meMarker = L.marker(ll, { icon: L.divIcon({ className: '', html: '<div class="me-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }) }).addTo(map);
+        meCircle = L.circle(ll, { radius: accuracy, color: '#C15F3C', weight: 1, fillColor: '#C15F3C', fillOpacity: 0.08 }).addTo(map);
+      } else {
+        meMarker.setLatLng(ll); meCircle.setLatLng(ll).setRadius(accuracy);
+      }
+      if (first) { map.setView(ll, Math.max(map.getZoom(), 16)); first = false; }
+      document.getElementById('loc-coords').textContent = 'N ' + latitude.toFixed(5) + ' · E ' + longitude.toFixed(5);
+      document.getElementById('loc-accuracy').textContent = '± ' + Math.round(accuracy) + ' m';
+    }, err => {
+      btn.classList.remove('active');
+      document.getElementById('loc-coords').textContent = '⚠ ' + (err.message || 'fout');
+    }, { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 });
+  }
+
+  // ── Header coords ────────────────────────
+  function updateMeta() {
+    const c = map.getCenter();
+    document.getElementById('head-meta').textContent =
+      'N ' + c.lat.toFixed(4) + ' · E ' + c.lng.toFixed(4) + ' · Z' + map.getZoom();
+  }
+  map.on('move zoom', updateMeta);
+
+  function syncURL() {
+    const u = new URL(location.href);
+    u.searchParams.set('city', state.city.id);
+    u.searchParams.set('year', state.year);
+    history.replaceState(null, '', u);
+  }
+
+  // ── Mobile sheet ─────────────────────────
+  const panel = document.getElementById('panel');
+  function openSheet() { panel.classList.add('open'); }
+  function closeSheet() { panel.classList.remove('open'); }
+  document.getElementById('sheet-handle').addEventListener('click', () => panel.classList.toggle('open'));
+
+  // ── Wire up controls ─────────────────────
+  document.getElementById('zoom-in').addEventListener('click', () => map.zoomIn());
+  document.getElementById('zoom-out').addEventListener('click', () => map.zoomOut());
+
+  document.getElementById('city-current').addEventListener('click', function () {
+    const open = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', String(!open));
+    document.getElementById('city-list').classList.toggle('open', !open);
+  });
+
+  document.querySelectorAll('.base-pill').forEach(p =>
+    p.addEventListener('click', () => setBase(p.dataset.id)));
+
+  const yearSlider = document.getElementById('year-slider');
+  let scrubTimer = null;
+  yearSlider.addEventListener('input', e => {
+    state.year = clampYear(parseInt(e.target.value, 10));
+    document.getElementById('year-big').textContent = state.year;
+    updateEraLabel(state.year);
+    updateEraChips();
+    // Debounce de tegel-herlaad zodat slepen niet honderden requests afvuurt.
+    clearTimeout(scrubTimer);
+    scrubTimer = setTimeout(() => {
+      if (histLayer) histLayer.setUrl(HIST_URL.replace('{year}', state.year));
+    }, 140);
+  });
+  yearSlider.addEventListener('change', e => { clearTimeout(scrubTimer); setHistYear(parseInt(e.target.value, 10)); });
+
+  const opaSlider = document.getElementById('opa-slider');
+  opaSlider.addEventListener('input', e => {
+    state.opacity = e.target.value / 100;
+    document.getElementById('opa-val').textContent = e.target.value + '%';
+    if (histLayer) histLayer.setOpacity(state.opacity);
+  });
+
+  document.getElementById('btn-compare').addEventListener('click', toggleCompare);
+  document.getElementById('btn-locate').addEventListener('click', toggleLocate);
+
+  document.querySelectorAll('#lang-switch button').forEach(b =>
+    b.addEventListener('click', () => {
+      lang = b.dataset.lang;
+      try { localStorage.setItem('nlOldMaps.lang', lang); } catch (e) {}
+      applyI18n();
+    }));
+
+  document.getElementById('theme-toggle').addEventListener('click', function () {
+    const dark = document.documentElement.classList.toggle('theme-dark');
+    try { localStorage.setItem('nlOldMaps.theme', dark ? 'dark' : 'light'); } catch (e) {}
+    const m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', dark ? '#1A1A1A' : '#F1EFE9');
+    this.textContent = dark ? t('theme.dark') : t('theme.light');
+  });
+
+  // ── Init ────────────────────────────────
+  try { const sb = localStorage.getItem('nlOldMaps.base'); if (sb && BASE_MAPS[sb]) state.base = sb; } catch (e) {}
+  setBase(state.base);
+  renderTicks();
+  renderEraChips();
+  renderCityList();
+  updateCurrentCity();
+  opaSlider.value = Math.round(state.opacity * 100);
+  document.getElementById('opa-val').textContent = Math.round(state.opacity * 100) + '%';
+  setHistYear(state.year);
+  applyI18n();
+  updateMeta();
+
+  // ── PWA ────────────────────────────────
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  }
+})();
+</script>
+</body>
+</html>
