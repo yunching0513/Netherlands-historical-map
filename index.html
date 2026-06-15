@@ -118,13 +118,23 @@
   .lang-switch button:last-child { border-right:none; }
   .lang-switch button.active { background:var(--vermilion); color:#fff; }
   .sheet-handle { display:none; }
+  .sheet-peek { display:none; }
   @media (max-width:640px) {
-    .panel { top:auto; bottom:0; left:0; right:0; width:100%; max-width:100%; max-height:78vh; border-left:none; border-right:none; border-bottom:none; border-radius:16px 16px 0 0; padding:8px 20px 24px; transform:translateY(calc(100% - 64px)); transition:transform 0.32s cubic-bezier(0.4,0,0.2,1); }
+    .panel { top:auto; bottom:0; left:0; right:0; width:100%; max-width:100%; max-height:86vh; max-height:86dvh; border-left:none; border-right:none; border-bottom:none; border-radius:18px 18px 0 0; padding:6px 20px max(22px, env(safe-area-inset-bottom)); transform:translateY(calc(100% - 74px)); transition:transform 0.34s cubic-bezier(0.4,0,0.2,1); }
     .panel.open { transform:translateY(0); }
-    .sheet-handle { display:flex; flex-direction:column; align-items:center; gap:6px; padding:8px 0 10px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
-    .sheet-handle .grip { width:38px; height:4px; border-radius:2px; background:var(--stone); }
-    .sheet-handle .hint { font-family:var(--mono); font-size:9px; letter-spacing:0.14em; color:var(--silver); text-transform:uppercase; }
-    .sheet-handle .hint .accent { color:var(--vermilion); }
+    .sheet-handle { display:flex; flex-direction:column; align-items:center; gap:7px; padding:10px 0 8px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+    .sheet-handle .grip { width:42px; height:5px; border-radius:3px; background:var(--stone); }
+    .sheet-handle .hint { display:none; }
+    .sheet-peek { display:block; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--graphite); }
+    .sheet-peek .yr { color:var(--vermilion); font-weight:500; }
+    .panel.open .sheet-peek { color:var(--silver); }
+    .city-chip { padding:9px 13px; font-size:14px; }
+    .era-chip { padding:7px 11px; font-size:12px; }
+    .base-pill { padding:12px 4px 11px; }
+    .btn { padding:14px; font-size:15px; }
+    input[type=range] { height:30px; }
+    .lang-switch button { padding:7px 12px; }
+    .pill-toggle { padding:7px 12px; }
   }
   .zoom-ctl { position:absolute; left:20px; top:20px; z-index:900; display:flex; flex-direction:column; border:1px solid var(--stone); background:var(--paper-2); }
   .zoom-ctl button { width:38px; height:38px; border:none; background:transparent; cursor:pointer; font-family:var(--mono); font-size:18px; color:var(--graphite); border-bottom:1px solid var(--mist); -webkit-tap-highlight-color:transparent; }
@@ -167,6 +177,7 @@
   <div class="sheet-handle" id="sheet-handle" role="button" aria-label="Paneel wisselen">
     <span class="grip"></span>
     <span class="hint"><span class="accent">▲</span>&nbsp; <span data-i18n="sheet.hint">Tik om te openen</span></span>
+    <span class="sheet-peek" id="sheet-peek">—</span>
   </div>
   <div class="panel-scroll">
     <header class="panel-head">
@@ -195,10 +206,10 @@
       <span class="en" data-i18n="sec.base.en">basiskaart</span>
     </div>
     <div class="base-pills" id="base-pills">
-      <button type="button" class="base-pill active" data-id="brt">
+      <button type="button" class="base-pill" data-id="brt">
         <span data-i18n="base.brt">街道</span><span class="en">Kaart</span>
       </button>
-      <button type="button" class="base-pill" data-id="grijs">
+      <button type="button" class="base-pill active" data-id="grijs">
         <span data-i18n="base.grijs">簡圖</span><span class="en">Grijs</span>
       </button>
       <button type="button" class="base-pill" data-id="luchtfoto">
@@ -474,7 +485,7 @@
   const state = {
     city: CITIES.find(c => c.id === startCity),
     year: startYear,
-    base: 'brt',
+    base: 'grijs',
     opacity: 0.85,
     compare: false,
   };
@@ -514,6 +525,7 @@
     updateEraLabel(state.year);
     updateEraChips();
     applyCompareClip();
+    updatePeek();
     try { localStorage.setItem('nlOldMaps.year', state.year); } catch (e) {}
     syncURL();
   }
@@ -556,9 +568,16 @@
     });
   }
 
+  function updatePeek() {
+    const el = document.getElementById('sheet-peek');
+    if (!el) return;
+    el.innerHTML = (lang === 'zh' ? state.city.zh : state.city.en) + ' · <span class="yr">' + state.year + '</span>';
+  }
+
   function updateCurrentCity() {
     document.getElementById('current-zh').textContent = lang === 'zh' ? state.city.zh : state.city.en;
     document.getElementById('current-en').textContent = lang === 'zh' ? state.city.en : ('N ' + state.city.center[0].toFixed(3) + ' · E ' + state.city.center[1].toFixed(3));
+    updatePeek();
   }
 
   function selectCity(id) {
@@ -689,7 +708,20 @@
   const panel = document.getElementById('panel');
   function openSheet() { panel.classList.add('open'); }
   function closeSheet() { panel.classList.remove('open'); }
-  document.getElementById('sheet-handle').addEventListener('click', () => panel.classList.toggle('open'));
+  (function () {
+    const handle = document.getElementById('sheet-handle');
+    let sy = null;
+    handle.addEventListener('touchstart', e => { sy = e.touches[0].clientY; }, { passive: true });
+    handle.addEventListener('touchend', e => {
+      if (sy == null) return;
+      const dy = e.changedTouches[0].clientY - sy; sy = null;
+      e.preventDefault();
+      if (dy < -24) panel.classList.add('open');
+      else if (dy > 24) panel.classList.remove('open');
+      else panel.classList.toggle('open');
+    }, { passive: false });
+    handle.addEventListener('click', () => panel.classList.toggle('open'));
+  })();
 
   document.getElementById('zoom-in').addEventListener('click', () => map.zoomIn());
   document.getElementById('zoom-out').addEventListener('click', () => map.zoomOut());
