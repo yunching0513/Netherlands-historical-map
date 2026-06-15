@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="'Noto Serif TC','Songti TC',serif" role="img" aria-label="荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland">
+  <defs>
+    <pattern id="grain" width="5" height="5" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.6" fill="#BBB8AE" opacity="0.5"/>
+    </pattern>
+    <clipPath id="rightclip"><rect x="752" y="0" width="448" height="630"/></clipPath>
+  </defs>
+
+  <!-- achtergrond -->
+  <rect width="1200" height="630" fill="#F1EFE9"/>
+
+  <!-- rechterpaneel met kaartmotief -->
+  <g clip-path="url(#rightclip)">
+    <rect x="752" y="0" width="448" height="630" fill="#EAE8E2"/>
+    <!-- contourlijnen (topografie) -->
+    <g fill="none" stroke="#BBB8AE" stroke-width="2" opacity="0.5">
+      <ellipse cx="998" cy="332" rx="250" ry="180"/>
+      <ellipse cx="998" cy="332" rx="195" ry="138"/>
+      <ellipse cx="998" cy="332" rx="142" ry="98"/>
+      <ellipse cx="998" cy="332" rx="92" ry="60"/>
+    </g>
+    <!-- gevouwen kaart -->
+    <g stroke="#807C73" stroke-width="3" stroke-linejoin="round">
+      <polygon points="820,182 940,150 940,470 820,502" fill="#F1EFE9"/>
+      <polygon points="940,150 1060,182 1060,502 940,470" fill="#D6D3CB"/>
+      <polygon points="1060,182 1180,150 1180,470 1060,502" fill="#F1EFE9"/>
+      <line x1="940" y1="150" x2="940" y2="470" stroke-width="2"/>
+      <line x1="1060" y1="182" x2="1060" y2="502" stroke-width="2"/>
+    </g>
+    <!-- wandelroute -->
+    <path d="M852,476 C 905,420 905,360 980,352 C 1060,344 1075,415 1158,300"
+          fill="none" stroke="#C15F3C" stroke-width="9" stroke-linecap="round" stroke-dasharray="1 22"/>
+    <!-- locatiespeld -->
+    <g>
+      <path d="M1150,196 c -25,0 -45,20 -45,45 c 0,32 45,70 45,70 c 0,0 45,-38 45,-70 c 0,-25 -20,-45 -45,-45 z" fill="#C15F3C"/>
+      <circle cx="1150" cy="241" r="16" fill="#EAE8E2"/>
+    </g>
+  </g>
+
+  <!-- tekstblok -->
+  <g>
+    <text x="80" y="150" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="26" fill="#C15F3C" letter-spacing="1">Netherlands &#183; Old-Map Stroll</text>
+
+    <text x="76" y="270" font-size="92" font-weight="700" fill="#1F1D19" letter-spacing="6">荷蘭古地圖散策</text>
+    <rect x="80" y="296" width="120" height="5" fill="#C15F3C"/>
+
+    <text x="80" y="364" font-family="'EB Garamond',Georgia,serif" font-style="italic" font-size="33" fill="#565347">Oude-Kaart Wandeling door Nederland</text>
+
+    <text x="80" y="424" font-family="'Noto Sans TC',system-ui,sans-serif" font-size="25" fill="#807C73">1815 &#8594; 2021　把荷蘭歷史地圖疊在今日街道上</text>
+
+    <text x="80" y="556" font-family="'JetBrains Mono',monospace" font-size="16" fill="#A6A399" letter-spacing="2">TOPOTIJDREIS · KADASTER · ESRI NL · PDOK　|　Nederlands · English · 繁體中文</text>
+  </g>
+
+  <!-- korrel-overlay -->
+  <rect width="1200" height="630" fill="url(#grain)" opacity="0.4" style="mix-blend-mode:multiply"/>
+  <rect x="0.5" y="0.5" width="1199" height="629" fill="none" stroke="#D6D3CB" stroke-width="1"/>
+</svg>

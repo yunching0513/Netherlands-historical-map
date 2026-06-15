@@ -1,5 +1,7 @@
 # 荷蘭古地圖散策 · Oude-Kaart Wandeling door Nederland
 
+![荷蘭古地圖散策 · Oude-Kaart Wandeling door Nederland](banner.svg)
+
 > **把 1815 年以來的荷蘭歷史地圖，疊在今日的街道上。**
 > Schuif door twee eeuwen Nederlandse topografische kaarten, over de straten van vandaag.
 
@@ -14,7 +16,7 @@
 - 🏙️ **20 座城市快速跳轉**：阿姆斯特丹、鹿特丹、海牙、烏特勒支、萊頓、台夫特、馬斯特里赫特……
 - 🌗 **紙色／墨色雙主題**，可深連結 `?city=&year=`
 - 🌏 **三語介面**：Nederlands · English · 繁體中文
-- 📱 **PWA 免安裝**：開瀏覽器就能用，也可裝成手機 App
+- 📱 **手機友善**：底部抽屜可滑動、點擊目標加大，PWA 免安裝
 
 ## 結構 · Structuur
 
@@ -25,6 +27,7 @@ netherlands-historical-map/
 ├── sw.js                  # Service worker
 ├── privacy.html           # 隱私權說明
 ├── credits.html           # 版權致謝（三語）
+├── banner.svg             # 分享橫幅
 ├── icons/                 # 應用程式圖示（SVG）
 └── .nojekyll
 ```
