@@ -156,6 +156,44 @@
   .leaflet-control-attribution { background:rgba(241,239,233,0.78) !important; font-size:9px !important; font-family:var(--mono) !important; color:var(--ash) !important; }
   html.theme-dark .leaflet-control-attribution { background:rgba(26,26,26,0.78) !important; }
   .leaflet-control-attribution a { color:var(--graphite) !important; }
+  /* Postcards */
+  .cards-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:8px; }
+  .cards-count { font-family:var(--mono); font-size:10px; letter-spacing:0.12em; color:var(--ash); text-transform:uppercase; }
+  .cards-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:12px; }
+  .card { position:relative; cursor:pointer; border:1px solid var(--stone); background:var(--paper); overflow:hidden; -webkit-tap-highlight-color:transparent; transition:border-color 0.18s; }
+  .card:hover { border-color:var(--vermilion); }
+  .card-thumb { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; background:var(--mist); }
+  .card-cap { padding:7px 9px 9px; }
+  .card-title { font-family:var(--serif); font-size:12px; font-weight:500; color:var(--ink); line-height:1.3; letter-spacing:0.02em; }
+  .card-artist { font-family:var(--en-serif); font-style:italic; font-size:10px; color:var(--ash); margin-top:2px; }
+  .card.locked { cursor:default; }
+  .card.locked:hover { border-color:var(--stone); }
+  .card.locked .card-thumb { filter:grayscale(1) blur(7px) brightness(0.9); }
+  .card-lock { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; text-align:center; padding:10px; background:rgba(31,29,25,0.38); color:#F1EFE9; }
+  .card-lock .ic { font-size:17px; opacity:0.92; }
+  .card-lock .tx { font-family:var(--mono); font-size:9px; letter-spacing:0.07em; line-height:1.55; }
+  .cards-empty { margin-top:12px; font-family:var(--sans); font-size:11px; color:var(--ash); line-height:1.7; }
+  /* Lightbox */
+  .lightbox { position:fixed; inset:0; z-index:3000; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .lightbox[hidden] { display:none; }
+  .lightbox-backdrop { position:absolute; inset:0; background:rgba(20,19,16,0.84); }
+  .lightbox-card { position:relative; z-index:1; max-width:min(900px,94vw); max-height:92vh; display:flex; flex-direction:column; background:var(--paper-2); border:1px solid var(--stone); box-shadow:0 30px 80px -24px rgba(0,0,0,0.6); overflow-y:auto; }
+  .lightbox-close { position:absolute; top:8px; right:8px; z-index:2; width:34px; height:34px; border:1px solid var(--stone); background:var(--paper-2); color:var(--graphite); font-size:20px; line-height:1; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .lightbox-close:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  .lightbox-imgwrap { background:#15130f; display:flex; align-items:center; justify-content:center; }
+  .lightbox-imgwrap img { max-width:100%; max-height:62vh; object-fit:contain; display:block; }
+  .lightbox-cap { padding:16px 22px 20px; border-top:3px solid var(--vermilion); }
+  .lc-title { font-family:var(--serif); font-size:19px; font-weight:600; letter-spacing:0.04em; color:var(--ink); line-height:1.35; }
+  .lc-artist { font-family:var(--en-serif); font-style:italic; font-size:14px; color:var(--vermilion); margin-top:3px; }
+  .lc-meta { font-family:var(--mono); font-size:10px; letter-spacing:0.08em; color:var(--ash); margin-top:9px; text-transform:uppercase; }
+  .lc-credit { font-family:var(--sans); font-size:11.5px; color:var(--graphite); margin-top:7px; line-height:1.65; }
+  .lc-source { display:inline-block; margin-top:9px; font-family:var(--mono); font-size:10px; color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
+  .lc-source:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  @media (max-width:640px) {
+    .lightbox { padding:0; }
+    .lightbox-card { max-width:100vw; width:100%; max-height:100vh; height:100%; }
+    .lightbox-imgwrap img { max-height:54vh; }
+  }
 </style>
 </head>
 <body class="grain">
@@ -262,6 +300,18 @@
       <div id="loc-accuracy">—</div>
     </div>
 
+    <div class="section-label">
+      <span class="num">05</span>
+      <span class="txt" data-i18n="sec.cards">明信片</span>
+      <span class="en" data-i18n="sec.cards.en">ansichtkaarten</span>
+    </div>
+    <div class="cards-head">
+      <span class="cards-count" id="cards-count">—</span>
+      <button type="button" class="pill-toggle" id="collect-toggle" data-i18n="cards.collect">收集模式</button>
+    </div>
+    <div class="cards-grid" id="cards-grid"></div>
+    <div class="cards-empty" id="cards-empty" data-i18n="cards.empty" hidden>這座城市還沒有明信片。</div>
+
     <div class="panel-foot">
       <span data-i18n="foot.maps">歷史圖資</span> ·
       <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> /
@@ -285,6 +335,21 @@
     </div>
   </div>
 </aside>
+
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+  <figure class="lightbox-card">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-imgwrap"><img id="lightbox-img" alt="" /></div>
+    <figcaption class="lightbox-cap">
+      <div class="lc-title" id="lc-title"></div>
+      <div class="lc-artist" id="lc-artist"></div>
+      <div class="lc-meta" id="lc-meta"></div>
+      <div class="lc-credit" id="lc-credit"></div>
+      <a class="lc-source" id="lc-source" target="_blank" rel="noopener"></a>
+    </figcaption>
+  </figure>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -413,6 +478,11 @@
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
       'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding',
       'theme.light': 'Papier', 'theme.dark': 'Inkt', 'loading': 'Laden…', 'sheet.hint': 'Tik om te openen',
+      'sec.cards': 'Ansichtkaarten', 'sec.cards.en': 'ansichtkaarten', 'cards.collect': 'Verzamelen',
+      'cards.empty': 'Nog geen ansichtkaarten voor deze stad.', 'cards.locked': 'Loop dichtbij om te ontgrendelen',
+      'cards.unit': 'kaarten', 'cards.collected': 'Verzameld', 'card.source': 'Bron',
+      'card.pd': 'Publiek domein · via Wikimedia Commons',
+      'cards.gpshint': 'GPS aan — loop naar de stad om kaarten te onthullen.', 'cards.denied': 'Locatie geweigerd; kaarten blijven vergrendeld.',
       'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
       'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
     },
@@ -427,6 +497,11 @@
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
       'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits',
       'theme.light': 'Paper', 'theme.dark': 'Ink', 'loading': 'Loading…', 'sheet.hint': 'Tap to open',
+      'sec.cards': 'Postcards', 'sec.cards.en': 'postcards', 'cards.collect': 'Collect',
+      'cards.empty': 'No postcards for this city yet.', 'cards.locked': 'Walk nearby to unlock',
+      'cards.unit': 'cards', 'cards.collected': 'Collected', 'card.source': 'Source',
+      'card.pd': 'Public Domain · via Wikimedia Commons',
+      'cards.gpshint': 'GPS on — walk to the city to reveal cards.', 'cards.denied': 'Location denied; cards stay locked.',
       'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
       'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
     },
@@ -441,6 +516,11 @@
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
       'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝',
       'theme.light': '紙色', 'theme.dark': '墨色', 'loading': '載入中…', 'sheet.hint': '點此展開',
+      'sec.cards': '明信片', 'sec.cards.en': '明信片', 'cards.collect': '收集模式',
+      'cards.empty': '這座城市還沒有明信片。', 'cards.locked': '走到附近解鎖',
+      'cards.unit': '張', 'cards.collected': '已收集', 'card.source': '來源',
+      'card.pd': '公眾領域 · 經 Wikimedia Commons',
+      'cards.gpshint': '已開 GPS — 走到該城市附近即可顯影。', 'cards.denied': '未取得定位；明信片維持鎖定。',
       'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
       'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
     },
@@ -469,6 +549,7 @@
     updateEraLabel(state.year);
     renderCityList();
     updateCurrentCity();
+    renderCards();
     document.getElementById('theme-toggle').textContent =
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
   }
@@ -587,6 +668,7 @@
     map.setView(c.center, CITY_ZOOM);
     updateCurrentCity();
     renderCityList();
+    renderCards();
     try { localStorage.setItem('nlOldMaps.city', id); } catch (e) {}
     syncURL();
     if (window.innerWidth <= 640) closeSheet();
@@ -771,6 +853,143 @@
     this.textContent = dark ? t('theme.dark') : t('theme.light');
   });
 
+  // ── Ansichtkaarten / 名畫明信片 ───────────────────────────────────────
+  // Per stad verzamelbare Nederlandse meesterwerken (alle publiek domein).
+  // Tonen altijd in de lijst; in "Verzamelen" (GPS) blijven ze vergrendeld
+  // tot je dicht bij de stad loopt.
+  const CARD_RADIUS = 1500; // meter rond het stadscentrum om te ontgrendelen
+  let CARDS = [], CARDS_BY_CITY = {};
+  let collectMode = false, cardWatchId = null;
+  const collected = new Set();
+
+  function locName(o) { return (o && (o[lang] || o.en || o.nl)) || ''; }
+  function isUnlocked(item) { return !collectMode || collected.has(item.id); }
+  function saveCollected() { try { localStorage.setItem('nlOldMaps.collected', JSON.stringify([...collected])); } catch (e) {} }
+  function haversine(la1, lo1, la2, lo2) {
+    const R = 6371000, toR = Math.PI / 180;
+    const dLa = (la2 - la1) * toR, dLo = (lo2 - lo1) * toR;
+    const a = Math.sin(dLa / 2) ** 2 + Math.cos(la1 * toR) * Math.cos(la2 * toR) * Math.sin(dLo / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(a));
+  }
+  const LOCK_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+
+  function renderCards() {
+    const grid = document.getElementById('cards-grid');
+    const empty = document.getElementById('cards-empty');
+    const countEl = document.getElementById('cards-count');
+    if (!grid || !empty || !countEl) return;
+    const list = CARDS_BY_CITY[state.city.id] || [];
+    grid.innerHTML = '';
+    if (!list.length) { empty.hidden = false; countEl.textContent = ''; return; }
+    empty.hidden = true;
+    let unlocked = 0;
+    list.forEach(item => {
+      const ok = isUnlocked(item);
+      if (ok) unlocked++;
+      const card = document.createElement('div');
+      card.className = 'card' + (ok ? '' : ' locked');
+      const img = document.createElement('img');
+      img.className = 'card-thumb'; img.loading = 'lazy';
+      img.alt = ok ? (locName(item.title) + ' — ' + locName(item.artist)) : '';
+      img.src = item.img;
+      card.appendChild(img);
+      if (ok) {
+        const cap = document.createElement('div');
+        cap.className = 'card-cap';
+        const tt = document.createElement('div'); tt.className = 'card-title'; tt.textContent = locName(item.title);
+        const ar = document.createElement('div'); ar.className = 'card-artist'; ar.textContent = locName(item.artist) + ' · ' + item.year;
+        cap.appendChild(tt); cap.appendChild(ar);
+        card.appendChild(cap);
+        card.addEventListener('click', () => openLightbox(item));
+      } else {
+        const lock = document.createElement('div');
+        lock.className = 'card-lock';
+        const tx = document.createElement('span'); tx.className = 'tx'; tx.textContent = t('cards.locked');
+        lock.innerHTML = '<span class="ic">' + LOCK_SVG + '</span>';
+        lock.appendChild(tx);
+        card.appendChild(lock);
+      }
+      grid.appendChild(card);
+    });
+    countEl.textContent = collectMode
+      ? (t('cards.collected') + ' ' + unlocked + ' / ' + list.length)
+      : (list.length + ' ' + t('cards.unit'));
+  }
+
+  function openLightbox(item) {
+    document.getElementById('lightbox-img').src = item.img;
+    document.getElementById('lightbox-img').alt = locName(item.title) + ' — ' + locName(item.artist);
+    document.getElementById('lc-title').textContent = locName(item.title);
+    document.getElementById('lc-artist').textContent = locName(item.artist) + ', ' + item.year;
+    document.getElementById('lc-meta').textContent = item.credit;
+    document.getElementById('lc-credit').textContent = t('card.pd');
+    const src = document.getElementById('lc-source');
+    src.href = item.sourceUrl;
+    src.textContent = t('card.source') + ': Wikimedia Commons ↗';
+    document.getElementById('lightbox').hidden = false;
+  }
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    if (lb) lb.hidden = true;
+  }
+
+  function startCardWatch() {
+    if (cardWatchId != null || !navigator.geolocation) return;
+    cardWatchId = navigator.geolocation.watchPosition(onCardPosition, onCardDenied,
+      { enableHighAccuracy: false, maximumAge: 30000, timeout: 20000 });
+  }
+  function stopCardWatch() {
+    if (cardWatchId != null) { navigator.geolocation.clearWatch(cardWatchId); cardWatchId = null; }
+  }
+  function onCardPosition(pos) {
+    const { latitude, longitude } = pos.coords;
+    let changed = false;
+    CARDS.forEach(item => {
+      if (item.lat == null || item.lng == null || collected.has(item.id)) return;
+      if (haversine(latitude, longitude, item.lat, item.lng) <= CARD_RADIUS) { collected.add(item.id); changed = true; }
+    });
+    if (changed) { saveCollected(); renderCards(); }
+  }
+  function onCardDenied() {
+    const countEl = document.getElementById('cards-count');
+    if (collectMode && countEl) countEl.textContent = t('cards.denied');
+  }
+
+  function setCollectMode(on) {
+    collectMode = on;
+    document.getElementById('collect-toggle').classList.toggle('active', on);
+    try { localStorage.setItem('nlOldMaps.collectMode', on ? '1' : '0'); } catch (e) {}
+    if (on) startCardWatch(); else stopCardWatch();
+    renderCards();
+  }
+
+  function loadPostcards() {
+    fetch('postcards/postcards.json', { cache: 'no-cache' })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data || !Array.isArray(data.items)) return;
+        CARDS = data.items.filter(i => i && i.img && i.city);
+        CARDS_BY_CITY = {};
+        CARDS.forEach(i => { (CARDS_BY_CITY[i.city] = CARDS_BY_CITY[i.city] || []).push(i); });
+        renderCards();
+      })
+      .catch(() => {});
+  }
+
+  (function initCards() {
+    try {
+      collectMode = localStorage.getItem('nlOldMaps.collectMode') === '1';
+      const cc = localStorage.getItem('nlOldMaps.collected');
+      if (cc) JSON.parse(cc).forEach(id => collected.add(id));
+    } catch (e) {}
+    document.getElementById('collect-toggle').classList.toggle('active', collectMode);
+    document.getElementById('collect-toggle').addEventListener('click', () => setCollectMode(!collectMode));
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    if (collectMode) startCardWatch();
+  })();
+
   try { const sb = localStorage.getItem('nlOldMaps.base'); if (sb && BASE_MAPS[sb]) state.base = sb; } catch (e) {}
   setBase(state.base);
   renderTicks();
@@ -782,6 +1001,7 @@
   setHistYear(state.year);
   applyI18n();
   updateMeta();
+  loadPostcards();
 
   // Service worker tijdelijk uitgeschakeld: oude SW + caches opruimen.
   if ('serviceWorker' in navigator) {
