@@ -201,6 +201,24 @@
   .offline-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
   .offline-used { font-family:var(--mono); font-size:10px; letter-spacing:0.04em; color:var(--ash); }
   .plan-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  /* About modal */
+  .about-card { position:relative; z-index:1; max-width:min(680px,94vw); max-height:92vh; background:var(--paper-2); border:1px solid var(--stone); box-shadow:0 30px 80px -24px rgba(0,0,0,0.6); overflow-y:auto; padding:34px 38px 26px; }
+  .about-head { padding-bottom:14px; border-bottom:3px solid var(--vermilion); margin-bottom:18px; }
+  .about-kicker { font-family:var(--en-serif); font-style:italic; font-size:13px; color:var(--vermilion); letter-spacing:0.04em; margin-bottom:6px; }
+  .about-title { font-family:var(--serif); font-size:26px; font-weight:600; letter-spacing:0.12em; color:var(--ink); line-height:1.3; }
+  .about-body { font-family:var(--sans); font-size:14px; color:var(--graphite); line-height:1.85; }
+  .about-body p { margin-bottom:14px; }
+  .about-body p:last-child { margin-bottom:0; }
+  .about-body strong { color:var(--ink); font-weight:500; }
+  .about-foot { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:22px; padding-top:14px; border-top:1px solid var(--mist); font-family:var(--mono); font-size:11px; color:var(--ash); }
+  .about-sig { letter-spacing:0.06em; }
+  .about-link { font-family:var(--mono); font-size:11px; color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
+  .about-link:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  @media (max-width:640px) {
+    .about-card { max-width:100vw; width:100%; max-height:100vh; height:100%; padding:24px 22px max(28px, env(safe-area-inset-bottom)); }
+    .about-title { font-size:22px; }
+    .about-body { font-size:14.5px; }
+  }
   /* Planning legend (floating, collapsible) */
   .legend { position:absolute; left:20px; bottom:24px; z-index:910; max-width:240px; background:var(--paper-2); border:1px solid var(--stone); box-shadow:0 6px 20px -10px rgba(31,29,25,0.4); font-family:var(--sans); display:none; }
   .legend.show { display:block; }
@@ -383,6 +401,7 @@
       <a href="https://www.beeldmateriaal.nl" target="_blank" rel="noopener">Beeldmateriaal NL</a><br>
       <span data-i18n="foot.made">設計・製作</span> ·
       <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昀慶 Yunching Wu</a> ·
+      <a href="#" id="about-link" data-i18n="foot.about">關於</a> ·
       <a href="credits.html" data-i18n="foot.credits">致謝</a>
 
       <div class="foot-toggles">
@@ -396,6 +415,22 @@
     </div>
   </div>
 </aside>
+
+<div class="lightbox" id="about-modal" hidden>
+  <div class="lightbox-backdrop" id="about-backdrop"></div>
+  <article class="about-card">
+    <button type="button" class="lightbox-close" id="about-close" aria-label="Close">×</button>
+    <header class="about-head">
+      <div class="about-kicker" data-i18n="about.kicker">Netherlands · through time</div>
+      <h2 class="about-title" data-i18n="about.title">關於這個平台</h2>
+    </header>
+    <div class="about-body" id="about-body"></div>
+    <footer class="about-foot">
+      <span class="about-sig">— 吳昀慶 Yunching Wu</span>
+      <a class="about-link" href="https://github.com/yunching0513/Netherlands-historical-map" target="_blank" rel="noopener">GitHub ↗</a>
+    </footer>
+  </article>
+</div>
 
 <div class="lightbox" id="lightbox" hidden>
   <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
@@ -589,7 +624,8 @@
       'sec.locate': 'Locatie', 'sec.locate.en': 'locatie',
       'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
-      'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding',
+      'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding', 'foot.about': 'Over',
+      'about.kicker': 'Nederland · door de tijd', 'about.title': 'Over dit platform',
       'theme.light': 'Papier', 'theme.dark': 'Inkt', 'loading': 'Laden…', 'sheet.hint': 'Tik om te openen',
       'sec.cards': 'Ansichtkaarten', 'sec.cards.en': 'ansichtkaarten', 'cards.collect': 'Verzamelen',
       'cards.empty': 'Nog geen ansichtkaarten voor deze stad.', 'cards.locked': 'Loop dichtbij om te ontgrendelen',
@@ -616,7 +652,8 @@
       'sec.locate': 'Locate', 'sec.locate.en': 'locate',
       'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
-      'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits',
+      'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits', 'foot.about': 'About',
+      'about.kicker': 'Netherlands · through time', 'about.title': 'About this platform',
       'theme.light': 'Paper', 'theme.dark': 'Ink', 'loading': 'Loading…', 'sheet.hint': 'Tap to open',
       'sec.cards': 'Postcards', 'sec.cards.en': 'postcards', 'cards.collect': 'Collect',
       'cards.empty': 'No postcards for this city yet.', 'cards.locked': 'Walk nearby to unlock',
@@ -643,7 +680,8 @@
       'sec.locate': '定位', 'sec.locate.en': '定位',
       'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
-      'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝',
+      'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝', 'foot.about': '關於',
+      'about.kicker': '荷蘭 · 穿越時光', 'about.title': '關於這個平台',
       'theme.light': '紙色', 'theme.dark': '墨色', 'loading': '載入中…', 'sheet.hint': '點此展開',
       'sec.cards': '明信片', 'sec.cards.en': '明信片', 'cards.collect': '收集模式',
       'cards.empty': '這座城市還沒有明信片。', 'cards.locked': '走到附近解鎖',
@@ -689,6 +727,7 @@
     renderCards();
     renderOffline();
     renderLegend();
+    renderAbout();
     document.getElementById('theme-toggle').textContent =
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
   }
@@ -1078,6 +1117,44 @@
     if (lb) lb.hidden = true;
   }
 
+  // ── Over dit platform / About this platform / 關於這個平台 ─────────────
+  const ABOUT = {
+    nl: [
+      'Dit is een persoonlijk hobbyproject van <strong>Yunching Wu (吳昀慶)</strong>. Ik ben gefascineerd door Nederland — door de <strong>ruimtelijke ordening, de kunst en de geschiedenis</strong>. Voor mij zijn dat drie lijnen van hetzelfde verhaal: elke gracht, elke baksteen, elk schilderij herinnert hoe dit land in twee eeuwen opnieuw is getekend. Ik wil iets van die fascinatie meenemen naar Taiwan, en meer mensen Nederland laten zien via zijn kaarten.',
+      'Met de tijdschuif kun je van <strong>1815 tot 2021</strong> reizen over twintig Nederlandse steden — Amsterdam, Delft, Utrecht en de rest — en ze zien transformeren, van handgetekende militaire kaarten, via gekleurde Bonnebladen, tot de straten, luchtfoto\'s en bestemmingsplannen van vandaag. Met <em>Toen & nu</em> schuif je tussen twee tijdperken; met <em>Ruimtelijk</em> leg je de actuele plannen erover; en bij elke stad wacht een ansichtkaart van een Nederlands meesterwerk uit het publieke domein.',
+      'Technisch is het één zichzelf-bevattend HTML-bestand, gebouwd met Leaflet en proj4. De historische tegels bestaan alleen in het Nederlandse RD-stelsel (EPSG:28992); de app projecteert elke tegel <em>on the fly</em> op een canvas naar Web Mercator, zodat ze netjes op de moderne basiskaart vallen. Basiskaarten en historische tegels komen van de open services van <strong>PDOK, Kadaster en Esri NL</strong>; de ansichtkaarten via de <strong>Wikimedia Commons API</strong>, met per beeld een licentiecheck — alleen publiek domein.',
+      'De ansichtkaarten zijn slechts een begin. Het grotere doel is een open, door <strong>burgers gecureerde laag van "plek-herinnering"</strong>. Mijn hoop is om <strong>workshops</strong> te organiseren — in Taiwan én in Nederland — waar mensen samen markeren welke grachten, bakstenen huizen, polderlijnen en straathoeken verdienen herinnerd te worden, en welke verhalen daarbij horen. Laag voor laag, tot een door burgers gecureerde culturele gids voor Nederland.'
+    ],
+    en: [
+      'This is a personal hobby project by <strong>Yunching Wu (吳昀慶)</strong>. I\'m fascinated by the Netherlands — its <strong>urban planning, art, and history</strong> — three threads of the same story: every canal, every brick, every painting remembers how this land has been redrawn over two centuries. I\'m building this to bring some of that fascination back to Taiwan, and to help more people see the Netherlands through its maps.',
+      'Drag the time slider from <strong>1815 to 2021</strong> over twenty Dutch cities — Amsterdam, Delft, Utrecht and the rest — and watch them reshape themselves, from hand-drawn military surveys, through coloured Bonne sheets, to today\'s streets, satellite imagery, and current zoning. A <em>Then & Now</em> swipe lets you compare any two periods; a <em>Planning</em> overlay reveals live Dutch land-use; and every city has a Public Domain Dutch masterpiece postcard waiting to be opened.',
+      'Technically, the whole thing is a single self-contained HTML file built with Leaflet + proj4. Dutch historical tiles only exist in the national RD grid (EPSG:28992), so each tile is reprojected on a canvas into Web Mercator on the fly, aligning cleanly with modern basemaps. Basemaps and historical tiles come from the open services of <strong>PDOK, Kadaster and Esri NL</strong>; postcards are pulled through the <strong>Wikimedia Commons API</strong> with per-image licence verification — Public Domain only.',
+      'The postcards are only a beginning. The larger goal is an open, <strong>citizen-curated layer of place-memory</strong>. My hope is to run <strong>workshops</strong> — in Taiwan and in the Netherlands — that invite citizens to help mark which canals, brick houses, polder lines, and street corners deserve to be remembered, and the stories behind them. Layer by layer, into a citizen-curated cultural guide to the Netherlands.'
+    ],
+    zh: [
+      '這是 <strong>吳昀慶 Yunching Wu</strong> 的個人興趣專案。我熱愛荷蘭的<strong>都市規劃、美術與歷史</strong>——三件事其實是同一件事的不同切面：每一條運河、每一塊磚、每一張畫，都記得這片土地兩百年來怎麼被人們重新繪製。我想把這份著迷帶回台灣，讓更多人透過地圖看見荷蘭之美。',
+      '拖動 <strong>1815–2021</strong> 的時光滑桿，看著阿姆斯特丹、台夫特、烏特勒支等二十座城市，從手繪軍事地形圖、套色 Bonne 地圖，演變成今日的街道、衛星與現行都市計畫分區。可以用<em>今昔對照</em>左右滑動比較；可以開啟<em>規劃圖</em>看見現在的土地利用；每座城市還收藏一張公眾領域的荷蘭名畫明信片，等你打開。',
+      '技術上，整張地圖是一個自包含的 HTML 單檔，前端用 Leaflet 與 proj4 處理座標投影——荷蘭歷史圖磚原本只存在於國家座標系 RD（EPSG:28992），app 用 Canvas 把每一塊圖磚即時重投影到 Web Mercator，才能跟今日底圖完美對齊。底圖與歷史圖層來自 <strong>PDOK、Kadaster、Esri NL</strong> 的開放服務；明信片透過 <strong>Wikimedia Commons API</strong> 逐張驗證授權，全部為公眾領域。',
+      '目前的明信片只是開始。更大的目標是建立一個<strong>公民協作的地點記憶圖層</strong>——希望未來透過<strong>工作坊</strong>，邀請台灣與旅荷的朋友一起標注重要的地點：哪一條運河、哪一棟磚屋、哪一條圍墾線、哪一幅畫所在的街角，值得被記住？讓這張地圖慢慢長成一份民間版的荷蘭文化導覽。'
+    ],
+  };
+
+  function renderAbout() {
+    const body = document.getElementById('about-body');
+    if (!body) return;
+    const paras = ABOUT[lang] || ABOUT.en;
+    body.innerHTML = paras.map(p => '<p>' + p + '</p>').join('');
+  }
+  function openAbout(e) {
+    if (e) e.preventDefault();
+    renderAbout();
+    document.getElementById('about-modal').hidden = false;
+  }
+  function closeAbout() {
+    const m = document.getElementById('about-modal');
+    if (m) m.hidden = true;
+  }
+
   function startCardWatch() {
     if (cardWatchId != null || !navigator.geolocation) return;
     cardWatchId = navigator.geolocation.watchPosition(onCardPosition, onCardDenied,
@@ -1131,7 +1208,10 @@
     document.getElementById('collect-toggle').addEventListener('click', () => setCollectMode(!collectMode));
     document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
     document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    document.getElementById('about-link').addEventListener('click', openAbout);
+    document.getElementById('about-close').addEventListener('click', closeAbout);
+    document.getElementById('about-backdrop').addEventListener('click', closeAbout);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeAbout(); } });
     if (collectMode) startCardWatch();
   })();
 
