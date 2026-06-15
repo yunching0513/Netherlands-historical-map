@@ -194,6 +194,12 @@
     .lightbox-card { max-width:100vw; width:100%; max-height:100vh; height:100%; }
     .lightbox-imgwrap img { max-height:54vh; }
   }
+  /* Offline download */
+  .offline-hint { margin-top:8px; font-family:var(--sans); font-size:10px; color:var(--ash); line-height:1.65; }
+  .dl-status { display:none; margin-top:10px; padding:10px 12px; background:var(--paper); border:1px solid var(--mist); font-family:var(--mono); font-size:10px; color:var(--ash); line-height:1.7; }
+  .dl-status.show { display:block; }
+  .offline-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
+  .offline-used { font-family:var(--mono); font-size:10px; letter-spacing:0.04em; color:var(--ash); }
 </style>
 </head>
 <body class="grain">
@@ -312,6 +318,25 @@
     <div class="cards-grid" id="cards-grid"></div>
     <div class="cards-empty" id="cards-empty" data-i18n="cards.empty" hidden>這座城市還沒有明信片。</div>
 
+    <div id="offline-section">
+      <div class="section-label">
+        <span class="num">06</span>
+        <span class="txt" data-i18n="sec.offline">離線</span>
+        <span class="en" data-i18n="sec.offline.en">offline</span>
+      </div>
+      <button type="button" class="btn" id="btn-download">
+        <span class="dot"></span>
+        <span class="lbl">下載這座城市</span>
+        <span class="en">offline</span>
+      </button>
+      <div class="offline-hint" data-i18n="offline.hint">下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。</div>
+      <div class="dl-status" id="dl-status"></div>
+      <div class="offline-foot">
+        <span class="offline-used" id="offline-used">—</span>
+        <button type="button" class="pill-toggle" id="btn-clear-offline" data-i18n="offline.clear">清除下載</button>
+      </div>
+    </div>
+
     <div class="panel-foot">
       <span data-i18n="foot.maps">歷史圖資</span> ·
       <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> /
@@ -415,6 +440,50 @@
     luchtfoto: { url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0/Actueel_orthoHR/EPSG:3857/{z}/{x}/{y}.jpeg', attr: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> Luchtfoto / Beeldmateriaal NL' },
   };
 
+  // ── Offline-cache (handmatige download per stad) ─────────────────────
+  // Tegels worden in Cache Storage bewaard onder een eigen naam, zodat de
+  // opschoning onderaan (die andere caches wist) ze met rust laat. Geen
+  // service worker: we lezen tegels via fetch → blob-URL.
+  const OFFLINE_CACHE = 'nl-offline-tiles-v1';
+  let _offlineCacheP = null;
+  function offlineCache() {
+    if (!('caches' in window)) return null;
+    if (!_offlineCacheP) _offlineCacheP = caches.open(OFFLINE_CACHE);
+    return _offlineCacheP;
+  }
+  // Geeft een blob-URL terug als de tegel gedownload is, anders de net-URL.
+  async function offlineTileSrc(url) {
+    try {
+      const cp = offlineCache();
+      if (cp) {
+        const resp = await (await cp).match(url);
+        if (resp) return URL.createObjectURL(await resp.blob());
+      }
+    } catch (e) {}
+    return url;
+  }
+
+  // Welke RD-brontegels heeft één 3857-tegel nodig? Gedeeld door de renderer
+  // (createTile) en de downloader, zodat opgeslagen tegels exact matchen.
+  function histTileGeom(x, y, z) {
+    const tilePoint = L.point(x, y).scaleBy(L.point(RD_TILE_SIZE, RD_TILE_SIZE));
+    const nwLatLng = map.unproject(tilePoint, z);
+    const seLatLng = map.unproject(tilePoint.add(L.point(RD_TILE_SIZE, RD_TILE_SIZE)), z);
+    const nwMerc = L.CRS.EPSG3857.project(nwLatLng), seMerc = L.CRS.EPSG3857.project(seLatLng);
+    const nwRd = RD_TO_3857.inverse([nwMerc.x, nwMerc.y]), seRd = RD_TO_3857.inverse([seMerc.x, seMerc.y]);
+    const minX = Math.min(nwRd[0], seRd[0]), maxX = Math.max(nwRd[0], seRd[0]);
+    const minY = Math.min(nwRd[1], seRd[1]), maxY = Math.max(nwRd[1], seRd[1]);
+    const targetRes = (maxX - minX) / RD_TILE_SIZE;
+    let lvl = 0;
+    for (let i = RD_RESOLUTIONS.length - 1; i >= 0; i--) { lvl = i; if (RD_RESOLUTIONS[i] <= targetRes * 1.5) break; }
+    const rdTileM = RD_RESOLUTIONS[lvl] * RD_TILE_SIZE;
+    const colMin = Math.floor((minX - RD_ORIGIN_X) / rdTileM), colMax = Math.floor((maxX - RD_ORIGIN_X) / rdTileM);
+    const rowMin = Math.floor((RD_ORIGIN_Y - maxY) / rdTileM), rowMax = Math.floor((RD_ORIGIN_Y - minY) / rdTileM);
+    const tiles = [];
+    for (let r = rowMin; r <= rowMax; r++) for (let c = colMin; c <= colMax; c++) tiles.push([c, r]);
+    return { tilePoint, lvl, rdTileM, tiles };
+  }
+
   // Reprojecterende GridLayer: haalt RD-tegels op en tekent ze in een 3857-tegel.
   function createTopotijdreisLayer(serviceId, opts) {
     const url = ARC + 'Historische_tijdreis_' + serviceId + '/MapServer/tile';
@@ -425,26 +494,13 @@
       const ctx = canvas.getContext('2d');
       const tileMap = this._map;
       if (!ctx || !tileMap) { setTimeout(() => done(undefined, canvas), 0); return canvas; }
-      const tilePoint = coords.scaleBy(L.point(RD_TILE_SIZE, RD_TILE_SIZE));
-      const nwLatLng = tileMap.unproject(tilePoint, coords.z);
-      const seLatLng = tileMap.unproject(tilePoint.add(L.point(RD_TILE_SIZE, RD_TILE_SIZE)), coords.z);
-      const nwMerc = L.CRS.EPSG3857.project(nwLatLng), seMerc = L.CRS.EPSG3857.project(seLatLng);
-      const nwRd = RD_TO_3857.inverse([nwMerc.x, nwMerc.y]), seRd = RD_TO_3857.inverse([seMerc.x, seMerc.y]);
-      const minX = Math.min(nwRd[0], seRd[0]), maxX = Math.max(nwRd[0], seRd[0]);
-      const minY = Math.min(nwRd[1], seRd[1]), maxY = Math.max(nwRd[1], seRd[1]);
-      const targetRes = (maxX - minX) / RD_TILE_SIZE;
-      let lvl = 0;
-      for (let i = RD_RESOLUTIONS.length - 1; i >= 0; i--) { lvl = i; if (RD_RESOLUTIONS[i] <= targetRes * 1.5) break; }
-      const rdTileM = RD_RESOLUTIONS[lvl] * RD_TILE_SIZE;
-      const colMin = Math.floor((minX - RD_ORIGIN_X) / rdTileM), colMax = Math.floor((maxX - RD_ORIGIN_X) / rdTileM);
-      const rowMin = Math.floor((RD_ORIGIN_Y - maxY) / rdTileM), rowMax = Math.floor((RD_ORIGIN_Y - minY) / rdTileM);
+      const geom = histTileGeom(coords.x, coords.y, coords.z);
+      const tilePoint = geom.tilePoint, lvl = geom.lvl, rdTileM = geom.rdTileM, tiles = geom.tiles;
       const rdToPx = (rx, ry) => {
         const merc = RD_TO_3857.forward([rx, ry]);
         const wp = tileMap.project(L.CRS.EPSG3857.unproject(L.point(merc[0], merc[1])), coords.z);
         return [wp.x - tilePoint.x, wp.y - tilePoint.y];
       };
-      const tiles = [];
-      for (let r = rowMin; r <= rowMax; r++) for (let c = colMin; c <= colMax; c++) tiles.push([c, r]);
       let remaining = tiles.length;
       if (!remaining) { setTimeout(() => done(undefined, canvas), 0); return canvas; }
       tiles.forEach(cr => {
@@ -456,15 +512,36 @@
             const a = rdToPx(x0, y0), b = rdToPx(x0 + rdTileM, y0 - rdTileM);
             ctx.drawImage(img, a[0], a[1], b[0] - a[0], b[1] - a[1]);
           } catch (e) {}
+          if (img.src.indexOf('blob:') === 0) URL.revokeObjectURL(img.src);
           if (--remaining === 0) done(undefined, canvas);
         };
-        img.onerror = () => { if (--remaining === 0) done(undefined, canvas); };
-        img.src = url + '/' + lvl + '/' + cr[1] + '/' + cr[0];
+        img.onerror = () => {
+          if (img.src.indexOf('blob:') === 0) URL.revokeObjectURL(img.src);
+          if (--remaining === 0) done(undefined, canvas);
+        };
+        offlineTileSrc(url + '/' + lvl + '/' + cr[1] + '/' + cr[0]).then(src => { img.src = src; });
       });
       return canvas;
     };
     return layer;
   }
+
+  // Basiskaart-laag die eerst de offline-cache probeert (anders het netwerk).
+  const OfflineTileLayer = L.TileLayer.extend({
+    createTile: function (coords, done) {
+      const tile = document.createElement('img');
+      L.DomEvent.on(tile, 'load', L.Util.bind(this._tileOnLoad, this, done, tile));
+      L.DomEvent.on(tile, 'error', L.Util.bind(this._tileOnError, this, done, tile));
+      tile.addEventListener('load', function () { if (tile.src.indexOf('blob:') === 0) URL.revokeObjectURL(tile.src); });
+      if (this.options.crossOrigin || this.options.crossOrigin === '') {
+        tile.crossOrigin = this.options.crossOrigin === true ? '' : this.options.crossOrigin;
+      }
+      tile.alt = '';
+      tile.setAttribute('role', 'presentation');
+      offlineTileSrc(this.getTileUrl(coords)).then(src => { tile.src = src; });
+      return tile;
+    }
+  });
 
   const I18N = {
     nl: {
@@ -483,6 +560,11 @@
       'cards.unit': 'kaarten', 'cards.collected': 'Verzameld', 'card.source': 'Bron',
       'card.pd': 'Publiek domein · via Wikimedia Commons',
       'cards.gpshint': 'GPS aan — loop naar de stad om kaarten te onthullen.', 'cards.denied': 'Locatie geweigerd; kaarten blijven vergrendeld.',
+      'sec.offline': 'Offline', 'sec.offline.en': 'offline',
+      'offline.btn': 'Deze stad downloaden', 'offline.redownload': 'Stad opnieuw downloaden', 'offline.cancel': 'Downloaden stoppen',
+      'offline.downloading': 'Bezig', 'offline.done': 'Opgeslagen ✓ — offline beschikbaar', 'offline.canceled': 'Gestopt',
+      'offline.cleared': 'Downloads gewist', 'offline.clear': 'Wissen', 'offline.used': 'Gebruikt', 'offline.unsupported': 'Offline niet ondersteund in deze browser.',
+      'offline.hint': 'Bewaart de huidige basiskaart en het huidige jaar (tot straatniveau) op je apparaat — sneller en offline te gebruiken.',
       'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
       'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
     },
@@ -502,6 +584,11 @@
       'cards.unit': 'cards', 'cards.collected': 'Collected', 'card.source': 'Source',
       'card.pd': 'Public Domain · via Wikimedia Commons',
       'cards.gpshint': 'GPS on — walk to the city to reveal cards.', 'cards.denied': 'Location denied; cards stay locked.',
+      'sec.offline': 'Offline', 'sec.offline.en': 'offline',
+      'offline.btn': 'Download this city', 'offline.redownload': 'Re-download this city', 'offline.cancel': 'Stop download',
+      'offline.downloading': 'Downloading', 'offline.done': 'Saved ✓ — available offline', 'offline.canceled': 'Stopped',
+      'offline.cleared': 'Downloads cleared', 'offline.clear': 'Clear', 'offline.used': 'Used', 'offline.unsupported': 'Offline not supported in this browser.',
+      'offline.hint': 'Saves the current base map and year (to street level) on your device — faster and usable offline.',
       'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
       'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
     },
@@ -521,6 +608,11 @@
       'cards.unit': '張', 'cards.collected': '已收集', 'card.source': '來源',
       'card.pd': '公眾領域 · 經 Wikimedia Commons',
       'cards.gpshint': '已開 GPS — 走到該城市附近即可顯影。', 'cards.denied': '未取得定位；明信片維持鎖定。',
+      'sec.offline': '離線', 'sec.offline.en': '離線',
+      'offline.btn': '下載這座城市', 'offline.redownload': '重新下載這座城市', 'offline.cancel': '停止下載',
+      'offline.downloading': '下載中', 'offline.done': '已存到裝置 ✓ 可離線使用', 'offline.canceled': '已停止',
+      'offline.cleared': '已清除下載', 'offline.clear': '清除下載', 'offline.used': '已用約', 'offline.unsupported': '此瀏覽器不支援離線下載。',
+      'offline.hint': '下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。',
       'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
       'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
     },
@@ -550,6 +642,7 @@
     renderCityList();
     updateCurrentCity();
     renderCards();
+    renderOffline();
     document.getElementById('theme-toggle').textContent =
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
   }
@@ -587,7 +680,7 @@
     document.querySelectorAll('.base-pill').forEach(p => p.classList.toggle('active', p.dataset.id === id));
     if (baseLayer) map.removeLayer(baseLayer);
     const def = BASE_MAPS[id];
-    baseLayer = L.tileLayer(def.url, { pane: 'basePane', maxNativeZoom: 19, attribution: def.attr }).addTo(map);
+    baseLayer = new OfflineTileLayer(def.url, { pane: 'basePane', maxNativeZoom: 19, attribution: def.attr }).addTo(map);
     try { localStorage.setItem('nlOldMaps.base', id); } catch (e) {}
   }
 
@@ -669,6 +762,7 @@
     updateCurrentCity();
     renderCityList();
     renderCards();
+    renderOffline();
     try { localStorage.setItem('nlOldMaps.city', id); } catch (e) {}
     syncURL();
     if (window.innerWidth <= 640) closeSheet();
@@ -990,6 +1084,102 @@
     if (collectMode) startCardWatch();
   })();
 
+  // ── Offline download per stad ─────────────────────────────────────────
+  const OFF_HALF_LAT = 0.018, OFF_HALF_LNG = 0.028, OFF_ZOOMS = [13, 14, 15, 16];
+  let dlBusy = false, dlCancel = false;
+  const offlineCities = new Set();
+
+  function tileRange(bounds, z) {
+    const a = map.project(bounds.getNorthWest(), z).divideBy(RD_TILE_SIZE);
+    const b = map.project(bounds.getSouthEast(), z).divideBy(RD_TILE_SIZE);
+    return {
+      xMin: Math.floor(Math.min(a.x, b.x)), xMax: Math.floor(Math.max(a.x, b.x)),
+      yMin: Math.floor(Math.min(a.y, b.y)), yMax: Math.floor(Math.max(a.y, b.y)),
+    };
+  }
+  function dlStatus(msg) {
+    const el = document.getElementById('dl-status');
+    if (!el) return; el.textContent = msg || ''; el.classList.toggle('show', !!msg);
+  }
+  function dlProgress(done, total) {
+    dlStatus(t('offline.downloading') + ' ' + Math.round(done / total * 100) + '% (' + done + '/' + total + ')');
+  }
+  function saveOfflineCities() { try { localStorage.setItem('nlOldMaps.offline', JSON.stringify([...offlineCities])); } catch (e) {} }
+  function updateDownloadBtn() {
+    const btn = document.getElementById('btn-download');
+    if (!btn) return;
+    btn.classList.toggle('active', dlBusy);
+    const lbl = btn.querySelector('.lbl');
+    if (dlBusy) lbl.textContent = t('offline.cancel');
+    else lbl.textContent = offlineCities.has(state.city.id) ? t('offline.redownload') : t('offline.btn');
+  }
+  function refreshOfflineUsed() {
+    const el = document.getElementById('offline-used');
+    if (!el || !(navigator.storage && navigator.storage.estimate)) return;
+    navigator.storage.estimate().then(est => {
+      const mb = (est.usage || 0) / 1048576;
+      el.textContent = t('offline.used') + ' ~' + (mb < 10 ? mb.toFixed(1) : Math.round(mb)) + ' MB';
+    }).catch(() => {});
+  }
+  function renderOffline() { updateDownloadBtn(); refreshOfflineUsed(); }
+
+  async function downloadCity() {
+    if (!('caches' in window)) { dlStatus(t('offline.unsupported')); return; }
+    if (dlBusy) { dlCancel = true; return; }
+    dlBusy = true; dlCancel = false; updateDownloadBtn();
+    const c = state.city.center;
+    const bounds = L.latLngBounds([c[0] - OFF_HALF_LAT, c[1] - OFF_HALF_LNG], [c[0] + OFF_HALF_LAT, c[1] + OFF_HALF_LNG]);
+    const baseTpl = BASE_MAPS[state.base].url;
+    const histPrefix = ARC + 'Historische_tijdreis_' + nearestService(state.year).id + '/MapServer/tile';
+    const urls = new Set();
+    OFF_ZOOMS.forEach(z => {
+      const r = tileRange(bounds, z);
+      for (let x = r.xMin; x <= r.xMax; x++) for (let y = r.yMin; y <= r.yMax; y++) {
+        urls.add(baseTpl.replace('{z}', z).replace('{x}', x).replace('{y}', y));
+        const g = histTileGeom(x, y, z);
+        g.tiles.forEach(cr => urls.add(histPrefix + '/' + g.lvl + '/' + cr[1] + '/' + cr[0]));
+      }
+    });
+    const list = [...urls], total = list.length;
+    let done = 0, idx = 0;
+    dlProgress(0, total);
+    const cache = await caches.open(OFFLINE_CACHE);
+    async function worker() {
+      while (idx < list.length && !dlCancel) {
+        const u = list[idx++];
+        try {
+          if (!(await cache.match(u))) {
+            const resp = await fetch(u, { mode: 'cors' });
+            if (resp.ok) await cache.put(u, resp.clone());
+          }
+        } catch (e) {}
+        done++;
+        if (done % 4 === 0 || done === total) dlProgress(done, total);
+      }
+    }
+    await Promise.all(Array.from({ length: 6 }, worker));
+    dlBusy = false;
+    if (dlCancel) dlStatus(t('offline.canceled'));
+    else { offlineCities.add(state.city.id); saveOfflineCities(); dlStatus(t('offline.done')); }
+    updateDownloadBtn(); refreshOfflineUsed();
+  }
+
+  async function clearOffline() {
+    if (!('caches' in window)) return;
+    try { await caches.delete(OFFLINE_CACHE); } catch (e) {}
+    _offlineCacheP = null;
+    offlineCities.clear(); saveOfflineCities();
+    dlStatus(t('offline.cleared')); updateDownloadBtn(); refreshOfflineUsed();
+  }
+
+  (function initOffline() {
+    const section = document.getElementById('offline-section');
+    if (!('caches' in window)) { if (section) section.hidden = true; return; }
+    try { const o = localStorage.getItem('nlOldMaps.offline'); if (o) JSON.parse(o).forEach(id => offlineCities.add(id)); } catch (e) {}
+    document.getElementById('btn-download').addEventListener('click', downloadCity);
+    document.getElementById('btn-clear-offline').addEventListener('click', clearOffline);
+  })();
+
   try { const sb = localStorage.getItem('nlOldMaps.base'); if (sb && BASE_MAPS[sb]) state.base = sb; } catch (e) {}
   setBase(state.base);
   renderTicks();
@@ -1006,8 +1196,9 @@
   // Service worker tijdelijk uitgeschakeld: oude SW + caches opruimen.
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {});
-    if (window.caches) caches.keys().then(ks => ks.forEach(k => caches.delete(k))).catch(() => {});
   }
+  // Oude caches opruimen, maar de offline-download van de gebruiker bewaren.
+  if (window.caches) caches.keys().then(ks => ks.forEach(k => { if (k !== OFFLINE_CACHE) caches.delete(k); })).catch(() => {});
 })();
 </script>
 </body>
