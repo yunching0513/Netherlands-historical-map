@@ -201,6 +201,8 @@
   .offline-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
   .offline-used { font-family:var(--mono); font-size:10px; letter-spacing:0.04em; color:var(--ash); }
   .plan-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .sister-pill { display:inline-flex; align-items:center; gap:5px; text-decoration:none; }
+  .sister-pill .arr { color:var(--vermilion); font-size:11px; }
   /* About modal */
   .about-card { position:relative; z-index:1; max-width:min(680px,94vw); max-height:92vh; background:var(--paper-2); border:1px solid var(--stone); box-shadow:0 30px 80px -24px rgba(0,0,0,0.6); overflow-y:auto; padding:34px 38px 26px; }
   .about-head { padding-bottom:14px; border-bottom:3px solid var(--vermilion); margin-bottom:18px; }
@@ -210,8 +212,9 @@
   .about-body p { margin-bottom:14px; }
   .about-body p:last-child { margin-bottom:0; }
   .about-body strong { color:var(--ink); font-weight:500; }
-  .about-foot { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:22px; padding-top:14px; border-top:1px solid var(--mist); font-family:var(--mono); font-size:11px; color:var(--ash); }
+  .about-foot { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-top:22px; padding-top:14px; border-top:1px solid var(--mist); font-family:var(--mono); font-size:11px; color:var(--ash); }
   .about-sig { letter-spacing:0.06em; }
+  .about-links { display:inline-flex; flex-wrap:wrap; gap:14px; }
   .about-link { font-family:var(--mono); font-size:11px; color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
   .about-link:hover { color:var(--vermilion); border-color:var(--vermilion); }
   @media (max-width:640px) {
@@ -411,6 +414,9 @@
           <button type="button" data-lang="zh">中</button>
         </span>
         <button type="button" class="pill-toggle" id="theme-toggle" data-i18n="theme.light">紙色</button>
+        <a class="pill-toggle sister-pill" id="sister-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener">
+          <span data-i18n="sister.label">台灣舊地圖</span> <span class="arr">↗</span>
+        </a>
       </div>
     </div>
   </div>
@@ -427,7 +433,10 @@
     <div class="about-body" id="about-body"></div>
     <footer class="about-foot">
       <span class="about-sig">— 吳昀慶 Yunching Wu</span>
-      <a class="about-link" href="https://github.com/yunching0513/Netherlands-historical-map" target="_blank" rel="noopener">GitHub ↗</a>
+      <span class="about-links">
+        <a class="about-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener"><span data-i18n="sister.full">姊妹專案：台灣舊地圖</span> ↗</a>
+        <a class="about-link" href="https://github.com/yunching0513/Netherlands-historical-map" target="_blank" rel="noopener">GitHub ↗</a>
+      </span>
     </footer>
   </article>
 </div>
@@ -626,6 +635,7 @@
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
       'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding', 'foot.about': 'Over',
       'about.kicker': 'Nederland · door de tijd', 'about.title': 'Over dit platform',
+      'sister.label': 'Oude kaarten van Taiwan', 'sister.full': 'Zusterproject: Oude kaarten van Taiwan',
       'theme.light': 'Papier', 'theme.dark': 'Inkt', 'loading': 'Laden…', 'sheet.hint': 'Tik om te openen',
       'sec.cards': 'Ansichtkaarten', 'sec.cards.en': 'ansichtkaarten', 'cards.collect': 'Verzamelen',
       'cards.empty': 'Nog geen ansichtkaarten voor deze stad.', 'cards.locked': 'Loop dichtbij om te ontgrendelen',
@@ -654,6 +664,7 @@
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
       'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits', 'foot.about': 'About',
       'about.kicker': 'Netherlands · through time', 'about.title': 'About this platform',
+      'sister.label': 'Taiwan old maps', 'sister.full': 'Sister project: Taiwan historical maps',
       'theme.light': 'Paper', 'theme.dark': 'Ink', 'loading': 'Loading…', 'sheet.hint': 'Tap to open',
       'sec.cards': 'Postcards', 'sec.cards.en': 'postcards', 'cards.collect': 'Collect',
       'cards.empty': 'No postcards for this city yet.', 'cards.locked': 'Walk nearby to unlock',
@@ -682,6 +693,7 @@
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
       'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝', 'foot.about': '關於',
       'about.kicker': '荷蘭 · 穿越時光', 'about.title': '關於這個平台',
+      'sister.label': '台灣舊地圖', 'sister.full': '姊妹專案：台灣舊地圖',
       'theme.light': '紙色', 'theme.dark': '墨色', 'loading': '載入中…', 'sheet.hint': '點此展開',
       'sec.cards': '明信片', 'sec.cards.en': '明信片', 'cards.collect': '收集模式',
       'cards.empty': '這座城市還沒有明信片。', 'cards.locked': '走到附近解鎖',
