@@ -3,18 +3,18 @@
 > **把 1815 年以來的荷蘭歷史地圖，疊在今日的街道上。**
 > Schuif door twee eeuwen Nederlandse topografische kaarten, over de straten van vandaag.
 
-一個單頁、免安裝的網頁應用：拉動時間滑桿，從 **1815 年**走到 **2023 年**，看你腳下的荷蘭城市如何在運河、圳田與鐵路之間慢慢長成今天的樣子。仿照 [taiwan-historical-maps](https://github.com/yunching0513/taiwan-historical-maps) 的歷史疊圖架構，換上荷蘭的圖資。
+一個單頁、免安裝的網頁應用：拉動時間滑桿，從 **1815 年**走到 **2021 年**，看你腳下的荷蘭城市如何在運河、圳田與鐵路之間慢慢長成今天的樣子。仿照 [taiwan-historical-maps](https://github.com/yunching0513/taiwan-historical-maps) 的歷史疊圖架構，換上荷蘭的圖資。
 
 ## ✨ 特色 · Functies
 
-- 🗺️ **兩世紀時光滑桿**：荷蘭國家地形圖（[Topotijdreis](https://www.topotijdreis.nl) / Kadaster）1815→2023，逐年疊在現代街道上
-- 🧭 **三種底圖**：PDOK BRT 街道圖、灰階圖、實景空照（Luchtfoto），無法連線時自動退回 CartoDB
+- 🗺️ **兩世紀時光滑桿**：荷蘭國家地形圖（[Topotijdreis](https://www.topotijdreis.nl) / Kadaster）1815→2021，吸附到約 90 個實際年份
+- 🧭 **三種底圖**：PDOK BRT 街道圖、簡圖（灰階）、實景空照（Luchtfoto）
 - ↔️ **今昔對照**：拖曳分隔線左右滑動，比對 **TOEN / NU**（昔 / 今）
 - 📍 **GPS 定位**：在荷蘭實地散步時定位自己，看百年前同一地點的模樣
 - 🏙️ **20 座城市快速跳轉**：阿姆斯特丹、鹿特丹、海牙、烏特勒支、萊頓、台夫特、馬斯特里赫特……
 - 🌗 **紙色／墨色雙主題**，可深連結 `?city=&year=`
 - 🌏 **三語介面**：Nederlands · English · 繁體中文
-- 📱 **PWA 免安裝**：開瀏覽器就能用，也可裝成手機 App，圖磚離線快取
+- 📱 **PWA 免安裝**：開瀏覽器就能用，也可裝成手機 App
 
 ## 結構 · Structuur
 
@@ -22,13 +22,14 @@
 netherlands-historical-map/
 ├── index.html             # 全部的應用程式（HTML + CSS + JS，單檔）
 ├── manifest.webmanifest   # PWA 應用程式清單
-├── sw.js                  # Service worker（離線快取）
+├── sw.js                  # Service worker
 ├── privacy.html           # 隱私權說明
+├── credits.html           # 版權致謝（三語）
 ├── icons/                 # 應用程式圖示（SVG）
 └── .nojekyll
 ```
 
-單一 HTML 檔，**無需 build、無需 npm install**。Leaflet 透過 CDN 載入，歷史圖磚直接打 Topotijdreis tile server，底圖打 PDOK。
+單一 HTML 檔，**無需 build、無需 npm install**。地圖在 Web Mercator，底圖打 PDOK；歷史圖磚來自 Kadaster/Esri 的 RD（EPSG:28992）服務，以 canvas 逐塊重投影疊合。
 
 ## 使用 · Gebruik
 
@@ -51,10 +52,11 @@ index.html?city=maastricht&year=1850
 
 | 圖層 | 來源 | 授權 |
 |------|------|------|
-| 歷史地形圖 1815–heden | [Topotijdreis](https://www.topotijdreis.nl) · Kadaster | CC BY 4.0 |
-| 街道／灰階底圖（BRT） | [PDOK](https://www.pdok.nl) · Kadaster | open data |
+| 歷史地形圖 1815–2021 | [Topotijdreis](https://www.topotijdreis.nl) · Kadaster（圖磚託管 [Esri Nederland](https://www.esri.nl)） | CC BY 4.0 |
+| 街道／灰階底圖（BRT） | [PDOK](https://www.pdok.nl) · Kadaster | CC BY 4.0 |
 | 空照圖（Luchtfoto） | [PDOK](https://www.pdok.nl) · Beeldmateriaal Nederland | open data |
-| 退回底圖 | OpenStreetMap · CARTO | ODbL |
+
+> 完整版權致謝（三語）見 [`credits.html`](credits.html)。
 
 歷史地圖由荷蘭土地測量局（**Kadaster**）透過 Topotijdreis 計畫提供，包含：
 
@@ -69,4 +71,4 @@ index.html?city=maastricht&year=1850
 
 ---
 
-設計・製作 · Ontwerp & bouw — [吳昃慶 Yunching Wu](https://github.com/yunching0513)
+設計・製作 · Ontwerp & bouw — [吳昀慶 Yunching Wu](https://github.com/yunching0513)

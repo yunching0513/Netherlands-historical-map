@@ -254,12 +254,14 @@
     <div class="panel-foot">
       <span data-i18n="foot.maps">歷史圖資</span> ·
       <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> /
-      <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a><br>
+      <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a> /
+      <a href="https://www.esri.nl" target="_blank" rel="noopener">Esri NL</a><br>
       <span data-i18n="foot.base">底圖</span> ·
       <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> /
-      <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a><br>
+      <a href="https://www.beeldmateriaal.nl" target="_blank" rel="noopener">Beeldmateriaal NL</a><br>
       <span data-i18n="foot.made">設計・製作</span> ·
-      <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昀慶 Yunching Wu</a>
+      <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昀慶 Yunching Wu</a> ·
+      <a href="credits.html" data-i18n="foot.credits">致謝</a>
 
       <div class="foot-toggles">
         <span class="lang-switch" id="lang-switch">
@@ -329,7 +331,7 @@
   const RD_ORIGIN_X = -30515500, RD_ORIGIN_Y = 31112400, RD_TILE_SIZE = 256;
   const RD_RESOLUTIONS = [3251.206502413005, 1625.6032512065026, 812.8016256032513, 406.40081280162565, 203.20040640081282, 101.60020320040641, 50.800101600203206, 25.400050800101603, 12.700025400050801, 6.350012700025401, 3.1750063500127004, 1.5875031750063502];
   const ARC = 'https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/';
-  const HIST_ATTR = 'Historie &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> / Kadaster';
+  const HIST_ATTR = 'Historie &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> / Kadaster / Esri NL';
 
   const BASE_MAPS = {
     brt:       { url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:3857/{z}/{x}/{y}.png', attr: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
@@ -398,7 +400,7 @@
       'sec.locate': 'Locatie', 'sec.locate.en': 'locatie',
       'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
-      'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw',
+      'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding',
       'theme.light': 'Papier', 'theme.dark': 'Inkt', 'loading': 'Laden…', 'sheet.hint': 'Tik om te openen',
       'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
       'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
@@ -412,7 +414,7 @@
       'sec.locate': 'Locate', 'sec.locate.en': 'locate',
       'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
-      'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build',
+      'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits',
       'theme.light': 'Paper', 'theme.dark': 'Ink', 'loading': 'Loading…', 'sheet.hint': 'Tap to open',
       'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
       'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
@@ -426,7 +428,7 @@
       'sec.locate': '定位', 'sec.locate.en': '定位',
       'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
-      'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作',
+      'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝',
       'theme.light': '紙色', 'theme.dark': '墨色', 'loading': '載入中…', 'sheet.hint': '點此展開',
       'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
       'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
