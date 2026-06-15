@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720"
+     font-family="'Noto Serif TC','WenQuanYi Zen Hei','Songti TC',serif" role="img"
+     aria-label="荷蘭古地圖散策 · Oude-Kaart Wandeling door Nederland · An Old-Map Stroll through the Netherlands">
+  <defs>
+    <pattern id="grain" width="5" height="5" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.55" fill="#BBB8AE" opacity="0.5"/>
+    </pattern>
+    <clipPath id="rightclip"><rect x="760" y="0" width="520" height="720"/></clipPath>
+    <clipPath id="histclip"><rect x="760" y="0" width="260" height="720"/></clipPath>
+    <clipPath id="modclip"><rect x="1020" y="0" width="260" height="720"/></clipPath>
+  </defs>
+
+  <!-- paper background -->
+  <rect width="1280" height="720" fill="#F1EFE9"/>
+
+  <!-- ───────── RIGHT PANEL : "Then & Now" split map ───────── -->
+  <g clip-path="url(#rightclip)">
+    <!-- HISTORIC HALF (1815 side) -->
+    <g clip-path="url(#histclip)">
+      <rect x="760" y="0" width="260" height="720" fill="#EAE8E2"/>
+      <!-- topographic contour ellipses -->
+      <g fill="none" stroke="#807C73" stroke-width="1.4" opacity="0.65">
+        <ellipse cx="890" cy="360" rx="260" ry="200"/>
+        <ellipse cx="890" cy="360" rx="210" ry="158"/>
+        <ellipse cx="890" cy="360" rx="160" ry="118"/>
+        <ellipse cx="890" cy="360" rx="112" ry="80"/>
+        <ellipse cx="890" cy="360" rx="68" ry="46"/>
+      </g>
+      <!-- hand-drawn river-like curve -->
+      <path d="M760,210 C 830,230 870,260 900,310 C 935,370 905,440 870,490 C 830,548 800,580 760,610"
+            fill="none" stroke="#565347" stroke-width="2.2" opacity="0.7"/>
+      <!-- compass mark (top left) -->
+      <g transform="translate(800,80)" stroke="#565347" stroke-width="1.4" fill="none" opacity="0.7">
+        <circle cx="0" cy="0" r="14"/>
+        <line x1="0" y1="-18" x2="0" y2="18"/>
+        <line x1="-18" y1="0" x2="18" y2="0"/>
+        <polygon points="0,-22 -4,-12 4,-12" fill="#C15F3C" stroke="none"/>
+      </g>
+      <!-- era badge -->
+      <g transform="translate(780,640)">
+        <rect x="0" y="0" width="92" height="38" fill="#F1EFE9" stroke="#807C73" stroke-width="1"/>
+        <text x="46" y="25" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace"
+              font-size="18" fill="#1F1D19" letter-spacing="2">1815</text>
+      </g>
+    </g>
+
+    <!-- MODERN HALF (2021 side) -->
+    <g clip-path="url(#modclip)">
+      <rect x="1020" y="0" width="260" height="720" fill="#E6E3DA"/>
+      <!-- street grid -->
+      <g stroke="#BBB8AE" stroke-width="1" opacity="0.85">
+        <line x1="1020" y1="120" x2="1280" y2="120"/>
+        <line x1="1020" y1="220" x2="1280" y2="220"/>
+        <line x1="1020" y1="320" x2="1280" y2="320"/>
+        <line x1="1020" y1="420" x2="1280" y2="420"/>
+        <line x1="1020" y1="520" x2="1280" y2="520"/>
+        <line x1="1020" y1="620" x2="1280" y2="620"/>
+        <line x1="1060" y1="0"   x2="1060" y2="720"/>
+        <line x1="1130" y1="0"   x2="1130" y2="720"/>
+        <line x1="1200" y1="0"   x2="1200" y2="720"/>
+      </g>
+      <!-- zoning blocks (subtle CC0-style pastel) -->
+      <g opacity="0.75">
+        <rect x="1060" y="120" width="70" height="100" fill="#C9B89E"/> <!-- residential -->
+        <rect x="1130" y="120" width="70" height="100" fill="#A8B79D"/> <!-- green -->
+        <rect x="1200" y="120" width="80" height="100" fill="#D5C7A8"/>
+        <rect x="1060" y="320" width="70" height="100" fill="#B98E72"/> <!-- commercial -->
+        <rect x="1130" y="320" width="140" height="100" fill="#C9B89E"/>
+        <rect x="1060" y="520" width="140" height="100" fill="#A8B79D"/>
+        <rect x="1200" y="520" width="80" height="100" fill="#9CAFB9"/>  <!-- water -->
+      </g>
+      <!-- era badge -->
+      <g transform="translate(1160,640)">
+        <rect x="0" y="0" width="100" height="38" fill="#F1EFE9" stroke="#807C73" stroke-width="1"/>
+        <text x="50" y="25" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace"
+              font-size="18" fill="#1F1D19" letter-spacing="2">2021</text>
+      </g>
+    </g>
+
+    <!-- VERTICAL VERMILION DIVIDER + swipe knob (echo of "Then & Now") -->
+    <line x1="1020" y1="0" x2="1020" y2="720" stroke="#C15F3C" stroke-width="3"/>
+    <g transform="translate(1020,360)">
+      <circle r="22" fill="#C15F3C" stroke="#F1EFE9" stroke-width="3"/>
+      <text x="0" y="6" text-anchor="middle" font-family="'JetBrains Mono','Courier New',monospace"
+            font-size="16" fill="#FFFFFF">↔</text>
+    </g>
+
+    <!-- WALKING ROUTE crossing the divider -->
+    <path d="M790,560 C 870,500 920,460 990,420 C 1040,390 1090,330 1180,250"
+          fill="none" stroke="#C15F3C" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 14"/>
+    <!-- location pin on the modern side -->
+    <g transform="translate(1180,240)">
+      <path d="M0,12 c -19,0 -34,15 -34,34 c 0,24 34,52 34,52 c 0,0 34,-28 34,-52 c 0,-19 -15,-34 -34,-34 z" fill="#C15F3C"/>
+      <circle cx="0" cy="46" r="11" fill="#F1EFE9"/>
+    </g>
+  </g>
+
+  <!-- panel separator (vertical) between text block and visual -->
+  <line x1="760" y1="0" x2="760" y2="720" stroke="#1F1D19" stroke-width="1"/>
+
+  <!-- ───────── LEFT PANEL : trilingual text stack ───────── -->
+  <g>
+    <!-- serial + kicker -->
+    <text x="62" y="98" font-family="'JetBrains Mono','Courier New',monospace"
+          font-size="14" fill="#C15F3C" letter-spacing="3">01 / NEDERLAND · DOOR DE TIJD</text>
+
+    <!-- BIG CHINESE TITLE -->
+    <text x="58" y="220" font-size="96" font-weight="700" fill="#1F1D19" letter-spacing="8">荷蘭古地圖散策</text>
+    <!-- vermilion ribbon -->
+    <rect x="62" y="246" width="118" height="6" fill="#C15F3C"/>
+
+    <!-- DUTCH SUBTITLE -->
+    <text x="60" y="332" font-family="'EB Garamond','Cormorant Garamond',Georgia,serif"
+          font-style="italic" font-size="42" fill="#9E4B2E">Oude-Kaart Wandeling door Nederland</text>
+
+    <!-- ENGLISH SUBTITLE -->
+    <text x="60" y="386" font-family="'EB Garamond','Cormorant Garamond',Georgia,serif"
+          font-style="italic" font-size="34" fill="#565347">An Old-Map Stroll through the Netherlands</text>
+
+    <!-- TAGLINE -->
+    <text x="60" y="478" font-family="'Noto Sans TC','WenQuanYi Zen Hei',system-ui,sans-serif"
+          font-size="22" fill="#807C73">1815 → 2021　把兩百年荷蘭地圖疊在今日街道上</text>
+    <text x="60" y="510" font-family="'EB Garamond',Georgia,serif" font-style="italic"
+          font-size="20" fill="#807C73">Twee eeuwen Nederlandse kaarten, over de straten van vandaag.</text>
+
+    <!-- highlights chips -->
+    <g font-family="'JetBrains Mono','Courier New',monospace" font-size="13" fill="#1F1D19" letter-spacing="2">
+      <rect x="60"  y="558" width="180" height="34" fill="none" stroke="#807C73"/>
+      <text x="150" y="581" text-anchor="middle">20 STEDEN · CITIES</text>
+      <rect x="252" y="558" width="200" height="34" fill="none" stroke="#807C73"/>
+      <text x="352" y="581" text-anchor="middle">16 MEESTERWERKEN</text>
+      <rect x="464" y="558" width="190" height="34" fill="none" stroke="#807C73"/>
+      <text x="559" y="581" text-anchor="middle">NL · EN · 繁體中文</text>
+    </g>
+
+    <!-- footer URL + sources -->
+    <text x="60" y="660" font-family="'JetBrains Mono','Courier New',monospace"
+          font-size="14" fill="#A6A399" letter-spacing="2">yunching0513.github.io/Netherlands-historical-map</text>
+    <text x="60" y="688" font-family="'JetBrains Mono','Courier New',monospace"
+          font-size="11" fill="#A6A399" letter-spacing="2">TOPOTIJDREIS · KADASTER · ESRI NL · PDOK · WIKIMEDIA COMMONS</text>
+  </g>
+
+  <!-- grain overlay -->
+  <rect width="1280" height="720" fill="url(#grain)" opacity="0.35" style="mix-blend-mode:multiply"/>
+  <!-- inner frame -->
+  <rect x="0.5" y="0.5" width="1279" height="719" fill="none" stroke="#D6D3CB" stroke-width="1"/>
+</svg>
