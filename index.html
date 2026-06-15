@@ -201,6 +201,22 @@
   .offline-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
   .offline-used { font-family:var(--mono); font-size:10px; letter-spacing:0.04em; color:var(--ash); }
   .plan-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  /* Planning legend (floating, collapsible) */
+  .legend { position:absolute; left:20px; bottom:24px; z-index:910; max-width:240px; background:var(--paper-2); border:1px solid var(--stone); box-shadow:0 6px 20px -10px rgba(31,29,25,0.4); font-family:var(--sans); display:none; }
+  .legend.show { display:block; }
+  .legend-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:7px 10px; border-bottom:1px solid var(--mist); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .legend-title { font-family:var(--mono); font-size:10px; letter-spacing:0.14em; color:var(--graphite); text-transform:uppercase; }
+  .legend-caret { font-size:10px; color:var(--silver); transition:transform 0.2s; }
+  .legend.collapsed .legend-caret { transform:rotate(180deg); }
+  .legend-body { max-height:60vh; overflow-y:auto; padding:8px 10px 10px; }
+  .legend.collapsed .legend-body { display:none; }
+  .legend-group { margin-bottom:8px; }
+  .legend-group:last-child { margin-bottom:0; }
+  .legend-grouphd { font-family:var(--serif); font-size:11px; font-weight:600; color:var(--ink); margin-bottom:2px; letter-spacing:0.04em; }
+  .legend-grouphd .nl { display:block; font-family:var(--en-serif); font-style:italic; font-weight:400; font-size:10px; color:var(--ash); margin-top:1px; }
+  .legend-img { display:block; max-width:100%; height:auto; image-rendering:crisp-edges; background:#fff; }
+  .legend-note { font-family:var(--sans); font-size:9.5px; color:var(--ash); margin-top:6px; line-height:1.55; }
+  @media (max-width:640px) { .legend { left:12px; bottom:90px; max-width:64vw; } }
 </style>
 </head>
 <body class="grain">
@@ -217,6 +233,14 @@
 <div class="compare-label now" id="cmp-now" data-i18n="compare.now">NU</div>
 
 <div class="tile-spinner" id="tile-spinner" data-i18n="loading">Laden…</div>
+
+<aside class="legend" id="legend" aria-label="Legenda">
+  <div class="legend-head" id="legend-head" role="button" tabindex="0">
+    <span class="legend-title" data-i18n="legend.title">圖例 · Legenda</span>
+    <span class="legend-caret">▾</span>
+  </div>
+  <div class="legend-body" id="legend-body"></div>
+</aside>
 
 <aside class="panel grain" id="panel">
   <div class="sheet-handle" id="sheet-handle" role="button" aria-label="Paneel wisselen">
@@ -579,6 +603,7 @@
       'offline.hint': 'Bewaart de huidige basiskaart en het huidige jaar (tot straatniveau) op je apparaat — sneller en offline te gebruiken.',
       'sec.plan': 'Ruimtelijk', 'sec.plan.en': 'ruimtelijk', 'plan.zoning': 'Bestemmingsplan', 'plan.landuse': 'Bodemgebruik',
       'plan.hint': 'Actuele bestemmingsplannen & bodemgebruik (CC0, via PDOK), als overlay op de kaart.',
+      'legend.title': 'Legenda', 'legend.note': 'Labels in het Nederlands (officiële PDOK-legenda).',
       'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
       'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
     },
@@ -605,6 +630,7 @@
       'offline.hint': 'Saves the current base map and year (to street level) on your device — faster and usable offline.',
       'sec.plan': 'Planning', 'sec.plan.en': 'planning', 'plan.zoning': 'Zoning', 'plan.landuse': 'Land use',
       'plan.hint': 'Current Dutch zoning plans & land use (CC0, via PDOK), as a map overlay.',
+      'legend.title': 'Legend', 'legend.note': 'Labels are in Dutch (official PDOK legend).',
       'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
       'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
     },
@@ -631,6 +657,7 @@
       'offline.hint': '下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。',
       'sec.plan': '規劃圖', 'sec.plan.en': '規劃', 'plan.zoning': '都市計畫', 'plan.landuse': '土地利用',
       'plan.hint': '荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。',
+      'legend.title': '圖例', 'legend.note': '標籤為荷蘭文（PDOK 官方圖例）。',
       'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
       'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
     },
@@ -661,6 +688,7 @@
     updateCurrentCity();
     renderCards();
     renderOffline();
+    renderLegend();
     document.getElementById('theme-toggle').textContent =
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
   }
@@ -932,6 +960,7 @@
 
   document.querySelectorAll('.plan-pill').forEach(p =>
     p.addEventListener('click', () => togglePlan(p.dataset.plan)));
+  document.getElementById('legend-head').addEventListener('click', toggleLegendCollapse);
 
   const yearSlider = document.getElementById('year-slider');
   let scrubTimer = null;
@@ -1113,13 +1142,53 @@
       url: 'https://service.pdok.nl/kadaster/plu/wms/v1_0',
       layers: 'enkelbestemming',
       attr: 'Bestemmingsplannen &copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">Kadaster / PDOK</a> · CC0',
+      legend: 'https://service.pdok.nl/kadaster/ruimtelijke-plannen/wms/v1_0/legend/enkelbestemming/enkelbestemming.png',
+      labelKey: 'plan.zoning',
+      labelNl: 'Enkelbestemming',
     },
     landuse: {
       url: 'https://service.pdok.nl/cbs/bestandbodemgebruik/2017/wms/v1_0',
       layers: 'bestandbodemgebruik_2017_categorie',
       attr: 'Bodemgebruik 2017 &copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">CBS / PDOK</a> · CC0',
+      legend: 'https://service.pdok.nl/cbs/bestand-bodemgebruik-2017/wms/v1_0/legend/bestandbodemgebruik_2017_categorie/bestand_bodemgebruik_2017_categorie.png',
+      labelKey: 'plan.landuse',
+      labelNl: 'Bodemgebruik 2017',
     },
   };
+  function isLegendCollapsed() { try { return localStorage.getItem('nlOldMaps.legend') === '0'; } catch (e) { return false; } }
+  function renderLegend() {
+    const box = document.getElementById('legend');
+    const body = document.getElementById('legend-body');
+    const active = Object.keys(PLAN).filter(id => planLayers[id]);
+    if (!active.length) { box.classList.remove('show'); return; }
+    box.classList.add('show');
+    box.classList.toggle('collapsed', isLegendCollapsed());
+    body.innerHTML = '';
+    active.forEach(id => {
+      const def = PLAN[id];
+      const g = document.createElement('div'); g.className = 'legend-group';
+      const h = document.createElement('div'); h.className = 'legend-grouphd';
+      h.textContent = t(def.labelKey);
+      if (t(def.labelKey) !== def.labelNl) {
+        const sub = document.createElement('span'); sub.className = 'nl'; sub.textContent = def.labelNl; h.appendChild(sub);
+      }
+      g.appendChild(h);
+      const img = document.createElement('img');
+      img.className = 'legend-img'; img.loading = 'lazy'; img.alt = def.labelNl + ' — legenda';
+      img.src = def.legend;
+      g.appendChild(img);
+      body.appendChild(g);
+    });
+    const note = document.createElement('div');
+    note.className = 'legend-note'; note.textContent = t('legend.note');
+    body.appendChild(note);
+  }
+  function toggleLegendCollapse() {
+    const box = document.getElementById('legend');
+    const c = !box.classList.contains('collapsed');
+    box.classList.toggle('collapsed', c);
+    try { localStorage.setItem('nlOldMaps.legend', c ? '0' : '1'); } catch (e) {}
+  }
   const planLayers = {};
   function togglePlan(id) {
     const def = PLAN[id];
@@ -1135,6 +1204,7 @@
       map.removeLayer(planLayers[id]); delete planLayers[id];
     }
     try { localStorage.setItem('nlOldMaps.plan.' + id, on ? '1' : '0'); } catch (e) {}
+    renderLegend();
   }
 
   // ── Offline download per stad ─────────────────────────────────────────
