@@ -200,6 +200,7 @@
   .dl-status.show { display:block; }
   .offline-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
   .offline-used { font-family:var(--mono); font-size:10px; letter-spacing:0.04em; color:var(--ash); }
+  .plan-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
 </style>
 </head>
 <body class="grain">
@@ -336,6 +337,17 @@
         <button type="button" class="pill-toggle" id="btn-clear-offline" data-i18n="offline.clear">清除下載</button>
       </div>
     </div>
+
+    <div class="section-label">
+      <span class="num">07</span>
+      <span class="txt" data-i18n="sec.plan">規劃圖</span>
+      <span class="en" data-i18n="sec.plan.en">ruimtelijk</span>
+    </div>
+    <div class="plan-pills">
+      <button type="button" class="pill-toggle plan-pill" data-plan="zoning" data-i18n="plan.zoning">都市計畫</button>
+      <button type="button" class="pill-toggle plan-pill" data-plan="landuse" data-i18n="plan.landuse">土地利用</button>
+    </div>
+    <div class="offline-hint" data-i18n="plan.hint">荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。</div>
 
     <div class="panel-foot">
       <span data-i18n="foot.maps">歷史圖資</span> ·
@@ -565,6 +577,8 @@
       'offline.downloading': 'Bezig', 'offline.done': 'Opgeslagen ✓ — offline beschikbaar', 'offline.canceled': 'Gestopt',
       'offline.cleared': 'Downloads gewist', 'offline.clear': 'Wissen', 'offline.used': 'Gebruikt', 'offline.unsupported': 'Offline niet ondersteund in deze browser.',
       'offline.hint': 'Bewaart de huidige basiskaart en het huidige jaar (tot straatniveau) op je apparaat — sneller en offline te gebruiken.',
+      'sec.plan': 'Ruimtelijk', 'sec.plan.en': 'ruimtelijk', 'plan.zoning': 'Bestemmingsplan', 'plan.landuse': 'Bodemgebruik',
+      'plan.hint': 'Actuele bestemmingsplannen & bodemgebruik (CC0, via PDOK), als overlay op de kaart.',
       'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
       'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
     },
@@ -589,6 +603,8 @@
       'offline.downloading': 'Downloading', 'offline.done': 'Saved ✓ — available offline', 'offline.canceled': 'Stopped',
       'offline.cleared': 'Downloads cleared', 'offline.clear': 'Clear', 'offline.used': 'Used', 'offline.unsupported': 'Offline not supported in this browser.',
       'offline.hint': 'Saves the current base map and year (to street level) on your device — faster and usable offline.',
+      'sec.plan': 'Planning', 'sec.plan.en': 'planning', 'plan.zoning': 'Zoning', 'plan.landuse': 'Land use',
+      'plan.hint': 'Current Dutch zoning plans & land use (CC0, via PDOK), as a map overlay.',
       'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
       'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
     },
@@ -613,6 +629,8 @@
       'offline.downloading': '下載中', 'offline.done': '已存到裝置 ✓ 可離線使用', 'offline.canceled': '已停止',
       'offline.cleared': '已清除下載', 'offline.clear': '清除下載', 'offline.used': '已用約', 'offline.unsupported': '此瀏覽器不支援離線下載。',
       'offline.hint': '下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。',
+      'sec.plan': '規劃圖', 'sec.plan.en': '規劃', 'plan.zoning': '都市計畫', 'plan.landuse': '土地利用',
+      'plan.hint': '荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。',
       'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
       'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
     },
@@ -673,6 +691,7 @@
   map.createPane('basePane');   map.getPane('basePane').style.zIndex = 200;
   map.createPane('histPane');   map.getPane('histPane').style.zIndex = 350;
   map.getPane('histPane').id = 'hist-pane';
+  map.createPane('planPane');   map.getPane('planPane').style.zIndex = 360;
 
   let baseLayer = null, histLayer = null;
   function setBase(id) {
@@ -911,6 +930,9 @@
   document.querySelectorAll('.base-pill').forEach(p =>
     p.addEventListener('click', () => setBase(p.dataset.id)));
 
+  document.querySelectorAll('.plan-pill').forEach(p =>
+    p.addEventListener('click', () => togglePlan(p.dataset.plan)));
+
   const yearSlider = document.getElementById('year-slider');
   let scrubTimer = null;
   yearSlider.addEventListener('input', e => {
@@ -1084,6 +1106,37 @@
     if (collectMode) startCardWatch();
   })();
 
+  // ── Ruimtelijke overlays (huidige plannen, CC0 via PDOK) ──────────────
+  // Optionele WMS-overlays: bestemmingsplannen (zoning) en bodemgebruik.
+  const PLAN = {
+    zoning: {
+      url: 'https://service.pdok.nl/kadaster/plu/wms/v1_0',
+      layers: 'enkelbestemming',
+      attr: 'Bestemmingsplannen &copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">Kadaster / PDOK</a> · CC0',
+    },
+    landuse: {
+      url: 'https://service.pdok.nl/cbs/bestandbodemgebruik/2017/wms/v1_0',
+      layers: 'bestandbodemgebruik_2017_categorie',
+      attr: 'Bodemgebruik 2017 &copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">CBS / PDOK</a> · CC0',
+    },
+  };
+  const planLayers = {};
+  function togglePlan(id) {
+    const def = PLAN[id];
+    if (!def) return;
+    const on = !planLayers[id];
+    document.querySelectorAll('.plan-pill[data-plan="' + id + '"]').forEach(p => p.classList.toggle('active', on));
+    if (on) {
+      planLayers[id] = L.tileLayer.wms(def.url, {
+        layers: def.layers, format: 'image/png', transparent: true, version: '1.3.0',
+        pane: 'planPane', opacity: 0.7, maxZoom: 19, attribution: def.attr,
+      }).addTo(map);
+    } else if (planLayers[id]) {
+      map.removeLayer(planLayers[id]); delete planLayers[id];
+    }
+    try { localStorage.setItem('nlOldMaps.plan.' + id, on ? '1' : '0'); } catch (e) {}
+  }
+
   // ── Offline download per stad ─────────────────────────────────────────
   const OFF_HALF_LAT = 0.018, OFF_HALF_LNG = 0.028, OFF_ZOOMS = [13, 14, 15, 16];
   let dlBusy = false, dlCancel = false;
@@ -1192,6 +1245,7 @@
   applyI18n();
   updateMeta();
   loadPostcards();
+  ['zoning', 'landuse'].forEach(id => { try { if (localStorage.getItem('nlOldMaps.plan.' + id) === '1') togglePlan(id); } catch (e) {} });
 
   // Service worker tijdelijk uitgeschakeld: oude SW + caches opruimen.
   if ('serviceWorker' in navigator) {
