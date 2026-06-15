@@ -1,0 +1,30 @@
+{
+  "_schema": {
+    "_comment": "每個明信片一筆物件，放在 items[]。製作見 SOURCING.md。",
+    "id": "唯一代號，英數小寫，如 'amsterdam-dam-1900'",
+    "city": "城市 id，需與 app 一致（amsterdam, rotterdam, denhaag, utrecht, leiden, delft, haarlem, gouda, dordrecht, amersfoort, groningen, leeuwarden, zwolle, deventer, arnhem, nijmegen, denbosch, eindhoven, maastricht, middelburg）",
+    "year": "照片年份字串，如 '1900'",
+    "title": { "zh": "中文標題", "en": "English title", "nl": "Nederlandse titel" },
+    "img": "repo 內路徑，如 'postcards/amsterdam/dam-1900.jpg'（用 GitHub 網頁上傳）",
+    "credit": "來源機構，如 'Rijksmuseum, Amsterdam' 或 'Nationaal Archief / Anefo'",
+    "license": "授權，只接受 'CC0' / 'Public Domain' / 'CC-BY' / 'CC-BY-SA'",
+    "sourceUrl": "原始頁面連結（必填，便於查證授權）",
+    "lat": "（選填）緯度，做『走到附近自動顯影』時用",
+    "lng": "（選填）經度"
+  },
+
+  "items": [
+    {
+      "id": "amsterdam-EXAMPLE",
+      "city": "amsterdam",
+      "year": "1900",
+      "title": { "zh": "（範例，請替換）阿姆斯特丹水壩廣場", "en": "Dam Square (EXAMPLE — replace)", "nl": "De Dam (VOORBEELD — vervangen)" },
+      "img": "postcards/amsterdam/REPLACE-ME.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "CC0",
+      "sourceUrl": "https://www.rijksmuseum.nl/nl/rijksstudio",
+      "lat": null,
+      "lng": null
+    }
+  ]
+}
