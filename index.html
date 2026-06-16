@@ -236,6 +236,36 @@
   .plan-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
   .sister-pill { display:inline-flex; align-items:center; gap:5px; text-decoration:none; }
   .sister-pill .arr { color:var(--vermilion); font-size:11px; }
+  /* Daily draw */
+  .daily-fab { position:absolute; left:20px; top:108px; z-index:905; width:38px; height:38px; display:flex; align-items:center; justify-content:center; border:1px solid var(--stone); background:var(--paper-2); color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .daily-fab:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  .daily-fab.fresh::after { content:''; position:absolute; top:-4px; right:-4px; width:10px; height:10px; border-radius:50%; background:var(--vermilion); border:2px solid var(--paper); }
+  .daily { position:fixed; inset:0; z-index:3200; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .daily[hidden] { display:none; }
+  .daily-backdrop { position:absolute; inset:0; background:rgba(20,19,16,0.86); }
+  .daily-card { position:relative; z-index:1; width:min(400px,92vw); max-height:94vh; overflow-y:auto; background:var(--paper-2); border:1px solid var(--stone); box-shadow:0 30px 80px -24px rgba(0,0,0,0.6); padding:26px 24px 22px; display:flex; flex-direction:column; align-items:center; }
+  .daily-kicker { font-family:var(--en-serif); font-style:italic; font-size:14px; color:var(--vermilion); letter-spacing:0.03em; margin-bottom:16px; }
+  .daily-stage { position:relative; width:100%; aspect-ratio:3/4; background:var(--mist); border:1px solid var(--stone); overflow:hidden; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .daily-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(1) contrast(0.96) brightness(0.98); transform:scale(1.05); transition:filter 1.2s ease, transform 1.2s ease; }
+  .daily-img.color { filter:grayscale(0); transform:scale(1); }
+  .daily-back { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:var(--paper); background-image:radial-gradient(var(--stone) 0.5px,transparent 0.5px); background-size:5px 5px; transition:opacity 0.55s ease, transform 0.7s ease; }
+  .daily-back.gone { opacity:0; transform:scale(1.08); pointer-events:none; }
+  .daily-back .db-mark { font-family:var(--serif); font-size:64px; font-weight:600; color:var(--vermilion); line-height:1; }
+  .daily-back .db-hint { font-family:var(--mono); font-size:11px; letter-spacing:0.14em; color:var(--ash); text-transform:uppercase; }
+  .daily-caption { opacity:0; transition:opacity 0.7s ease 0.3s; margin-top:16px; text-align:center; min-height:2px; }
+  .daily-caption.show { opacity:1; }
+  .dc-title { font-family:var(--serif); font-size:18px; font-weight:600; letter-spacing:0.04em; color:var(--ink); line-height:1.35; }
+  .dc-artist { font-family:var(--en-serif); font-style:italic; font-size:14px; color:var(--vermilion); margin-top:3px; }
+  .daily-actions { display:flex; gap:10px; margin-top:18px; width:100%; }
+  .daily-draw, .daily-open { flex:1; padding:12px; font-family:var(--serif); font-size:14px; font-weight:500; letter-spacing:0.06em; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .daily-draw { border:1px solid var(--vermilion); background:var(--vermilion); color:#fff; }
+  .daily-draw:hover { background:var(--vermilion-d); border-color:var(--vermilion-d); }
+  .daily-open { border:1px solid var(--stone); background:var(--paper); color:var(--graphite); }
+  .daily-open:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  @media (max-width:640px) {
+    .daily-fab { width:42px; height:42px; }
+    .daily { padding:16px; }
+  }
   /* About modal */
   .about-card { position:relative; z-index:1; max-width:min(680px,94vw); max-height:92vh; background:var(--paper-2); border:1px solid var(--stone); box-shadow:0 30px 80px -24px rgba(0,0,0,0.6); overflow-y:auto; padding:34px 38px 26px; }
   .about-head { padding-bottom:14px; border-bottom:3px solid var(--vermilion); margin-bottom:18px; }
@@ -281,6 +311,10 @@
   <button type="button" id="zoom-in" aria-label="Inzoomen">+</button>
   <button type="button" id="zoom-out" aria-label="Uitzoomen">−</button>
 </div>
+
+<button type="button" class="daily-fab" id="daily-fab" aria-label="今日的牌" hidden>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3.5" width="12" height="17" rx="2"/><path d="M4 7v11a2 2 0 0 0 2 2h8" opacity="0.5"/></svg>
+</button>
 
 <div class="compare-divider" id="compare-divider"><span class="knob">↔</span></div>
 <div class="compare-label then" id="cmp-then" data-i18n="compare.then">TOEN</div>
@@ -467,6 +501,29 @@
       </span>
     </footer>
   </article>
+</div>
+
+<div class="daily" id="daily" hidden>
+  <div class="daily-backdrop" id="daily-backdrop"></div>
+  <div class="daily-card">
+    <button type="button" class="lightbox-close" id="daily-close" aria-label="Close">×</button>
+    <div class="daily-kicker" data-i18n="daily.kicker">每日一畫 · daily draw</div>
+    <div class="daily-stage" id="daily-stage" role="button" tabindex="0">
+      <img class="daily-img" id="daily-img" alt="" />
+      <div class="daily-back" id="daily-back">
+        <span class="db-mark">?</span>
+        <span class="db-hint" data-i18n="daily.tap">點一下抽牌</span>
+      </div>
+    </div>
+    <div class="daily-caption" id="daily-caption">
+      <div class="dc-title" id="dc-title"></div>
+      <div class="dc-artist" id="dc-artist"></div>
+    </div>
+    <div class="daily-actions">
+      <button type="button" class="daily-draw" id="daily-draw" data-i18n="daily.draw">抽今日的牌</button>
+      <button type="button" class="daily-open" id="daily-open" hidden data-i18n="daily.open">看明信片</button>
+    </div>
+  </div>
 </div>
 
 <div class="lightbox" id="lightbox" hidden>
@@ -676,6 +733,7 @@
       'card.pd': 'Publiek domein · via Wikimedia Commons',
       'card.save': 'Bewaar / Deel', 'card.saving': 'Bezig…', 'card.saveerr': 'Kon afbeelding niet maken',
       'card.locate': 'Bekijk waar het hangt', 'card.locatehint': 'Dubbelklik voor de museumlocatie',
+      'daily.kicker': 'Kaart van de dag', 'daily.tap': 'Tik om te trekken', 'daily.draw': 'Trek de kaart van vandaag', 'daily.open': 'Bekijk ansichtkaart', 'daily.today': 'Kaart van de dag',
       'cards.gpshint': 'GPS aan — loop naar de stad om kaarten te onthullen.', 'cards.denied': 'Locatie geweigerd; kaarten blijven vergrendeld.',
       'sec.offline': 'Offline', 'sec.offline.en': 'offline',
       'offline.btn': 'Deze stad downloaden', 'offline.redownload': 'Stad opnieuw downloaden', 'offline.cancel': 'Downloaden stoppen',
@@ -709,6 +767,7 @@
       'card.pd': 'Public Domain · via Wikimedia Commons',
       'card.save': 'Save / Share', 'card.saving': 'Preparing…', 'card.saveerr': 'Could not create image',
       'card.locate': 'See where it is held', 'card.locatehint': 'Double-click to find the museum',
+      'daily.kicker': 'Card of the day', 'daily.tap': 'Tap to draw', 'daily.draw': "Draw today's card", 'daily.open': 'Open postcard', 'daily.today': 'Card of the day',
       'cards.gpshint': 'GPS on — walk to the city to reveal cards.', 'cards.denied': 'Location denied; cards stay locked.',
       'sec.offline': 'Offline', 'sec.offline.en': 'offline',
       'offline.btn': 'Download this city', 'offline.redownload': 'Re-download this city', 'offline.cancel': 'Stop download',
@@ -742,6 +801,7 @@
       'card.pd': '公眾領域 · 經 Wikimedia Commons',
       'card.save': '下載／分享', 'card.saving': '處理中…', 'card.saveerr': '無法產生圖片',
       'card.locate': '查看館藏位置', 'card.locatehint': '點兩下找館藏美術館位置',
+      'daily.kicker': '每日一畫', 'daily.tap': '點一下抽牌', 'daily.draw': '抽今日的牌', 'daily.open': '看明信片', 'daily.today': '今日的牌',
       'cards.gpshint': '已開 GPS — 走到該城市附近即可顯影。', 'cards.denied': '未取得定位；明信片維持鎖定。',
       'sec.offline': '離線', 'sec.offline.en': '離線',
       'offline.btn': '下載這座城市', 'offline.redownload': '重新下載這座城市', 'offline.cancel': '停止下載',
@@ -784,6 +844,7 @@
     renderOffline();
     renderLegend();
     renderAbout();
+    updateDailyFab();
     document.getElementById('theme-toggle').textContent =
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
   }
@@ -1413,8 +1474,89 @@
         CARDS_BY_CITY = {};
         CARDS.forEach(i => { (CARDS_BY_CITY[i.city] = CARDS_BY_CITY[i.city] || []).push(i); });
         renderCards();
+        initDaily();
       })
       .catch(() => {});
+  }
+
+  // ── Dagelijkse kaart / 每日一畫 / daily draw ──────────────────────────
+  function todayStr() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function readDaily() { try { return JSON.parse(localStorage.getItem('nlOldMaps.daily') || 'null'); } catch (e) { return null; } }
+  function drawnToday() { const d = readDaily(); return d && d.date === todayStr() ? d : null; }
+  let dailyCard = null;
+
+  function setDailyReveal(item, animate) {
+    dailyCard = item;
+    const img = document.getElementById('daily-img');
+    const back = document.getElementById('daily-back');
+    const cap = document.getElementById('daily-caption');
+    img.src = item.img;
+    img.alt = locName(item.title) + ' — ' + locName(item.artist);
+    document.getElementById('dc-title').textContent = locName(item.title);
+    document.getElementById('dc-artist').textContent = locName(item.artist) + ' · ' + item.year;
+    document.getElementById('daily-draw').hidden = true;
+    document.getElementById('daily-open').hidden = false;
+    if (animate) {
+      img.classList.remove('color'); back.classList.add('gone');
+      requestAnimationFrame(() => requestAnimationFrame(() => { img.classList.add('color'); cap.classList.add('show'); }));
+    } else {
+      back.classList.add('gone'); img.classList.add('color'); cap.classList.add('show');
+    }
+  }
+  function drawDaily() {
+    if (drawnToday() || !CARDS.length) return;
+    const item = CARDS[Math.floor(Math.random() * CARDS.length)];
+    try { localStorage.setItem('nlOldMaps.daily', JSON.stringify({ date: todayStr(), id: item.id })); } catch (e) {}
+    setDailyReveal(item, true);
+    updateDailyFab();
+  }
+  function openDaily() {
+    const drawn = drawnToday();
+    const back = document.getElementById('daily-back');
+    const cap = document.getElementById('daily-caption');
+    if (drawn) {
+      const item = CARDS.find(c => c.id === drawn.id) || CARDS[0];
+      setDailyReveal(item, false);
+    } else {
+      dailyCard = null;
+      back.classList.remove('gone');
+      document.getElementById('daily-img').classList.remove('color');
+      document.getElementById('daily-img').removeAttribute('src');
+      cap.classList.remove('show');
+      document.getElementById('daily-draw').hidden = false;
+      document.getElementById('daily-open').hidden = true;
+    }
+    document.getElementById('daily').hidden = false;
+    try { localStorage.setItem('nlOldMaps.dailySeen', todayStr()); } catch (e) {}
+    updateDailyFab();
+  }
+  function closeDaily() {
+    document.getElementById('daily').hidden = true;
+    try { localStorage.setItem('nlOldMaps.dailySeen', todayStr()); } catch (e) {}
+    updateDailyFab();
+  }
+  function updateDailyFab() {
+    const fab = document.getElementById('daily-fab');
+    if (!fab || !CARDS.length) return;
+    fab.hidden = false;
+    fab.title = t('daily.today');
+    fab.setAttribute('aria-label', t('daily.today'));
+    fab.classList.toggle('fresh', !drawnToday());
+  }
+  function initDaily() {
+    if (!CARDS.length) return;
+    document.getElementById('daily-fab').addEventListener('click', openDaily);
+    document.getElementById('daily-close').addEventListener('click', closeDaily);
+    document.getElementById('daily-backdrop').addEventListener('click', closeDaily);
+    document.getElementById('daily-draw').addEventListener('click', drawDaily);
+    document.getElementById('daily-stage').addEventListener('click', () => { if (!drawnToday()) drawDaily(); });
+    document.getElementById('daily-open').addEventListener('click', () => { closeDaily(); if (dailyCard) openLightbox(dailyCard); });
+    updateDailyFab();
+    let seen = null; try { seen = localStorage.getItem('nlOldMaps.dailySeen'); } catch (e) {}
+    if (seen !== todayStr()) setTimeout(openDaily, 650);
   }
 
   (function initCards() {
@@ -1433,7 +1575,7 @@
     document.getElementById('about-link').addEventListener('click', openAbout);
     document.getElementById('about-close').addEventListener('click', closeAbout);
     document.getElementById('about-backdrop').addEventListener('click', closeAbout);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeAbout(); } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeAbout(); closeDaily(); } });
     if (collectMode) startCardWatch();
   })();
 
