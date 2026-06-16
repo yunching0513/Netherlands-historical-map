@@ -1302,6 +1302,195 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bulb_Fields.jpg",
       "lat": 52.0799,
       "lng": 4.3113
+    },
+    {
+      "id": "amsterdam-standard-bearer",
+      "city": "amsterdam",
+      "year": "1636",
+      "artist": {
+        "zh": "林布蘭",
+        "en": "Rembrandt van Rijn",
+        "nl": "Rembrandt van Rijn"
+      },
+      "title": {
+        "zh": "旗手",
+        "en": "The Standard Bearer",
+        "nl": "De Vaandeldrager"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Rembrandt_-_De_vaandeldrager_%28Q21467444%29.jpeg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rembrandt_-_De_vaandeldrager_(Q21467444).jpeg",
+      "lat": 52.3731,
+      "lng": 4.8922
+    },
+    {
+      "id": "amsterdam-maerten-soolmans",
+      "city": "amsterdam",
+      "year": "1634",
+      "artist": {
+        "zh": "林布蘭",
+        "en": "Rembrandt van Rijn",
+        "nl": "Rembrandt van Rijn"
+      },
+      "title": {
+        "zh": "馬爾滕·索爾曼斯像",
+        "en": "Portrait of Maerten Soolmans",
+        "nl": "Portret van Maerten Soolmans"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Marten_Soolmans_%281613-1641%29%2C_by_Rembrandt.jpg/1280px-Marten_Soolmans_%281613-1641%29%2C_by_Rembrandt.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marten_Soolmans_(1613-1641),_by_Rembrandt.jpg",
+      "lat": 52.3731,
+      "lng": 4.8922
+    },
+    {
+      "id": "amsterdam-oopjen-coppit",
+      "city": "amsterdam",
+      "year": "1634",
+      "artist": {
+        "zh": "林布蘭",
+        "en": "Rembrandt van Rijn",
+        "nl": "Rembrandt van Rijn"
+      },
+      "title": {
+        "zh": "歐普珍·科皮特像",
+        "en": "Portrait of Oopjen Coppit",
+        "nl": "Portret van Oopjen Coppit"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Oopjen_Coppit_%281611-1689%29_Portret_van_Oopjen_Coppit%2C_SK-C-1768.jpg/1280px-Oopjen_Coppit_%281611-1689%29_Portret_van_Oopjen_Coppit%2C_SK-C-1768.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oopjen_Coppit_(1611-1689)_Portret_van_Oopjen_Coppit,_SK-C-1768.jpg",
+      "lat": 52.3731,
+      "lng": 4.8922
+    },
+    {
+      "id": "amsterdam-meagre-company",
+      "city": "amsterdam",
+      "year": "1633",
+      "artist": {
+        "zh": "法蘭斯·哈爾斯",
+        "en": "Frans Hals",
+        "nl": "Frans Hals"
+      },
+      "title": {
+        "zh": "雷尼爾·雷亞爾上尉的民兵連（瘦削連）",
+        "en": "Militia Company of District XI under the Command of Captain Reynier Reael",
+        "nl": "Schutters van wijk XI onder leiding van kapitein Reynier Reael, bekend als ‘De magere compagnie’"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Frans_Hals%2C_De_magere_compagnie.jpg/1280px-Frans_Hals%2C_De_magere_compagnie.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frans_Hals,_De_magere_compagnie.jpg",
+      "lat": 52.3731,
+      "lng": 4.8922
+    },
+    {
+      "id": "amsterdam-silver-jug",
+      "city": "amsterdam",
+      "year": "1656",
+      "artist": {
+        "zh": "威廉·卡爾夫",
+        "en": "Willem Kalf",
+        "nl": "Willem Kalf"
+      },
+      "title": {
+        "zh": "銀壺與瓷碗的靜物",
+        "en": "Still Life with a Silver Jug and a Porcelain Bowl",
+        "nl": "Stilleven met zilveren kan en porseleinen kom"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Willem_Kalf_-_Stilleven_met_zilveren_schenkkan_-_Google_Art_Project.jpg/1280px-Willem_Kalf_-_Stilleven_met_zilveren_schenkkan_-_Google_Art_Project.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Willem_Kalf_-_Stilleven_met_zilveren_schenkkan_-_Google_Art_Project.jpg",
+      "lat": 52.3731,
+      "lng": 4.8922
+    },
+    {
+      "id": "amsterdam-vanitas-sunflower",
+      "city": "amsterdam",
+      "year": "1674",
+      "artist": {
+        "zh": "瑪麗亞·凡·奧斯特韋克",
+        "en": "Maria van Oosterwijck",
+        "nl": "Maria van Oosterwijck"
+      },
+      "title": {
+        "zh": "有向日葵的虛空靜物",
+        "en": "Vanitas Still Life with a Sunflower",
+        "nl": "Vanitasstilleven met zonnebloem"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vanitas_Still_Life_with_a_Sun_Flower_by_Maria_van_Oosterwijck_Rijksmuseum_Amsterdam_SK-A-5104.jpg/1280px-Vanitas_Still_Life_with_a_Sun_Flower_by_Maria_van_Oosterwijck_Rijksmuseum_Amsterdam_SK-A-5104.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vanitas_Still_Life_with_a_Sun_Flower_by_Maria_van_Oosterwijck_Rijksmuseum_Amsterdam_SK-A-5104.jpg",
+      "lat": 52.3731,
+      "lng": 4.8922
+    },
+    {
+      "id": "amsterdam-golden-bend",
+      "city": "amsterdam",
+      "year": "1670",
+      "artist": {
+        "zh": "赫里特·貝爾克海德",
+        "en": "Gerrit Berckheyde",
+        "nl": "Gerrit Berckheyde"
+      },
+      "title": {
+        "zh": "紳士運河的「黃金彎」",
+        "en": "The ‘Golden Bend’ in the Herengracht, Amsterdam, Seen from the East",
+        "nl": "Gezicht op de Gouden Bocht in de Herengracht"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Gerrit_Adriaensz._Berckheyde_-_Gezicht_op_de_Herengracht_in_Amsterdam%2C_vanaf_de_Vijzelstraat_-_Google_Art_Project.jpg/1280px-Gerrit_Adriaensz._Berckheyde_-_Gezicht_op_de_Herengracht_in_Amsterdam%2C_vanaf_de_Vijzelstraat_-_Google_Art_Project.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gerrit_Adriaensz._Berckheyde_-_Gezicht_op_de_Herengracht_in_Amsterdam,_vanaf_de_Vijzelstraat_-_Google_Art_Project.jpg",
+      "lat": 52.3731,
+      "lng": 4.8922
+    },
+    {
+      "id": "amsterdam-albert-bas",
+      "city": "amsterdam",
+      "year": "1645",
+      "artist": {
+        "zh": "霍弗特·弗林克",
+        "en": "Govert Flinck",
+        "nl": "Govert Flinck"
+      },
+      "title": {
+        "zh": "阿爾伯特·巴斯上尉的民兵連",
+        "en": "The Company of Captain Albert Bas and Lieutenant Lucas Conijn",
+        "nl": "Officieren en andere schutters van wijk XVIII in Amsterdam onder leiding van kapitein Albert Bas en luitenant Lucas Conijn"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Officieren_en_andere_schutters_van_wijk_XVIII_in_Amsterdam_onder_leiding_van_kapitein_Albert_Bas_en_luitenant_Lucas_Conijn_Rijksmuseum_SK-C-371.jpeg/1280px-Officieren_en_andere_schutters_van_wijk_XVIII_in_Amsterdam_onder_leiding_van_kapitein_Albert_Bas_en_luitenant_Lucas_Conijn_Rijksmuseum_SK-C-371.jpeg",
+      "credit": "Amsterdam Museum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Officieren_en_andere_schutters_van_wijk_XVIII_in_Amsterdam_onder_leiding_van_kapitein_Albert_Bas_en_luitenant_Lucas_Conijn_Rijksmuseum_SK-C-371.jpeg",
+      "lat": 52.3731,
+      "lng": 4.8922
+    },
+    {
+      "id": "amsterdam-dam-square",
+      "city": "amsterdam",
+      "year": "1675",
+      "artist": {
+        "zh": "雅各布·范·勒伊斯達爾",
+        "en": "Jacob van Ruisdael",
+        "nl": "Jacob van Ruisdael"
+      },
+      "title": {
+        "zh": "水壩廣場與計量所",
+        "en": "The Dam Square in Amsterdam with the Weigh House",
+        "nl": "De Dam met de Waag te Amsterdam"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Der_Damplatz_zu_Amsterdam_-_Gem%C3%A4ldegalerie_Berlin_-_4012929.jpg/1280px-Der_Damplatz_zu_Amsterdam_-_Gem%C3%A4ldegalerie_Berlin_-_4012929.jpg",
+      "credit": "Gemäldegalerie, Berlin",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Der_Damplatz_zu_Amsterdam_-_Gem%C3%A4ldegalerie_Berlin_-_4012929.jpg",
+      "lat": 52.3731,
+      "lng": 4.8922
     }
   ]
 }
