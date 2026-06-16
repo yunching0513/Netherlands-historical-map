@@ -205,7 +205,10 @@
   .lightbox-cap { padding:16px 22px 20px; border-top:3px solid var(--vermilion); }
   .lc-title { font-family:var(--serif); font-size:19px; font-weight:600; letter-spacing:0.04em; color:var(--ink); line-height:1.35; }
   .lc-artist { font-family:var(--en-serif); font-style:italic; font-size:14px; color:var(--vermilion); margin-top:3px; }
-  .lc-meta { font-family:var(--mono); font-size:10px; letter-spacing:0.08em; color:var(--ash); margin-top:9px; text-transform:uppercase; }
+  .lc-meta { display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; letter-spacing:0.08em; color:var(--graphite); margin-top:9px; text-transform:uppercase; cursor:pointer; border-bottom:1px solid var(--stone); padding-bottom:1px; -webkit-tap-highlight-color:transparent; }
+  .lc-meta:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  .lc-meta .ic { font-size:12px; }
+  .lc-meta .arr { color:var(--vermilion); }
   .lc-credit { font-family:var(--sans); font-size:11.5px; color:var(--graphite); margin-top:7px; line-height:1.65; }
   .lc-source { display:inline-block; font-family:var(--mono); font-size:10px; color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
   .lc-source:hover { color:var(--vermilion); border-color:var(--vermilion); }
@@ -666,6 +669,7 @@
       'cards.unit': 'kaarten', 'cards.collected': 'Verzameld', 'card.source': 'Bron',
       'card.pd': 'Publiek domein · via Wikimedia Commons',
       'card.save': 'Bewaar / Deel', 'card.saving': 'Bezig…', 'card.saveerr': 'Kon afbeelding niet maken',
+      'card.locate': 'Bekijk waar het hangt', 'card.locatehint': 'Dubbelklik voor de museumlocatie',
       'cards.gpshint': 'GPS aan — loop naar de stad om kaarten te onthullen.', 'cards.denied': 'Locatie geweigerd; kaarten blijven vergrendeld.',
       'sec.offline': 'Offline', 'sec.offline.en': 'offline',
       'offline.btn': 'Deze stad downloaden', 'offline.redownload': 'Stad opnieuw downloaden', 'offline.cancel': 'Downloaden stoppen',
@@ -698,6 +702,7 @@
       'cards.unit': 'cards', 'cards.collected': 'Collected', 'card.source': 'Source',
       'card.pd': 'Public Domain · via Wikimedia Commons',
       'card.save': 'Save / Share', 'card.saving': 'Preparing…', 'card.saveerr': 'Could not create image',
+      'card.locate': 'See where it is held', 'card.locatehint': 'Double-click to find the museum',
       'cards.gpshint': 'GPS on — walk to the city to reveal cards.', 'cards.denied': 'Location denied; cards stay locked.',
       'sec.offline': 'Offline', 'sec.offline.en': 'offline',
       'offline.btn': 'Download this city', 'offline.redownload': 'Re-download this city', 'offline.cancel': 'Stop download',
@@ -730,6 +735,7 @@
       'cards.unit': '張', 'cards.collected': '已收集', 'card.source': '來源',
       'card.pd': '公眾領域 · 經 Wikimedia Commons',
       'card.save': '下載／分享', 'card.saving': '處理中…', 'card.saveerr': '無法產生圖片',
+      'card.locate': '查看館藏位置', 'card.locatehint': '點兩下找館藏美術館位置',
       'cards.gpshint': '已開 GPS — 走到該城市附近即可顯影。', 'cards.denied': '未取得定位；明信片維持鎖定。',
       'sec.offline': '離線', 'sec.offline.en': '離線',
       'offline.btn': '下載這座城市', 'offline.redownload': '重新下載這座城市', 'offline.cancel': '停止下載',
@@ -1289,13 +1295,23 @@
     btn.textContent = orig; btn.disabled = false;
   }
 
+  function openMuseumMap() {
+    if (!currentCard || !currentCard.credit) return;
+    window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(currentCard.credit), '_blank', 'noopener');
+  }
+
   function openLightbox(item) {
     currentCard = item;
-    document.getElementById('lightbox-img').src = item.img;
-    document.getElementById('lightbox-img').alt = locName(item.title) + ' — ' + locName(item.artist);
+    const lbimg = document.getElementById('lightbox-img');
+    lbimg.src = item.img;
+    lbimg.alt = locName(item.title) + ' — ' + locName(item.artist);
+    lbimg.title = t('card.locatehint');
     document.getElementById('lc-title').textContent = locName(item.title);
     document.getElementById('lc-artist').textContent = locName(item.artist) + ', ' + item.year;
-    document.getElementById('lc-meta').textContent = item.credit;
+    const meta = document.getElementById('lc-meta');
+    meta.innerHTML = '<span class="ic">⌖</span><span class="mtxt"></span><span class="arr">↗</span>';
+    meta.querySelector('.mtxt').textContent = item.credit;
+    meta.title = t('card.locate');
     document.getElementById('lc-credit').textContent = t('card.pd');
     const src = document.getElementById('lc-source');
     src.href = item.sourceUrl;
@@ -1399,6 +1415,8 @@
     document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
     document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox);
     document.getElementById('lc-share').addEventListener('click', shareCard);
+    document.getElementById('lc-meta').addEventListener('click', openMuseumMap);
+    document.getElementById('lightbox-img').addEventListener('dblclick', openMuseumMap);
     document.getElementById('about-link').addEventListener('click', openAbout);
     document.getElementById('about-close').addEventListener('click', closeAbout);
     document.getElementById('about-backdrop').addEventListener('click', closeAbout);
