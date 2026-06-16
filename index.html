@@ -207,8 +207,12 @@
   .lc-artist { font-family:var(--en-serif); font-style:italic; font-size:14px; color:var(--vermilion); margin-top:3px; }
   .lc-meta { font-family:var(--mono); font-size:10px; letter-spacing:0.08em; color:var(--ash); margin-top:9px; text-transform:uppercase; }
   .lc-credit { font-family:var(--sans); font-size:11.5px; color:var(--graphite); margin-top:7px; line-height:1.65; }
-  .lc-source { display:inline-block; margin-top:9px; font-family:var(--mono); font-size:10px; color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
+  .lc-source { display:inline-block; font-family:var(--mono); font-size:10px; color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
   .lc-source:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  .lc-actions { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-top:14px; }
+  .lc-share { display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border:1px solid var(--vermilion); background:var(--vermilion); color:#fff; font-family:var(--serif); font-size:14px; font-weight:500; letter-spacing:0.06em; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .lc-share:hover:not(:disabled) { background:var(--vermilion-d); border-color:var(--vermilion-d); }
+  .lc-share:disabled { opacity:0.6; cursor:default; }
   @media (max-width:640px) {
     .lightbox { padding:0; }
     .lightbox-card { max-width:100vw; width:100%; max-height:100vh; height:100%; }
@@ -466,7 +470,10 @@
       <div class="lc-artist" id="lc-artist"></div>
       <div class="lc-meta" id="lc-meta"></div>
       <div class="lc-credit" id="lc-credit"></div>
-      <a class="lc-source" id="lc-source" target="_blank" rel="noopener"></a>
+      <div class="lc-actions">
+        <a class="lc-source" id="lc-source" target="_blank" rel="noopener"></a>
+        <button type="button" class="lc-share" id="lc-share" data-i18n="card.save">下載／分享</button>
+      </div>
     </figcaption>
   </figure>
 </div>
@@ -658,6 +665,7 @@
       'cards.empty': 'Nog geen ansichtkaarten voor deze stad.', 'cards.locked': 'Loop dichtbij om te ontgrendelen',
       'cards.unit': 'kaarten', 'cards.collected': 'Verzameld', 'card.source': 'Bron',
       'card.pd': 'Publiek domein · via Wikimedia Commons',
+      'card.save': 'Bewaar / Deel', 'card.saving': 'Bezig…', 'card.saveerr': 'Kon afbeelding niet maken',
       'cards.gpshint': 'GPS aan — loop naar de stad om kaarten te onthullen.', 'cards.denied': 'Locatie geweigerd; kaarten blijven vergrendeld.',
       'sec.offline': 'Offline', 'sec.offline.en': 'offline',
       'offline.btn': 'Deze stad downloaden', 'offline.redownload': 'Stad opnieuw downloaden', 'offline.cancel': 'Downloaden stoppen',
@@ -689,6 +697,7 @@
       'cards.empty': 'No postcards for this city yet.', 'cards.locked': 'Walk nearby to unlock',
       'cards.unit': 'cards', 'cards.collected': 'Collected', 'card.source': 'Source',
       'card.pd': 'Public Domain · via Wikimedia Commons',
+      'card.save': 'Save / Share', 'card.saving': 'Preparing…', 'card.saveerr': 'Could not create image',
       'cards.gpshint': 'GPS on — walk to the city to reveal cards.', 'cards.denied': 'Location denied; cards stay locked.',
       'sec.offline': 'Offline', 'sec.offline.en': 'offline',
       'offline.btn': 'Download this city', 'offline.redownload': 'Re-download this city', 'offline.cancel': 'Stop download',
@@ -720,6 +729,7 @@
       'cards.empty': '這座城市還沒有明信片。', 'cards.locked': '走到附近解鎖',
       'cards.unit': '張', 'cards.collected': '已收集', 'card.source': '來源',
       'card.pd': '公眾領域 · 經 Wikimedia Commons',
+      'card.save': '下載／分享', 'card.saving': '處理中…', 'card.saveerr': '無法產生圖片',
       'cards.gpshint': '已開 GPS — 走到該城市附近即可顯影。', 'cards.denied': '未取得定位；明信片維持鎖定。',
       'sec.offline': '離線', 'sec.offline.en': '離線',
       'offline.btn': '下載這座城市', 'offline.redownload': '重新下載這座城市', 'offline.cancel': '停止下載',
@@ -1189,7 +1199,98 @@
       : (list.length + ' ' + t('cards.unit'));
   }
 
+  // Render painting + attributed caption into one shareable image.
+  let currentCard = null;
+  function wrapLines(ctx, text, maxW) {
+    const lines = [];
+    if (text.indexOf(' ') === -1) {
+      let line = '';
+      for (const ch of text) {
+        if (line && ctx.measureText(line + ch).width > maxW) { lines.push(line); line = ch; }
+        else line += ch;
+      }
+      if (line) lines.push(line);
+    } else {
+      let line = '';
+      text.split(/\s+/).forEach(w => {
+        const test = line ? line + ' ' + w : w;
+        if (line && ctx.measureText(test).width > maxW) { lines.push(line); line = w; }
+        else line = test;
+      });
+      if (line) lines.push(line);
+    }
+    return lines;
+  }
+  function buildShareCard(item) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onerror = () => reject(new Error('img'));
+      img.onload = async () => {
+        try {
+          if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+          const W = 1080, PAD = 60, maxTextW = W - PAD * 2;
+          const imgH = Math.round(W * img.naturalHeight / img.naturalWidth);
+          const measure = document.createElement('canvas').getContext('2d');
+          measure.font = "600 42px 'Noto Serif TC','Songti TC',serif";
+          const titleLines = wrapLines(measure, locName(item.title), maxTextW);
+          const bandH = 44 + titleLines.length * 52 + 44 + 32 + 40 + 46;
+          const cv = document.createElement('canvas');
+          cv.width = W; cv.height = imgH + bandH;
+          const ctx = cv.getContext('2d');
+          ctx.fillStyle = '#F1EFE9'; ctx.fillRect(0, 0, cv.width, cv.height);
+          ctx.drawImage(img, 0, 0, W, imgH);
+          ctx.fillStyle = '#EAE8E2'; ctx.fillRect(0, imgH, W, bandH);
+          ctx.fillStyle = '#C15F3C'; ctx.fillRect(0, imgH, W, 6);
+          ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+          let y = imgH + 44 + 34;
+          ctx.fillStyle = '#1F1D19'; ctx.font = "600 42px 'Noto Serif TC','Songti TC',serif";
+          titleLines.forEach(line => { ctx.fillText(line, PAD, y); y += 52; });
+          y += 6;
+          ctx.fillStyle = '#9E4B2E'; ctx.font = "italic 32px 'EB Garamond',Georgia,serif";
+          ctx.fillText(locName(item.artist) + ' · ' + item.year, PAD, y); y += 44;
+          ctx.fillStyle = '#565347'; ctx.font = "400 23px 'Noto Sans TC',system-ui,sans-serif";
+          ctx.fillText(item.credit, PAD, y); y += 32;
+          ctx.fillStyle = '#807C73'; ctx.font = "400 20px 'Noto Sans TC',system-ui,sans-serif";
+          ctx.fillText('Public Domain · via Wikimedia Commons', PAD, y); y += 42;
+          ctx.fillStyle = '#A6A399'; ctx.font = "400 18px 'JetBrains Mono',monospace";
+          ctx.fillText('荷蘭古地圖散策 · yunching0513.github.io/Netherlands-historical-map', PAD, y);
+          cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.92);
+        } catch (e) { reject(e); }
+      };
+      img.src = item.img;
+    });
+  }
+  async function shareCard() {
+    const item = currentCard; if (!item) return;
+    const btn = document.getElementById('lc-share');
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = t('card.saving');
+    try {
+      const blob = await buildShareCard(item);
+      const file = new File([blob], item.id + '.jpg', { type: 'image/jpeg' });
+      const text = locName(item.title) + ' — ' + locName(item.artist) + ' (' + item.year + ')\n'
+        + item.credit + ' · Public Domain, via Wikimedia Commons\n荷蘭古地圖散策 https://yunching0513.github.io/Netherlands-historical-map/';
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: locName(item.title), text: text });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = item.id + '.jpg';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      }
+    } catch (e) {
+      if (!(e && e.name === 'AbortError')) {
+        btn.textContent = t('card.saveerr');
+        setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1800);
+        return;
+      }
+    }
+    btn.textContent = orig; btn.disabled = false;
+  }
+
   function openLightbox(item) {
+    currentCard = item;
     document.getElementById('lightbox-img').src = item.img;
     document.getElementById('lightbox-img').alt = locName(item.title) + ' — ' + locName(item.artist);
     document.getElementById('lc-title').textContent = locName(item.title);
@@ -1297,6 +1398,7 @@
     document.getElementById('collect-toggle').addEventListener('click', () => setCollectMode(!collectMode));
     document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
     document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox);
+    document.getElementById('lc-share').addEventListener('click', shareCard);
     document.getElementById('about-link').addEventListener('click', openAbout);
     document.getElementById('about-close').addEventListener('click', closeAbout);
     document.getElementById('about-backdrop').addEventListener('click', closeAbout);
