@@ -65,12 +65,29 @@
   .city-caret { font-size:10px; color:var(--silver); transition:transform 0.25s; }
   .city-current[aria-expanded="true"] .city-caret { transform:rotate(180deg); }
   .city-list { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
-  .city-list.open { max-height:480px; overflow-y:auto; }
+  .city-list.open { max-height:58vh; overflow-y:auto; margin-top:8px; }
+  .city-search-wrap { position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:8px; padding:2px 2px 8px; background:var(--paper-2); }
+  .city-search-ic { font-family:var(--mono); font-size:14px; color:var(--silver); }
+  .city-search { flex:1; padding:8px 11px; border:1px solid var(--stone); background:var(--paper); font-family:var(--sans); font-size:13px; color:var(--ink); outline:none; }
+  .city-search:focus { border-color:var(--vermilion); }
+  .city-search::placeholder { color:var(--silver); }
+  .city-empty { font-family:var(--sans); font-size:12px; color:var(--ash); padding:8px 2px; }
   .region-label { font-family:var(--mono); font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--silver); margin:14px 0 6px; padding-left:2px; }
   .city-chip { display:inline-flex; align-items:baseline; gap:6px; padding:6px 10px; margin:0 6px 6px 0; border:1px solid var(--mist); background:var(--paper); cursor:pointer; font-family:var(--serif); font-size:13px; color:var(--graphite); letter-spacing:0.04em; transition:all 0.18s; -webkit-tap-highlight-color:transparent; }
   .city-chip .en { font-family:var(--en-serif); font-style:italic; font-size:10px; color:var(--silver); }
   .city-chip:hover { border-color:var(--vermilion); color:var(--vermilion); }
   .city-chip.active { border-color:var(--vermilion); background:var(--vermilion-l); color:var(--vermilion); }
+  /* Pinned header + tabs */
+  .pinned { margin-top:18px; }
+  .pinned .year-display { margin-top:16px; }
+  .tabbar { display:flex; gap:6px; margin-top:20px; }
+  .tab { flex:1; padding:9px 4px; border:1px solid var(--stone); background:var(--paper); font-family:var(--serif); font-size:13px; font-weight:500; letter-spacing:0.04em; color:var(--graphite); cursor:pointer; transition:all 0.18s; -webkit-tap-highlight-color:transparent; }
+  .tab:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  .tab.active { background:var(--vermilion); border-color:var(--vermilion); color:#fff; }
+  .tabpane { margin-top:18px; }
+  .tabpane[hidden] { display:none; }
+  .pane-label { display:flex; align-items:baseline; font-family:var(--serif); font-size:13px; font-weight:500; letter-spacing:0.16em; color:var(--graphite); margin:22px 0 8px; }
+  .pane-label:first-child { margin-top:2px; }
   .base-pills { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px; }
   .base-pill { padding:9px 4px 8px; border:1px solid var(--stone); background:var(--paper); cursor:pointer; text-align:center; font-family:var(--serif); font-size:13px; font-weight:500; letter-spacing:0.06em; color:var(--graphite); line-height:1.2; transition:all 0.2s; -webkit-tap-highlight-color:transparent; }
   .base-pill .en { display:block; font-family:var(--en-serif); font-style:italic; font-weight:400; font-size:9px; color:var(--ash); margin-top:2px; }
@@ -135,6 +152,9 @@
     input[type=range] { height:30px; }
     .lang-switch button { padding:7px 12px; }
     .pill-toggle { padding:7px 12px; }
+    .tab { padding:12px 4px; font-size:14px; }
+    .city-search { font-size:16px; padding:11px 12px; }
+    .city-list.open { max-height:50vh; }
   }
   .zoom-ctl { position:absolute; left:20px; top:20px; z-index:900; display:flex; flex-direction:column; border:1px solid var(--stone); background:var(--paper-2); }
   .zoom-ctl button { width:38px; height:38px; border:none; background:transparent; cursor:pointer; font-family:var(--mono); font-size:18px; color:var(--graphite); border-bottom:1px solid var(--mist); -webkit-tap-highlight-color:transparent; }
@@ -273,150 +293,145 @@
     <header class="panel-head">
       <div class="head-en" data-i18n="app.tagline">Netherlands · Old-Map Stroll</div>
       <div class="head-zh" data-i18n="app.title">荷蘭古地圖散策</div>
-      <div class="head-meta" id="head-meta">N — · E —</div>
     </header>
 
-    <div class="section-label">
-      <span class="num">01</span>
-      <span class="txt" data-i18n="sec.place">城市</span>
-      <span class="en" data-i18n="sec.place.en">plaats</span>
-    </div>
-    <div class="city-current" id="city-current" role="button" aria-expanded="false">
-      <div>
-        <div class="city-zh" id="current-zh">—</div>
-        <div class="city-en" id="current-en">—</div>
+    <!-- PINNED: where + when -->
+    <div class="pinned">
+      <div class="city-current" id="city-current" role="button" aria-expanded="false">
+        <div>
+          <div class="city-zh" id="current-zh">—</div>
+          <div class="city-en" id="current-en">—</div>
+        </div>
+        <span class="city-caret">▼</span>
       </div>
-      <span class="city-caret">▼</span>
-    </div>
-    <div class="city-list" id="city-list"></div>
+      <div class="city-list" id="city-list">
+        <div class="city-search-wrap">
+          <span class="city-search-ic">⌕</span>
+          <input type="text" id="city-search" class="city-search" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="city-results" id="city-results"></div>
+      </div>
 
-    <div class="section-label">
-      <span class="num">02</span>
-      <span class="txt" data-i18n="sec.base">底圖</span>
-      <span class="en" data-i18n="sec.base.en">basiskaart</span>
-    </div>
-    <div class="base-pills" id="base-pills">
-      <button type="button" class="base-pill" data-id="brt">
-        <span data-i18n="base.brt">街道</span><span class="en">Kaart</span>
-      </button>
-      <button type="button" class="base-pill active" data-id="grijs">
-        <span data-i18n="base.grijs">簡圖</span><span class="en">Grijs</span>
-      </button>
-      <button type="button" class="base-pill" data-id="luchtfoto">
-        <span data-i18n="base.aerial">衛星</span><span class="en">Luchtfoto</span>
-      </button>
-    </div>
-
-    <div class="section-label">
-      <span class="num">03</span>
-      <span class="txt" data-i18n="sec.time">時光</span>
-      <span class="en" data-i18n="sec.time.en">tijdreis</span>
-    </div>
-    <div class="year-display">
-      <div class="year-big" id="year-big">1900</div>
-      <div class="year-era">
-        <span id="era-name">Bonnebladen</span>
-        <span class="sub" id="era-sub" data-i18n="era.bonne.sub">1:25.000 chromotopografie</span>
+      <div class="year-display">
+        <div class="year-big" id="year-big">1900</div>
+        <div class="year-era">
+          <span id="era-name">Bonnebladen</span>
+          <span class="sub" id="era-sub" data-i18n="era.bonne.sub">1:25.000 chromotopografie</span>
+        </div>
       </div>
     </div>
-    <input type="range" class="year" id="year-slider" min="1815" max="2021" value="1900" step="1" />
-    <div class="year-ticks" id="year-ticks"></div>
 
-    <div class="era-chips" id="era-chips"></div>
-
-    <div class="opa-row">
-      <span class="lbl" data-i18n="opacity">透明度</span>
-      <input type="range" class="opa" id="opa-slider" min="0" max="100" value="85" step="1" />
-      <span class="val" id="opa-val">85%</span>
+    <!-- TAB BAR -->
+    <div class="tabbar" id="tabbar" role="tablist">
+      <button type="button" class="tab active" data-tab="time" role="tab"><span data-i18n="tab.time">時光</span></button>
+      <button type="button" class="tab" data-tab="layers" role="tab"><span data-i18n="tab.layers">圖層</span></button>
+      <button type="button" class="tab" data-tab="cards" role="tab"><span data-i18n="tab.cards">明信片</span></button>
+      <button type="button" class="tab" data-tab="more" role="tab"><span data-i18n="tab.more">更多</span></button>
     </div>
 
-    <button type="button" class="btn" id="btn-compare">
-      <span class="dot"></span>
-      <span data-i18n="compare.btn">今昔對照</span>
-      <span class="en">swipe</span>
-    </button>
-
-    <div class="section-label">
-      <span class="num">04</span>
-      <span class="txt" data-i18n="sec.locate">定位</span>
-      <span class="en" data-i18n="sec.locate.en">locatie</span>
-    </div>
-    <button type="button" class="btn" id="btn-locate">
-      <span class="dot"></span>
-      <span data-i18n="locate.btn">找我的位置</span>
-      <span class="en">GPS</span>
-    </button>
-    <div class="loc-status" id="loc-status">
-      <div class="label" data-i18n="loc.fix">CURRENT FIX</div>
-      <div id="loc-coords">—</div>
-      <div id="loc-accuracy">—</div>
-    </div>
-
-    <div class="section-label">
-      <span class="num">05</span>
-      <span class="txt" data-i18n="sec.cards">明信片</span>
-      <span class="en" data-i18n="sec.cards.en">ansichtkaarten</span>
-    </div>
-    <div class="cards-head">
-      <span class="cards-count" id="cards-count">—</span>
-      <button type="button" class="pill-toggle" id="collect-toggle" data-i18n="cards.collect">收集模式</button>
-    </div>
-    <div class="cards-grid" id="cards-grid"></div>
-    <div class="cards-empty" id="cards-empty" data-i18n="cards.empty" hidden>這座城市還沒有明信片。</div>
-
-    <div id="offline-section">
-      <div class="section-label">
-        <span class="num">06</span>
-        <span class="txt" data-i18n="sec.offline">離線</span>
-        <span class="en" data-i18n="sec.offline.en">offline</span>
-      </div>
-      <button type="button" class="btn" id="btn-download">
+    <!-- PANE: time -->
+    <div class="tabpane active" id="pane-time" role="tabpanel">
+      <input type="range" class="year" id="year-slider" min="1815" max="2021" value="1900" step="1" />
+      <div class="year-ticks" id="year-ticks"></div>
+      <div class="era-chips" id="era-chips"></div>
+      <button type="button" class="btn" id="btn-compare">
         <span class="dot"></span>
-        <span class="lbl">下載這座城市</span>
-        <span class="en">offline</span>
+        <span data-i18n="compare.btn">今昔對照</span>
+        <span class="en">swipe</span>
       </button>
-      <div class="offline-hint" data-i18n="offline.hint">下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。</div>
-      <div class="dl-status" id="dl-status"></div>
-      <div class="offline-foot">
-        <span class="offline-used" id="offline-used">—</span>
-        <button type="button" class="pill-toggle" id="btn-clear-offline" data-i18n="offline.clear">清除下載</button>
+      <div class="opa-row">
+        <span class="lbl" data-i18n="opacity">透明度</span>
+        <input type="range" class="opa" id="opa-slider" min="0" max="100" value="85" step="1" />
+        <span class="val" id="opa-val">85%</span>
       </div>
     </div>
 
-    <div class="section-label">
-      <span class="num">07</span>
-      <span class="txt" data-i18n="sec.plan">規劃圖</span>
-      <span class="en" data-i18n="sec.plan.en">ruimtelijk</span>
+    <!-- PANE: layers -->
+    <div class="tabpane" id="pane-layers" role="tabpanel" hidden>
+      <div class="pane-label" data-i18n="sec.base">底圖</div>
+      <div class="base-pills" id="base-pills">
+        <button type="button" class="base-pill" data-id="brt">
+          <span data-i18n="base.brt">街道</span><span class="en">Kaart</span>
+        </button>
+        <button type="button" class="base-pill active" data-id="grijs">
+          <span data-i18n="base.grijs">簡圖</span><span class="en">Grijs</span>
+        </button>
+        <button type="button" class="base-pill" data-id="luchtfoto">
+          <span data-i18n="base.aerial">衛星</span><span class="en">Luchtfoto</span>
+        </button>
+      </div>
+      <div class="pane-label" data-i18n="sec.plan">規劃圖</div>
+      <div class="plan-pills">
+        <button type="button" class="pill-toggle plan-pill" data-plan="zoning" data-i18n="plan.zoning">都市計畫</button>
+        <button type="button" class="pill-toggle plan-pill" data-plan="landuse" data-i18n="plan.landuse">土地利用</button>
+      </div>
+      <div class="offline-hint" data-i18n="plan.hint">荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。</div>
     </div>
-    <div class="plan-pills">
-      <button type="button" class="pill-toggle plan-pill" data-plan="zoning" data-i18n="plan.zoning">都市計畫</button>
-      <button type="button" class="pill-toggle plan-pill" data-plan="landuse" data-i18n="plan.landuse">土地利用</button>
+
+    <!-- PANE: postcards -->
+    <div class="tabpane" id="pane-cards" role="tabpanel" hidden>
+      <div class="cards-head">
+        <span class="cards-count" id="cards-count">—</span>
+        <button type="button" class="pill-toggle" id="collect-toggle" data-i18n="cards.collect">收集模式</button>
+      </div>
+      <div class="cards-grid" id="cards-grid"></div>
+      <div class="cards-empty" id="cards-empty" data-i18n="cards.empty" hidden>這座城市還沒有明信片。</div>
     </div>
-    <div class="offline-hint" data-i18n="plan.hint">荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。</div>
 
-    <div class="panel-foot">
-      <span data-i18n="foot.maps">歷史圖資</span> ·
-      <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> /
-      <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a> /
-      <a href="https://www.esri.nl" target="_blank" rel="noopener">Esri NL</a><br>
-      <span data-i18n="foot.base">底圖</span> ·
-      <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> /
-      <a href="https://www.beeldmateriaal.nl" target="_blank" rel="noopener">Beeldmateriaal NL</a><br>
-      <span data-i18n="foot.made">設計・製作</span> ·
-      <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昀慶 Yunching Wu</a> ·
-      <a href="#" id="about-link" data-i18n="foot.about">關於</a> ·
-      <a href="credits.html" data-i18n="foot.credits">致謝</a>
+    <!-- PANE: more -->
+    <div class="tabpane" id="pane-more" role="tabpanel" hidden>
+      <div class="pane-label" data-i18n="sec.locate">定位</div>
+      <button type="button" class="btn" id="btn-locate">
+        <span class="dot"></span>
+        <span data-i18n="locate.btn">找我的位置</span>
+        <span class="en">GPS</span>
+      </button>
+      <div class="loc-status" id="loc-status">
+        <div class="label" data-i18n="loc.fix">CURRENT FIX</div>
+        <div id="loc-coords">—</div>
+        <div id="loc-accuracy">—</div>
+      </div>
 
-      <div class="foot-toggles">
-        <span class="lang-switch" id="lang-switch">
-          <button type="button" data-lang="nl">NL</button>
-          <button type="button" data-lang="en">EN</button>
-          <button type="button" data-lang="zh">中</button>
-        </span>
-        <button type="button" class="pill-toggle" id="theme-toggle" data-i18n="theme.light">紙色</button>
-        <a class="pill-toggle sister-pill" id="sister-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener">
-          <span data-i18n="sister.label">台灣舊地圖</span> <span class="arr">↗</span>
-        </a>
+      <div id="offline-section">
+        <div class="pane-label" data-i18n="sec.offline">離線</div>
+        <button type="button" class="btn" id="btn-download">
+          <span class="dot"></span>
+          <span class="lbl">下載這座城市</span>
+          <span class="en">offline</span>
+        </button>
+        <div class="offline-hint" data-i18n="offline.hint">下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。</div>
+        <div class="dl-status" id="dl-status"></div>
+        <div class="offline-foot">
+          <span class="offline-used" id="offline-used">—</span>
+          <button type="button" class="pill-toggle" id="btn-clear-offline" data-i18n="offline.clear">清除下載</button>
+        </div>
+      </div>
+
+      <div class="panel-foot">
+        <span data-i18n="foot.maps">歷史圖資</span> ·
+        <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> /
+        <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a> /
+        <a href="https://www.esri.nl" target="_blank" rel="noopener">Esri NL</a><br>
+        <span data-i18n="foot.base">底圖</span> ·
+        <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> /
+        <a href="https://www.beeldmateriaal.nl" target="_blank" rel="noopener">Beeldmateriaal NL</a><br>
+        <span data-i18n="foot.made">設計・製作</span> ·
+        <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昀慶 Yunching Wu</a> ·
+        <a href="#" id="about-link" data-i18n="foot.about">關於</a> ·
+        <a href="credits.html" data-i18n="foot.credits">致謝</a>
+
+        <div class="foot-toggles">
+          <span class="lang-switch" id="lang-switch">
+            <button type="button" data-lang="nl">NL</button>
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="zh">中</button>
+          </span>
+          <button type="button" class="pill-toggle" id="theme-toggle" data-i18n="theme.light">紙色</button>
+          <a class="pill-toggle sister-pill" id="sister-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener">
+            <span data-i18n="sister.label">台灣舊地圖</span> <span class="arr">↗</span>
+          </a>
+        </div>
+        <div class="head-meta" id="head-meta">N — · E —</div>
       </div>
     </div>
   </div>
@@ -627,6 +642,8 @@
     nl: {
       'app.title': 'Oude-Kaart Wandeling', 'app.tagline': 'Nederland · door de tijd',
       'sec.place': 'Plaats', 'sec.place.en': 'plaats',
+      'tab.time': 'Tijd', 'tab.layers': 'Lagen', 'tab.cards': 'Kaarten', 'tab.more': 'Meer',
+      'city.search': 'Zoek een stad…', 'city.empty': 'Geen stad gevonden.',
       'sec.base': 'Basiskaart', 'sec.base.en': 'basiskaart',
       'base.brt': 'Kaart', 'base.grijs': 'Grijs', 'base.aerial': 'Luchtfoto',
       'sec.time': 'Tijdreis', 'sec.time.en': 'tijdreis',
@@ -656,6 +673,8 @@
     en: {
       'app.title': 'Old-Map Stroll', 'app.tagline': 'Netherlands · through time',
       'sec.place': 'Place', 'sec.place.en': 'place',
+      'tab.time': 'Time', 'tab.layers': 'Layers', 'tab.cards': 'Cards', 'tab.more': 'More',
+      'city.search': 'Search a city…', 'city.empty': 'No city found.',
       'sec.base': 'Base map', 'sec.base.en': 'base map',
       'base.brt': 'Street', 'base.grijs': 'Plain', 'base.aerial': 'Aerial',
       'sec.time': 'Time travel', 'sec.time.en': 'time travel',
@@ -685,6 +704,8 @@
     zh: {
       'app.title': '荷蘭古地圖散策', 'app.tagline': '荷蘭 · 穿越時光',
       'sec.place': '城市', 'sec.place.en': '城市',
+      'tab.time': '時光', 'tab.layers': '圖層', 'tab.cards': '明信片', 'tab.more': '更多',
+      'city.search': '搜尋城市…', 'city.empty': '找不到城市。',
       'sec.base': '底圖', 'sec.base.en': '底圖',
       'base.brt': '街道', 'base.grijs': '簡圖', 'base.aerial': '衛星',
       'sec.time': '時光', 'sec.time.en': '時光旅行',
@@ -734,6 +755,7 @@
     document.querySelectorAll('#lang-switch button').forEach(b =>
       b.classList.toggle('active', b.dataset.lang === lang));
     updateEraLabel(state.year);
+    const cs = document.getElementById('city-search'); if (cs) cs.placeholder = t('city.search');
     renderCityList();
     updateCurrentCity();
     renderCards();
@@ -820,15 +842,21 @@
     return { id: AVAIL[best], year: AVAIL_Y[best] };
   }
 
-  function renderCityList() {
-    const wrap = document.getElementById('city-list');
+  function renderCityList(filter) {
+    const wrap = document.getElementById('city-results');
+    if (!wrap) return;
+    const q = (filter || '').trim().toLowerCase();
     wrap.innerHTML = '';
+    let total = 0;
     Object.keys(REGIONS).forEach(rid => {
+      const matches = CITIES.filter(c => c.region === rid && (!q ||
+        c.zh.toLowerCase().includes(q) || c.en.toLowerCase().includes(q) || c.id.includes(q)));
+      if (!matches.length) return;
       const lab = document.createElement('div');
       lab.className = 'region-label';
       lab.textContent = REGIONS[rid][lang === 'zh' ? 'zh' : 'en'];
       wrap.appendChild(lab);
-      CITIES.filter(c => c.region === rid).forEach(c => {
+      matches.forEach(c => {
         const chip = document.createElement('button');
         chip.type = 'button';
         chip.className = 'city-chip' + (c.id === state.city.id ? ' active' : '');
@@ -836,8 +864,29 @@
           (lang === 'zh' ? ' <span class="en">' + c.en + '</span>' : '');
         chip.addEventListener('click', () => { selectCity(c.id); });
         wrap.appendChild(chip);
+        total++;
       });
     });
+    if (!total) {
+      const e = document.createElement('div');
+      e.className = 'city-empty';
+      e.textContent = t('city.empty');
+      wrap.appendChild(e);
+    }
+  }
+  function openCityList(open) {
+    const cur = document.getElementById('city-current');
+    const list = document.getElementById('city-list');
+    cur.setAttribute('aria-expanded', String(open));
+    list.classList.toggle('open', open);
+    const s = document.getElementById('city-search');
+    if (open) {
+      if (s) s.value = '';
+      renderCityList('');
+      if (window.innerWidth > 640 && s) setTimeout(() => s.focus(), 60);
+      const act = list.querySelector('.city-chip.active');
+      if (act) act.scrollIntoView({ block: 'nearest' });
+    }
   }
 
   function updatePeek() {
@@ -858,7 +907,10 @@
     state.city = c;
     map.setView(c.center, CITY_ZOOM);
     updateCurrentCity();
-    renderCityList();
+    document.getElementById('city-current').setAttribute('aria-expanded', 'false');
+    document.getElementById('city-list').classList.remove('open');
+    const s = document.getElementById('city-search'); if (s) s.value = '';
+    renderCityList('');
     renderCards();
     renderOffline();
     try { localStorage.setItem('nlOldMaps.city', id); } catch (e) {}
@@ -1001,10 +1053,35 @@
   document.getElementById('zoom-out').addEventListener('click', () => map.zoomOut());
 
   document.getElementById('city-current').addEventListener('click', function () {
-    const open = this.getAttribute('aria-expanded') === 'true';
-    this.setAttribute('aria-expanded', String(!open));
-    document.getElementById('city-list').classList.toggle('open', !open);
+    openCityList(this.getAttribute('aria-expanded') !== 'true');
   });
+  (function () {
+    const search = document.getElementById('city-search');
+    search.addEventListener('input', e => renderCityList(e.target.value));
+    search.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { const first = document.querySelector('#city-results .city-chip'); if (first) first.click(); }
+      else if (e.key === 'Escape') { openCityList(false); document.getElementById('city-current').focus(); }
+    });
+    document.addEventListener('click', e => {
+      const list = document.getElementById('city-list');
+      if (!list.classList.contains('open')) return;
+      if (document.getElementById('city-current').contains(e.target) || list.contains(e.target)) return;
+      openCityList(false);
+    });
+  })();
+
+  // Tabs
+  function setTab(id) {
+    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+    document.querySelectorAll('.tabpane').forEach(p => { const on = p.id === 'pane-' + id; p.classList.toggle('active', on); p.hidden = !on; });
+    try { localStorage.setItem('nlOldMaps.tab', id); } catch (e) {}
+  }
+  document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
+  (function () {
+    let startTab = 'time';
+    try { const s = localStorage.getItem('nlOldMaps.tab'); if (s && document.getElementById('pane-' + s)) startTab = s; } catch (e) {}
+    setTab(startTab);
+  })();
 
   document.querySelectorAll('.base-pill').forEach(p =>
     p.addEventListener('click', () => setBase(p.dataset.id)));
