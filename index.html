@@ -209,6 +209,7 @@
   .lc-meta:hover { color:var(--vermilion); border-color:var(--vermilion); }
   .lc-meta .ic { font-size:12px; }
   .lc-meta .arr { color:var(--vermilion); }
+  .lc-desc { font-family:var(--sans); font-size:13px; color:var(--graphite); margin-top:12px; line-height:1.7; }
   .lc-credit { font-family:var(--sans); font-size:11.5px; color:var(--graphite); margin-top:7px; line-height:1.65; }
   .lc-source { display:inline-block; font-family:var(--mono); font-size:10px; color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
   .lc-source:hover { color:var(--vermilion); border-color:var(--vermilion); }
@@ -535,6 +536,7 @@
       <div class="lc-title" id="lc-title"></div>
       <div class="lc-artist" id="lc-artist"></div>
       <div class="lc-meta" id="lc-meta"></div>
+      <div class="lc-desc" id="lc-desc" hidden></div>
       <div class="lc-credit" id="lc-credit"></div>
       <div class="lc-actions">
         <a class="lc-source" id="lc-source" target="_blank" rel="noopener"></a>
@@ -1332,6 +1334,21 @@
           ctx.fillText('Public Domain · via Wikimedia Commons', PAD, y); y += 42;
           ctx.fillStyle = '#A6A399'; ctx.font = "400 18px 'JetBrains Mono',monospace";
           ctx.fillText('荷蘭古地圖散策 · yunching0513.github.io/Netherlands-historical-map', PAD, y);
+          // postmark date stamp (lower-right of the caption band)
+          (function () {
+            const dt = new Date();
+            const ds = dt.getDate() + '.' + (dt.getMonth() + 1) + '.' + dt.getFullYear();
+            ctx.save();
+            ctx.translate(W - 108, imgH + bandH - 78); ctx.rotate(-8 * Math.PI / 180);
+            ctx.globalAlpha = 0.9; ctx.strokeStyle = '#C15F3C'; ctx.fillStyle = '#C15F3C';
+            ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(0, 0, 52, 0, Math.PI * 2); ctx.stroke();
+            ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(0, 0, 43, 0, Math.PI * 2); ctx.stroke();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.font = "700 12px 'JetBrains Mono',monospace"; ctx.fillText('NEDERLAND', 0, -22);
+            ctx.font = "700 21px 'JetBrains Mono',monospace"; ctx.fillText(ds, 0, 1);
+            ctx.font = "500 11px 'Noto Serif TC','Songti TC',serif"; ctx.fillText('古地圖散策', 0, 24);
+            ctx.restore();
+          })();
           ctx.restore();
           ctx.strokeStyle = '#BBB8AE'; ctx.lineWidth = 2;                          // card border
           ctx.strokeRect(FRAME, FRAME, W, cardH);
@@ -1386,6 +1403,10 @@
     meta.innerHTML = '<span class="ic">⌖</span><span class="mtxt"></span><span class="arr">↗</span>';
     meta.querySelector('.mtxt').textContent = item.credit;
     meta.title = t('card.locate');
+    const descEl = document.getElementById('lc-desc');
+    const dtext = item.desc ? (item.desc[lang] || item.desc.en || item.desc.nl) : '';
+    descEl.textContent = dtext || '';
+    descEl.hidden = !dtext;
     document.getElementById('lc-credit').textContent = t('card.pd');
     const src = document.getElementById('lc-source');
     src.href = item.sourceUrl;

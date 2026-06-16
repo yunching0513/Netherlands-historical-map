@@ -41,7 +41,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Night_Watch_-_HD.jpg",
       "lat": 52.3731,
-      "lng": 4.8922
+      "lng": 4.8922,
+      "desc": {
+        "zh": "《夜巡》（荷蘭語：De Nachtwacht）是17世紀荷蘭黃金時代畫家林布蘭的名畫。完成於1642年，是荷蘭肖像畫黃金時代的傑作，現在是荷蘭阿姆斯特丹博物館的館藏，但一般在阿姆斯特丹國家博物館展出。",
+        "en": "Militia Company of District II under the Command of Captain Frans Banninck Cocq, also known as The Shooting Company of Frans Banning Cocq and Willem van Ruytenburch, but commonly referred to as The Night Watch (Dutch: De Nachtwacht), is a 1642 painting by Rembrandt van Rijn.",
+        "nl": "De Nachtwacht is een schuttersstuk van de Hollandse schilder Rembrandt van Rijn (1606-1669) dat in 1642 gereed kwam."
+      }
     },
     {
       "id": "denhaag-anatomy",
@@ -62,7 +67,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rembrandt_-_The_Anatomy_Lesson_of_Dr_Nicolaes_Tulp.jpg",
       "lat": 52.0799,
-      "lng": 4.3113
+      "lng": 4.3113,
+      "desc": {
+        "zh": "林布蘭 1632 年的群像畫，描繪外科醫師杜爾博士在阿姆斯特丹進行公開解剖示範，是他成名的早期傑作。現藏海牙莫瑞泰斯美術館。",
+        "en": "Rembrandt's 1632 group portrait of Dr Nicolaes Tulp giving a public anatomy demonstration in Amsterdam — an early masterpiece. Held at the Mauritshuis, The Hague.",
+        "nl": "Rembrandts groepsportret uit 1632 toont een openbare anatomische les van Dr. Nicolaes Tulp in Amsterdam. Mauritshuis, Den Haag."
+      }
     },
     {
       "id": "haarlem-hals-militia",
@@ -83,7 +93,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Banquet_of_the_Officers_of_the_St_George_Civic_Guard_Company.jpg",
       "lat": 52.3814,
-      "lng": 4.6375
+      "lng": 4.6375,
+      "desc": {
+        "zh": "法蘭斯·哈爾斯 1627 年的民兵連群像，描繪哈勒姆聖喬治射手公會軍官的宴會，以生動自然的姿態著稱。現藏哈勒姆法蘭斯·哈爾斯美術館。",
+        "en": "Frans Hals's 1627 militia banquet of the St George civic guard officers in Haarlem, famous for its lively, natural poses. Frans Hals Museum, Haarlem.",
+        "nl": "Een schuttersmaaltijd van de Sint-Jorisschutterij in Haarlem, door Frans Hals (1627). Frans Hals Museum, Haarlem."
+      }
     },
     {
       "id": "haarlem-ruisdael",
@@ -104,7 +119,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_of_Haarlem_with_Bleaching_Grounds_c1665_Ruisdael.jpg",
       "lat": 52.3814,
-      "lng": 4.6375
+      "lng": 4.6375,
+      "desc": {
+        "zh": "雅各布·范·勒伊斯達爾約 1665 年的風景畫，以低地平線與遼闊天空俯瞰哈勒姆與近郊的漂布場，是著名的「哈勒姆風景」之一。現藏蘇黎世美術館。",
+        "en": "Jacob van Ruisdael's panoramic view (c.1665) of Haarlem and its bleaching fields under a vast sky — one of his celebrated 'Haarlempjes'. Kunsthaus Zürich.",
+        "nl": "Een panoramisch gezicht op Haarlem met blekerijen onder een weidse lucht, door Jacob van Ruisdael (ca. 1665). Kunsthaus Zürich."
+      }
     },
     {
       "id": "denbosch-bosch",
@@ -125,7 +145,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Garden_of_Earthly_Delights_by_Bosch_High_Resolution.jpg",
       "lat": 51.6978,
-      "lng": 5.3037
+      "lng": 5.3037,
+      "desc": {
+        "zh": "耶羅尼米斯·波希約 1490–1500 年的三聯祭壇畫，以繁複奇想的意象描繪樂園、人間慾望與地獄。現藏馬德里普拉多美術館。",
+        "en": "Hieronymus Bosch's triptych (c.1490–1500): a fantastical vision of paradise, earthly desire and hell. Museo del Prado, Madrid.",
+        "nl": "Een drieluik van Jheronimus Bosch (ca. 1490–1500) met een fantastische voorstelling van paradijs, lust en hel. Museo del Prado, Madrid."
+      }
     },
     {
       "id": "rotterdam-babel",
@@ -146,7 +171,10 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_(Rotterdam)_-_Google_Art_Project.jpg",
       "lat": 51.9225,
-      "lng": 4.4792
+      "lng": 4.4792,
+      "desc": {
+        "nl": "De Toren van Babel is een schilderij van de Zuid-Nederlandse schilder Roelant Savery, gemaakt in 1602.  Het bevindt zich in het Germanisches Nationalmuseum in Neurenberg."
+      }
     },
     {
       "id": "leiden-steen-merry",
@@ -167,7 +195,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Havicksz._Steen_-_Het_vrolijke_huisgezin_-_Google_Art_Project.jpg",
       "lat": 52.1589,
-      "lng": 4.4937
+      "lng": 4.4937,
+      "desc": {
+        "zh": "揚·斯特恩 1668 年的風俗畫，描繪一家人歡鬧飲宴，畫中暗藏「上行下效」的道德寓意。現藏阿姆斯特丹國家博物館。",
+        "en": "Jan Steen's 1668 genre scene of a boisterous family feast, carrying the moral 'as the old sing, so pipe the young'. Rijksmuseum, Amsterdam.",
+        "nl": "Een vrolijk en rumoerig huisgezin, door Jan Steen (1668), met de moraal \"soo voer gesongen, soo na gepepen\". Rijksmuseum, Amsterdam."
+      }
     },
     {
       "id": "leiden-rembrandt-self",
@@ -188,7 +221,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Self-portrait_(1628-1629),_by_Rembrandt.jpg",
       "lat": 52.1589,
-      "lng": 4.4937
+      "lng": 4.4937,
+      "desc": {
+        "zh": "林布蘭約 1628 年於故鄉萊頓所繪的早期自畫像，臉部半隱於陰影中，展現他年輕時對光影的實驗。現藏阿姆斯特丹國家博物館。",
+        "en": "An early self-portrait Rembrandt painted around 1628 in his native Leiden, his face half in shadow. Rijksmuseum, Amsterdam.",
+        "nl": "Een vroeg zelfportret dat Rembrandt rond 1628 in Leiden schilderde, met zijn gezicht half in de schaduw. Rijksmuseum, Amsterdam."
+      }
     },
     {
       "id": "zwolle-avercamp",
@@ -209,7 +247,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hendrick_Avercamp_-_Winterlandschap_met_ijsvermaak.jpg",
       "lat": 52.5168,
-      "lng": 6.083
+      "lng": 6.083,
+      "desc": {
+        "zh": "亨德里克·阿維坎普約 1608 年的冬景，畫滿在結冰河面上溜冰、嬉戲的人群，是荷蘭冬景畫的代表作。現藏阿姆斯特丹國家博物館。",
+        "en": "Hendrick Avercamp's winter scene (c.1608), teeming with skaters and revellers on the ice — a classic of Dutch winter landscape. Rijksmuseum, Amsterdam.",
+        "nl": "Een winterlandschap vol schaatsers en ijsvermaak, door Hendrick Avercamp (ca. 1608). Rijksmuseum, Amsterdam."
+      }
     },
     {
       "id": "utrecht-honthorst",
@@ -230,7 +273,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gerrit_van_Honthorst_-_De_vrolijke_speelman_(1623).jpg",
       "lat": 52.0908,
-      "lng": 5.1222
+      "lng": 5.1222,
+      "desc": {
+        "zh": "赫拉爾德·凡·洪特霍斯特 1623 年的作品，一名提琴手探出窗外舉杯，洋溢烏特勒支卡拉瓦喬畫派的明暗與歡愉。現藏阿姆斯特丹國家博物館。",
+        "en": "Gerard van Honthorst's 1623 painting of a fiddler leaning from a window with a raised glass, full of Utrecht Caravaggist light and cheer. Rijksmuseum, Amsterdam.",
+        "nl": "Een vrolijke speelman die met een glas uit het venster leunt, door Gerard van Honthorst (1623). Rijksmuseum, Amsterdam."
+      }
     },
     {
       "id": "dordrecht-cuyp",
@@ -251,7 +299,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aelbert_Cuyp_-_The_Maas_at_Dordrecht_-_Google_Art_Project.jpg",
       "lat": 51.8133,
-      "lng": 4.6901
+      "lng": 4.6901,
+      "desc": {
+        "zh": "阿爾伯特·庫普約 1650 年的河景，金色陽光灑在多德雷赫特馬斯河上的船隻與帆影。現藏華盛頓國家藝廊。",
+        "en": "Aelbert Cuyp's river view (c.1650) of shipping on the Maas at Dordrecht, bathed in golden light. National Gallery of Art, Washington.",
+        "nl": "Een riviergezicht met schepen op de Maas bij Dordrecht in gouden licht, door Aelbert Cuyp (ca. 1650). National Gallery of Art, Washington."
+      }
     },
     {
       "id": "delft-vermeer-diana-and-her-nymphs",
@@ -272,7 +325,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Diana_and_her_Nymphs_-_406_-_Mauritshuis.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Diana and Her Companions (Dutch: Diana en haar Nimfen or Diana en haar gezellinnen) is a painting by Dutch artist Johannes Vermeer completed in the early to mid-1650s, now at the Mauritshuis museum in The Hague.",
+        "nl": "Diana en haar Nimfen, is een schilderij uit de zeventiende eeuw van de Hollandse meester Johannes Vermeer.  Het behoort sinds 1876 tot de collectie van het Mauritshuis in 's-Gravenhage."
+      }
     },
     {
       "id": "delft-vermeer-christ-in-the-house-of-martha-and-mary",
@@ -293,7 +350,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_(Jan)_Vermeer_-_Christ_in_the_House_of_Martha_and_Mary_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Christ in the House of Martha and Mary (Dutch: Christus in het huis van Martha en Maria) is an oil painting finished in 1655 by the Dutch Golden Age painter Johannes Vermeer.  It is now in the Scottish National Gallery in Edinburgh.",
+        "nl": "Christus in het huis van Martha en Maria, ook genoemd Christus in het huis van Maria en Martha, is een schilderij van de Hollandse meester Johannes Vermeer (1632-1675)."
+      }
     },
     {
       "id": "delft-vermeer-the-girl-with-the-wine-glass",
@@ -314,7 +375,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_van_Delft_006.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Girl with the Wine Glass (Dame en twee heren) is an oil-on-canvas painting of the Dutch Golden Age by Johannes Vermeer, created c.  1659–1660, now in the Herzog Anton Ulrich Museum, in Braunschweig.",
+        "nl": "Dame en twee heren is een schilderij van de Hollandse meester Johannes Vermeer.  De werken van Vermeer zijn door museumcuratoren en kunstcritici van hun benamingen voorzien en hebben geen vastliggende titels."
+      }
     },
     {
       "id": "delft-vermeer-saint-praxedis",
@@ -335,7 +400,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer_saint_praxedis.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Saint Praxedis is an oil painting by Johannes Vermeer.  This attribution has often been questioned.",
+        "nl": "Sint Praxedis is een schilderij toegeschreven aan de Hollandse meester Johannes Vermeer.  Deze zou het doek rond 1655 hebben vervaardigd naar het voorbeeld van het gelijknamige schilderij van de Florentijnse schilder Felice Ficherelli."
+      }
     },
     {
       "id": "delft-vermeer-the-procuress",
@@ -356,7 +425,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_The_Procuress_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Procuress (Dutch: De koppelaarster) is a 1656 oil-on-canvas painting by the then 24-year-old Johannes Vermeer.  It can be seen in the Gemäldegalerie Alte Meister in Dresden.",
+        "nl": "De koppelaarster is een gedateerd en gesigneerd schilderij uit 1656 van de Hollandse meester Johannes Vermeer (1632-1675).  Het is in het bezit van de Gemäldegalerie Alte Meister in Dresden, net als Brieflezend meisje bij het venster."
+      }
     },
     {
       "id": "delft-vermeer-a-girl-asleep",
@@ -377,7 +450,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer_young_women_sleeping.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "A Girl Asleep (Dutch: Slapend meisje), also known as A Woman Asleep, A Woman Asleep at Table, and A Maid Asleep, is a painting by the Dutch master Johannes Vermeer, created c.  1657.",
+        "nl": "Slapend Meisje is een werk uit 1657 van de Delftse kunstschilder Jan Vermeer."
+      }
     },
     {
       "id": "delft-vermeer-officer-and-laughing-girl",
@@ -398,7 +475,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_De_Soldaat_en_het_Lachende_Meisje_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Officer and Laughing Girl, also known as Officer and a Laughing Girl, Officer With a Laughing Girl or, in Dutch, De Soldaat en het Lachende Meisje (literally, The Soldier and the Laughing Girl), is an oil painting on canvas executed ca.",
+        "nl": "De soldaat en het lachende meisje is een schilderij van de Hollandse meester Johannes Vermeer.  Vermeer schilderde dit werk tussen 1655 en 1660."
+      }
     },
     {
       "id": "delft-vermeer-the-little-street",
@@ -419,7 +500,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Gezicht_op_huizen_in_Delft,_bekend_als_%27Het_straatje%27_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Little Street (Het Straatje) is a painting by the Dutch painter Johannes Vermeer, executed c.  1657–1658.",
+        "nl": "Gezicht op huizen in Delft, beter bekend als Het straatje is een schilderij van de Hollandse meester Johannes Vermeer (1632-1675)."
+      }
     },
     {
       "id": "delft-vermeer-girl-reading-a-letter-at-an-open-window",
@@ -440,7 +525,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_van_Delft_-_Brieflezend_meisje_bij_het_venster_(ca._1657-59).jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "zh": "《窗邊讀信的少女》（Girl Reading a Letter at an Open Window）是一副由荷蘭畫家揚·弗美爾創作的巴羅克風格油畫。這幅作品展現了一名荷蘭少女在開著的窗邊讀信的場景，作品的創作時間為1657至1659年間，原畫現存於德勒斯登的歷代大師畫廊，自1742年以來一直在此展出。",
+        "en": "Girl Reading a Letter at an Open Window (Dutch: Brieflezend meisje bij het venster), also known as Lady reading at an open window, is an oil painting by Dutch Golden Age painter Johannes Vermeer.",
+        "nl": "Het Brieflezend meisje bij het venster is een schilderij van de 17e-eeuwse Hollandse meester Johannes Vermeer uit het begin van zijn carrière.  Het is in het bezit van de Gemäldegalerie Alte Meister in Dresden, Duitsland."
+      }
     },
     {
       "id": "delft-vermeer-the-wine-glass",
@@ -461,7 +551,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_van_Delft_-_The_Glass_of_Wine_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "zh": "一杯酒（荷蘭語：Het glas wijn）是荷蘭畫家揚·弗美爾的油畫作品，畫中的一名婦女正在與一名男士飲用一杯醇酒。",
+        "en": "The Wine Glass (also The Glass of Wine or Lady and Gentleman Drinking Wine, Dutch: Het glas wijn) is an oil-on-canvas painting by Johannes Vermeer, created c.  1660, now in the Gemäldegalerie, Berlin.",
+        "nl": "Het glas wijn is een schilderij van de Hollandse meester Johannes Vermeer (1632-1675).  Het werd omstreeks 1660 voltooid."
+      }
     },
     {
       "id": "delft-vermeer-woman-with-a-pearl-necklace",
@@ -482,7 +577,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_van_Delft_-_Young_Woman_with_a_Pearl_Necklace_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Woman with a Pearl Necklace by Johannes Vermeer is a Dutch Golden Age painting of about 1664.",
+        "nl": "Vrouw met parelsnoer is een schilderij uit 1662-1665 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het is in het bezit van de Gemäldegalerie in Berlijn."
+      }
     },
     {
       "id": "delft-vermeer-the-milkmaid",
@@ -503,7 +602,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "zh": "《倒牛奶的女僕》（荷蘭語：De Melkmeid或Het Melkmeisje）是一幅由荷蘭黃金時代畫家楊·維梅爾繪成的油畫，主題是一名倒牛奶的廚房女僕。此畫現藏於阿姆斯特丹國家博物館，是館中珍藏之一。",
+        "en": "The Milkmaid (Dutch: De melkmeid or Het melkmeisje), sometimes called The Kitchen Maid (Dutch: De keukenmeid), is an oil-on-canvas painting of a \"milkmaid\", in fact, a domestic kitchen maid, by the Dutch artist Johannes Vermeer.",
+        "nl": "Het melkmeisje, ook wel De keuken- of melkmeid genoemd, is een schilderij van de Hollandse meester Johannes Vermeer uit circa 1658-1659.  In een veilingcatalogus uit 1696 wordt het werk vermeld als Een Meyd die Melk uytgiet."
+      }
     },
     {
       "id": "delft-vermeer-woman-with-a-water-jug",
@@ -524,7 +628,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_van_Delft_019.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Woman with a Water Jug (Dutch: Vrouw met waterkan), also known as Young Woman with a Water Pitcher, is a painting finished between 1660–1662 by the Dutch painter Johannes Vermeer in the Baroque style.  It is oil on canvas, 45.",
+        "nl": "Vrouw met waterkan is een schilderij uit 1662-1665 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Dit bijzondere schilderij wordt beschouwd als een van zijn meest poëtische werken."
+      }
     },
     {
       "id": "delft-vermeer-girl-interrupted-at-her-music",
@@ -545,7 +653,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer_Girl_Interrupted_at_Her_Music.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Girl Interrupted at Her Music (Dutch: Onderbreking van de muziek) is a painting by the Dutch artist Johannes Vermeer.  It was painted in the baroque style, probably between the years 1658 and 1659, using oil on canvas.",
+        "nl": "De Onderbreking van de muziek is een klein, ongesigneerd schilderij van de Hollandse meester Jan Vermeer uit circa 1660.  Het geldt samen met twee andere Vermeers als een van de topstukken in de Frick Collection in New York."
+      }
     },
     {
       "id": "delft-vermeer-view-of-delft",
@@ -566,7 +678,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_View_of_Delft_-_92_-_Mauritshuis.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "zh": "台夫特風景（荷蘭語：Gezicht op Delft）是一幅由荷蘭黃金時代畫家揚·維梅爾繪成於1660年至1661年間的油畫；台夫特是他的出生地，這幅作品也是畫家已知的三幅台夫特風景畫之一，其他兩幅為《小街》和《台夫特的房屋》（已遺失）。 維梅爾在創作這幅作品時僅用了有限的幾種顔料，主要是鉛白、赭石黃、群青和茜草紅，然而即使如此他仍然繪聲繪色地描繪出了台夫特的景致。",
+        "en": "View of Delft (Dutch: Zicht op Delft) is an oil painting by Johannes Vermeer, painted c.  1659–1661.",
+        "nl": "Gezicht op Delft is een van de bekendste schilderijen van de 17e-eeuwse Hollandse meester Johannes Vermeer.  Het doek hangt in het Mauritshuis in Den Haag."
+      }
     },
     {
       "id": "delft-vermeer-woman-with-a-lute",
@@ -587,7 +704,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer_-_Woman_with_a_Lute_near_a_window.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Woman with a Lute, also known as Woman with a Lute Near a Window, is a painting created about 1662–1663 by Dutch painter Johannes Vermeer and now at the Metropolitan Museum of Art in New York.",
+        "nl": "De luitspeelster is een schilderij uit 1662-1663 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het is in het bezit van het Metropolitan Museum of Art in New York."
+      }
     },
     {
       "id": "delft-vermeer-the-music-lesson",
@@ -608,7 +729,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Lady_at_the_Virginal_with_a_Gentleman,_%27The_Music_Lesson%27_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Music Lesson, Woman Seated at a Virginal or A Lady at the Virginals with a Gentleman by Johannes Vermeer is a painting of a young female pupil playing a virginal during a music lesson with a male teacher.",
+        "nl": "De muziekles is een schilderij van de Hollandse meester Johannes Vermeer.  Op het schilderij is een meisje afgebeeld dat op een virginaal speelt."
+      }
     },
     {
       "id": "delft-vermeer-the-concert",
@@ -629,7 +754,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer_The_Concert.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "zh": "《合奏》（荷蘭語：Het concert），是十七世紀荷蘭畫家楊·維梅爾的作品。畫作以描繪一個男人和兩個女人進行演奏而作為主題，原畫曾由美國波士頓的伊莎貝拉史都華嘉納藝術博物館收藏，但在1990年3月18日的盜竊事件中失蹤，至今未被尋回，截至2015年，這幅作品的價值為2.5億美元。",
+        "en": "The Concert (Dutch: Het concert) (c.  1664) is a painting by the Dutch artist Johannes Vermeer depicting a man and two women performing music.",
+        "nl": "Het concert uit circa 1666 is een van de 34-37 bekende werken van de Delftse kunstschilder Johannes Vermeer.  Het is een van de weinige Vermeers met een ensemble van meer dan twee figuren als onderwerp."
+      }
     },
     {
       "id": "delft-vermeer-woman-in-blue-reading-a-letter",
@@ -650,7 +780,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer,_Johannes_-_Woman_reading_a_letter_-_ca._1662-1663.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Woman Reading a Letter (Dutch: Brieflezende vrouw) is a painting by the Dutch Golden Age painter Johannes Vermeer, produced in around 1663.",
+        "nl": "Brieflezende vrouw in het blauw is een klein schilderij van de Nederlandse kunstschilder Johannes Vermeer (1632-1675), geschilderd rond 1662-1664.  Het wordt ook kortweg Brieflezende vrouw of soms Het blauwe vrouwtje genoemd."
+      }
     },
     {
       "id": "delft-vermeer-the-astronomer",
@@ -671,7 +805,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_The_Astronomer_-_1668.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "zh": "《天文學家》是荷蘭黃金時代畫家楊·維梅爾繪製的一幅油畫，完成於1668年，現藏於巴黎盧浮宮。 17世紀的荷蘭繪畫中，科學家一直是個很受歡迎的主題。",
+        "en": "The Astronomer (Dutch: De astronoom) is a painting finished in 1668 by the Johannes Vermeer, a painter of the Dutch Golden Age.  It is in oil on canvas with dimensions 51 cm × 45 cm (20 in × 18 in).",
+        "nl": "De astronoom is een schilderij uit 1668 van de Hollandse meester Johannes Vermeer.  Het schilderij vormt een pendant met het latere werk De geograaf waarop eveneens een wetenschapper aan het werk wordt afgebeeld."
+      }
     },
     {
       "id": "delft-vermeer-girl-with-a-pearl-earring",
@@ -692,7 +831,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "zh": "《戴珍珠耳環的少女》（荷蘭語：Het meisje met de parel），十七世紀荷蘭畫家楊·維梅爾的作品。畫作以少女戴著的珍珠耳環作為視角的焦點，現時畫作存放在海牙的莫瑞泰斯住宅中。",
+        "en": "Girl with a Pearl Earring (Dutch: Meisje met de parel) is an oil painting by Dutch Golden Age painter Johannes Vermeer, dated c.  1665.",
+        "nl": "Meisje met de parel is een schilderij uit circa 1665-1667 van de Hollandse meester Johannes Vermeer.  Het is uitgegroeid tot diens populairste kunstwerk."
+      }
     },
     {
       "id": "delft-vermeer-a-lady-writing-a-letter",
@@ -713,7 +857,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_Lady_Writing_by_Johannes_Vermeer,_1665-6.png",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "A Lady Writing a Letter (also known as A Lady Writing) is an oil on canvas painting by the 17th century Dutch painter Johannes Vermeer.  It is believed to have been completed by artist during his mature phase, in the mid-to-late 1660s.",
+        "nl": "Schrijvende vrouw in het geel is een schilderij uit 1662-1665 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het is in het bezit van de National Gallery of Art in Washington."
+      }
     },
     {
       "id": "delft-vermeer-portrait-of-a-young-woman",
@@ -734,7 +882,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer-Portrait_of_a_Young_Woman.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Study of a Young Woman (also known as Portrait of a Young Woman or Girl with a Veil) is a painting by the Dutch artist Johannes Vermeer, completed between 1665 and 1667, and now in the Metropolitan Museum of Art, New York.",
+        "nl": "Meisjeskopje is een schilderij uit 1665-1667 van de Hollandse meester Johannes Vermeer.  Het werk is in het bezit van het Metropolitan Museum of Art in New York."
+      }
     },
     {
       "id": "delft-vermeer-woman-holding-a-balance",
@@ -755,7 +907,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Woman_Holding_a_Balance_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "zh": "《持天平的女人》是荷蘭黃金時代畫家弗美爾繪製的一幅油畫，完成於1662年至1663年間。此畫一度被稱為《秤金子的女人》，但後來發現畫中的天平其實是空的。",
+        "en": "Woman Holding a Balance (Dutch: Vrouw met weegschaal), also called Woman Testing a Balance, is an oil painting by Dutch Golden Age painter Johannes Vermeer, now in the National Gallery of Art in Washington, DC.  At one time the painting, completed c.",
+        "nl": "Vrouw met weegschaal is een schilderij van de Hollandse meester Johannes Vermeer uit omstreeks 1664.  Het beschilderde deel is 39,7 x 35,5 cm en het doek is 42,5 x 38 cm."
+      }
     },
     {
       "id": "delft-vermeer-mistress-and-maid",
@@ -776,7 +933,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer_Lady_Maidservant_Holding_Letter.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Mistress and Maid (Dutch: Dame en dienstbode) is an oil-on-canvas painting produced by Johannes Vermeer c.  1667.",
+        "nl": "Dame en dienstbode is een schilderij uit 1666-1667 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het werk is in het bezit van de Frick Collection in New York, net als De soldaat en het lachende meisje en Onderbreking van de muziek."
+      }
     },
     {
       "id": "delft-vermeer-the-art-of-painting",
@@ -797,7 +958,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_-_The_Art_of_Painting_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Art of Painting, also known as The Allegory of Painting (Dutch: Allegorie op de schilderkunst), or Painter in his Studio, is a 17th-century oil on canvas painting by Dutch painter Johannes Vermeer.",
+        "nl": "Het schilderij De schilderkunst, Het atelier, De schilder en zijn model of Allegorie op de schilderkunst is een allegorie van de hand van Johannes Vermeer."
+      }
     },
     {
       "id": "delft-vermeer-the-geographer",
@@ -818,7 +983,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer,_Der_Geograf,_1669.png",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Geographer (Dutch: De geograaf) is a painting created by Dutch artist Johannes Vermeer in 1668–1669, and is now in the collection of the Städel museum in Frankfurt, Germany.",
+        "nl": "De geograaf is een gecompliceerd schilderij waarop de Hollandse meester Johannes Vermeer het belang van onderzoek en wetenschap naar voren brengt."
+      }
     },
     {
       "id": "delft-vermeer-the-love-letter",
@@ -839,7 +1008,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_%27De_liefdesbrief%27_-_Google_Art_Project.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Love Letter (Dutch: De liefdesbrief) is a 17th-century genre painting by Jan Vermeer.  The painting shows a servant maid commenting to her mistress on a letter the woman holds.",
+        "nl": "De liefdesbrief is een schilderij van de Hollandse meester Johannes Vermeer (1632-1675).  Het is gemaakt in ± 1669 - ± 1670 met olieverf op doek en meet 44 x 38,5 cm."
+      }
     },
     {
       "id": "delft-vermeer-girl-with-a-red-hat",
@@ -860,7 +1033,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vermeer_-_Girl_with_a_Red_Hat.JPG",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Girl with a Red Hat is a small painting, signed by the Dutch painter Johannes Vermeer.",
+        "nl": "Meisje met de rode hoed is een klein schilderij van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het werk wordt gedateerd rond 1665 en bevindt zich in de National Gallery of Art in Washington D."
+      }
     },
     {
       "id": "delft-vermeer-the-lacemaker",
@@ -881,7 +1058,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_The_lacemaker_(c.1669-1671).jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Lacemaker is a painting by the Dutch artist Johannes Vermeer (1632–1675), completed around 1669–1670 and held in the Louvre, Paris.",
+        "nl": "De kantwerkster is een schilderij uit 1669-1670 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het is een van de kleinste overgeleverde schilderijen uit het oeuvre van Vermeer."
+      }
     },
     {
       "id": "delft-vermeer-allegory-of-the-catholic-faith",
@@ -902,7 +1083,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer,_Allegory_of_the_Catholic_Faith,_The_Metropolitan_Museum_of_Art.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Allegory of Faith, also known as Allegory of the Catholic Faith, is a Dutch Golden Age painting by Johannes Vermeer from about 1670–1672.  It has been in the Metropolitan Museum of Art in New York since 1931.",
+        "nl": "Allegorie op het geloof is een schilderij uit 1670-1674 van de Hollandse meester Johannes Vermeer (1632-1675)."
+      }
     },
     {
       "id": "delft-vermeer-lady-writing-a-letter-with-her-maid",
@@ -923,7 +1108,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Woman_writing_a_letter,_with_her_maid,_by_Johannes_Vermeer.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Lady Writing a Letter with her Maid (Dutch: Schrijvende vrouw met dienstbode) is a painting by the Dutch artist Johannes Vermeer, completed in 1670–1671 and held in the National Gallery of Ireland, in Dublin, Ireland.",
+        "nl": "Schrijvende vrouw met dienstbode is een schilderij uit 1670-1671 van de Hollandse meester Johannes Vermeer.  Het werk is in het bezit van het National Gallery of Ireland in Dublin, na tot tweemaal toe gestolen te zijn."
+      }
     },
     {
       "id": "delft-vermeer-a-young-woman-seated-at-a-virginal",
@@ -944,7 +1133,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_van_Delft_-_Jonge_vrouw_aan_een_virginaal_(ca._1670-72).jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Lady Seated at a Virginal (Dutch: Zittende virginaalspeelster), also known as Young Woman Seated at a Virginal, is a genre painting created by the Dutch Golden Age painter Johannes Vermeer in about 1670–1672 and now in the National Gallery, London.",
+        "nl": "Zittende virginaalspeelster is een schilderij uit circa 1670-1672 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het werk is sinds 1910 in het bezit van de National Gallery in Londen."
+      }
     },
     {
       "id": "delft-vermeer-a-young-woman-standing-at-a-virginal",
@@ -965,7 +1158,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_van_Delft_-_Jonge_vrouw_staande_bij_een_virginaal_(ca._1670-72).jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "Lady Standing at a Virginal is a genre painting created by the Dutch artist Johannes Vermeer in about 1670–1672, now in the National Gallery, London.",
+        "nl": "Staande virginaalspeelster is een genrestuk uit 1670-1673 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het schilderij is in het bezit van de National Gallery in Londen."
+      }
     },
     {
       "id": "delft-vermeer-a-young-woman-seated-at-the-virginals",
@@ -986,7 +1183,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Young_Woman_Seated_at_a_Virginal,_Johannes_Vermeer,_1670-1672,_oil_on_canvas,_25.5_by_20.1_cm,_The_Leiden_Collection.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "A Young Woman Seated at the Virginals is a painting by Johannes Vermeer, though this was for a long time widely questioned.  A series of technical examinations from 1993 onwards confirm the attribution.",
+        "nl": "Zittende vrouw aan het virginaal is een klein schilderij uit 1670-1672, in 2003 alsnog toegeschreven aan de Delftse kunstschilder Johannes Vermeer (1632-1675)."
+      }
     },
     {
       "id": "delft-vermeer-the-guitar-player",
@@ -1007,7 +1208,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_van_Delft_013.jpg",
       "lat": 52.0116,
-      "lng": 4.3571
+      "lng": 4.3571,
+      "desc": {
+        "en": "The Guitar Player is an oil painting by Dutch Golden Age artist Johannes Vermeer (1632–1675), dated c.  1672.",
+        "nl": "De gitaarspeelster is een schilderij uit 1670-1672 van de Delftse kunstschilder Johannes Vermeer (1632-1675).  Het werk is in het bezit van English Heritage, Kenwood House in Londen."
+      }
     },
     {
       "id": "eindhoven-vangogh-the-potato-eaters",
@@ -1028,7 +1233,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:De_aardappeleters_-_s0005V1962_-_Van_Gogh_Museum.jpg",
       "lat": 51.4416,
-      "lng": 5.4697
+      "lng": 5.4697,
+      "desc": {
+        "zh": "《吃馬鈴薯的人》（荷蘭語：De Aardappeleters，英語：The Potato Eaters），又譯食薯者，是荷蘭後印象派畫家文森·梵谷創作於1885年的一幅油畫。該畫現藏於阿姆斯特丹的梵谷博物館，這幅畫的原始油畫素描現藏於奧特洛的克勒勒-米勒博物館，圖像的石版畫收藏在紐約市的現代藝術博物館等收藏品中。",
+        "en": "The Potato Eaters (Dutch: De Aardappeleters) is an oil painting by Dutch artist Vincent van Gogh painted in April to May of 1885 in Nuenen, Netherlands.  It is in the Van Gogh Museum in Amsterdam.",
+        "nl": "De aardappeleters is een schilderij van Vincent van Gogh.  Het is gemaakt in 1885 in Nuenen."
+      }
     },
     {
       "id": "eindhoven-vangogh-the-parsonage-garden-at-nuenen",
@@ -1049,7 +1259,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Van_Gogh_-_The_Parsonage_Garden_at_Nuenen.jpg",
       "lat": 51.4416,
-      "lng": 5.4697
+      "lng": 5.4697,
+      "desc": {
+        "zh": "春日田野（荷蘭語：Lentetuin）又名紐南的牧師花園（荷蘭語：De pastorie in Nuenen）、春天裡的紐南牧師花園（荷蘭語：De pastorie in Nuenen in het voorjaar），是荷蘭畫家文森特·梵谷於1884年創作的油畫，畫作內容是荷蘭小鎮尼厄嫩的風景。梵谷在1883至1885年期間曾在此居住。",
+        "en": "The Parsonage Garden at Nuenen (Dutch: De pastorie in Nuenen), alternatively named The Parsonage Garden at Nuenen in Spring (Dutch: De pastorie in Nuenen in het voorjaar) or Spring Garden (Dutch: Lentetuin: F185, JH484), is an early oil painting by 19th-century Dutch post-Impressionist painter Vincent van Gogh, created in May 1884 while he was living with his parents in Nuenen.",
+        "nl": "Lentetuin, de pastorietuin te Nuenen in het voorjaar is een schilderij van de Nederlandse kunstschilder Vincent van Gogh, 25 bij 57 centimeter groot."
+      }
     },
     {
       "id": "eindhoven-vangogh-avenue-of-poplars-in-autumn",
@@ -1070,7 +1285,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Populierenlaan_in_de_herfst_-_s0141M1977_-_Van_Gogh_Museum.jpg",
       "lat": 51.4416,
-      "lng": 5.4697
+      "lng": 5.4697,
+      "desc": {
+        "en": "Avenue of Poplars in Autumn is an oil painting created in 1884 by Vincent van Gogh.",
+        "nl": "Populierenlaan in de herfst is een schilderij van de Nederlandse kunstschilder Vincent van Gogh, in olieverf op doek, 99 bij 65,7 centimeter groot."
+      }
     },
     {
       "id": "eindhoven-vangogh-congregation-leaving-the-reformed-church-in-nuenen",
@@ -1091,7 +1310,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Het_uitgaan_van_de_Hervormde_Kerk_te_Nuenen_-_s0003V1962_-_Van_Gogh_Museum.jpg",
       "lat": 51.4416,
-      "lng": 5.4697
+      "lng": 5.4697,
+      "desc": {
+        "zh": "《離開尼厄嫩教堂的信眾》（荷蘭語：Het uitgaan van de hervormde kerk te Nuenen）是荷蘭後印象派畫家文森·梵谷的早期畫作，繪於1884年，改作於1885年。 這幅畫繪於荷蘭北布拉邦省一個名為尼厄嫩的小村莊，位於恩荷芬的東北邊。",
+        "en": "Congregation Leaving the Reformed Church at Nuenen (Dutch: Het uitgaan van de hervormde kerk te Nuenen) is an early painting by Vincent van Gogh, made in early 1884 and modified in late 1885.  It is displayed at the Van Gogh Museum in Amsterdam.",
+        "nl": "Het uitgaan van de hervormde kerk te Nuenen is een schilderij van de Nederlandse kunstschilder Vincent van Gogh, in olieverf op doek, 41,5 bij 32,2 centimeter groot."
+      }
     },
     {
       "id": "eindhoven-vangogh-still-life-with-bible",
@@ -1154,7 +1378,10 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Autumn_landscape.jpg",
       "lat": 51.4416,
-      "lng": 5.4697
+      "lng": 5.4697,
+      "desc": {
+        "nl": "Herfstlandschap is een schilderij uit 1885 van de Nederlandse kunstschilder Vincent van Gogh.  Het schilderij bevindt zich in het Kröller-Müller Museum in Otterlo."
+      }
     },
     {
       "id": "eindhoven-vangogh-water-mill-at-kollen-near-nuenen",
@@ -1175,7 +1402,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Water_mill_at_Kollen_(1884).jpg",
       "lat": 51.4416,
-      "lng": 5.4697
+      "lng": 5.4697,
+      "desc": {
+        "en": "Water Mill at Kollen Near Nuenen (Dutch: Collse watermolen, F48a, JH488) is an oil painting of the Watermill at Kollen, created on 28–29 May 1884 by Vincent van Gogh during the period when he was living at Nuenen nearby.  It measures 60.",
+        "nl": "Collse watermolen (Water Mill at Kollen Near Nuenen) is een schilderij van de Nederlandse kunstschilder Vincent van Gogh, in olieverf op doek, 60,5 bij 80 centimeter groot.  Het werd geschilderd in mei 1884 te Nuenen en toont de Collse Watermolen."
+      }
     },
     {
       "id": "eindhoven-vangogh-cottage-and-woman-with-goat",
@@ -1259,7 +1490,12 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Zeegezicht_bij_Scheveningen_(1882).jpg",
       "lat": 52.0799,
-      "lng": 4.3113
+      "lng": 4.3113,
+      "desc": {
+        "zh": "《席凡寧根的海景》（英語：Beach at Scheveningen in Stormy Weather）是文森·梵谷於1882年所創作的一幅油畫，該作品描繪海牙附近的席凡寧根沿海景觀。該作品現存於阿姆斯特丹的梵谷博物館。",
+        "en": "Beach at Scheveningen in Stormy Weather, also known as View of the Sea at Scheveningen (Dutch: Zeegezicht bij Scheveningen), is an early oil painting by Vincent van Gogh, painted at Scheveningen near The Hague in August 1882.",
+        "nl": "Zeegezicht bij Scheveningen is een schilderij van de Nederlandse kunstschilder Vincent van Gogh, in olieverf op doek, 36,4 bij 51,9 centimeter groot."
+      }
     },
     {
       "id": "denhaag-vangogh-girl-in-a-wood",
@@ -1280,7 +1516,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Meisje_in_het_bos_(Girl_in_a_Wood)_1882.jpg",
       "lat": 52.0799,
-      "lng": 4.3113
+      "lng": 4.3113,
+      "desc": {
+        "en": "Girl in White in the Woods or Girl in a Wood (Dutch: Meisje in het bos) is an oil painting created in August 1882 by Vincent van Gogh located in the Kröller-Müller Museum, Otterlo, Netherlands.",
+        "nl": "Meisje in het bos (Girl in White in the Woods) is een schilderij van de Nederlandse kunstschilder Vincent van Gogh, in olieverf op doek, 39 bij 59 centimeter groot."
+      }
     },
     {
       "id": "denhaag-vangogh-bulb-fields",
@@ -1301,7 +1541,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bulb_Fields.jpg",
       "lat": 52.0799,
-      "lng": 4.3113
+      "lng": 4.3113,
+      "desc": {
+        "en": "Bulb Fields, also known as Flower Beds in Holland, is an oil painting created by Vincent van Gogh in early 1883.  It was donated to the National Gallery of Art in Washington DC in 1983.",
+        "nl": "Bloembedden in Holland (Flower Beds in Holland) is een schilderij van de Nederlandse kunstschilder Vincent van Gogh, in olieverf op doek, 48,9 bij 66 centimeter groot."
+      }
     },
     {
       "id": "amsterdam-standard-bearer",
@@ -1322,7 +1566,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rembrandt_-_De_vaandeldrager_(Q21467444).jpeg",
       "lat": 52.3731,
-      "lng": 4.8922
+      "lng": 4.8922,
+      "desc": {
+        "en": "The Standard Bearer is a three-quarter-length self-portrait by Rembrandt formerly in the Paris collection of Elie de Rothschild, and purchased by the Rijksmuseum for 175 million euros with assistance from the Dutch state and Vereniging Rembrandt in 2021.",
+        "nl": "De Vaandeldrager is een olieverfschilderij uit 1636 van de Hollandse kunstschilder Rembrandt van Rijn (1606-1669).  Sinds 21 januari 2022 is het in eigendom van Stichting Het Rijksmuseum."
+      }
     },
     {
       "id": "amsterdam-maerten-soolmans",
@@ -1385,7 +1633,11 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frans_Hals,_De_magere_compagnie.jpg",
       "lat": 52.3731,
-      "lng": 4.8922
+      "lng": 4.8922,
+      "desc": {
+        "en": "The Meagre Company, or The Company of Captain Reinier Reael and Lieutenant Cornelis Michielsz Blaeuw, refers to the only militia group portrait, or schutterstuk, painted by Frans Hals outside of Haarlem.",
+        "nl": "Het korporaalschap van kapitein Reinier Reael en luitenant Cornelis Michielsz."
+      }
     },
     {
       "id": "amsterdam-silver-jug",
@@ -1406,7 +1658,10 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Willem_Kalf_-_Stilleven_met_zilveren_schenkkan_-_Google_Art_Project.jpg",
       "lat": 52.3731,
-      "lng": 4.8922
+      "lng": 4.8922,
+      "desc": {
+        "en": "Still Life with a Silver Jug (Dutch: Stilleven met zilveren schenkkan ) is a 1655–1660 oil painting on canvas by the Dutch artist Willem Kalf (1619–1693).  It is a still-life composition of fruit in a porcelain bowl next to an elaborate silver jug."
+      }
     },
     {
       "id": "amsterdam-vanitas-sunflower",
@@ -1427,7 +1682,10 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vanitas_Still_Life_with_a_Sun_Flower_by_Maria_van_Oosterwijck_Rijksmuseum_Amsterdam_SK-A-5104.jpg",
       "lat": 52.3731,
-      "lng": 4.8922
+      "lng": 4.8922,
+      "desc": {
+        "en": "Vanitas with Sunflower and Jewelry Box (undated, circa 1675) is an oil on canvas painting by the Dutch painter Maria van Oosterwijck.  It is an example of Dutch Golden Age painting and was purchased in January 2023 for €1."
+      }
     },
     {
       "id": "amsterdam-golden-bend",
@@ -1448,7 +1706,10 @@
       "license": "Public Domain",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gerrit_Adriaensz._Berckheyde_-_Gezicht_op_de_Herengracht_in_Amsterdam,_vanaf_de_Vijzelstraat_-_Google_Art_Project.jpg",
       "lat": 52.3731,
-      "lng": 4.8922
+      "lng": 4.8922,
+      "desc": {
+        "nl": "Gezicht op de Gouden Bocht in de Herengracht, ook Gezicht op de Gouden Bocht in de Herengracht vanuit het oosten en De Gouden Bocht in de Herengracht in Amsterdam vanuit het oosten is een schilderij uit 1671-1672 van de Noord-Nederlandse schilder Gerrit Adriaensz."
+      }
     },
     {
       "id": "amsterdam-albert-bas",
