@@ -137,10 +137,10 @@
   .sheet-handle { display:none; }
   .sheet-peek { display:none; }
   @media (max-width:640px) {
-    .panel { top:auto; bottom:0; left:0; right:0; width:100%; max-width:100%; max-height:86vh; max-height:86dvh; border-left:none; border-right:none; border-bottom:none; border-radius:18px 18px 0 0; padding:6px 20px max(22px, env(safe-area-inset-bottom)); transform:translateY(calc(100% - 74px)); transition:transform 0.34s cubic-bezier(0.4,0,0.2,1); }
+    .panel { top:auto; bottom:0; left:0; right:0; width:100%; max-width:100%; max-height:86vh; max-height:86dvh; border-left:none; border-right:none; border-bottom:none; border-radius:18px 18px 0 0; padding:0 20px max(22px, env(safe-area-inset-bottom)); transform:translateY(calc(100% - 84px)); transition:transform 0.34s cubic-bezier(0.4,0,0.2,1); -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
     .panel.open { transform:translateY(0); }
-    .sheet-handle { display:flex; flex-direction:column; align-items:center; gap:7px; padding:10px 0 8px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
-    .sheet-handle .grip { width:42px; height:5px; border-radius:3px; background:var(--stone); }
+    .sheet-handle { display:flex; flex-direction:column; align-items:center; gap:8px; padding:14px 0 10px; cursor:pointer; -webkit-tap-highlight-color:transparent; position:sticky; top:0; background:var(--paper-2); z-index:5; }
+    .sheet-handle .grip { width:48px; height:5px; border-radius:3px; background:var(--silver); }
     .sheet-handle .hint { display:none; }
     .sheet-peek { display:block; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--graphite); }
     .sheet-peek .yr { color:var(--vermilion); font-weight:500; }
@@ -218,8 +218,14 @@
   .lc-share:disabled { opacity:0.6; cursor:default; }
   @media (max-width:640px) {
     .lightbox { padding:0; }
-    .lightbox-card { max-width:100vw; width:100%; max-height:100vh; height:100%; }
-    .lightbox-imgwrap img { max-height:54vh; }
+    .lightbox-card { max-width:100vw; width:100%; max-height:100vh; height:100%; -webkit-overflow-scrolling:touch; }
+    .lightbox-imgwrap img { max-height:50vh; }
+    .lightbox-close { width:44px; height:44px; font-size:24px; top:max(8px, env(safe-area-inset-top)); }
+    .lightbox-cap { padding:16px 20px max(22px, env(safe-area-inset-bottom)); }
+    .lc-meta { font-size:11px; padding:6px 0; }
+    .lc-actions { flex-direction:column-reverse; align-items:stretch; gap:12px; }
+    .lc-share { justify-content:center; padding:15px; font-size:16px; }
+    .lc-source { text-align:center; }
   }
   /* Offline download */
   .offline-hint { margin-top:8px; font-family:var(--sans); font-size:10px; color:var(--ash); line-height:1.65; }
@@ -1235,16 +1241,20 @@
       img.onload = async () => {
         try {
           if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
-          const W = 1080, PAD = 60, maxTextW = W - PAD * 2;
+          const W = 1080, PAD = 60, FRAME = 30, maxTextW = W - PAD * 2;
           const imgH = Math.round(W * img.naturalHeight / img.naturalWidth);
           const measure = document.createElement('canvas').getContext('2d');
           measure.font = "600 42px 'Noto Serif TC','Songti TC',serif";
           const titleLines = wrapLines(measure, locName(item.title), maxTextW);
           const bandH = 44 + titleLines.length * 52 + 44 + 32 + 40 + 46;
+          const cardH = imgH + bandH;
           const cv = document.createElement('canvas');
-          cv.width = W; cv.height = imgH + bandH;
+          cv.width = W + FRAME * 2; cv.height = cardH + FRAME * 2;
           const ctx = cv.getContext('2d');
-          ctx.fillStyle = '#F1EFE9'; ctx.fillRect(0, 0, cv.width, cv.height);
+          ctx.fillStyle = '#F1EFE9'; ctx.fillRect(0, 0, cv.width, cv.height);     // paper frame
+          ctx.strokeStyle = '#D6D3CB'; ctx.lineWidth = 2;                          // faint outer keyline
+          ctx.strokeRect(11, 11, cv.width - 22, cv.height - 22);
+          ctx.save(); ctx.translate(FRAME, FRAME);
           ctx.drawImage(img, 0, 0, W, imgH);
           ctx.fillStyle = '#EAE8E2'; ctx.fillRect(0, imgH, W, bandH);
           ctx.fillStyle = '#C15F3C'; ctx.fillRect(0, imgH, W, 6);
@@ -1261,6 +1271,9 @@
           ctx.fillText('Public Domain · via Wikimedia Commons', PAD, y); y += 42;
           ctx.fillStyle = '#A6A399'; ctx.font = "400 18px 'JetBrains Mono',monospace";
           ctx.fillText('荷蘭古地圖散策 · yunching0513.github.io/Netherlands-historical-map', PAD, y);
+          ctx.restore();
+          ctx.strokeStyle = '#BBB8AE'; ctx.lineWidth = 2;                          // card border
+          ctx.strokeRect(FRAME, FRAME, W, cardH);
           cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.92);
         } catch (e) { reject(e); }
       };
