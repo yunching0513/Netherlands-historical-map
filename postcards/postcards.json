@@ -1752,6 +1752,162 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Der_Damplatz_zu_Amsterdam_-_Gem%C3%A4ldegalerie_Berlin_-_4012929.jpg",
       "lat": 52.3731,
       "lng": 4.8922
+    },
+    {
+      "id": "denhaag-rubens-old-woman",
+      "city": "denhaag",
+      "year": "c. 1616–1617",
+      "artist": {
+        "zh": "彼得·保羅·魯本斯",
+        "en": "Peter Paul Rubens",
+        "nl": "Peter Paul Rubens"
+      },
+      "title": {
+        "zh": "老婦與持燭男孩",
+        "en": "Old Woman and Boy with Candles",
+        "nl": "Oude vrouw en jongen met kaarsen"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Peter_Paul_Rubens_-_Old_Woman_and_Boy_with_Candles_-_1150_-_Mauritshuis.jpg/1280px-Peter_Paul_Rubens_-_Old_Woman_and_Boy_with_Candles_-_1150_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Peter_Paul_Rubens_-_Old_Woman_and_Boy_with_Candles_-_1150_-_Mauritshuis.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "法蘭德斯巴洛克大師魯本斯的燭光習作，老婦正以手中燭火點燃男孩的蠟燭，是一幅探究明暗對照（chiaroscuro）的「面相習作」（tronie）。畫家以細膩的暖色光暈刻畫被火光照亮的臉龐，展現法蘭德斯畫派處理光影的精湛技巧。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "A candlelight study by the Flemish Baroque master Rubens: an old woman lights a boy's candle from her own. A 'tronie' (character study) exploring chiaroscuro, it renders the firelit faces in warm, glowing tones — a virtuoso demonstration of the Flemish school's handling of light. Held at the Mauritshuis, The Hague.",
+        "nl": "Een kaarslichtstudie van de Vlaamse barokmeester Rubens: een oude vrouw steekt de kaars van een jongen aan met de hare. Een 'tronie' die het clair-obscur verkent en de door vuur verlichte gezichten in warme tonen weergeeft — een meesterlijke demonstratie van de Vlaamse omgang met licht. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "denhaag-vandyck-anna-wake",
+      "city": "denhaag",
+      "year": "1628",
+      "artist": {
+        "zh": "安東尼·范戴克",
+        "en": "Anthony van Dyck",
+        "nl": "Antoon van Dyck"
+      },
+      "title": {
+        "zh": "安娜·韋克像",
+        "en": "Portrait of Anna Wake",
+        "nl": "Portret van Anna Wake"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Anthony_van_Dyck_-_Portrait_of_Anna_Wake_%281605-before_1669%29_-_240_-_Mauritshuis.jpg/1280px-Anthony_van_Dyck_-_Portrait_of_Anna_Wake_%281605-before_1669%29_-_240_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anthony_van_Dyck_-_Portrait_of_Anna_Wake_(1605-before_1669)_-_240_-_Mauritshuis.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "范戴克是魯本斯最傑出的學生、十七世紀最具影響力的肖像畫家。這幅1628年的安娜·韋克像，是她與安特衛普商人彼得·史蒂文斯一對夫妻像的其中一幅。畫家以優雅的姿態、華麗的蕾絲與綢緞，以及細膩的膚色處理，奠定了往後兩百年歐洲貴族肖像的典範。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "Van Dyck — Rubens's most gifted pupil and the most influential portraitist of the 17th century — painted this likeness of Anna Wake in 1628, one of a pair with the portrait of her husband, the Antwerp merchant Peeter Stevens. Its elegant pose, sumptuous lace and satin, and refined flesh tones set the template for aristocratic portraiture across Europe for two centuries. Mauritshuis, The Hague.",
+        "nl": "Van Dyck — Rubens' begaafdste leerling en de invloedrijkste portrettist van de 17e eeuw — schilderde dit portret van Anna Wake in 1628, als pendant van dat van haar man, de Antwerpse koopman Peeter Stevens. De elegante pose, weelderige kant en satijn en verfijnde huidtonen werden twee eeuwen lang het model voor aristocratische portretkunst in Europa. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "denhaag-brueghel-wanli-flowers",
+      "city": "denhaag",
+      "year": "c. 1610–1615",
+      "artist": {
+        "zh": "老揚·布勒哲爾",
+        "en": "Jan Brueghel the Elder",
+        "nl": "Jan Brueghel de Oude"
+      },
+      "title": {
+        "zh": "萬曆瓷瓶中的花束",
+        "en": "Flowers in a Wan-Li Vase",
+        "nl": "Bloemen in een Wan-Li vaas"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Jan_Brueghel_de_Oude_-_Flowers_in_a_Wan-Li_Vase_-_1072_-_Mauritshuis.jpg/1280px-Jan_Brueghel_de_Oude_-_Flowers_in_a_Wan-Li_Vase_-_1072_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Brueghel_de_Oude_-_Flowers_in_a_Wan-Li_Vase_-_1072_-_Mauritshuis.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "老揚·布勒哲爾（老彼得·布勒哲爾之子）因其細膩如絲絨般的筆觸而有「絲絨布勒哲爾」之稱，是法蘭德斯花卉靜物畫的開創者之一。畫中各色花朵其實開於不同季節，不可能同時綻放——這是一幅由觀察與想像合成的「理想花束」，插在當時透過貿易遠渡而來的中國萬曆青花瓷瓶中。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "Jan Brueghel the Elder — son of Pieter Bruegel and nicknamed 'Velvet Brueghel' for his silken touch — was a founder of Flemish flower painting. The blooms here flower in different seasons and could never coexist: this is an idealised bouquet assembled from study and imagination, set in a Chinese Wan-Li porcelain vase brought by trade. Mauritshuis, The Hague.",
+        "nl": "Jan Brueghel de Oude — zoon van Pieter Bruegel, bijgenaamd 'Fluwelen Brueghel' om zijn zijdezachte toets — was een grondlegger van de Vlaamse bloemstilleven. De bloemen bloeien in verschillende seizoenen en konden nooit samen bestaan: een geïdealiseerd boeket uit studie en verbeelding, in een Chinese Wan-Li porseleinen vaas. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "denhaag-jordaens-shepherds",
+      "city": "denhaag",
+      "year": "c. 1617",
+      "artist": {
+        "zh": "雅各布·約爾丹斯",
+        "en": "Jacob Jordaens",
+        "nl": "Jacob Jordaens"
+      },
+      "title": {
+        "zh": "牧人來朝",
+        "en": "The Adoration of the Shepherds",
+        "nl": "De aanbidding der herders"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Jacob_Jordaens_-_The_Adoration_of_the_Shepherds_-_937_-_Mauritshuis.jpg/1280px-Jacob_Jordaens_-_The_Adoration_of_the_Shepherds_-_937_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jacob_Jordaens_-_The_Adoration_of_the_Shepherds_-_937_-_Mauritshuis.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "約爾丹斯與魯本斯、范戴克並列為安特衛普法蘭德斯巴洛克三大家。這幅早期作品中，他以近乎卡拉瓦喬式的強烈明暗、貼近觀者的構圖與飽滿厚實的人物，描繪牧人圍繞聖嬰的一刻。粗獷的寫實面孔正是約爾丹斯日後最鮮明的個人風格。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "Jordaens ranks with Rubens and Van Dyck as one of the three great Flemish Baroque painters of Antwerp. In this early work he depicts shepherds crowding around the Christ Child with near-Caravaggesque lighting, a tight close-up composition and full-bodied figures. The earthy, realistic faces would become his most distinctive signature. Mauritshuis, The Hague.",
+        "nl": "Jordaens behoort met Rubens en Van Dyck tot de drie grote Vlaamse barokschilders van Antwerpen. In dit vroege werk verbeeldt hij herders rond het Christuskind met bijna caravaggesk licht, een close-up compositie en volle figuren. De aardse, realistische gezichten zouden zijn meest kenmerkende signatuur worden. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "denhaag-brouwer-peasant-brawl",
+      "city": "denhaag",
+      "year": "c. 1630–1635",
+      "artist": {
+        "zh": "阿德里安·布勞威爾",
+        "en": "Adriaen Brouwer",
+        "nl": "Adriaen Brouwer"
+      },
+      "title": {
+        "zh": "農民鬥毆",
+        "en": "Peasant Brawl",
+        "nl": "Boerenvechtpartij"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Peasant_Brawl_by_Adriaen_Brouwer_Mauritshuis_919.jpg/1280px-Peasant_Brawl_by_Adriaen_Brouwer_Mauritshuis_919.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Peasant_Brawl_by_Adriaen_Brouwer_Mauritshuis_919.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "法蘭德斯畫家布勞威爾專擅描繪酒館裡的小人物——醉漢、賭徒、鬥毆的農民。這幅作品中，一場為了牌局而起的扭打瞬間爆發，刀光與翻倒的板凳間滿是粗鄙的生命力。布勞威爾以極為自由奔放的筆觸，深深影響了林布蘭與哈爾斯等荷蘭畫家。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "The Flemish painter Brouwer specialised in the low life of the tavern — drunkards, gamblers, brawling peasants. Here a fight erupts over a card game, knives flashing among overturned stools in a burst of coarse vitality. Brouwer's remarkably free, loose brushwork left a deep mark on Dutch painters including Rembrandt and Hals. Mauritshuis, The Hague.",
+        "nl": "De Vlaamse schilder Brouwer specialiseerde zich in het kroegleven — dronkaards, gokkers, vechtende boeren. Hier breekt een gevecht uit om een kaartspel, messen flitsend tussen omgevallen krukken in een uitbarsting van rauwe levenskracht. Brouwers opvallend vrije toets liet een diepe indruk na op Nederlandse schilders als Rembrandt en Hals. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "amsterdam-vandyck-willem-maria",
+      "city": "amsterdam",
+      "year": "1641",
+      "artist": {
+        "zh": "安東尼·范戴克",
+        "en": "Anthony van Dyck",
+        "nl": "Antoon van Dyck"
+      },
+      "title": {
+        "zh": "威廉二世親王與新娘瑪麗·斯圖亞特",
+        "en": "William II of Orange and his Bride Mary Stuart",
+        "nl": "Willem II en zijn bruid Maria Stuart"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Willem_II_en_zijn_bruid_Maria_Stuart_Rijksmuseum_SK-A-102.jpeg/1280px-Willem_II_en_zijn_bruid_Maria_Stuart_Rijksmuseum_SK-A-102.jpeg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Willem_II_en_zijn_bruid_Maria_Stuart_Rijksmuseum_SK-A-102.jpeg",
+      "lat": 52.3731,
+      "lng": 4.8922,
+      "desc": {
+        "zh": "范戴克晚年最重要的作品之一，描繪1641年14歲的奧蘭治親王威廉二世，與9歲的英國公主瑪麗·斯圖亞特（英王查理一世之女）的政治聯姻。這場婚姻日後將荷蘭執政家族與英國王室緊緊相連，並促成1688年的「光榮革命」。一位法蘭德斯大師，為荷蘭歷史留下了關鍵的一頁。現藏於阿姆斯特丹國家博物館。",
+        "en": "One of Van Dyck's last major works, depicting the 1641 political marriage of the 14-year-old William II of Orange to the 9-year-old English princess Mary Stuart, daughter of Charles I. The union bound the Dutch stadtholder dynasty to the English crown and would lead to the Glorious Revolution of 1688 — a Flemish master recording a pivotal page of Dutch history. Rijksmuseum, Amsterdam.",
+        "nl": "Een van Van Dycks laatste grote werken, met het politieke huwelijk van 1641 tussen de 14-jarige Willem II van Oranje en de 9-jarige Engelse prinses Maria Stuart, dochter van Karel I. De verbintenis bond het stadhouderlijk huis aan de Engelse kroon en leidde tot de Glorious Revolution van 1688 — een Vlaamse meester die een cruciale bladzijde van de Nederlandse geschiedenis vastlegt. Rijksmuseum, Amsterdam."
+      }
     }
   ]
 }
