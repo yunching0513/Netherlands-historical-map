@@ -2090,6 +2090,32 @@
         "en": "Jacob Maris, eldest of the three Maris brothers, was celebrated for his Dutch townscapes. Here low rooftops press against the bottom of the canvas while a vast, moist cloudscape fills the rest; the silver-grey light and water-laden air are the most recognisable signature of the Hague School. An ordinary Dutch town becomes, in his hands, a lyric about sky and light. Rijksmuseum, Amsterdam.",
         "nl": "Jacob Maris, de oudste van de drie gebroeders Maris, was beroemd om zijn Hollandse stadsgezichten. Hier drukken lage daken tegen de onderrand van het doek terwijl een weidse, vochtige wolkenlucht de rest vult; het zilvergrijze licht en de met water verzadigde lucht zijn het meest herkenbare handschrift van de Haagse School. Een gewone Hollandse stad wordt in zijn handen een lyriek over lucht en licht. Rijksmuseum, Amsterdam."
       }
+    },
+    {
+      "id": "amsterdam-breitner-witte-kimono",
+      "city": "amsterdam",
+      "year": "c. 1894",
+      "artist": {
+        "zh": "喬治·亨德里克·布雷特納",
+        "en": "George Hendrik Breitner",
+        "nl": "George Hendrik Breitner"
+      },
+      "title": {
+        "zh": "穿白和服的女孩",
+        "en": "Girl in a White Kimono",
+        "nl": "Meisje in witte kimono"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/George_Hendrik_Breitner_-_Meisje_in_witte_kimono_%28Geesje_Kwak%29.jpg/1280px-George_Hendrik_Breitner_-_Meisje_in_witte_kimono_%28Geesje_Kwak%29.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:George_Hendrik_Breitner_-_Meisje_in_witte_kimono_(Geesje_Kwak).jpg",
+      "lat": 52.3731,
+      "lng": 4.8922,
+      "desc": {
+        "zh": "布雷特納被譽為「阿姆斯特丹的畫家」，是十九世紀末阿姆斯特丹印象派的核心人物。1890 年代日本風（Japonisme）席捲歐洲，他迷上了和服，請年輕模特兒海絲耶·克瓦克（Geesje Kwak）在畫室裡披上各色和服，畫了一系列作品。這幅白和服版本以柔和的光線、慵懶的姿態與細膩的白色層次著稱，是其中最受喜愛的一幅。現藏於阿姆斯特丹國家博物館。",
+        "en": "Hailed as 'the painter of Amsterdam', Breitner was a leading figure of late-19th-century Amsterdam Impressionism. As Japonisme swept Europe in the 1890s he became captivated by the kimono, posing his young model Geesje Kwak in his studio draped in various kimonos for a celebrated series. This white-kimono version, with its soft light, languid pose and subtle gradations of white, is the best loved of them. Rijksmuseum, Amsterdam.",
+        "nl": "Geroemd als 'de schilder van Amsterdam' was Breitner een leidende figuur van het Amsterdamse impressionisme aan het eind van de 19e eeuw. Toen het japonisme in de jaren 1890 Europa veroverde, raakte hij gefascineerd door de kimono en liet hij zijn jonge model Geesje Kwak in zijn atelier in verschillende kimono's poseren voor een beroemde reeks. Deze versie in witte kimono, met haar zachte licht, loom gebaar en subtiele wittinten, is daarvan de meest geliefde. Rijksmuseum, Amsterdam."
+      }
     }
   ]
 }
