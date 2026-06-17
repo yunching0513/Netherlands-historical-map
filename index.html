@@ -12,7 +12,18 @@
       if (m) m.setAttribute('content', '#1A1A1A');
     }
     var lng = localStorage.getItem('nlOldMaps.lang');
-    if (lng) document.documentElement.setAttribute('lang', lng);
+    if (!lng) {
+      // Auto-detect on first visit from the browser's full language preference list
+      var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'nl']);
+      for (var _i = 0; _i < langs.length; _i++) {
+        var _l = langs[_i].toLowerCase();
+        if (_l.startsWith('zh')) { lng = 'zh'; break; }
+        if (_l.startsWith('nl')) { lng = 'nl'; break; }
+        if (_l.startsWith('en')) { lng = 'en'; break; }
+      }
+      if (!lng) lng = 'en';
+    }
+    document.documentElement.setAttribute('lang', lng === 'zh' ? 'zh-Hant' : lng);
   } catch (e) {}
 </script>
 <meta name="google" content="notranslate" />
@@ -822,9 +833,13 @@
   let lang = (function () {
     try { return localStorage.getItem('nlOldMaps.lang') || pick(); } catch (e) { return pick(); }
     function pick() {
-      const n = (navigator.language || 'nl').toLowerCase();
-      if (n.startsWith('zh')) return 'zh';
-      if (n.startsWith('nl')) return 'nl';
+      const langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'nl']);
+      for (const l of langs) {
+        const n = l.toLowerCase();
+        if (n.startsWith('zh')) return 'zh';
+        if (n.startsWith('nl')) return 'nl';
+        if (n.startsWith('en')) return 'en';
+      }
       return 'en';
     }
   })();
