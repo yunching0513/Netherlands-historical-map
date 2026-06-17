@@ -205,6 +205,13 @@
   .card-lock .ic { font-size:17px; opacity:0.92; }
   .card-lock .tx { font-family:var(--mono); font-size:9px; letter-spacing:0.07em; line-height:1.55; }
   .cards-empty { margin-top:12px; font-family:var(--sans); font-size:11px; color:var(--ash); line-height:1.7; }
+  /* Architecture landmark cards */
+  .cards-arch-divider { display:flex; align-items:center; gap:10px; margin:20px 0 12px; font-family:var(--mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ash); }
+  .cards-arch-divider::before, .cards-arch-divider::after { content:''; flex:1; height:1px; background:var(--stone); }
+  .card-arch-tag { display:inline-block; font-family:var(--mono); font-size:8px; letter-spacing:0.08em; color:var(--vermilion); border:1px solid var(--vermilion); padding:1px 5px; margin-top:4px; text-transform:uppercase; opacity:0.8; }
+  /* Lightbox style badge (architecture) */
+  .lc-style { display:inline-flex; align-items:center; gap:5px; font-family:var(--mono); font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ash); padding:2px 8px; border:1px solid var(--stone); margin-top:8px; }
+  .lc-style::before { content:'▪'; color:var(--vermilion); font-size:10px; }
   /* Lightbox */
   .lightbox { position:fixed; inset:0; z-index:3000; display:flex; align-items:center; justify-content:center; padding:24px; }
   .lightbox[hidden] { display:none; }
@@ -441,6 +448,9 @@
       </div>
       <div class="cards-grid" id="cards-grid"></div>
       <div class="cards-empty" id="cards-empty" data-i18n="cards.empty" hidden>這座城市還沒有明信片。</div>
+      <!-- Architecture landmarks section -->
+      <div class="cards-arch-divider" id="arch-divider" hidden><span data-i18n="arch.section">建築</span></div>
+      <div class="cards-grid" id="arch-grid"></div>
     </div>
 
     <!-- PANE: more -->
@@ -547,6 +557,7 @@
     <figcaption class="lightbox-cap">
       <div class="lc-title" id="lc-title"></div>
       <div class="lc-artist" id="lc-artist"></div>
+      <div class="lc-style" id="lc-style" hidden></div>
       <div class="lc-meta" id="lc-meta"></div>
       <div class="lc-desc" id="lc-desc" hidden></div>
       <div class="lc-credit" id="lc-credit"></div>
@@ -759,6 +770,8 @@
       'legend.title': 'Legenda', 'legend.note': 'Labels in het Nederlands (officiële PDOK-legenda).',
       'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
       'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
+      'arch.section': 'Gebouwen', 'arch.architect': 'Architect', 'arch.style': 'Stijl',
+      'arch.visit': 'Bekijk dit gebouw op de kaart', 'arch.locatehint': 'Klik om te routeren naar dit gebouw',
     },
     en: {
       'app.title': 'Old-Map Stroll', 'app.tagline': 'Netherlands · through time',
@@ -793,6 +806,8 @@
       'legend.title': 'Legend', 'legend.note': 'Labels are in Dutch (official PDOK legend).',
       'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
       'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
+      'arch.section': 'Architecture', 'arch.architect': 'Architect', 'arch.style': 'Style',
+      'arch.visit': 'View on map', 'arch.locatehint': 'Click to navigate to this building',
     },
     zh: {
       'app.title': '荷蘭古地圖散策', 'app.tagline': '荷蘭 · 穿越時光',
@@ -827,6 +842,8 @@
       'legend.title': '圖例', 'legend.note': '標籤為荷蘭文（PDOK 官方圖例）。',
       'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
       'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
+      'arch.section': '建築', 'arch.architect': '建築師', 'arch.style': '風格',
+      'arch.visit': '在地圖上查看', 'arch.locatehint': '點此導航至建築物',
     },
   };
 
@@ -859,6 +876,7 @@
     renderCityList();
     updateCurrentCity();
     renderCards();
+    renderLandmarkCards();
     renderOffline();
     renderLegend();
     renderAbout();
@@ -1013,6 +1031,7 @@
     const s = document.getElementById('city-search'); if (s) s.value = '';
     renderCityList('');
     renderCards();
+    renderLandmarkCards();
     renderOffline();
     try { localStorage.setItem('nlOldMaps.city', id); } catch (e) {}
     syncURL();
@@ -1112,6 +1131,7 @@
       if (first) { map.setView(ll, Math.max(map.getZoom(), 16)); first = false; }
       document.getElementById('loc-coords').textContent = 'N ' + latitude.toFixed(5) + ' · E ' + longitude.toFixed(5);
       document.getElementById('loc-accuracy').textContent = '± ' + Math.round(accuracy) + ' m';
+      checkLandmarkProximity(latitude, longitude);
     }, err => {
       btn.classList.remove('active');
       document.getElementById('loc-coords').textContent = '⚠ ' + (err.message || 'fout');
@@ -1232,6 +1252,88 @@
   // Tonen altijd in de lijst; in "Verzamelen" (GPS) blijven ze vergrendeld
   // tot je dicht bij de stad loopt.
   const CARD_RADIUS = 1500; // meter rond het stadscentrum om te ontgrendelen
+  const LANDMARK_RADIUS = 200; // metres to trigger visited-state for architecture dots
+
+  let LANDMARKS = [], LANDMARKS_BY_CITY = {};
+  const landmarkMarkers = new Map(); // id → L.circleMarker
+  const visitedLandmarks = new Set();
+  try { const sv = localStorage.getItem('nlOldMaps.visited'); if (sv) JSON.parse(sv).forEach(id => visitedLandmarks.add(id)); } catch (e) {}
+
+  function createLandmarkMarker(item) {
+    const vis = visitedLandmarks.has(item.id);
+    const m = L.circleMarker([item.lat, item.lng], {
+      radius: 7,
+      color: vis ? '#C15F3C' : '#807C73',
+      weight: 2,
+      fillColor: vis ? '#C15F3C' : '#D6D3CB',
+      fillOpacity: 0.9,
+      interactive: true,
+    });
+    m.bindTooltip(() => locName(item.name), { direction: 'top', offset: [0, -9] });
+    m.on('click', () => openLightbox(item));
+    m.addTo(map);
+    return m;
+  }
+
+  function checkLandmarkProximity(lat, lng) {
+    let changed = false;
+    LANDMARKS.forEach(item => {
+      if (visitedLandmarks.has(item.id)) return;
+      if (haversine(lat, lng, item.lat, item.lng) <= LANDMARK_RADIUS) {
+        visitedLandmarks.add(item.id);
+        const m = landmarkMarkers.get(item.id);
+        if (m) m.setStyle({ color: '#C15F3C', fillColor: '#C15F3C' });
+        changed = true;
+      }
+    });
+    if (changed) {
+      try { localStorage.setItem('nlOldMaps.visited', JSON.stringify([...visitedLandmarks])); } catch (e) {}
+      renderLandmarkCards();
+    }
+  }
+
+  function renderLandmarkCards() {
+    const archDiv = document.getElementById('arch-divider');
+    const archGrid = document.getElementById('arch-grid');
+    if (!archDiv || !archGrid) return;
+    const list = LANDMARKS_BY_CITY[state.city.id] || [];
+    if (!list.length) { archDiv.hidden = true; archGrid.innerHTML = ''; return; }
+    archDiv.hidden = false;
+    archGrid.innerHTML = '';
+    list.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const img = document.createElement('img');
+      img.className = 'card-thumb'; img.loading = 'lazy';
+      img.alt = locName(item.name) + ' — ' + locName(item.architect);
+      img.src = item.img;
+      card.appendChild(img);
+      const cap = document.createElement('div'); cap.className = 'card-cap';
+      const tt = document.createElement('div'); tt.className = 'card-title'; tt.textContent = locName(item.name);
+      const ar = document.createElement('div'); ar.className = 'card-artist'; ar.textContent = locName(item.architect) + ' · ' + item.year;
+      const tag = document.createElement('div'); tag.className = 'card-arch-tag'; tag.textContent = locName(item.style_label);
+      cap.appendChild(tt); cap.appendChild(ar); cap.appendChild(tag);
+      card.appendChild(cap);
+      card.addEventListener('click', () => openLightbox(item));
+      archGrid.appendChild(card);
+    });
+  }
+
+  function loadLandmarks() {
+    fetch('landmarks/landmarks.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data || !Array.isArray(data.items)) return;
+        LANDMARKS = data.items.filter(i => i && i.img && i.city && i.lat != null && i.lng != null);
+        LANDMARKS_BY_CITY = {};
+        LANDMARKS.forEach(i => {
+          (LANDMARKS_BY_CITY[i.city] = LANDMARKS_BY_CITY[i.city] || []).push(i);
+          landmarkMarkers.set(i.id, createLandmarkMarker(i));
+        });
+        renderLandmarkCards();
+      })
+      .catch(() => {});
+  }
   let CARDS = [], CARDS_BY_CITY = {};
   let collectMode = false, cardWatchId = null;
   const collected = new Set();
@@ -1322,9 +1424,10 @@
           if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
           const W = 1080, PAD = 60, FRAME = 30, maxTextW = W - PAD * 2;
           const imgH = Math.round(W * img.naturalHeight / img.naturalWidth);
+          const isArchShare = !!item.architect;
           const measure = document.createElement('canvas').getContext('2d');
           measure.font = "600 42px 'Noto Serif TC','Songti TC',serif";
-          const titleLines = wrapLines(measure, locName(item.title), maxTextW);
+          const titleLines = wrapLines(measure, locName(isArchShare ? item.name : item.title), maxTextW);
           const bandH = 44 + titleLines.length * 52 + 44 + 32 + 40 + 46;
           const cardH = imgH + bandH;
           const cv = document.createElement('canvas');
@@ -1343,11 +1446,11 @@
           titleLines.forEach(line => { ctx.fillText(line, PAD, y); y += 52; });
           y += 6;
           ctx.fillStyle = '#9E4B2E'; ctx.font = "italic 32px 'EB Garamond',Georgia,serif";
-          ctx.fillText(locName(item.artist) + ' · ' + item.year, PAD, y); y += 44;
+          ctx.fillText(locName(isArchShare ? item.architect : item.artist) + ' · ' + item.year, PAD, y); y += 44;
           ctx.fillStyle = '#565347'; ctx.font = "400 23px 'Noto Sans TC',system-ui,sans-serif";
-          ctx.fillText(item.credit, PAD, y); y += 32;
+          ctx.fillText(isArchShare ? (item.address || item.credit) : item.credit, PAD, y); y += 32;
           ctx.fillStyle = '#807C73'; ctx.font = "400 20px 'Noto Sans TC',system-ui,sans-serif";
-          ctx.fillText('Public Domain · via Wikimedia Commons', PAD, y); y += 42;
+          ctx.fillText(isArchShare ? (item.license || 'CC-BY-SA') + ' · via Wikimedia Commons' : 'Public Domain · via Wikimedia Commons', PAD, y); y += 42;
           ctx.fillStyle = '#A6A399'; ctx.font = "400 18px 'JetBrains Mono',monospace";
           ctx.fillText('荷蘭古地圖散策 · yunching0513.github.io/Netherlands-historical-map', PAD, y);
           // postmark date stamp (lower-right of the caption band)
@@ -1403,27 +1506,46 @@
   }
 
   function openMuseumMap() {
-    if (!currentCard || !currentCard.credit) return;
-    window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(currentCard.credit), '_blank', 'noopener');
+    if (!currentCard) return;
+    if (currentCard.architect) {
+      // Architecture landmark: fly to building on map
+      if (currentCard.lat != null && currentCard.lng != null) {
+        closeLightbox();
+        map.flyTo([currentCard.lat, currentCard.lng], 17, { duration: 1.2 });
+      }
+    } else {
+      if (!currentCard.credit) return;
+      window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(currentCard.credit), '_blank', 'noopener');
+    }
   }
 
   function openLightbox(item) {
     currentCard = item;
+    const isArch = !!item.architect;
     const lbimg = document.getElementById('lightbox-img');
     lbimg.src = item.img;
-    lbimg.alt = locName(item.title) + ' — ' + locName(item.artist);
-    lbimg.title = t('card.locatehint');
-    document.getElementById('lc-title').textContent = locName(item.title);
-    document.getElementById('lc-artist').textContent = locName(item.artist) + ', ' + item.year;
+    lbimg.alt = locName(isArch ? item.name : item.title) + ' — ' + locName(isArch ? item.architect : item.artist);
+    lbimg.title = isArch ? t('arch.locatehint') : t('card.locatehint');
+    document.getElementById('lc-title').textContent = locName(isArch ? item.name : item.title);
+    document.getElementById('lc-artist').textContent = locName(isArch ? item.architect : item.artist) + ', ' + item.year;
+    const styleEl = document.getElementById('lc-style');
+    if (isArch && item.style_label) {
+      styleEl.textContent = locName(item.style_label);
+      styleEl.hidden = false;
+    } else {
+      styleEl.hidden = true;
+    }
     const meta = document.getElementById('lc-meta');
     meta.innerHTML = '<span class="ic">⌖</span><span class="mtxt"></span><span class="arr">↗</span>';
-    meta.querySelector('.mtxt').textContent = item.credit;
-    meta.title = t('card.locate');
+    meta.querySelector('.mtxt').textContent = isArch ? (item.address || item.credit) : item.credit;
+    meta.title = isArch ? t('arch.visit') : t('card.locate');
     const descEl = document.getElementById('lc-desc');
     const dtext = item.desc ? (item.desc[lang] || item.desc.en || item.desc.nl) : '';
     descEl.textContent = dtext || '';
     descEl.hidden = !dtext;
-    document.getElementById('lc-credit').textContent = t('card.pd');
+    document.getElementById('lc-credit').textContent = isArch
+      ? (item.license || 'CC-BY-SA') + ' · via Wikimedia Commons'
+      : t('card.pd');
     const src = document.getElementById('lc-source');
     src.href = item.sourceUrl;
     src.textContent = t('card.source') + ': Wikimedia Commons ↗';
@@ -1488,6 +1610,7 @@
       if (haversine(latitude, longitude, item.lat, item.lng) <= CARD_RADIUS) { collected.add(item.id); changed = true; }
     });
     if (changed) { saveCollected(); renderCards(); }
+    checkLandmarkProximity(latitude, longitude);
   }
   function onCardDenied() {
     const countEl = document.getElementById('cards-count');
@@ -1796,6 +1919,7 @@
   applyI18n();
   updateMeta();
   loadPostcards();
+  loadLandmarks();
   ['zoning', 'landuse'].forEach(id => { try { if (localStorage.getItem('nlOldMaps.plan.' + id) === '1') togglePlan(id); } catch (e) {} });
 
   // Service worker tijdelijk uitgeschakeld: oude SW + caches opruimen.
