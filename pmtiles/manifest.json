@@ -15,6 +15,102 @@
       "maxzoom": 16,
       "format": "webp",
       "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "amsterdam-1850",
+      "city": "amsterdam",
+      "service": "1850",
+      "url": "amsterdam-1850.pmtiles",
+      "bounds": [
+        4.8642,
+        52.3551,
+        4.9201999999999995,
+        52.3911
+      ],
+      "minzoom": 12,
+      "maxzoom": 16,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "amsterdam-1925",
+      "city": "amsterdam",
+      "service": "1925",
+      "url": "amsterdam-1925.pmtiles",
+      "bounds": [
+        4.8642,
+        52.3551,
+        4.9201999999999995,
+        52.3911
+      ],
+      "minzoom": 12,
+      "maxzoom": 16,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "amsterdam-1975",
+      "city": "amsterdam",
+      "service": "1975",
+      "url": "amsterdam-1975.pmtiles",
+      "bounds": [
+        4.8642,
+        52.3551,
+        4.9201999999999995,
+        52.3911
+      ],
+      "minzoom": 12,
+      "maxzoom": 16,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "rotterdam-1900",
+      "city": "rotterdam",
+      "service": "1900",
+      "url": "rotterdam-1900.pmtiles",
+      "bounds": [
+        4.4512,
+        51.9045,
+        4.507199999999999,
+        51.9405
+      ],
+      "minzoom": 12,
+      "maxzoom": 16,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "denhaag-1900",
+      "city": "denhaag",
+      "service": "1900",
+      "url": "denhaag-1900.pmtiles",
+      "bounds": [
+        4.2833000000000006,
+        52.0619,
+        4.3393,
+        52.0979
+      ],
+      "minzoom": 12,
+      "maxzoom": 16,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "utrecht-1900",
+      "city": "utrecht",
+      "service": "1900",
+      "url": "utrecht-1900.pmtiles",
+      "bounds": [
+        5.094200000000001,
+        52.0728,
+        5.1502,
+        52.1088
+      ],
+      "minzoom": 12,
+      "maxzoom": 16,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
     }
   ]
 }
