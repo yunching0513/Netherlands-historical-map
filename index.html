@@ -573,6 +573,7 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
 <script src="https://unpkg.com/proj4@2.11.0/dist/proj4.js"></script>
+<script src="https://unpkg.com/pmtiles@3.0.6/dist/pmtiles.js"></script>
 <script>
 (function () {
   'use strict';
@@ -626,6 +627,53 @@
   const RD_RESOLUTIONS = [3251.206502413005, 1625.6032512065026, 812.8016256032513, 406.40081280162565, 203.20040640081282, 101.60020320040641, 50.800101600203206, 25.400050800101603, 12.700025400050801, 6.350012700025401, 3.1750063500127004, 1.5875031750063502];
   const ARC = 'https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/';
   const HIST_ATTR = 'Historie &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> / Kadaster / Esri NL';
+  const HIST_ATTR_PM = '&copy; <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a> · CC-BY 4.0';
+
+  // ── Vooraf gebakken offline-tegels (PMTiles) ─────────────────────────
+  // Per stad/jaar kan een .pmtiles-archief klaarstaan: al naar 3857
+  // gereprojecteerde rastertegels in één bestand (zie tools/bake_pmtiles.py).
+  // Staat er een archief voor de huidige laag, dan lezen we de tegel daaruit
+  // (geen netwerk, geen canvas-reprojectie); anders vallen we terug op de
+  // online Topotijdreis-service. Faalt het laden van het manifest of de
+  // pmtiles-bibliotheek, dan blijft alles gewoon online werken.
+  const PMTILES_MANIFEST = 'pmtiles/manifest.json';
+  let pmtilesArchives = [];   // { service, bounds:[w,s,e,n], minzoom, maxzoom, pm }
+  let pmtilesReady = false;
+  async function loadPmtilesManifest() {
+    if (typeof pmtiles === 'undefined') return;
+    try {
+      const resp = await fetch(PMTILES_MANIFEST, { cache: 'no-cache' });
+      if (!resp.ok) return;
+      const data = await resp.json();
+      const base = PMTILES_MANIFEST.replace(/[^/]*$/, '');
+      pmtilesArchives = (data.archives || []).map(a => ({
+        service: String(a.service),
+        bounds: a.bounds, minzoom: a.minzoom, maxzoom: a.maxzoom,
+        pm: new pmtiles.PMTiles(/^https?:|^\//.test(a.url) ? a.url : base + a.url),
+      }));
+      pmtilesReady = pmtilesArchives.length > 0;
+    } catch (e) {}
+  }
+  // Welk archief dekt deze tegel (zelfde jaar-service, binnen bounds + zoom)?
+  function pmtilesFor(serviceId, coords) {
+    if (!pmtilesReady) return null;
+    const z = coords.z;
+    const n = tile2lat(coords.y, z), s = tile2lat(coords.y + 1, z);
+    const w = tile2lng(coords.x, z), e = tile2lng(coords.x + 1, z);
+    for (const a of pmtilesArchives) {
+      if (a.service !== String(serviceId)) continue;
+      if (z < a.minzoom || z > a.maxzoom) continue;
+      const b = a.bounds;
+      if (e < b[0] || w > b[2] || n < b[1] || s > b[3]) continue;
+      return a;
+    }
+    return null;
+  }
+  function tile2lng(x, z) { return x / Math.pow(2, z) * 360 - 180; }
+  function tile2lat(y, z) {
+    const n = Math.PI - 2 * Math.PI * y / Math.pow(2, z);
+    return 180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n)));
+  }
 
   const BASE_MAPS = {
     brt:       { url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:3857/{z}/{x}/{y}.png', attr: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
@@ -687,6 +735,22 @@
       const ctx = canvas.getContext('2d');
       const tileMap = this._map;
       if (!ctx || !tileMap) { setTimeout(() => done(undefined, canvas), 0); return canvas; }
+      // Eerst het lokale PMTiles-archief proberen (al in 3857, geen reprojectie).
+      const arch = pmtilesFor(serviceId, coords);
+      if (arch) {
+        arch.pm.getZxy(coords.z, coords.x, coords.y).then(res => {
+          if (!res || !res.data) { renderOnline(); return; }
+          const img = new Image();
+          img.onload = () => { try { ctx.drawImage(img, 0, 0, RD_TILE_SIZE, RD_TILE_SIZE); } catch (e) {} URL.revokeObjectURL(img.src); done(undefined, canvas); };
+          img.onerror = () => { URL.revokeObjectURL(img.src); renderOnline(); };
+          img.src = URL.createObjectURL(new Blob([res.data]));
+        }).catch(() => renderOnline());
+        return canvas;
+      }
+      renderOnline();
+      return canvas;
+
+      function renderOnline() {
       const geom = histTileGeom(coords.x, coords.y, coords.z);
       const tilePoint = geom.tilePoint, lvl = geom.lvl, rdTileM = geom.rdTileM, tiles = geom.tiles;
       const rdToPx = (rx, ry) => {
@@ -714,7 +778,7 @@
         };
         offlineTileSrc(url + '/' + lvl + '/' + cr[1] + '/' + cr[0]).then(src => { img.src = src; });
       });
-      return canvas;
+      }
     };
     return layer;
   }
@@ -928,8 +992,10 @@
     const snap = nearestService(clampYear(year));
     state.year = snap.year;
     if (histLayer) map.removeLayer(histLayer);
+    const hasArchive = pmtilesReady && pmtilesArchives.some(a => a.service === String(snap.id));
     histLayer = createTopotijdreisLayer(snap.id, {
       pane: 'histPane', opacity: state.opacity, minZoom: 7, maxZoom: 19,
+      attribution: hasArchive ? HIST_ATTR_PM : HIST_ATTR,
     }).addTo(map);
     histLayer.on('loading', () => { spinner.classList.add('show'); });
     histLayer.on('load', () => { spinner.classList.remove('show'); });
@@ -1920,6 +1986,9 @@
   updateMeta();
   loadPostcards();
   loadLandmarks();
+  // Vooraf gebakken offline-tegels ophalen; daarna de historische laag
+  // verversen zodat zichtbare tegels het lokale archief gaan gebruiken.
+  loadPmtilesManifest().then(() => { if (pmtilesReady) setHistYear(state.year); });
   ['zoning', 'landuse'].forEach(id => { try { if (localStorage.getItem('nlOldMaps.plan.' + id) === '1') togglePlan(id); } catch (e) {} });
 
   // Service worker tijdelijk uitgeschakeld: oude SW + caches opruimen.

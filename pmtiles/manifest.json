@@ -1,0 +1,20 @@
+{
+  "archives": [
+    {
+      "id": "amsterdam-1900",
+      "city": "amsterdam",
+      "service": "1900",
+      "url": "amsterdam-1900.pmtiles",
+      "bounds": [
+        4.8642,
+        52.3551,
+        4.9201999999999995,
+        52.3911
+      ],
+      "minzoom": 12,
+      "maxzoom": 16,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    }
+  ]
+}
