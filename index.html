@@ -24,15 +24,27 @@
       if (!lng) lng = 'en';
     }
     document.documentElement.setAttribute('lang', lng === 'zh' ? 'zh-Hant' : lng);
+    // Language-specific PWA manifest and Apple home-screen title
+    (function() {
+      var ml = document.createElement('link');
+      ml.rel = 'manifest';
+      ml.href = 'manifest-' + (lng || 'en') + '.webmanifest';
+      document.head.appendChild(ml);
+      var appleTitle = { nl: 'Wandeling', en: 'Old-Map', zh: '古地圖' };
+      var am = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+      if (am) am.setAttribute('content', appleTitle[lng] || 'Old-Map');
+      var appleIcon = document.createElement('link');
+      appleIcon.rel = 'apple-touch-icon';
+      appleIcon.href = 'icons/icon-192-' + (lng || 'en') + '.png';
+      document.head.appendChild(appleIcon);
+    })();
   } catch (e) {}
 </script>
 <meta name="google" content="notranslate" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="Wandeling" />
-<link rel="manifest" href="manifest.webmanifest" />
+<meta name="apple-mobile-web-app-title" content="Old-Map" />
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
 <link rel="mask-icon" href="icons/icon.svg" color="#C15F3C" />
-<link rel="apple-touch-icon" href="icons/icon.svg" />
 <title>荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland</title>
 <meta name="description" content="Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten. 把 1815 年以來的荷蘭歷史地圖疊在今日街道上。" />
 <meta name="author" content="吳昀慶 Yunching Wu" />
