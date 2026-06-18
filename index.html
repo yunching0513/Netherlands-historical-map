@@ -253,6 +253,15 @@
   .dl-status.show { display:block; }
   .offline-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
   .offline-used { font-family:var(--mono); font-size:10px; letter-spacing:0.04em; color:var(--ash); }
+  /* PMTiles bundled offline indicator */
+  .pm-dot { display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--stone); flex-shrink:0; vertical-align:middle; margin-left:5px; }
+  .era-chip .pm-dot { width:4px; height:4px; margin-left:4px; }
+  .bundled-bar { margin-top:14px; padding-top:12px; border-top:1px solid var(--mist); }
+  .bundled-bar-title { font-family:var(--mono); font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ash); margin-bottom:8px; }
+  .bundled-row { display:flex; gap:8px; margin-bottom:4px; font-family:var(--mono); font-size:10px; line-height:1.5; }
+  .bundled-city { color:var(--graphite); min-width:72px; font-weight:500; }
+  .bundled-years { color:var(--ash); flex:1; }
+  .bundled-note { margin-top:7px; font-family:var(--mono); font-size:9px; color:var(--silver); letter-spacing:0.04em; }
   .plan-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
   .sister-pill { display:inline-flex; align-items:center; gap:5px; text-decoration:none; }
   .sister-pill .arr { color:var(--vermilion); font-size:11px; }
@@ -480,6 +489,11 @@
           <span class="offline-used" id="offline-used">—</span>
           <button type="button" class="pill-toggle" id="btn-clear-offline" data-i18n="offline.clear">清除下載</button>
         </div>
+        <div class="bundled-bar" id="bundled-bar" hidden>
+          <div class="bundled-bar-title" data-i18n="offline.bundled">內建離線</div>
+          <div id="bundled-rows"></div>
+          <div class="bundled-note" data-i18n="offline.bundled.hint">無需下載，隨時可用 · CC-BY 4.0</div>
+        </div>
       </div>
 
       <div class="panel-foot">
@@ -675,6 +689,52 @@
     return 180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n)));
   }
 
+  // Welke jaren heeft een stad in het pmtiles-archief? (city → sorted serviceId[])
+  function pmtilesCityMap() {
+    const m = {};
+    for (const a of pmtilesArchives) {
+      if (!m[a.city]) m[a.city] = [];
+      if (!m[a.city].includes(a.service)) m[a.city].push(a.service);
+    }
+    for (const k of Object.keys(m)) m[k].sort((a, b) => parseInt(a) - parseInt(b));
+    return m;
+  }
+
+  // Hèft de huidige stad een bundeld archief voor dit era-jaar?
+  function pmtilesHasEra(cityId, eraYear) {
+    if (!pmtilesReady) return false;
+    const svc = nearestService(eraYear).id;
+    return pmtilesArchives.some(a => a.city === cityId && a.service === svc);
+  }
+
+  // Toon de bundled-list onder het offline-paneel.
+  function renderBundledList() {
+    const bar = document.getElementById('bundled-bar');
+    const rows = document.getElementById('bundled-rows');
+    if (!bar || !rows) return;
+    if (!pmtilesReady) { bar.hidden = true; return; }
+    const cm = pmtilesCityMap();
+    if (!Object.keys(cm).length) { bar.hidden = true; return; }
+    bar.hidden = false;
+    rows.innerHTML = '';
+    const cityOrder = CITIES.map(c => c.id).filter(id => cm[id]);
+    cityOrder.forEach(cityId => {
+      const city = CITIES.find(c => c.id === cityId);
+      if (!city) return;
+      const row = document.createElement('div');
+      row.className = 'bundled-row';
+      const nameEl = document.createElement('span');
+      nameEl.className = 'bundled-city';
+      nameEl.textContent = lang === 'zh' ? city.zh : city.en;
+      const yrsEl = document.createElement('span');
+      yrsEl.className = 'bundled-years';
+      yrsEl.textContent = cm[cityId].join(' · ');
+      row.appendChild(nameEl);
+      row.appendChild(yrsEl);
+      rows.appendChild(row);
+    });
+  }
+
   const BASE_MAPS = {
     brt:       { url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:3857/{z}/{x}/{y}.png', attr: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
     grijs:     { url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png',     attr: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
@@ -829,6 +889,7 @@
       'offline.downloading': 'Bezig', 'offline.done': 'Opgeslagen ✓ — offline beschikbaar', 'offline.canceled': 'Gestopt',
       'offline.cleared': 'Downloads gewist', 'offline.clear': 'Wissen', 'offline.used': 'Gebruikt', 'offline.unsupported': 'Offline niet ondersteund in deze browser.',
       'offline.hint': 'Bewaart de huidige basiskaart en het huidige jaar (tot straatniveau) op je apparaat — sneller en offline te gebruiken.',
+      'offline.bundled': 'Ingebouwde tegels', 'offline.bundled.hint': 'Geen download nodig · CC-BY 4.0 Kadaster',
       'sec.plan': 'Ruimtelijk', 'sec.plan.en': 'ruimtelijk', 'plan.zoning': 'Bestemmingsplan', 'plan.landuse': 'Bodemgebruik',
       'plan.hint': 'Actuele bestemmingsplannen & bodemgebruik (CC0, via PDOK), als overlay op de kaart.',
       'legend.title': 'Legenda', 'legend.note': 'Labels in het Nederlands (officiële PDOK-legenda).',
@@ -865,6 +926,7 @@
       'offline.downloading': 'Downloading', 'offline.done': 'Saved ✓ — available offline', 'offline.canceled': 'Stopped',
       'offline.cleared': 'Downloads cleared', 'offline.clear': 'Clear', 'offline.used': 'Used', 'offline.unsupported': 'Offline not supported in this browser.',
       'offline.hint': 'Saves the current base map and year (to street level) on your device — faster and usable offline.',
+      'offline.bundled': 'Built-in tiles', 'offline.bundled.hint': 'No download needed · CC-BY 4.0 Kadaster',
       'sec.plan': 'Planning', 'sec.plan.en': 'planning', 'plan.zoning': 'Zoning', 'plan.landuse': 'Land use',
       'plan.hint': 'Current Dutch zoning plans & land use (CC0, via PDOK), as a map overlay.',
       'legend.title': 'Legend', 'legend.note': 'Labels are in Dutch (official PDOK legend).',
@@ -901,6 +963,7 @@
       'offline.downloading': '下載中', 'offline.done': '已存到裝置 ✓ 可離線使用', 'offline.canceled': '已停止',
       'offline.cleared': '已清除下載', 'offline.clear': '清除下載', 'offline.used': '已用約', 'offline.unsupported': '此瀏覽器不支援離線下載。',
       'offline.hint': '下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。',
+      'offline.bundled': '內建離線圖層', 'offline.bundled.hint': '無需下載，隨時可用 · CC-BY 4.0 Kadaster',
       'sec.plan': '規劃圖', 'sec.plan.en': '規劃', 'plan.zoning': '都市計畫', 'plan.landuse': '土地利用',
       'plan.hint': '荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。',
       'legend.title': '圖例', 'legend.note': '標籤為荷蘭文（PDOK 官方圖例）。',
@@ -1045,8 +1108,10 @@
         const chip = document.createElement('button');
         chip.type = 'button';
         chip.className = 'city-chip' + (c.id === state.city.id ? ' active' : '');
+        const hasPm = pmtilesReady && pmtilesArchives.some(a => a.city === c.id);
         chip.innerHTML = (lang === 'zh' ? c.zh : c.en) +
-          (lang === 'zh' ? ' <span class="en">' + c.en + '</span>' : '');
+          (lang === 'zh' ? ' <span class="en">' + c.en + '</span>' : '') +
+          (hasPm ? ' <span class="pm-dot" title="offline"></span>' : '');
         chip.addEventListener('click', () => { selectCity(c.id); });
         wrap.appendChild(chip);
         total++;
@@ -1096,6 +1161,8 @@
     document.getElementById('city-list').classList.remove('open');
     const s = document.getElementById('city-search'); if (s) s.value = '';
     renderCityList('');
+    renderEraChips();
+    updateEraChips();
     renderCards();
     renderLandmarkCards();
     renderOffline();
@@ -1119,7 +1186,9 @@
     wrap.innerHTML = '';
     ERA_YEARS.forEach(y => {
       const b = document.createElement('button');
-      b.type = 'button'; b.className = 'era-chip'; b.dataset.year = y; b.textContent = y;
+      b.type = 'button'; b.className = 'era-chip'; b.dataset.year = y;
+      b.innerHTML = y + (pmtilesHasEra(state.city.id, y)
+        ? ' <span class="pm-dot" title="offline"></span>' : '');
       b.addEventListener('click', () => setHistYear(y));
       wrap.appendChild(b);
     });
@@ -1988,7 +2057,15 @@
   loadLandmarks();
   // Vooraf gebakken offline-tegels ophalen; daarna de historische laag
   // verversen zodat zichtbare tegels het lokale archief gaan gebruiken.
-  loadPmtilesManifest().then(() => { if (pmtilesReady) setHistYear(state.year); });
+  loadPmtilesManifest().then(() => {
+    if (pmtilesReady) {
+      renderBundledList();
+      renderCityList('');
+      renderEraChips();
+      updateEraChips();
+      setHistYear(state.year);
+    }
+  });
   ['zoning', 'landuse'].forEach(id => { try { if (localStorage.getItem('nlOldMaps.plan.' + id) === '1') togglePlan(id); } catch (e) {} });
 
   // Service worker tijdelijk uitgeschakeld: oude SW + caches opruimen.
