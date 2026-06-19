@@ -1569,56 +1569,76 @@
       img.onload = async () => {
         try {
           if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
-          const W = 1080, PAD = 60, FRAME = 30, maxTextW = W - PAD * 2;
+
+          const W = 1080, PAD = 56;
+          const maxTextW = W - PAD * 2;
           const imgH = Math.round(W * img.naturalHeight / img.naturalWidth);
           const isArchShare = !!item.architect;
+
+          // Measure title line count
           const measure = document.createElement('canvas').getContext('2d');
           measure.font = "600 42px 'Noto Serif TC','Songti TC',serif";
           const titleLines = wrapLines(measure, locName(isArchShare ? item.name : item.title), maxTextW);
-          const bandH = 44 + titleLines.length * 52 + 44 + 32 + 40 + 46;
-          const cardH = imgH + bandH;
+
+          // Band height: top-pad + title + artist + museum + credit + url + bottom-pad
+          const LINE_TITLE = 52, LINE_SM = 36;
+          const bandH = 48 + titleLines.length * LINE_TITLE + 12
+                      + LINE_SM + 8     // artist
+                      + LINE_SM        // museum
+                      + LINE_SM        // credit/license
+                      + LINE_SM        // url
+                      + 44;            // bottom pad
+
           const cv = document.createElement('canvas');
-          cv.width = W + FRAME * 2; cv.height = cardH + FRAME * 2;
+          cv.width = W; cv.height = imgH + bandH;
           const ctx = cv.getContext('2d');
-          ctx.fillStyle = '#F1EFE9'; ctx.fillRect(0, 0, cv.width, cv.height);     // paper frame
-          ctx.strokeStyle = '#D6D3CB'; ctx.lineWidth = 2;                          // faint outer keyline
-          ctx.strokeRect(11, 11, cv.width - 22, cv.height - 22);
-          ctx.save(); ctx.translate(FRAME, FRAME);
+
+          // ── painting, full-bleed, no mat ──────────────────────────────
           ctx.drawImage(img, 0, 0, W, imgH);
-          ctx.fillStyle = '#EAE8E2'; ctx.fillRect(0, imgH, W, bandH);
+
+          // ── 6px vermilion separator (mirrors .lightbox-cap border-top) ─
           ctx.fillStyle = '#C15F3C'; ctx.fillRect(0, imgH, W, 6);
+
+          // ── caption band ──────────────────────────────────────────────
+          ctx.fillStyle = '#EAE8E2'; ctx.fillRect(0, imgH + 6, W, bandH - 6);
+
           ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-          let y = imgH + 44 + 34;
-          ctx.fillStyle = '#1F1D19'; ctx.font = "600 42px 'Noto Serif TC','Songti TC',serif";
-          titleLines.forEach(line => { ctx.fillText(line, PAD, y); y += 52; });
-          y += 6;
-          ctx.fillStyle = '#9E4B2E'; ctx.font = "italic 32px 'EB Garamond',Georgia,serif";
-          ctx.fillText(locName(isArchShare ? item.architect : item.artist) + ' · ' + item.year, PAD, y); y += 44;
-          ctx.fillStyle = '#565347'; ctx.font = "400 23px 'Noto Sans TC',system-ui,sans-serif";
-          ctx.fillText(isArchShare ? (item.address || item.credit) : item.credit, PAD, y); y += 32;
-          ctx.fillStyle = '#807C73'; ctx.font = "400 20px 'Noto Sans TC',system-ui,sans-serif";
-          ctx.fillText(isArchShare ? (item.license || 'CC-BY-SA') + ' · via Wikimedia Commons' : 'Public Domain · via Wikimedia Commons', PAD, y); y += 42;
-          ctx.fillStyle = '#A6A399'; ctx.font = "400 18px 'JetBrains Mono',monospace";
+          let y = imgH + 6 + 48 + 34;  // first baseline inside band
+
+          // Title
+          ctx.fillStyle = '#1F1D19';
+          ctx.font = "600 42px 'Noto Serif TC','Songti TC',serif";
+          titleLines.forEach(line => { ctx.fillText(line, PAD, y); y += LINE_TITLE; });
+          y += 12;
+
+          // Artist · year (italic vermilion, mirrors .lc-artist)
+          ctx.fillStyle = '#9E4B2E';
+          ctx.font = "italic 30px 'EB Garamond',Georgia,serif";
+          ctx.fillText(locName(isArchShare ? item.architect : item.artist) + ' · ' + item.year, PAD, y);
+          y += LINE_SM + 8;
+
+          // Museum / address (mono uppercase, mirrors .lc-meta)
+          const museumLabel = (isArchShare ? (item.address || item.credit) : item.credit).toUpperCase();
+          ctx.fillStyle = '#565347';
+          ctx.font = "400 20px 'JetBrains Mono',monospace";
+          ctx.fillText(museumLabel, PAD, y);
+          y += LINE_SM;
+
+          // License line (ash, mirrors .lc-credit)
+          ctx.fillStyle = '#807C73';
+          ctx.font = "400 20px 'Noto Sans TC',system-ui,sans-serif";
+          const licLabel = isArchShare
+            ? (item.license || 'CC-BY-SA')
+            : ('公眾領域 · Public Domain · via Wikimedia Commons');
+          ctx.fillText(licLabel, PAD, y);
+          y += LINE_SM;
+
+          // URL / watermark (silver mono, mirrors bottom of lightbox)
+          ctx.fillStyle = '#A6A399';
+          ctx.font = "400 18px 'JetBrains Mono',monospace";
           ctx.fillText('荷蘭古地圖散策 · yunching0513.github.io/Netherlands-historical-map', PAD, y);
-          // postmark date stamp (lower-right of the caption band)
-          (function () {
-            const dt = new Date();
-            const ds = dt.getDate() + '.' + (dt.getMonth() + 1) + '.' + dt.getFullYear();
-            ctx.save();
-            ctx.translate(W - 108, imgH + bandH - 78); ctx.rotate(-8 * Math.PI / 180);
-            ctx.globalAlpha = 0.9; ctx.strokeStyle = '#C15F3C'; ctx.fillStyle = '#C15F3C';
-            ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(0, 0, 52, 0, Math.PI * 2); ctx.stroke();
-            ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(0, 0, 43, 0, Math.PI * 2); ctx.stroke();
-            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            ctx.font = "700 12px 'JetBrains Mono',monospace"; ctx.fillText('NEDERLAND', 0, -22);
-            ctx.font = "700 21px 'JetBrains Mono',monospace"; ctx.fillText(ds, 0, 1);
-            ctx.font = "500 11px 'Noto Serif TC','Songti TC',serif"; ctx.fillText('古地圖散策', 0, 24);
-            ctx.restore();
-          })();
-          ctx.restore();
-          ctx.strokeStyle = '#BBB8AE'; ctx.lineWidth = 2;                          // card border
-          ctx.strokeRect(FRAME, FRAME, W, cardH);
-          cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.92);
+
+          cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.93);
         } catch (e) { reject(e); }
       };
       img.src = item.img;
