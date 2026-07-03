@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yunching0513.github.io/Netherlands-historical-map/sitemap.xml
