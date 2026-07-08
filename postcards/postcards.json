@@ -1752,6 +1752,370 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Der_Damplatz_zu_Amsterdam_-_Gem%C3%A4ldegalerie_Berlin_-_4012929.jpg",
       "lat": 52.3731,
       "lng": 4.8922
+    },
+    {
+      "id": "denhaag-rubens-old-woman",
+      "city": "denhaag",
+      "year": "c. 1616–1617",
+      "artist": {
+        "zh": "彼得·保羅·魯本斯",
+        "en": "Peter Paul Rubens",
+        "nl": "Peter Paul Rubens"
+      },
+      "title": {
+        "zh": "老婦與持燭男孩",
+        "en": "Old Woman and Boy with Candles",
+        "nl": "Oude vrouw en jongen met kaarsen"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Peter_Paul_Rubens_-_Old_Woman_and_Boy_with_Candles_-_1150_-_Mauritshuis.jpg/1280px-Peter_Paul_Rubens_-_Old_Woman_and_Boy_with_Candles_-_1150_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Peter_Paul_Rubens_-_Old_Woman_and_Boy_with_Candles_-_1150_-_Mauritshuis.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "法蘭德斯巴洛克大師魯本斯的燭光習作，老婦正以手中燭火點燃男孩的蠟燭，是一幅探究明暗對照（chiaroscuro）的「面相習作」（tronie）。畫家以細膩的暖色光暈刻畫被火光照亮的臉龐，展現法蘭德斯畫派處理光影的精湛技巧。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "A candlelight study by the Flemish Baroque master Rubens: an old woman lights a boy's candle from her own. A 'tronie' (character study) exploring chiaroscuro, it renders the firelit faces in warm, glowing tones — a virtuoso demonstration of the Flemish school's handling of light. Held at the Mauritshuis, The Hague.",
+        "nl": "Een kaarslichtstudie van de Vlaamse barokmeester Rubens: een oude vrouw steekt de kaars van een jongen aan met de hare. Een 'tronie' die het clair-obscur verkent en de door vuur verlichte gezichten in warme tonen weergeeft — een meesterlijke demonstratie van de Vlaamse omgang met licht. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "denhaag-vandyck-anna-wake",
+      "city": "denhaag",
+      "year": "1628",
+      "artist": {
+        "zh": "安東尼·范戴克",
+        "en": "Anthony van Dyck",
+        "nl": "Antoon van Dyck"
+      },
+      "title": {
+        "zh": "安娜·韋克像",
+        "en": "Portrait of Anna Wake",
+        "nl": "Portret van Anna Wake"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Anthony_van_Dyck_-_Portrait_of_Anna_Wake_%281605-before_1669%29_-_240_-_Mauritshuis.jpg/1280px-Anthony_van_Dyck_-_Portrait_of_Anna_Wake_%281605-before_1669%29_-_240_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anthony_van_Dyck_-_Portrait_of_Anna_Wake_(1605-before_1669)_-_240_-_Mauritshuis.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "范戴克是魯本斯最傑出的學生、十七世紀最具影響力的肖像畫家。這幅1628年的安娜·韋克像，是她與安特衛普商人彼得·史蒂文斯一對夫妻像的其中一幅。畫家以優雅的姿態、華麗的蕾絲與綢緞，以及細膩的膚色處理，奠定了往後兩百年歐洲貴族肖像的典範。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "Van Dyck — Rubens's most gifted pupil and the most influential portraitist of the 17th century — painted this likeness of Anna Wake in 1628, one of a pair with the portrait of her husband, the Antwerp merchant Peeter Stevens. Its elegant pose, sumptuous lace and satin, and refined flesh tones set the template for aristocratic portraiture across Europe for two centuries. Mauritshuis, The Hague.",
+        "nl": "Van Dyck — Rubens' begaafdste leerling en de invloedrijkste portrettist van de 17e eeuw — schilderde dit portret van Anna Wake in 1628, als pendant van dat van haar man, de Antwerpse koopman Peeter Stevens. De elegante pose, weelderige kant en satijn en verfijnde huidtonen werden twee eeuwen lang het model voor aristocratische portretkunst in Europa. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "denhaag-brueghel-wanli-flowers",
+      "city": "denhaag",
+      "year": "c. 1610–1615",
+      "artist": {
+        "zh": "老揚·布勒哲爾",
+        "en": "Jan Brueghel the Elder",
+        "nl": "Jan Brueghel de Oude"
+      },
+      "title": {
+        "zh": "萬曆瓷瓶中的花束",
+        "en": "Flowers in a Wan-Li Vase",
+        "nl": "Bloemen in een Wan-Li vaas"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Jan_Brueghel_de_Oude_-_Flowers_in_a_Wan-Li_Vase_-_1072_-_Mauritshuis.jpg/1280px-Jan_Brueghel_de_Oude_-_Flowers_in_a_Wan-Li_Vase_-_1072_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Brueghel_de_Oude_-_Flowers_in_a_Wan-Li_Vase_-_1072_-_Mauritshuis.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "老揚·布勒哲爾（老彼得·布勒哲爾之子）因其細膩如絲絨般的筆觸而有「絲絨布勒哲爾」之稱，是法蘭德斯花卉靜物畫的開創者之一。畫中各色花朵其實開於不同季節，不可能同時綻放——這是一幅由觀察與想像合成的「理想花束」，插在當時透過貿易遠渡而來的中國萬曆青花瓷瓶中。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "Jan Brueghel the Elder — son of Pieter Bruegel and nicknamed 'Velvet Brueghel' for his silken touch — was a founder of Flemish flower painting. The blooms here flower in different seasons and could never coexist: this is an idealised bouquet assembled from study and imagination, set in a Chinese Wan-Li porcelain vase brought by trade. Mauritshuis, The Hague.",
+        "nl": "Jan Brueghel de Oude — zoon van Pieter Bruegel, bijgenaamd 'Fluwelen Brueghel' om zijn zijdezachte toets — was een grondlegger van de Vlaamse bloemstilleven. De bloemen bloeien in verschillende seizoenen en konden nooit samen bestaan: een geïdealiseerd boeket uit studie en verbeelding, in een Chinese Wan-Li porseleinen vaas. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "denhaag-jordaens-shepherds",
+      "city": "denhaag",
+      "year": "c. 1617",
+      "artist": {
+        "zh": "雅各布·約爾丹斯",
+        "en": "Jacob Jordaens",
+        "nl": "Jacob Jordaens"
+      },
+      "title": {
+        "zh": "牧人來朝",
+        "en": "The Adoration of the Shepherds",
+        "nl": "De aanbidding der herders"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Jacob_Jordaens_-_The_Adoration_of_the_Shepherds_-_937_-_Mauritshuis.jpg/1280px-Jacob_Jordaens_-_The_Adoration_of_the_Shepherds_-_937_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jacob_Jordaens_-_The_Adoration_of_the_Shepherds_-_937_-_Mauritshuis.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "約爾丹斯與魯本斯、范戴克並列為安特衛普法蘭德斯巴洛克三大家。這幅早期作品中，他以近乎卡拉瓦喬式的強烈明暗、貼近觀者的構圖與飽滿厚實的人物，描繪牧人圍繞聖嬰的一刻。粗獷的寫實面孔正是約爾丹斯日後最鮮明的個人風格。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "Jordaens ranks with Rubens and Van Dyck as one of the three great Flemish Baroque painters of Antwerp. In this early work he depicts shepherds crowding around the Christ Child with near-Caravaggesque lighting, a tight close-up composition and full-bodied figures. The earthy, realistic faces would become his most distinctive signature. Mauritshuis, The Hague.",
+        "nl": "Jordaens behoort met Rubens en Van Dyck tot de drie grote Vlaamse barokschilders van Antwerpen. In dit vroege werk verbeeldt hij herders rond het Christuskind met bijna caravaggesk licht, een close-up compositie en volle figuren. De aardse, realistische gezichten zouden zijn meest kenmerkende signatuur worden. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "denhaag-brouwer-peasant-brawl",
+      "city": "denhaag",
+      "year": "c. 1630–1635",
+      "artist": {
+        "zh": "阿德里安·布勞威爾",
+        "en": "Adriaen Brouwer",
+        "nl": "Adriaen Brouwer"
+      },
+      "title": {
+        "zh": "農民鬥毆",
+        "en": "Peasant Brawl",
+        "nl": "Boerenvechtpartij"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Peasant_Brawl_by_Adriaen_Brouwer_Mauritshuis_919.jpg/1280px-Peasant_Brawl_by_Adriaen_Brouwer_Mauritshuis_919.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Peasant_Brawl_by_Adriaen_Brouwer_Mauritshuis_919.jpg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "法蘭德斯畫家布勞威爾專擅描繪酒館裡的小人物——醉漢、賭徒、鬥毆的農民。這幅作品中，一場為了牌局而起的扭打瞬間爆發，刀光與翻倒的板凳間滿是粗鄙的生命力。布勞威爾以極為自由奔放的筆觸，深深影響了林布蘭與哈爾斯等荷蘭畫家。現藏於海牙莫瑞泰斯皇家美術館。",
+        "en": "The Flemish painter Brouwer specialised in the low life of the tavern — drunkards, gamblers, brawling peasants. Here a fight erupts over a card game, knives flashing among overturned stools in a burst of coarse vitality. Brouwer's remarkably free, loose brushwork left a deep mark on Dutch painters including Rembrandt and Hals. Mauritshuis, The Hague.",
+        "nl": "De Vlaamse schilder Brouwer specialiseerde zich in het kroegleven — dronkaards, gokkers, vechtende boeren. Hier breekt een gevecht uit om een kaartspel, messen flitsend tussen omgevallen krukken in een uitbarsting van rauwe levenskracht. Brouwers opvallend vrije toets liet een diepe indruk na op Nederlandse schilders als Rembrandt en Hals. Mauritshuis, Den Haag."
+      }
+    },
+    {
+      "id": "amsterdam-vandyck-willem-maria",
+      "city": "amsterdam",
+      "year": "1641",
+      "artist": {
+        "zh": "安東尼·范戴克",
+        "en": "Anthony van Dyck",
+        "nl": "Antoon van Dyck"
+      },
+      "title": {
+        "zh": "威廉二世親王與新娘瑪麗·斯圖亞特",
+        "en": "William II of Orange and his Bride Mary Stuart",
+        "nl": "Willem II en zijn bruid Maria Stuart"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Willem_II_en_zijn_bruid_Maria_Stuart_Rijksmuseum_SK-A-102.jpeg/1280px-Willem_II_en_zijn_bruid_Maria_Stuart_Rijksmuseum_SK-A-102.jpeg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Willem_II_en_zijn_bruid_Maria_Stuart_Rijksmuseum_SK-A-102.jpeg",
+      "lat": 52.3731,
+      "lng": 4.8922,
+      "desc": {
+        "zh": "范戴克晚年最重要的作品之一，描繪1641年14歲的奧蘭治親王威廉二世，與9歲的英國公主瑪麗·斯圖亞特（英王查理一世之女）的政治聯姻。這場婚姻日後將荷蘭執政家族與英國王室緊緊相連，並促成1688年的「光榮革命」。一位法蘭德斯大師，為荷蘭歷史留下了關鍵的一頁。現藏於阿姆斯特丹國家博物館。",
+        "en": "One of Van Dyck's last major works, depicting the 1641 political marriage of the 14-year-old William II of Orange to the 9-year-old English princess Mary Stuart, daughter of Charles I. The union bound the Dutch stadtholder dynasty to the English crown and would lead to the Glorious Revolution of 1688 — a Flemish master recording a pivotal page of Dutch history. Rijksmuseum, Amsterdam.",
+        "nl": "Een van Van Dycks laatste grote werken, met het politieke huwelijk van 1641 tussen de 14-jarige Willem II van Oranje en de 9-jarige Engelse prinses Maria Stuart, dochter van Karel I. De verbintenis bond het stadhouderlijk huis aan de Engelse kroon en leidde tot de Glorious Revolution van 1688 — een Vlaamse meester die een cruciale bladzijde van de Nederlandse geschiedenis vastlegt. Rijksmuseum, Amsterdam."
+      }
+    },
+    {
+      "id": "rotterdam-vaneyck-three-marys",
+      "city": "rotterdam",
+      "year": "c. 1425–1435",
+      "artist": {
+        "zh": "凡·艾克兄弟",
+        "en": "Hubert and/or Jan van Eyck",
+        "nl": "Hubert en/of Jan van Eyck"
+      },
+      "title": {
+        "zh": "墓前的三位瑪利亞",
+        "en": "The Three Marys at the Tomb",
+        "nl": "De drie Maria's aan het graf"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Hubert_van_Eyck_or_Jan_van_Eyck_or_both_-_The_Three_Marys_at_the_Tomb_-_Google_Art_Project.jpg/1280px-Hubert_van_Eyck_or_Jan_van_Eyck_or_both_-_The_Three_Marys_at_the_Tomb_-_Google_Art_Project.jpg",
+      "credit": "Museum Boijmans Van Beuningen, Rotterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hubert_van_Eyck_or_Jan_van_Eyck_or_both_-_The_Three_Marys_at_the_Tomb_-_Google_Art_Project.jpg",
+      "lat": 51.9225,
+      "lng": 4.4792,
+      "desc": {
+        "zh": "這幅約作於1425–1435年的祭壇畫被歸於凡·艾克兄弟（胡伯特與／或揚），是「法蘭德斯原始畫派」（Flemish Primitives）最早的油畫傑作之一。畫中三位瑪利亞於復活清晨來到基督空墓，天使端坐墓上，士兵沉睡。畫家以近乎顯微鏡般的細膩，描繪盔甲的反光與遠方耶路撒冷的天際線，展現北方油畫初創期驚人的寫實力量。現藏於鹿特丹博伊曼斯·范伯寧恩美術館。",
+        "en": "Attributed to the van Eyck brothers (Hubert and/or Jan), this altarpiece of c. 1425–1435 is among the earliest oil masterpieces of the Flemish Primitives. The three Marys arrive at Christ's empty tomb on Easter morning, an angel seated upon it and soldiers asleep below. Its near-microscopic rendering of glinting armour and the distant Jerusalem skyline reveals the astonishing realism of early Netherlandish painting. Museum Boijmans Van Beuningen, Rotterdam.",
+        "nl": "Toegeschreven aan de gebroeders Van Eyck (Hubert en/of Jan) behoort dit altaarstuk uit ca. 1425–1435 tot de vroegste olieverfmeesterwerken van de Vlaamse Primitieven. De drie Maria's komen op paasmorgen bij het lege graf van Christus, een engel erop gezeten, de soldaten in slaap. De bijna microscopische weergave van glanzend harnas en de skyline van Jeruzalem toont het verbluffende realisme van de vroege Nederlandse schilderkunst. Museum Boijmans Van Beuningen, Rotterdam."
+      }
+    },
+    {
+      "id": "rotterdam-rubens-perseus-andromeda",
+      "city": "rotterdam",
+      "year": "c. 1620–1622",
+      "artist": {
+        "zh": "彼得·保羅·魯本斯",
+        "en": "Peter Paul Rubens",
+        "nl": "Peter Paul Rubens"
+      },
+      "title": {
+        "zh": "柏修斯與安朵美達",
+        "en": "Perseus and Andromeda",
+        "nl": "Perseus en Andromeda"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Peter_Paul_Rubens_-_Perseus_en_Andromeda_-_3199_%28OK%29_-_Museum_Boijmans_Van_Beuningen.jpg/1280px-Peter_Paul_Rubens_-_Perseus_en_Andromeda_-_3199_%28OK%29_-_Museum_Boijmans_Van_Beuningen.jpg",
+      "credit": "Museum Boijmans Van Beuningen, Rotterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Peter_Paul_Rubens_-_Perseus_en_Andromeda_-_3199_(OK)_-_Museum_Boijmans_Van_Beuningen.jpg",
+      "lat": 51.9225,
+      "lng": 4.4792,
+      "desc": {
+        "zh": "魯本斯取材希臘神話：英雄柏修斯剛斬殺海怪，解救了被鎖在岩石上的公主安朵美達。畫家以飽滿的肉體、飛揚的動勢與光彩照人的色彩，將勝利與愛戀的瞬間化為法蘭德斯巴洛克的典型華章。勝利女神為柏修斯加冕，飛馬佩加索斯在側。現藏於鹿特丹博伊曼斯·范伯寧恩美術館。",
+        "en": "Rubens takes up the Greek myth: the hero Perseus, having just slain the sea monster, frees the princess Andromeda chained to the rock. With ample flesh, soaring movement and radiant colour, Rubens turns this instant of triumph and love into a quintessential page of Flemish Baroque — Victory crowns Perseus while the winged horse Pegasus stands by. Museum Boijmans Van Beuningen, Rotterdam.",
+        "nl": "Rubens verbeeldt de Griekse mythe: de held Perseus, die zojuist het zeemonster heeft verslagen, bevrijdt de aan de rots geketende prinses Andromeda. Met volle vormen, opwaartse beweging en stralende kleur maakt Rubens van dit moment van triomf en liefde een typische Vlaamse-barokscène — de Overwinning kroont Perseus terwijl het gevleugelde paard Pegasus toekijkt. Museum Boijmans Van Beuningen, Rotterdam."
+      }
+    },
+    {
+      "id": "rotterdam-brueghel-flowers-tub",
+      "city": "rotterdam",
+      "year": "c. 1606–1607",
+      "artist": {
+        "zh": "老揚·布勒哲爾",
+        "en": "Jan Brueghel the Elder",
+        "nl": "Jan Brueghel de Oude"
+      },
+      "title": {
+        "zh": "陶缸中的花卉靜物",
+        "en": "Still Life with Flowers in a Tub",
+        "nl": "Stilleven met bloemen in een kuip"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jan_Brueghel_%28I%29_-_Stilleven_met_bloemen_in_een_kuip_-_3489_%28OK%29_-_Museum_Boijmans_Van_Beuningen.jpg/1280px-Jan_Brueghel_%28I%29_-_Stilleven_met_bloemen_in_een_kuip_-_3489_%28OK%29_-_Museum_Boijmans_Van_Beuningen.jpg",
+      "credit": "Museum Boijmans Van Beuningen, Rotterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_Brueghel_(I)_-_Stilleven_met_bloemen_in_een_kuip_-_3489_(OK)_-_Museum_Boijmans_Van_Beuningen.jpg",
+      "lat": 51.9225,
+      "lng": 4.4792,
+      "desc": {
+        "zh": "「絲絨布勒哲爾」是法蘭德斯花卉靜物的開創者。這幅早期作品中，數十種花朵層層堆疊滿溢出陶缸——鬱金香、玫瑰、鳶尾在當時皆為珍稀奢侈品，且分屬不同花季，因此整幅花束實為畫家透過大量寫生再憑記憶與想像組構的「理想之花」。現藏於鹿特丹博伊曼斯·范伯寧恩美術館。",
+        "en": "'Velvet' Brueghel was a founder of Flemish flower painting. In this early work, dozens of blooms spill from an earthenware tub — tulips, roses and irises, each a costly rarity in their day and each flowering in a different season, so the bouquet is in truth an 'ideal' assembled from study, memory and imagination. Museum Boijmans Van Beuningen, Rotterdam.",
+        "nl": "'Fluwelen' Brueghel was een grondlegger van het Vlaamse bloemstilleven. In dit vroege werk puilen tientallen bloemen uit een aarden kuip — tulpen, rozen en irissen, elk in hun tijd een kostbare zeldzaamheid en elk uit een ander seizoen, zodat het boeket in werkelijkheid een 'ideaal' is, samengesteld uit studie, geheugen en verbeelding. Museum Boijmans Van Beuningen, Rotterdam."
+      }
+    },
+    {
+      "id": "denhaag-israels-children-of-the-sea",
+      "city": "denhaag",
+      "year": "1872",
+      "artist": {
+        "zh": "約瑟夫·伊斯拉爾斯",
+        "en": "Jozef Israëls",
+        "nl": "Jozef Israëls"
+      },
+      "title": {
+        "zh": "海的孩子",
+        "en": "Children of the Sea",
+        "nl": "Kinderen der zee"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Kinderen_der_zee_Rijksmuseum_SK-A-2382.jpeg/1280px-Kinderen_der_zee_Rijksmuseum_SK-A-2382.jpeg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kinderen_der_zee_Rijksmuseum_SK-A-2382.jpeg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "伊斯拉爾斯被譽為「荷蘭的米勒」，是海牙畫派的精神領袖。1872年的《海的孩子》描繪席凡寧根海灘上漁民的孩子們玩著小船，遠處母親遙望。畫家以沉鬱的灰調與深切的同情，刻畫海濱貧苦人家的日常與宿命——大海既是生計，也是奪走父兄的力量。海牙畫派的代表作，現藏於阿姆斯特丹國家博物館。",
+        "en": "Hailed as 'the Dutch Millet', Israëls was the spiritual leader of the Hague School. His Children of the Sea (1872) shows fisherfolk's children playing with a little boat on the Scheveningen beach, a mother watching from afar. In sombre greys and deep compassion he paints the daily life and fate of the coastal poor — the sea both their livelihood and the force that takes their fathers. A landmark of the Hague School. Rijksmuseum, Amsterdam.",
+        "nl": "Geroemd als 'de Hollandse Millet' was Israëls de geestelijke leider van de Haagse School. Kinderen der zee (1872) toont vissersskinderen die met een bootje spelen op het strand van Scheveningen, een moeder die van verre toekijkt. In sombere grijzen en diepe compassie schildert hij het dagelijks leven en lot van de kustarmen — de zee als bron van bestaan én als macht die hun vaders neemt. Een mijlpaal van de Haagse School. Rijksmuseum, Amsterdam."
+      }
+    },
+    {
+      "id": "denhaag-mauve-morning-ride-beach",
+      "city": "denhaag",
+      "year": "1876",
+      "artist": {
+        "zh": "安東·莫夫",
+        "en": "Anton Mauve",
+        "nl": "Anton Mauve"
+      },
+      "title": {
+        "zh": "晨間海灘騎行",
+        "en": "Morning Ride along the Beach",
+        "nl": "Morgenrit langs het strand"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Morgenrit_langs_het_strand_Rijksmuseum_SK-A-3602.jpeg/1280px-Morgenrit_langs_het_strand_Rijksmuseum_SK-A-3602.jpeg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Morgenrit_langs_het_strand_Rijksmuseum_SK-A-3602.jpeg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "莫夫是海牙畫派的核心人物，也是梵谷的表姊夫與啟蒙老師。《晨間海灘騎行》（1876）描繪幾位騎士在席凡寧根的晨光中沿著海灘緩行，濕沙映著柔和天光。莫夫以銀灰色的細膩層次與恬靜氛圍，將平凡的海濱一景昇華為詩。此作被視為他的傑作之一，現藏於阿姆斯特丹國家博物館。",
+        "en": "A central figure of the Hague School, Mauve was also Van Gogh's cousin-in-law and first teacher. His Morning Ride along the Beach (1876) shows riders moving gently through the morning light at Scheveningen, the wet sand mirroring the soft sky. With subtle gradations of silver-grey and a serene mood, Mauve raises an ordinary seaside scene into poetry — one of his acknowledged masterpieces. Rijksmuseum, Amsterdam.",
+        "nl": "Als centrale figuur van de Haagse School was Mauve tevens de aangetrouwde neef en eerste leermeester van Van Gogh. Morgenrit langs het strand (1876) toont ruiters die zich rustig door het ochtendlicht bij Scheveningen bewegen, het natte zand dat de zachte lucht weerspiegelt. Met subtiele zilvergrijze overgangen en een serene sfeer verheft Mauve een gewoon strandtafereel tot poëzie — een van zijn erkende meesterwerken. Rijksmuseum, Amsterdam."
+      }
+    },
+    {
+      "id": "denhaag-willem-maris-ducks",
+      "city": "denhaag",
+      "year": "c. 1880–1900",
+      "artist": {
+        "zh": "威廉·馬里斯",
+        "en": "Willem Maris",
+        "nl": "Willem Maris"
+      },
+      "title": {
+        "zh": "鴨",
+        "en": "Ducks",
+        "nl": "Eenden"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Eenden_Rijksmuseum_SK-A-2525.jpeg/1280px-Eenden_Rijksmuseum_SK-A-2525.jpeg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eenden_Rijksmuseum_SK-A-2525.jpeg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "威廉·馬里斯是海牙畫派「馬里斯三兄弟」中最年輕的一位，鍾愛描繪荷蘭水鄉的鴨、牛與閃爍的水光。他有句名言：「我畫的不是牛，我畫的是光。」這幅《鴨》以靈動鬆放的筆觸捕捉水邊嬉戲的鴨群與晨間水氣，正是海牙畫派對光線與氛圍的極致追求。現藏於阿姆斯特丹國家博物館。",
+        "en": "Willem Maris, youngest of the Hague School's three Maris brothers, loved to paint the ducks, cattle and shimmering water of the Dutch wetlands. 'I do not paint cows,' he famously said, 'I paint light.' His Ducks captures a flock at the water's edge in loose, vibrant strokes and morning haze — the Hague School's pursuit of light and atmosphere at its purest. Rijksmuseum, Amsterdam.",
+        "nl": "Willem Maris, de jongste van de drie gebroeders Maris van de Haagse School, schilderde graag de eenden, het vee en het glinsterende water van het Hollandse waterland. 'Ik schilder geen koeien,' zei hij beroemd, 'ik schilder licht.' Eenden vangt een groep aan de waterkant in losse, levendige toetsen en ochtendnevel — de zoektocht van de Haagse School naar licht en atmosfeer op haar zuiverst. Rijksmuseum, Amsterdam."
+      }
+    },
+    {
+      "id": "denhaag-jacob-maris-townscape",
+      "city": "denhaag",
+      "year": "c. 1870–1890",
+      "artist": {
+        "zh": "雅各布·馬里斯",
+        "en": "Jacob Maris",
+        "nl": "Jacob Maris"
+      },
+      "title": {
+        "zh": "城景",
+        "en": "Townscape",
+        "nl": "Stadsgezicht"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Stadsgezicht_Rijksmuseum_SK-A-1404.jpeg/1280px-Stadsgezicht_Rijksmuseum_SK-A-1404.jpeg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stadsgezicht_Rijksmuseum_SK-A-1404.jpeg",
+      "lat": 52.0799,
+      "lng": 4.3113,
+      "desc": {
+        "zh": "雅各布·馬里斯是馬里斯三兄弟中的長兄，以荷蘭城鎮風景著稱。畫中低矮的屋影壓在畫面下方，廣闊而濕潤的雲天佔據大半，銀灰調的光線與飽含水氣的空氣，正是海牙畫派最具辨識度的特徵。看似平凡的荷蘭小鎮，在他筆下化為一首關於天空與光的抒情詩。現藏於阿姆斯特丹國家博物館。",
+        "en": "Jacob Maris, eldest of the three Maris brothers, was celebrated for his Dutch townscapes. Here low rooftops press against the bottom of the canvas while a vast, moist cloudscape fills the rest; the silver-grey light and water-laden air are the most recognisable signature of the Hague School. An ordinary Dutch town becomes, in his hands, a lyric about sky and light. Rijksmuseum, Amsterdam.",
+        "nl": "Jacob Maris, de oudste van de drie gebroeders Maris, was beroemd om zijn Hollandse stadsgezichten. Hier drukken lage daken tegen de onderrand van het doek terwijl een weidse, vochtige wolkenlucht de rest vult; het zilvergrijze licht en de met water verzadigde lucht zijn het meest herkenbare handschrift van de Haagse School. Een gewone Hollandse stad wordt in zijn handen een lyriek over lucht en licht. Rijksmuseum, Amsterdam."
+      }
+    },
+    {
+      "id": "amsterdam-breitner-witte-kimono",
+      "city": "amsterdam",
+      "year": "c. 1894",
+      "artist": {
+        "zh": "喬治·亨德里克·布雷特納",
+        "en": "George Hendrik Breitner",
+        "nl": "George Hendrik Breitner"
+      },
+      "title": {
+        "zh": "穿白和服的女孩",
+        "en": "Girl in a White Kimono",
+        "nl": "Meisje in witte kimono"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/George_Hendrik_Breitner_-_Meisje_in_witte_kimono_%28Geesje_Kwak%29.jpg/1280px-George_Hendrik_Breitner_-_Meisje_in_witte_kimono_%28Geesje_Kwak%29.jpg",
+      "credit": "Rijksmuseum, Amsterdam",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:George_Hendrik_Breitner_-_Meisje_in_witte_kimono_(Geesje_Kwak).jpg",
+      "lat": 52.3731,
+      "lng": 4.8922,
+      "desc": {
+        "zh": "布雷特納被譽為「阿姆斯特丹的畫家」，是十九世紀末阿姆斯特丹印象派的核心人物。1890 年代日本風（Japonisme）席捲歐洲，他迷上了和服，請年輕模特兒海絲耶·克瓦克（Geesje Kwak）在畫室裡披上各色和服，畫了一系列作品。這幅白和服版本以柔和的光線、慵懶的姿態與細膩的白色層次著稱，是其中最受喜愛的一幅。現藏於阿姆斯特丹國家博物館。",
+        "en": "Hailed as 'the painter of Amsterdam', Breitner was a leading figure of late-19th-century Amsterdam Impressionism. As Japonisme swept Europe in the 1890s he became captivated by the kimono, posing his young model Geesje Kwak in his studio draped in various kimonos for a celebrated series. This white-kimono version, with its soft light, languid pose and subtle gradations of white, is the best loved of them. Rijksmuseum, Amsterdam.",
+        "nl": "Geroemd als 'de schilder van Amsterdam' was Breitner een leidende figuur van het Amsterdamse impressionisme aan het eind van de 19e eeuw. Toen het japonisme in de jaren 1890 Europa veroverde, raakte hij gefascineerd door de kimono en liet hij zijn jonge model Geesje Kwak in zijn atelier in verschillende kimono's poseren voor een beroemde reeks. Deze versie in witte kimono, met haar zachte licht, loom gebaar en subtiele wittinten, is daarvan de meest geliefde. Rijksmuseum, Amsterdam."
+      }
     }
   ]
 }

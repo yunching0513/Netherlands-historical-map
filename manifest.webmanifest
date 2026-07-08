@@ -1,8 +1,8 @@
 {
-  "name": "荷蘭古地圖散策 · Oude-Kaart Wandeling",
-  "short_name": "古地圖散策",
-  "description": "Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten en wandel door de geschiedenis.",
-  "lang": "nl",
+  "name": "Old-Map Stroll · Oude-Kaart Wandeling · 荷蘭古地圖散策",
+  "short_name": "Old-Map",
+  "description": "Overlay historical topographic maps of the Netherlands (1815–present) onto today's streets.",
+  "lang": "en",
   "dir": "ltr",
   "start_url": "./",
   "scope": "./",
@@ -12,6 +12,9 @@
   "theme_color": "#F1EFE9",
   "categories": ["education", "navigation", "travel"],
   "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
     { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
     { "src": "icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
   ]

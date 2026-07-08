@@ -1,0 +1,22 @@
+{
+  "name": "Oude-Kaart Wandeling",
+  "short_name": "Wandeling",
+  "description": "Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten en wandel door de geschiedenis.",
+  "lang": "nl",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F1EFE9",
+  "theme_color": "#F1EFE9",
+  "categories": ["education", "navigation", "travel"],
+  "icons": [
+    { "src": "icons/icon-192-nl.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-nl.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "screenshots": [],
+  "share_target": null
+}

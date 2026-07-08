@@ -12,16 +12,39 @@
       if (m) m.setAttribute('content', '#1A1A1A');
     }
     var lng = localStorage.getItem('nlOldMaps.lang');
-    if (lng) document.documentElement.setAttribute('lang', lng);
+    if (!lng) {
+      // Auto-detect on first visit from the browser's full language preference list
+      var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'nl']);
+      for (var _i = 0; _i < langs.length; _i++) {
+        var _l = langs[_i].toLowerCase();
+        if (_l.startsWith('zh')) { lng = 'zh'; break; }
+        if (_l.startsWith('nl')) { lng = 'nl'; break; }
+        if (_l.startsWith('en')) { lng = 'en'; break; }
+      }
+      if (!lng) lng = 'en';
+    }
+    document.documentElement.setAttribute('lang', lng === 'zh' ? 'zh-Hant' : lng);
+    // Language-specific PWA manifest and Apple home-screen title
+    (function() {
+      var ml = document.createElement('link');
+      ml.rel = 'manifest';
+      ml.href = 'manifest-' + (lng || 'en') + '.webmanifest';
+      document.head.appendChild(ml);
+      var appleTitle = { nl: 'Wandeling', en: 'Old-Map', zh: '古地圖' };
+      var am = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+      if (am) am.setAttribute('content', appleTitle[lng] || 'Old-Map');
+      var appleIcon = document.createElement('link');
+      appleIcon.rel = 'apple-touch-icon';
+      appleIcon.href = 'icons/icon-192-' + (lng || 'en') + '.png';
+      document.head.appendChild(appleIcon);
+    })();
   } catch (e) {}
 </script>
 <meta name="google" content="notranslate" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="Wandeling" />
-<link rel="manifest" href="manifest.webmanifest" />
+<meta name="apple-mobile-web-app-title" content="Old-Map" />
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
 <link rel="mask-icon" href="icons/icon.svg" color="#C15F3C" />
-<link rel="apple-touch-icon" href="icons/icon.svg" />
 <title>荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland</title>
 <meta name="description" content="Leg historische topografische kaarten van Nederland (1815–heden) over de hedendaagse straten. 把 1815 年以來的荷蘭歷史地圖疊在今日街道上。" />
 <meta name="author" content="吳昀慶 Yunching Wu" />
@@ -29,10 +52,35 @@
 <meta property="og:title" content="荷蘭古地圖散策 — Oude-Kaart Wandeling door Nederland" />
 <meta property="og:description" content="Schuif door twee eeuwen Nederlandse topografische kaarten, over de straten van vandaag." />
 <meta property="og:locale" content="nl_NL" />
+<meta property="og:url" content="https://yunching0513.github.io/Netherlands-historical-map/" />
+<meta property="og:image" content="https://yunching0513.github.io/Netherlands-historical-map/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Historische kaart van Amsterdam (1900) met titelbalk 荷蘭古地圖散策 · Old-Map Stroll" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="荷蘭古地圖散策 — Old-Map Stroll through the Netherlands" />
+<meta name="twitter:description" content="Slide through two centuries of Dutch topographic maps, overlaid on today's streets. Offline-ready PWA." />
+<meta name="twitter:image" content="https://yunching0513.github.io/Netherlands-historical-map/assets/og-image.jpg" />
+<link rel="canonical" href="https://yunching0513.github.io/Netherlands-historical-map/" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "荷蘭古地圖散策 · Oude-Kaart Wandeling",
+  "alternateName": "Old-Map Stroll through the Netherlands",
+  "url": "https://yunching0513.github.io/Netherlands-historical-map/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": ["nl", "en", "zh-Hant"],
+  "isAccessibleForFree": true,
+  "author": { "@type": "Person", "name": "吳昀慶 Yunching Wu" },
+  "about": "Interactive overlay of two centuries of Dutch topographic maps (Kadaster Topotijdreis, 1815–2021) on today's streets, with art postcards and architecture landmarks.",
+  "keywords": "oude kaarten, historische kaart, Topotijdreis, Nederland, Amsterdam, geschiedenis, historical maps, Netherlands, 荷蘭, 古地圖"
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin="" />
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
 <style>
   :root {
     --paper:#F1EFE9; --paper-2:#EAE8E2; --mist:#D6D3CB; --stone:#BBB8AE; --silver:#A6A399;
@@ -124,6 +172,89 @@
   .loc-status { display:none; margin-top:10px; padding:10px 12px; background:var(--paper); border:1px solid var(--mist); font-family:var(--mono); font-size:10px; color:var(--ash); line-height:1.7; }
   .loc-status.show { display:block; }
   .loc-status .label { color:var(--silver); letter-spacing:0.14em; text-transform:uppercase; font-size:9px; }
+  /* Walk recording (散策記錄) */
+  .btn.recording { border-color:var(--vermilion); color:var(--vermilion); }
+  .btn.recording .dot { background:var(--vermilion); animation:pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
+  .btn:disabled { opacity:0.45; cursor:default; }
+  .rec-status { display:none; margin-top:10px; padding:12px 14px; background:var(--paper); border:1px solid var(--vermilion); }
+  .rec-status.show { display:block; }
+  .rec-status .label { font-family:var(--mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--vermilion); }
+  .rec-stats { display:flex; gap:18px; margin-top:8px; }
+  .rec-stats .col { flex:1; }
+  .rec-stats .k { font-family:var(--mono); font-size:9px; letter-spacing:0.1em; color:var(--silver); text-transform:uppercase; }
+  .rec-stats .v { font-family:var(--serif); font-size:17px; font-weight:600; color:var(--ink); margin-top:2px; }
+  .trace-list { margin-top:10px; }
+  .trace-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border:1px solid var(--mist); background:var(--paper); margin-bottom:6px; cursor:pointer; transition:border-color 0.18s; }
+  .trace-row:hover, .trace-row.shown { border-color:var(--vermilion); }
+  .trace-date { font-family:var(--mono); font-size:10px; color:var(--ash); }
+  .trace-city { font-family:var(--serif); font-size:13px; font-weight:500; color:var(--graphite); margin-top:1px; }
+  .trace-meta { font-family:var(--mono); font-size:10px; color:var(--silver); margin-top:2px; }
+  .trace-actions { display:flex; gap:5px; flex-shrink:0; }
+  .trace-actions button { padding:5px 8px; border:1px solid var(--mist); background:var(--paper-2); font-family:var(--mono); font-size:9px; letter-spacing:0.04em; color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .trace-actions button:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  .trace-actions button.danger:hover { border-color:#a33; color:#a33; }
+  .trace-empty { font-family:var(--sans); font-size:12px; color:var(--ash); padding:6px 2px; }
+  /* ── β 3D 漫遊 walk mode ─────────────────────────────
+     Perspectief-grond: één canvas met tegels, rotateX(60°) gekanteld,
+     rotateZ volgt het kompas. Geport uit taiwan-historical-maps/beta. */
+  .walk-fab { position:absolute; left:20px; top:154px; z-index:905; width:38px; height:38px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid var(--stone); background:var(--paper-2); color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; font-size:15px; line-height:1; }
+  .walk-fab:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  .walk-fab .wf-b { font-family:var(--mono); font-size:6.5px; letter-spacing:0.08em; color:var(--vermilion); margin-top:1px; }
+  .walk-overlay { position:fixed; inset:0; z-index:9600; display:none; background:var(--paper); overflow:hidden; }
+  .walk-overlay.show { display:block; }
+  .walk-sky { position:absolute; left:0; top:0; right:0; height:27%;
+    background:linear-gradient(180deg,#CDC9BE 0%,#E5E2D9 70%,#F1EFE9 100%); }
+  html.theme-dark .walk-sky { background:linear-gradient(180deg,#121212 0%,#1C1B18 70%,#242320 100%); }
+  .walk-groundwrap { position:absolute; left:0; right:0; top:26%; bottom:0; overflow:hidden;
+    background:var(--paper-2); perspective:640px; perspective-origin:50% 0; }
+  #walk-tilt { position:absolute; inset:0; transform:rotateX(60deg); transform-origin:50% 0; }
+  #walk-map { position:absolute; background:var(--paper-2); transform-origin:50% 78%; backface-visibility:hidden; }
+  .walk-chip, .walk-close, .walk-compass, .walk-op, .walk-hint, .walk-feet, .walk-fog, .walk-sky { will-change:transform; transform:translateZ(0); }
+  .walk-fog { position:absolute; left:0; right:0; top:calc(26% - 70px); height:230px; pointer-events:none; z-index:4;
+    background:linear-gradient(180deg,rgba(241,239,233,1) 0%,rgba(241,239,233,1) 26%,rgba(241,239,233,0.85) 52%,rgba(241,239,233,0) 100%); }
+  html.theme-dark .walk-fog { background:linear-gradient(180deg,rgba(26,26,26,1) 0%,rgba(26,26,26,1) 26%,rgba(26,26,26,0.85) 52%,rgba(26,26,26,0) 100%); }
+  .walk-chip { position:absolute; font-family:var(--mono); font-size:12px; letter-spacing:0.12em; color:var(--vermilion);
+    background:rgba(241,239,233,0.9); border:1px solid var(--stone); padding:6px 12px; z-index:5; }
+  html.theme-dark .walk-chip { background:rgba(26,26,26,0.85); }
+  .walk-era { left:14px; top:calc(env(safe-area-inset-top,0px) + 14px); }
+  .walk-close { position:absolute; right:14px; top:calc(env(safe-area-inset-top,0px) + 14px); z-index:6;
+    font-family:var(--sans); font-size:13px; letter-spacing:0.1em; color:var(--ink); background:rgba(241,239,233,0.9);
+    border:1px solid var(--stone); padding:7px 13px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  html.theme-dark .walk-close { background:rgba(26,26,26,0.85); }
+  .walk-compass { position:absolute; right:18px; top:calc(env(safe-area-inset-top,0px) + 62px); width:46px; height:46px; z-index:5; }
+  .walk-feet { position:absolute; left:50%; bottom:18%; transform:translateX(-50%); z-index:5; pointer-events:none; }
+  .walk-feet .ring { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:120px; height:46px;
+    border-radius:50%; border:2px solid rgba(193,95,60,0.5);
+    background:radial-gradient(ellipse,rgba(193,95,60,0.16),rgba(193,95,60,0) 70%);
+    animation:walk-breathe 2.4s ease-in-out infinite; }
+  .walk-feet .dot { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:18px; height:18px;
+    border-radius:50%; background:var(--vermilion); border:3px solid #fff; box-shadow:0 3px 8px rgba(31,29,25,0.4); }
+  @keyframes walk-breathe { 0%,100% { transform:translate(-50%,-50%) scale(1); } 50% { transform:translate(-50%,-50%) scale(1.09); } }
+  .walk-hint { position:absolute; left:50%; bottom:calc(env(safe-area-inset-bottom,0px) + 14px); transform:translateX(-50%);
+    z-index:5; font-family:var(--mono); font-size:10px; letter-spacing:0.1em; color:var(--graphite);
+    background:rgba(241,239,233,0.85); padding:5px 12px; white-space:nowrap; max-width:92vw; overflow:hidden; text-overflow:ellipsis; }
+  html.theme-dark .walk-hint { background:rgba(26,26,26,0.8); }
+  .walk-ctrl { position:absolute; left:14px; bottom:calc(env(safe-area-inset-bottom,0px) + 52px); z-index:6; display:flex; gap:8px; }
+  .walk-btn { display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px; letter-spacing:0.08em;
+    color:var(--graphite); background:rgba(241,239,233,0.9); border:1px solid var(--stone); padding:9px 13px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  html.theme-dark .walk-btn { background:rgba(26,26,26,0.85); }
+  .walk-btn.on { color:var(--vermilion); border-color:var(--vermilion); }
+  .walk-btn:disabled { opacity:0.45; }
+  .walk-rec-readout[hidden] { display:none; }
+  .walk-rec-readout { position:absolute; left:14px; bottom:calc(env(safe-area-inset-bottom,0px) + 104px); z-index:5;
+    font-family:var(--mono); font-size:11px; color:var(--vermilion); background:rgba(241,239,233,0.9);
+    border:1px solid var(--vermilion); padding:6px 11px; display:flex; align-items:center; gap:7px; }
+  html.theme-dark .walk-rec-readout { background:rgba(26,26,26,0.85); }
+  .walk-rec-readout .wr-dot { width:8px; height:8px; border-radius:50%; background:var(--vermilion); animation:pulse 1.2s ease-in-out infinite; }
+  .walk-op { position:absolute; right:14px; bottom:calc(env(safe-area-inset-bottom,0px) + 52px); z-index:6;
+    display:flex; align-items:center; gap:8px; background:rgba(241,239,233,0.9); border:1px solid var(--stone); padding:8px 12px; }
+  html.theme-dark .walk-op { background:rgba(26,26,26,0.85); }
+  .walk-op .wo-ic { color:var(--vermilion); font-size:13px; line-height:1; }
+  .walk-op input[type=range] { -webkit-appearance:none; appearance:none; width:100px; height:3px;
+    background:linear-gradient(90deg,var(--mist),var(--vermilion)); outline:none; }
+  .walk-op input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:var(--vermilion); border:2px solid var(--paper); cursor:pointer; }
+  .walk-op .wo-val { font-family:var(--mono); font-size:10px; color:var(--ash); min-width:32px; text-align:right; }
   .panel-foot { margin-top:22px; padding-top:16px; border-top:1px solid var(--mist); font-family:var(--sans); font-size:10px; color:var(--ash); line-height:1.8; }
   .panel-foot a { color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
   .panel-foot a:hover { color:var(--vermilion); border-color:var(--vermilion); }
@@ -194,6 +325,13 @@
   .card-lock .ic { font-size:17px; opacity:0.92; }
   .card-lock .tx { font-family:var(--mono); font-size:9px; letter-spacing:0.07em; line-height:1.55; }
   .cards-empty { margin-top:12px; font-family:var(--sans); font-size:11px; color:var(--ash); line-height:1.7; }
+  /* Architecture landmark cards */
+  .cards-arch-divider { display:flex; align-items:center; gap:10px; margin:20px 0 12px; font-family:var(--mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ash); }
+  .cards-arch-divider::before, .cards-arch-divider::after { content:''; flex:1; height:1px; background:var(--stone); }
+  .card-arch-tag { display:inline-block; font-family:var(--mono); font-size:8px; letter-spacing:0.08em; color:var(--vermilion); border:1px solid var(--vermilion); padding:1px 5px; margin-top:4px; text-transform:uppercase; opacity:0.8; }
+  /* Lightbox style badge (architecture) */
+  .lc-style { display:inline-flex; align-items:center; gap:5px; font-family:var(--mono); font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ash); padding:2px 8px; border:1px solid var(--stone); margin-top:8px; }
+  .lc-style::before { content:'▪'; color:var(--vermilion); font-size:10px; }
   /* Lightbox */
   .lightbox { position:fixed; inset:0; z-index:3000; display:flex; align-items:center; justify-content:center; padding:24px; }
   .lightbox[hidden] { display:none; }
@@ -235,9 +373,20 @@
   .dl-status.show { display:block; }
   .offline-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; }
   .offline-used { font-family:var(--mono); font-size:10px; letter-spacing:0.04em; color:var(--ash); }
+  /* PMTiles bundled offline indicator */
+  .pm-dot { display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--stone); flex-shrink:0; vertical-align:middle; margin-left:5px; }
+  .era-chip .pm-dot { width:4px; height:4px; margin-left:4px; }
+  .bundled-bar { margin-top:14px; padding-top:12px; border-top:1px solid var(--mist); }
+  .bundled-bar-title { font-family:var(--mono); font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ash); margin-bottom:8px; }
+  .bundled-row { display:flex; gap:8px; margin-bottom:4px; font-family:var(--mono); font-size:10px; line-height:1.5; }
+  .bundled-city { color:var(--graphite); min-width:72px; font-weight:500; }
+  .bundled-years { color:var(--ash); flex:1; }
+  .bundled-note { margin-top:7px; font-family:var(--mono); font-size:9px; color:var(--silver); letter-spacing:0.04em; }
   .plan-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
   .sister-pill { display:inline-flex; align-items:center; gap:5px; text-decoration:none; }
   .sister-pill .arr { color:var(--vermilion); font-size:11px; }
+  .kofi-pill { display:inline-flex; align-items:center; gap:5px; text-decoration:none; border-color:var(--vermilion) !important; color:var(--vermilion) !important; }
+  .kofi-pill:hover { background:var(--vermilion-l); }
   /* Daily draw */
   .daily-fab { position:absolute; left:20px; top:108px; z-index:905; width:38px; height:38px; display:flex; align-items:center; justify-content:center; border:1px solid var(--stone); background:var(--paper-2); color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; }
   .daily-fab:hover { color:var(--vermilion); border-color:var(--vermilion); }
@@ -312,6 +461,29 @@
 <div class="zoom-ctl">
   <button type="button" id="zoom-in" aria-label="Inzoomen">+</button>
   <button type="button" id="zoom-out" aria-label="Uitzoomen">−</button>
+</div>
+
+<button type="button" class="walk-fab" id="walk-fab" aria-label="3D wandelmodus (beta)">👣<span class="wf-b">β</span></button>
+
+<div class="walk-overlay" id="walk-overlay" aria-hidden="true">
+  <div class="walk-sky"></div>
+  <div class="walk-groundwrap"><div id="walk-tilt"><canvas id="walk-map"></canvas></div></div>
+  <div class="walk-fog"></div>
+  <div class="walk-chip walk-era" id="walk-era">◷ —</div>
+  <button type="button" class="walk-close" id="walk-close">✕ <span data-i18n="walk3d.exit">離開</span></button>
+  <div class="walk-compass"><svg viewBox="0 0 46 46">
+    <circle cx="23" cy="23" r="21" fill="rgba(241,239,233,.9)" stroke="#BBB8AE"/>
+    <g id="walk-needle"><polygon points="23,7 27,25 23,22 19,25" fill="#C15F3C"/><polygon points="23,39 27,25 23,28 19,25" fill="#A6A399"/></g>
+    <text x="23" y="14" text-anchor="middle" fill="#807C73" font-size="8" font-family="monospace">N</text>
+  </svg></div>
+  <div class="walk-feet"><div class="ring"></div><div class="dot"></div></div>
+  <div class="walk-rec-readout" id="walk-rec-readout" hidden><span class="wr-dot"></span><span id="walk-rec-dist">0 m</span> · <span id="walk-rec-time">0:00</span></div>
+  <div class="walk-ctrl">
+    <button type="button" class="walk-btn" id="walk-locate"><span>◎</span><span>GPS</span></button>
+    <button type="button" class="walk-btn" id="walk-record" disabled><span>●</span><span class="wb-t" data-i18n="walk.record">記錄路線</span></button>
+  </div>
+  <div class="walk-op"><span class="wo-ic">◐</span><input type="range" id="walk-opacity" min="20" max="100" step="5" value="85" aria-label="opacity" /><span class="wo-val" id="walk-op-val">85%</span></div>
+  <div class="walk-hint" id="walk-hint">—</div>
 </div>
 
 <button type="button" class="daily-fab" id="daily-fab" aria-label="今日的牌" hidden>
@@ -430,6 +602,9 @@
       </div>
       <div class="cards-grid" id="cards-grid"></div>
       <div class="cards-empty" id="cards-empty" data-i18n="cards.empty" hidden>這座城市還沒有明信片。</div>
+      <!-- Architecture landmarks section -->
+      <div class="cards-arch-divider" id="arch-divider" hidden><span data-i18n="arch.section">建築</span></div>
+      <div class="cards-grid" id="arch-grid"></div>
     </div>
 
     <!-- PANE: more -->
@@ -446,6 +621,23 @@
         <div id="loc-accuracy">—</div>
       </div>
 
+      <div class="pane-label" data-i18n="sec.walk">散策記錄</div>
+      <button type="button" class="btn" id="btn-record" disabled>
+        <span class="dot"></span>
+        <span class="lbl" data-i18n="walk.record">記錄路線</span>
+        <span class="en">stroll</span>
+      </button>
+      <div class="offline-hint" data-i18n="walk.hint">先開啟定位，就能一邊散步一邊記錄路線，輸出成明信片風格的分享卡。</div>
+      <div class="rec-status" id="rec-status">
+        <div class="label" data-i18n="walk.rec">RECORDING</div>
+        <div class="rec-stats">
+          <div class="col"><div class="k" data-i18n="walk.dist">距離</div><div class="v" id="rec-dist">0 m</div></div>
+          <div class="col"><div class="k" data-i18n="walk.time">時間</div><div class="v" id="rec-time">0:00</div></div>
+          <div class="col"><div class="k" data-i18n="walk.pts">點數</div><div class="v" id="rec-points">0</div></div>
+        </div>
+      </div>
+      <div class="trace-list" id="trace-list"></div>
+
       <div id="offline-section">
         <div class="pane-label" data-i18n="sec.offline">離線</div>
         <button type="button" class="btn" id="btn-download">
@@ -458,6 +650,11 @@
         <div class="offline-foot">
           <span class="offline-used" id="offline-used">—</span>
           <button type="button" class="pill-toggle" id="btn-clear-offline" data-i18n="offline.clear">清除下載</button>
+        </div>
+        <div class="bundled-bar" id="bundled-bar" hidden>
+          <div class="bundled-bar-title" data-i18n="offline.bundled">內建離線</div>
+          <div id="bundled-rows"></div>
+          <div class="bundled-note" data-i18n="offline.bundled.hint">無需下載，隨時可用 · CC-BY 4.0</div>
         </div>
       </div>
 
@@ -478,6 +675,9 @@
           <button type="button" class="pill-toggle" id="theme-toggle" data-i18n="theme.light">紙色</button>
           <a class="pill-toggle sister-pill" id="sister-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener">
             <span data-i18n="sister.label">台灣舊地圖</span> <span class="arr">↗</span>
+          </a>
+          <a class="pill-toggle kofi-pill" href="https://ko-fi.com/yunching0513" target="_blank" rel="noopener">
+            ☕ <span data-i18n="kofi.label">請我喝杯咖啡</span>
           </a>
         </div>
         <div class="head-meta" id="head-meta">N — · E —</div>
@@ -500,6 +700,7 @@
       <span class="about-links">
         <a class="about-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener"><span data-i18n="sister.full">姊妹專案：台灣舊地圖</span> ↗</a>
         <a class="about-link" href="https://github.com/yunching0513/Netherlands-historical-map" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="about-link" href="https://ko-fi.com/yunching0513" target="_blank" rel="noopener">☕ <span data-i18n="kofi.label">請我喝杯咖啡</span> ↗</a>
       </span>
     </footer>
   </article>
@@ -536,6 +737,7 @@
     <figcaption class="lightbox-cap">
       <div class="lc-title" id="lc-title"></div>
       <div class="lc-artist" id="lc-artist"></div>
+      <div class="lc-style" id="lc-style" hidden></div>
       <div class="lc-meta" id="lc-meta"></div>
       <div class="lc-desc" id="lc-desc" hidden></div>
       <div class="lc-credit" id="lc-credit"></div>
@@ -547,10 +749,9 @@
   </figure>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
-<script src="https://unpkg.com/proj4@2.11.0/dist/proj4.js"></script>
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/proj4.js"></script>
+<script src="vendor/pmtiles.js"></script>
 <script>
 (function () {
   'use strict';
@@ -604,6 +805,99 @@
   const RD_RESOLUTIONS = [3251.206502413005, 1625.6032512065026, 812.8016256032513, 406.40081280162565, 203.20040640081282, 101.60020320040641, 50.800101600203206, 25.400050800101603, 12.700025400050801, 6.350012700025401, 3.1750063500127004, 1.5875031750063502];
   const ARC = 'https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/';
   const HIST_ATTR = 'Historie &copy; <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> / Kadaster / Esri NL';
+  const HIST_ATTR_PM = '&copy; <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a> · CC-BY 4.0';
+
+  // ── Vooraf gebakken offline-tegels (PMTiles) ─────────────────────────
+  // Per stad/jaar kan een .pmtiles-archief klaarstaan: al naar 3857
+  // gereprojecteerde rastertegels in één bestand (zie tools/bake_pmtiles.py).
+  // Staat er een archief voor de huidige laag, dan lezen we de tegel daaruit
+  // (geen netwerk, geen canvas-reprojectie); anders vallen we terug op de
+  // online Topotijdreis-service. Faalt het laden van het manifest of de
+  // pmtiles-bibliotheek, dan blijft alles gewoon online werken.
+  const PMTILES_MANIFEST = 'pmtiles/manifest.json';
+  let pmtilesArchives = [];   // { service, bounds:[w,s,e,n], minzoom, maxzoom, pm }
+  let pmtilesReady = false;
+  async function loadPmtilesManifest() {
+    if (typeof pmtiles === 'undefined') return;
+    try {
+      const resp = await fetch(PMTILES_MANIFEST, { cache: 'no-cache' });
+      if (!resp.ok) return;
+      const data = await resp.json();
+      const base = PMTILES_MANIFEST.replace(/[^/]*$/, '');
+      pmtilesArchives = (data.archives || []).map(a => ({
+        service: String(a.service),
+        bounds: a.bounds, minzoom: a.minzoom, maxzoom: a.maxzoom,
+        pm: new pmtiles.PMTiles(/^https?:|^\//.test(a.url) ? a.url : base + a.url),
+      }));
+      pmtilesReady = pmtilesArchives.length > 0;
+    } catch (e) {}
+  }
+  // Welk archief dekt deze tegel (zelfde jaar-service, binnen bounds + zoom)?
+  function pmtilesFor(serviceId, coords) {
+    if (!pmtilesReady) return null;
+    const z = coords.z;
+    const n = tile2lat(coords.y, z), s = tile2lat(coords.y + 1, z);
+    const w = tile2lng(coords.x, z), e = tile2lng(coords.x + 1, z);
+    for (const a of pmtilesArchives) {
+      if (a.service !== String(serviceId)) continue;
+      if (z < a.minzoom || z > a.maxzoom) continue;
+      const b = a.bounds;
+      if (e < b[0] || w > b[2] || n < b[1] || s > b[3]) continue;
+      return a;
+    }
+    return null;
+  }
+  function tile2lng(x, z) { return x / Math.pow(2, z) * 360 - 180; }
+  function tile2lat(y, z) {
+    const n = Math.PI - 2 * Math.PI * y / Math.pow(2, z);
+    return 180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n)));
+  }
+
+  // Welke jaren heeft een stad in het pmtiles-archief? (city → sorted serviceId[])
+  function pmtilesCityMap() {
+    const m = {};
+    for (const a of pmtilesArchives) {
+      if (!m[a.city]) m[a.city] = [];
+      if (!m[a.city].includes(a.service)) m[a.city].push(a.service);
+    }
+    for (const k of Object.keys(m)) m[k].sort((a, b) => parseInt(a) - parseInt(b));
+    return m;
+  }
+
+  // Hèft de huidige stad een bundeld archief voor dit era-jaar?
+  function pmtilesHasEra(cityId, eraYear) {
+    if (!pmtilesReady) return false;
+    const svc = nearestService(eraYear).id;
+    return pmtilesArchives.some(a => a.city === cityId && a.service === svc);
+  }
+
+  // Toon de bundled-list onder het offline-paneel.
+  function renderBundledList() {
+    const bar = document.getElementById('bundled-bar');
+    const rows = document.getElementById('bundled-rows');
+    if (!bar || !rows) return;
+    if (!pmtilesReady) { bar.hidden = true; return; }
+    const cm = pmtilesCityMap();
+    if (!Object.keys(cm).length) { bar.hidden = true; return; }
+    bar.hidden = false;
+    rows.innerHTML = '';
+    const cityOrder = CITIES.map(c => c.id).filter(id => cm[id]);
+    cityOrder.forEach(cityId => {
+      const city = CITIES.find(c => c.id === cityId);
+      if (!city) return;
+      const row = document.createElement('div');
+      row.className = 'bundled-row';
+      const nameEl = document.createElement('span');
+      nameEl.className = 'bundled-city';
+      nameEl.textContent = lang === 'zh' ? city.zh : city.en;
+      const yrsEl = document.createElement('span');
+      yrsEl.className = 'bundled-years';
+      yrsEl.textContent = cm[cityId].join(' · ');
+      row.appendChild(nameEl);
+      row.appendChild(yrsEl);
+      rows.appendChild(row);
+    });
+  }
 
   const BASE_MAPS = {
     brt:       { url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:3857/{z}/{x}/{y}.png', attr: '&copy; <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> BRT / Kadaster' },
@@ -665,6 +959,22 @@
       const ctx = canvas.getContext('2d');
       const tileMap = this._map;
       if (!ctx || !tileMap) { setTimeout(() => done(undefined, canvas), 0); return canvas; }
+      // Eerst het lokale PMTiles-archief proberen (al in 3857, geen reprojectie).
+      const arch = pmtilesFor(serviceId, coords);
+      if (arch) {
+        arch.pm.getZxy(coords.z, coords.x, coords.y).then(res => {
+          if (!res || !res.data) { renderOnline(); return; }
+          const img = new Image();
+          img.onload = () => { try { ctx.drawImage(img, 0, 0, RD_TILE_SIZE, RD_TILE_SIZE); } catch (e) {} URL.revokeObjectURL(img.src); done(undefined, canvas); };
+          img.onerror = () => { URL.revokeObjectURL(img.src); renderOnline(); };
+          img.src = URL.createObjectURL(new Blob([res.data]));
+        }).catch(() => renderOnline());
+        return canvas;
+      }
+      renderOnline();
+      return canvas;
+
+      function renderOnline() {
       const geom = histTileGeom(coords.x, coords.y, coords.z);
       const tilePoint = geom.tilePoint, lvl = geom.lvl, rdTileM = geom.rdTileM, tiles = geom.tiles;
       const rdToPx = (rx, ry) => {
@@ -692,7 +1002,7 @@
         };
         offlineTileSrc(url + '/' + lvl + '/' + cr[1] + '/' + cr[0]).then(src => { img.src = src; });
       });
-      return canvas;
+      }
     };
     return layer;
   }
@@ -743,11 +1053,24 @@
       'offline.downloading': 'Bezig', 'offline.done': 'Opgeslagen ✓ — offline beschikbaar', 'offline.canceled': 'Gestopt',
       'offline.cleared': 'Downloads gewist', 'offline.clear': 'Wissen', 'offline.used': 'Gebruikt', 'offline.unsupported': 'Offline niet ondersteund in deze browser.',
       'offline.hint': 'Bewaart de huidige basiskaart en het huidige jaar (tot straatniveau) op je apparaat — sneller en offline te gebruiken.',
+      'offline.bundled': 'Ingebouwde tegels', 'offline.bundled.hint': 'Geen download nodig · CC-BY 4.0 Kadaster',
+      'sec.walk': 'Wandeling', 'walk.record': 'Route opnemen', 'walk.stop': 'Stop opname',
+      'walk.hint': 'Zet eerst GPS aan; loop en neem je route op — deel als ansichtkaart-stijl kaart.',
+      'walk.rec': 'OPNAME', 'walk.dist': 'Afstand', 'walk.time': 'Tijd', 'walk.pts': 'Punten',
+      'walk.empty': 'Nog geen wandelingen', 'walk.share': 'Kaart', 'walk.export': 'GeoJSON', 'walk.delete': 'Wis',
+      'walk.confirmdel': 'Deze wandeling wissen?', 'walk.saving': 'Bezig…',
+      'kofi.label': 'Trakteer op koffie',
+      'walk3d.exit': 'Sluiten',
+      'walk3d.hint.idle': 'Druk op GPS — de oude kaart loopt dan met je mee.',
+      'walk3d.hint.ready': 'De oude kaart ligt onder je voeten · loop maar.',
+      'walk3d.hint.rec': 'Opname loopt · je route wordt onderweg vastgelegd.',
       'sec.plan': 'Ruimtelijk', 'sec.plan.en': 'ruimtelijk', 'plan.zoning': 'Bestemmingsplan', 'plan.landuse': 'Bodemgebruik',
       'plan.hint': 'Actuele bestemmingsplannen & bodemgebruik (CC0, via PDOK), als overlay op de kaart.',
       'legend.title': 'Legenda', 'legend.note': 'Labels in het Nederlands (officiële PDOK-legenda).',
       'era.tmk.sub': 'Topogr. Militaire Kaart 1:50.000', 'era.bonne.sub': '1:25.000 chromotopografie',
       'era.top25.sub': 'Topografische kaart 1:25.000', 'era.actueel.sub': 'Actuele topografie',
+      'arch.section': 'Gebouwen', 'arch.architect': 'Architect', 'arch.style': 'Stijl',
+      'arch.visit': 'Bekijk dit gebouw op de kaart', 'arch.locatehint': 'Klik om te routeren naar dit gebouw',
     },
     en: {
       'app.title': 'Old-Map Stroll', 'app.tagline': 'Netherlands · through time',
@@ -777,11 +1100,24 @@
       'offline.downloading': 'Downloading', 'offline.done': 'Saved ✓ — available offline', 'offline.canceled': 'Stopped',
       'offline.cleared': 'Downloads cleared', 'offline.clear': 'Clear', 'offline.used': 'Used', 'offline.unsupported': 'Offline not supported in this browser.',
       'offline.hint': 'Saves the current base map and year (to street level) on your device — faster and usable offline.',
+      'offline.bundled': 'Built-in tiles', 'offline.bundled.hint': 'No download needed · CC-BY 4.0 Kadaster',
+      'sec.walk': 'Walk', 'walk.record': 'Record route', 'walk.stop': 'Stop recording',
+      'walk.hint': 'Turn on GPS first; walk and record your route — share it as a postcard-style card.',
+      'walk.rec': 'RECORDING', 'walk.dist': 'Distance', 'walk.time': 'Time', 'walk.pts': 'Points',
+      'walk.empty': 'No walks yet', 'walk.share': 'Card', 'walk.export': 'GeoJSON', 'walk.delete': 'Delete',
+      'walk.confirmdel': 'Delete this walk?', 'walk.saving': 'Saving…',
+      'kofi.label': 'Buy me a coffee',
+      'walk3d.exit': 'Exit',
+      'walk3d.hint.idle': 'Tap GPS — the old map will walk along with you.',
+      'walk3d.hint.ready': 'The old map is under your feet · start walking.',
+      'walk3d.hint.rec': 'Recording · your route is being traced as you go.',
       'sec.plan': 'Planning', 'sec.plan.en': 'planning', 'plan.zoning': 'Zoning', 'plan.landuse': 'Land use',
       'plan.hint': 'Current Dutch zoning plans & land use (CC0, via PDOK), as a map overlay.',
       'legend.title': 'Legend', 'legend.note': 'Labels are in Dutch (official PDOK legend).',
       'era.tmk.sub': 'Topo-Military Map 1:50,000', 'era.bonne.sub': '1:25,000 chromotopography',
       'era.top25.sub': 'Topographic map 1:25,000', 'era.actueel.sub': 'Current topography',
+      'arch.section': 'Architecture', 'arch.architect': 'Architect', 'arch.style': 'Style',
+      'arch.visit': 'View on map', 'arch.locatehint': 'Click to navigate to this building',
     },
     zh: {
       'app.title': '荷蘭古地圖散策', 'app.tagline': '荷蘭 · 穿越時光',
@@ -811,20 +1147,37 @@
       'offline.downloading': '下載中', 'offline.done': '已存到裝置 ✓ 可離線使用', 'offline.canceled': '已停止',
       'offline.cleared': '已清除下載', 'offline.clear': '清除下載', 'offline.used': '已用約', 'offline.unsupported': '此瀏覽器不支援離線下載。',
       'offline.hint': '下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。',
+      'offline.bundled': '內建離線圖層', 'offline.bundled.hint': '無需下載，隨時可用 · CC-BY 4.0 Kadaster',
+      'sec.walk': '散策記錄', 'walk.record': '記錄路線', 'walk.stop': '停止記錄',
+      'walk.hint': '先開啟定位，一邊散步一邊記錄路線，輸出成明信片風格的分享卡。',
+      'walk.rec': '記錄中', 'walk.dist': '距離', 'walk.time': '時間', 'walk.pts': '點數',
+      'walk.empty': '尚無散策記錄', 'walk.share': '分享卡', 'walk.export': 'GeoJSON', 'walk.delete': '刪除',
+      'walk.confirmdel': '確定刪除這條散策路線？', 'walk.saving': '輸出中…',
+      'kofi.label': '請我喝杯咖啡',
+      'walk3d.exit': '離開',
+      'walk3d.hint.idle': '按 GPS 開始，古地圖就會跟著你走。',
+      'walk3d.hint.ready': '腳下就是古地圖 · 走動時跟著你捲動。',
+      'walk3d.hint.rec': '記錄中 · 走動時路徑會沿路記下。',
       'sec.plan': '規劃圖', 'sec.plan.en': '規劃', 'plan.zoning': '都市計畫', 'plan.landuse': '土地利用',
       'plan.hint': '荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。',
       'legend.title': '圖例', 'legend.note': '標籤為荷蘭文（PDOK 官方圖例）。',
       'era.tmk.sub': '地形軍事圖 1:50,000', 'era.bonne.sub': '1:25,000 套色地形圖',
       'era.top25.sub': '地形圖 1:25,000', 'era.actueel.sub': '當代地形圖',
+      'arch.section': '建築', 'arch.architect': '建築師', 'arch.style': '風格',
+      'arch.visit': '在地圖上查看', 'arch.locatehint': '點此導航至建築物',
     },
   };
 
   let lang = (function () {
     try { return localStorage.getItem('nlOldMaps.lang') || pick(); } catch (e) { return pick(); }
     function pick() {
-      const n = (navigator.language || 'nl').toLowerCase();
-      if (n.startsWith('zh')) return 'zh';
-      if (n.startsWith('nl')) return 'nl';
+      const langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'nl']);
+      for (const l of langs) {
+        const n = l.toLowerCase();
+        if (n.startsWith('zh')) return 'zh';
+        if (n.startsWith('nl')) return 'nl';
+        if (n.startsWith('en')) return 'en';
+      }
       return 'en';
     }
   })();
@@ -844,10 +1197,13 @@
     renderCityList();
     updateCurrentCity();
     renderCards();
+    renderLandmarkCards();
     renderOffline();
     renderLegend();
     renderAbout();
     updateDailyFab();
+    renderTraceList();
+    updateRecordBtn();
     document.getElementById('theme-toggle').textContent =
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
   }
@@ -895,8 +1251,10 @@
     const snap = nearestService(clampYear(year));
     state.year = snap.year;
     if (histLayer) map.removeLayer(histLayer);
+    const hasArchive = pmtilesReady && pmtilesArchives.some(a => a.service === String(snap.id));
     histLayer = createTopotijdreisLayer(snap.id, {
       pane: 'histPane', opacity: state.opacity, minZoom: 7, maxZoom: 19,
+      attribution: hasArchive ? HIST_ATTR_PM : HIST_ATTR,
     }).addTo(map);
     histLayer.on('loading', () => { spinner.classList.add('show'); });
     histLayer.on('load', () => { spinner.classList.remove('show'); });
@@ -946,8 +1304,10 @@
         const chip = document.createElement('button');
         chip.type = 'button';
         chip.className = 'city-chip' + (c.id === state.city.id ? ' active' : '');
+        const hasPm = pmtilesReady && pmtilesArchives.some(a => a.city === c.id);
         chip.innerHTML = (lang === 'zh' ? c.zh : c.en) +
-          (lang === 'zh' ? ' <span class="en">' + c.en + '</span>' : '');
+          (lang === 'zh' ? ' <span class="en">' + c.en + '</span>' : '') +
+          (hasPm ? ' <span class="pm-dot" title="offline"></span>' : '');
         chip.addEventListener('click', () => { selectCity(c.id); });
         wrap.appendChild(chip);
         total++;
@@ -997,7 +1357,10 @@
     document.getElementById('city-list').classList.remove('open');
     const s = document.getElementById('city-search'); if (s) s.value = '';
     renderCityList('');
+    renderEraChips();
+    updateEraChips();
     renderCards();
+    renderLandmarkCards();
     renderOffline();
     try { localStorage.setItem('nlOldMaps.city', id); } catch (e) {}
     syncURL();
@@ -1019,7 +1382,9 @@
     wrap.innerHTML = '';
     ERA_YEARS.forEach(y => {
       const b = document.createElement('button');
-      b.type = 'button'; b.className = 'era-chip'; b.dataset.year = y; b.textContent = y;
+      b.type = 'button'; b.className = 'era-chip'; b.dataset.year = y;
+      b.innerHTML = y + (pmtilesHasEra(state.city.id, y)
+        ? ' <span class="pm-dot" title="offline"></span>' : '');
       b.addEventListener('click', () => setHistYear(y));
       wrap.appendChild(b);
     });
@@ -1070,7 +1435,7 @@
   })();
   map.on('move zoom moveend zoomend resize', applyCompareClip);
 
-  let meMarker = null, meCircle = null, watchId = null;
+  let meMarker = null, meCircle = null, watchId = null, lastFix = null;
   function toggleLocate() {
     const btn = document.getElementById('btn-locate');
     if (watchId != null) {
@@ -1079,11 +1444,14 @@
       document.getElementById('loc-status').classList.remove('show');
       if (meMarker) { map.removeLayer(meMarker); meMarker = null; }
       if (meCircle) { map.removeLayer(meCircle); meCircle = null; }
+      stopRecording();
+      document.getElementById('btn-record').disabled = true;
       return;
     }
     if (!navigator.geolocation) { alert('Geolocatie niet beschikbaar'); return; }
     btn.classList.add('active');
     document.getElementById('loc-status').classList.add('show');
+    document.getElementById('btn-record').disabled = false;
     let first = true;
     watchId = navigator.geolocation.watchPosition(pos => {
       const { latitude, longitude, accuracy } = pos.coords;
@@ -1097,11 +1465,613 @@
       if (first) { map.setView(ll, Math.max(map.getZoom(), 16)); first = false; }
       document.getElementById('loc-coords').textContent = 'N ' + latitude.toFixed(5) + ' · E ' + longitude.toFixed(5);
       document.getElementById('loc-accuracy').textContent = '± ' + Math.round(accuracy) + ' m';
+      checkLandmarkProximity(latitude, longitude);
+      lastFix = { lat: latitude, lng: longitude };
+      if (isRecording) addTracePoint(latitude, longitude, accuracy, pos.timestamp || Date.now());
     }, err => {
       btn.classList.remove('active');
       document.getElementById('loc-coords').textContent = '⚠ ' + (err.message || 'fout');
     }, { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 });
   }
+
+  // ── Wandeling / 散策記錄 (route recording, geport uit Taiwan Old-Map Stroll) ──
+  // Punten worden gefilterd (nauwkeurigheid > 80 m of < 3 m verplaatsing = ruis),
+  // sporen blijven volledig lokaal in localStorage — geen backend, geen tracking.
+  let isRecording = false, currentTrace = null, recordPolyline = null, recTimerId = null;
+  let shownTraceId = null, shownTraceLayer = null, walkWakeLock = null;
+  let savedTraces = [];
+  try { savedTraces = JSON.parse(localStorage.getItem('nlOldMaps.traces') || '[]'); } catch (e) {}
+  function persistTraces() { try { localStorage.setItem('nlOldMaps.traces', JSON.stringify(savedTraces)); } catch (e) {} }
+
+  function calcDistance(pts) {
+    let d = 0;
+    for (let i = 1; i < pts.length; i++) d += haversine(pts[i-1].lat, pts[i-1].lng, pts[i].lat, pts[i].lng);
+    return d;
+  }
+  function fmtDist(m) { return m < 1000 ? Math.round(m) + ' m' : (m / 1000).toFixed(2) + ' km'; }
+  function fmtDur(ms) {
+    const s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
+    return h ? h + ':' + String(m).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0')
+             : m + ':' + String(s % 60).padStart(2, '0');
+  }
+  async function acquireWalkWakeLock() {
+    try { if ('wakeLock' in navigator) walkWakeLock = await navigator.wakeLock.request('screen'); } catch (e) {}
+  }
+  function releaseWalkWakeLock() {
+    try { if (walkWakeLock) { walkWakeLock.release(); walkWakeLock = null; } } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && isRecording) acquireWalkWakeLock();
+  });
+
+  function updateRecordBtn() {
+    const btn = document.getElementById('btn-record');
+    btn.classList.toggle('recording', isRecording);
+    btn.querySelector('.lbl').textContent = isRecording ? t('walk.stop') : t('walk.record');
+  }
+  function toggleRecording() { if (isRecording) stopRecording(); else startRecording(); }
+  function startRecording() {
+    if (isRecording || watchId == null) return;
+    isRecording = true;
+    currentTrace = {
+      id: 'tr-' + Date.now(),
+      startTime: Date.now(),
+      cityId: state.city.id,
+      year: state.year,
+      points: [],
+    };
+    if (recordPolyline) map.removeLayer(recordPolyline);
+    recordPolyline = L.polyline([], { color: '#C15F3C', weight: 5, opacity: 0.85, lineCap: 'round', lineJoin: 'round' }).addTo(map);
+    document.getElementById('rec-status').classList.add('show');
+    if (recTimerId) clearInterval(recTimerId);
+    recTimerId = setInterval(updateRecTimer, 1000);
+    updateRecTimer();
+    updateRecordBtn();
+    acquireWalkWakeLock();
+  }
+  function stopRecording() {
+    if (!isRecording) return;
+    isRecording = false;
+    releaseWalkWakeLock();
+    if (recTimerId) { clearInterval(recTimerId); recTimerId = null; }
+    if (recordPolyline) { map.removeLayer(recordPolyline); recordPolyline = null; }
+    if (currentTrace && currentTrace.points.length >= 2) {
+      currentTrace.endTime = Date.now();
+      currentTrace.distance = calcDistance(currentTrace.points);
+      savedTraces.unshift(currentTrace);
+      persistTraces();
+      renderTraceList();
+    }
+    currentTrace = null;
+    document.getElementById('rec-status').classList.remove('show');
+    updateRecordBtn();
+  }
+  function addTracePoint(lat, lng, acc, ts) {
+    if (!currentTrace || acc > 80) return;
+    const last = currentTrace.points[currentTrace.points.length - 1];
+    if (last && haversine(last.lat, last.lng, lat, lng) < 3) return;
+    currentTrace.points.push({ lat: lat, lng: lng, t: ts, a: Math.round(acc) });
+    recordPolyline.addLatLng([lat, lng]);
+    updateRecTimer();
+  }
+  function updateRecTimer() {
+    if (!currentTrace) return;
+    document.getElementById('rec-dist').textContent = fmtDist(calcDistance(currentTrace.points));
+    document.getElementById('rec-time').textContent = fmtDur(Date.now() - currentTrace.startTime);
+    document.getElementById('rec-points').textContent = String(currentTrace.points.length);
+  }
+
+  function traceCityName(tr) {
+    const c = CITIES.find(x => x.id === tr.cityId);
+    return c ? (lang === 'zh' ? c.zh : c.en) : (tr.cityId || '');
+  }
+  function renderTraceList() {
+    const list = document.getElementById('trace-list');
+    if (!savedTraces.length) { list.innerHTML = '<div class="trace-empty">' + t('walk.empty') + '</div>'; return; }
+    list.innerHTML = savedTraces.map(tr => {
+      const dur = (tr.endTime || Date.now()) - tr.startTime;
+      const dateStr = new Date(tr.startTime).toLocaleString(lang === 'zh' ? 'zh-TW' : (lang === 'nl' ? 'nl-NL' : 'en-GB'),
+        { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+      return '<div class="trace-row' + (tr.id === shownTraceId ? ' shown' : '') + '" data-id="' + tr.id + '">'
+        + '<div class="trace-info">'
+        + '<div class="trace-date">' + dateStr + '</div>'
+        + '<div class="trace-city">' + traceCityName(tr) + ' · ' + (tr.year || '') + '</div>'
+        + '<div class="trace-meta">' + fmtDist(tr.distance || 0) + ' · ' + fmtDur(dur) + ' · ' + tr.points.length + ' pts</div>'
+        + '</div><div class="trace-actions">'
+        + '<button data-act="share" data-id="' + tr.id + '">' + t('walk.share') + '</button>'
+        + '<button data-act="export" data-id="' + tr.id + '">' + t('walk.export') + '</button>'
+        + '<button data-act="delete" data-id="' + tr.id + '" class="danger">' + t('walk.delete') + '</button>'
+        + '</div></div>';
+    }).join('');
+  }
+  function showTraceOnMap(id) {
+    if (shownTraceLayer) { map.removeLayer(shownTraceLayer); shownTraceLayer = null; }
+    if (shownTraceId === id) { shownTraceId = null; renderTraceList(); return; }
+    const tr = savedTraces.find(x => x.id === id);
+    if (!tr || tr.points.length < 2) return;
+    const coords = tr.points.map(p => [p.lat, p.lng]);
+    shownTraceLayer = L.polyline(coords, { color: '#C15F3C', weight: 5, opacity: 0.8, lineCap: 'round', lineJoin: 'round' }).addTo(map);
+    map.fitBounds(shownTraceLayer.getBounds(), { padding: [40, 40] });
+    shownTraceId = id;
+    renderTraceList();
+  }
+  function exportTraceGeoJSON(id) {
+    const tr = savedTraces.find(x => x.id === id);
+    if (!tr) return;
+    const gj = {
+      type: 'Feature',
+      properties: {
+        app: 'nl-old-map-stroll', city: tr.cityId, mapYear: tr.year,
+        startTime: new Date(tr.startTime).toISOString(),
+        endTime: tr.endTime ? new Date(tr.endTime).toISOString() : null,
+        distance_m: Math.round(tr.distance || 0),
+      },
+      geometry: { type: 'LineString', coordinates: tr.points.map(p => [p.lng, p.lat]) },
+    };
+    const blob = new Blob([JSON.stringify(gj, null, 2)], { type: 'application/geo+json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'walk-' + new Date(tr.startTime).toISOString().slice(0, 10) + '.geojson';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  }
+  function deleteTrace(id) {
+    if (!confirm(t('walk.confirmdel'))) return;
+    savedTraces = savedTraces.filter(x => x.id !== id);
+    persistTraces();
+    if (shownTraceId === id && shownTraceLayer) { map.removeLayer(shownTraceLayer); shownTraceLayer = null; shownTraceId = null; }
+    renderTraceList();
+  }
+
+  // ── Wandel-deelkaart: 1080×1920 met kaartcompositie (basis + historisch) ──
+  function loadTileImg(src) {
+    return new Promise((resolve, reject) => {
+      const i = new Image(); i.crossOrigin = 'anonymous';
+      i.onload = () => resolve(i); i.onerror = reject; i.src = src;
+    });
+  }
+  // Eén historische 3857-tegel op een eigen 256px-canvas (PMTiles eerst, dan RD-herprojectie).
+  async function renderHistTileCanvas(x, y, z, serviceId) {
+    const cv = document.createElement('canvas');
+    cv.width = 256; cv.height = 256;
+    const ctx = cv.getContext('2d');
+    const arch = pmtilesFor(serviceId, { x: x, y: y, z: z });
+    if (arch) {
+      try {
+        const res = await arch.pm.getZxy(z, x, y);
+        if (res && res.data) {
+          const url = URL.createObjectURL(new Blob([res.data]));
+          try { ctx.drawImage(await loadTileImg(url), 0, 0, 256, 256); return cv; }
+          finally { URL.revokeObjectURL(url); }
+        }
+      } catch (e) {}
+    }
+    const base = ARC + 'Historische_tijdreis_' + serviceId + '/MapServer/tile';
+    const geom = histTileGeom(x, y, z);
+    const rdToPx = (rx, ry) => {
+      const merc = RD_TO_3857.forward([rx, ry]);
+      const wp = map.project(L.CRS.EPSG3857.unproject(L.point(merc[0], merc[1])), z);
+      return [wp.x - geom.tilePoint.x, wp.y - geom.tilePoint.y];
+    };
+    let painted = false;
+    await Promise.all(geom.tiles.map(async cr => {
+      try {
+        const src = await offlineTileSrc(base + '/' + geom.lvl + '/' + cr[1] + '/' + cr[0]);
+        const img = await loadTileImg(src);
+        const x0 = RD_ORIGIN_X + cr[0] * geom.rdTileM, y0 = RD_ORIGIN_Y - cr[1] * geom.rdTileM;
+        const a = rdToPx(x0, y0), b = rdToPx(x0 + geom.rdTileM, y0 - geom.rdTileM);
+        ctx.drawImage(img, a[0], a[1], b[0] - a[0], b[1] - a[1]);
+        painted = true;
+      } catch (e) {}
+    }));
+    return painted ? cv : null;
+  }
+  function pickZoomForBounds(bounds, w, h) {
+    for (let z = 17; z >= 7; z--) {
+      const a = map.project(bounds.getNorthWest(), z), b = map.project(bounds.getSouthEast(), z);
+      if (Math.abs(b.x - a.x) <= w && Math.abs(b.y - a.y) <= h) return z;
+    }
+    return 7;
+  }
+  async function renderWalkMap(ctx, tr, dx, dy, size) {
+    const lats = tr.points.map(p => p.lat), lngs = tr.points.map(p => p.lng);
+    let bounds = L.latLngBounds([Math.min.apply(null, lats), Math.min.apply(null, lngs)],
+                                [Math.max.apply(null, lats), Math.max.apply(null, lngs)]);
+    bounds = bounds.pad(0.35);
+    const zoom = pickZoomForBounds(bounds, size, size);
+    const c = map.project(bounds.getCenter(), zoom);
+    const originX = c.x - size / 2, originY = c.y - size / 2;
+    const t0x = Math.floor(originX / 256), t0y = Math.floor(originY / 256);
+    const t1x = Math.floor((originX + size) / 256), t1y = Math.floor((originY + size) / 256);
+    const svc = nearestService(tr.year || state.year).id;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(dx, dy, size, size); ctx.clip();
+    ctx.fillStyle = '#EAE8E2'; ctx.fillRect(dx, dy, size, size);
+    const baseTpl = BASE_MAPS[state.base].url;
+    const cells = [];
+    for (let tx = t0x; tx <= t1x; tx++) for (let ty = t0y; ty <= t1y; ty++) {
+      cells.push({ tx: tx, ty: ty, px: dx + tx * 256 - originX, py: dy + ty * 256 - originY });
+    }
+    await Promise.all(cells.map(cell =>
+      offlineTileSrc(baseTpl.replace('{z}', zoom).replace('{x}', cell.tx).replace('{y}', cell.ty))
+        .then(loadTileImg)
+        .then(img => { ctx.drawImage(img, cell.px, cell.py, 256, 256); })
+        .catch(() => {})
+    ));
+    const histCanvases = await Promise.all(cells.map(cell =>
+      renderHistTileCanvas(cell.tx, cell.ty, zoom, svc).catch(() => null)));
+    ctx.globalAlpha = state.opacity;
+    histCanvases.forEach((cv, i) => { if (cv) ctx.drawImage(cv, cells[i].px, cells[i].py); });
+    ctx.globalAlpha = 1;
+    ctx.restore();
+    return function (lat, lng) {
+      const p = map.project([lat, lng], zoom);
+      return { x: dx + p.x - originX, y: dy + p.y - originY };
+    };
+  }
+  async function buildWalkCard(tr) {
+    if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+    const W = 1080, H = 1920, PAD = 80;
+    const cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#F1EFE9'; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = '#D6D3CB'; ctx.lineWidth = 2;
+    ctx.strokeRect(24, 24, W - 48, H - 48);
+    // Kop
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#C15F3C'; ctx.font = "italic 30px 'EB Garamond',Georgia,serif";
+    ctx.fillText('Nederland · Old-Map Stroll', PAD, 130);
+    ctx.fillStyle = '#1F1D19'; ctx.font = "600 84px 'Noto Serif TC','Songti TC',serif";
+    ctx.fillText(lang === 'zh' ? '荷蘭古地圖散策' : (lang === 'nl' ? 'Oude-Kaart Wandeling' : 'Old-Map Stroll'), PAD, 232);
+    const dateStr = new Date(tr.startTime).toLocaleString(lang === 'zh' ? 'zh-TW' : 'nl-NL',
+      { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+    ctx.fillStyle = '#807C73'; ctx.font = "400 24px 'JetBrains Mono',monospace";
+    ctx.fillText(dateStr + ' · ' + traceCityName(tr) + ' · ANNO ' + (tr.year || state.year), PAD, 286);
+    ctx.fillStyle = '#C15F3C'; ctx.fillRect(PAD, 312, 64, 5);
+    // Statistieken
+    const stats = [
+      [t('walk.dist').toUpperCase(), fmtDist(tr.distance || 0)],
+      [t('walk.time').toUpperCase(), fmtDur((tr.endTime || Date.now()) - tr.startTime)],
+      [t('walk.pts').toUpperCase(), String(tr.points.length)],
+    ];
+    const colW = (W - PAD * 2) / 3;
+    ctx.fillStyle = '#A6A399'; ctx.font = "500 21px 'JetBrains Mono',monospace";
+    stats.forEach((s, i) => ctx.fillText(s[0], PAD + i * colW, 390));
+    ctx.fillStyle = '#1F1D19'; ctx.font = "600 54px 'Noto Serif TC','Songti TC',serif";
+    stats.forEach((s, i) => ctx.fillText(s[1], PAD + i * colW, 452));
+    // Kaart (920×920) met route
+    const mapX = PAD, mapY = 510, mapSize = W - PAD * 2;
+    let project = null;
+    try { project = await renderWalkMap(ctx, tr, mapX, mapY, mapSize); } catch (e) {}
+    ctx.strokeStyle = '#BBB8AE'; ctx.lineWidth = 2;
+    ctx.strokeRect(mapX, mapY, mapSize, mapSize);
+    if (project) {
+      ctx.save();
+      ctx.beginPath(); ctx.rect(mapX, mapY, mapSize, mapSize); ctx.clip();
+      ctx.strokeStyle = 'rgba(241,239,233,0.9)'; ctx.lineWidth = 16;
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath();
+      tr.points.forEach((p, i) => { const q = project(p.lat, p.lng); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
+      ctx.stroke();
+      ctx.strokeStyle = '#C15F3C'; ctx.lineWidth = 9;
+      ctx.stroke();
+      const s0 = project(tr.points[0].lat, tr.points[0].lng);
+      const s1 = project(tr.points[tr.points.length - 1].lat, tr.points[tr.points.length - 1].lng);
+      ctx.fillStyle = '#F1EFE9'; ctx.beginPath(); ctx.arc(s0.x, s0.y, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#565347'; ctx.beginPath(); ctx.arc(s0.x, s0.y, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#F1EFE9'; ctx.beginPath(); ctx.arc(s1.x, s1.y, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#C15F3C'; ctx.beginPath(); ctx.arc(s1.x, s1.y, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+    // Voet
+    const footY = mapY + mapSize + 70;
+    ctx.strokeStyle = '#D6D3CB'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(PAD, footY); ctx.lineTo(W - PAD, footY); ctx.stroke();
+    ctx.fillStyle = '#807C73'; ctx.font = "400 22px 'JetBrains Mono',monospace";
+    ctx.fillText('yunching0513.github.io/Netherlands-historical-map', PAD, footY + 52);
+    ctx.fillStyle = '#A6A399'; ctx.font = "400 19px 'Noto Sans TC',system-ui,sans-serif";
+    ctx.fillText('Historische kaart © Kadaster, CC-BY 4.0 · Basiskaart © PDOK', PAD, footY + 92);
+    return new Promise((resolve, reject) => {
+      cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.92);
+    });
+  }
+  async function shareWalk(id, btnEl) {
+    const tr = savedTraces.find(x => x.id === id);
+    if (!tr || tr.points.length < 2) return;
+    const orig = btnEl ? btnEl.textContent : '';
+    if (btnEl) { btnEl.disabled = true; btnEl.textContent = t('walk.saving'); }
+    try {
+      const blob = await buildWalkCard(tr);
+      const file = new File([blob], 'walk-' + new Date(tr.startTime).toISOString().slice(0, 10) + '.jpg', { type: 'image/jpeg' });
+      const text = traceCityName(tr) + ' · ' + fmtDist(tr.distance || 0)
+        + '\n荷蘭古地圖散策 https://yunching0513.github.io/Netherlands-historical-map/';
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text: text });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = file.name;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      }
+    } catch (e) {}
+    if (btnEl) { btnEl.disabled = false; btnEl.textContent = orig; }
+  }
+
+  // ── β 3D wandelmodus: loop óp de oude kaart ──────────────────────────
+  // Geport uit taiwan-historical-maps/beta. De grond is één canvas met twee
+  // tegellagen (basiskaart + historisch, PMTiles-eerst), rotateX(60°) door CSS,
+  // rotateZ volgt het kompas, GPS scrolt de kaart onder je voeten. Interactie
+  // is bewust uit — onder 3D-transform kloppen kaartcoördinaten niet meer.
+  (function setupWalkMode() {
+    const overlay = document.getElementById('walk-overlay');
+    const fab = document.getElementById('walk-fab');
+    if (!overlay || !fab) return;
+    const mapEl = document.getElementById('walk-map');
+    const eraEl = document.getElementById('walk-era');
+    const hintEl = document.getElementById('walk-hint');
+    const needle = document.getElementById('walk-needle');
+    let active = false, rafId = null, pollId = null;
+    let heading = 0, targetHeading = 0, pos = null, targetPos = null;
+    let anchorRatio = 0.78;
+    const TILE = 256, WZ = 16, DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let ctx = null, walkSvc = null, needsRedraw = false;
+    let cw = 0, chh = 0;
+    // Tegelcache: basistegels als <img>, historische tegels als canvas
+    // (renderHistTileCanvas doet PMTiles → RD-herprojectie). FIFO-eviction.
+    const tileCache = new Map();
+    function cacheGetBase(key, url) {
+      let e = tileCache.get(key);
+      if (e) return e;
+      e = { img: new Image(), ok: false, fail: false };
+      e.img.decoding = 'async';
+      e.img.onload = () => { e.ok = true; needsRedraw = true; };
+      e.img.onerror = () => { e.fail = true; };
+      offlineTileSrc(url).then(src => { e.img.src = src; });
+      tileCache.set(key, e);
+      evict();
+      return e;
+    }
+    function cacheGetHist(key, x, y, z, svc) {
+      let e = tileCache.get(key);
+      if (e) return e;
+      e = { cv: null, ok: false, fail: false };
+      renderHistTileCanvas(x, y, z, svc)
+        .then(cv => { if (cv) { e.cv = cv; e.ok = true; needsRedraw = true; } else e.fail = true; })
+        .catch(() => { e.fail = true; });
+      tileCache.set(key, e);
+      evict();
+      return e;
+    }
+    function evict() {
+      if (tileCache.size <= 360) return;
+      const it = tileCache.keys();
+      for (let i = 0; i < 60; i++) {
+        const k = it.next().value;
+        if (!k) break;
+        tileCache.delete(k);
+      }
+    }
+    const lngToPx = (lng, z) => (lng + 180) / 360 * TILE * Math.pow(2, z);
+    const latToPx = (lat, z) => { const r = lat * Math.PI / 180;
+      return (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * TILE * Math.pow(2, z); };
+    function drawGround() {
+      if (!ctx || !pos || !walkSvc) return;
+      const z = WZ;
+      const originX = lngToPx(pos.lng, z) - cw / 2;
+      const originY = latToPx(pos.lat, z) - chh * anchorRatio;
+      ctx.fillStyle = '#EAE8E2'; ctx.fillRect(0, 0, cw, chh);
+      const baseTpl = BASE_MAPS[state.base].url;
+      const tx0 = Math.floor(originX / TILE), ty0 = Math.floor(originY / TILE);
+      const tx1 = Math.floor((originX + cw) / TILE), ty1 = Math.floor((originY + chh) / TILE);
+      const max = Math.pow(2, z);
+      for (let tx = tx0; tx <= tx1; tx++) for (let ty = ty0; ty <= ty1; ty++) {
+        if (ty < 0 || ty >= max) continue;
+        const wx = ((tx % max) + max) % max;
+        const e = cacheGetBase('b/' + z + '/' + wx + '/' + ty,
+          baseTpl.replace('{z}', z).replace('{x}', wx).replace('{y}', ty));
+        if (e.ok) ctx.drawImage(e.img, tx * TILE - originX, ty * TILE - originY, TILE, TILE);
+      }
+      ctx.globalAlpha = walkOpacity;
+      for (let tx = tx0; tx <= tx1; tx++) for (let ty = ty0; ty <= ty1; ty++) {
+        if (ty < 0 || ty >= max) continue;
+        const wx = ((tx % max) + max) % max;
+        const e = cacheGetHist('h' + walkSvc + '/' + z + '/' + wx + '/' + ty, wx, ty, z, walkSvc);
+        if (e.ok) ctx.drawImage(e.cv, tx * TILE - originX, ty * TILE - originY, TILE, TILE);
+      }
+      ctx.globalAlpha = 1;
+      needsRedraw = false;
+    }
+    // Vlakgrootte dynamisch: onder rotateX(60°)+perspective mag het vlak niet
+    // achter het cameravlak komen (iOS Safari rendert dan zwarte gaten).
+    const TILT_DEG = 60, PERSP = 640;
+    function sizeGround() {
+      const wrap = mapEl.parentElement.parentElement;
+      const H = wrap.clientHeight || 1, W = wrap.clientWidth || 1;
+      const s = Math.sin(TILT_DEG * Math.PI / 180), c = Math.cos(TILT_DEG * Math.PI / 180);
+      const yFor = sy => sy * PERSP / (c * PERSP + sy * s);
+      const overhang = 60;
+      const hPx = Math.min(yFor(H) * 1.18, (PERSP / s) * 0.92) + overhang;
+      const yAnchor = yFor(0.76 * H);
+      const wPx = Math.min(Math.max(W * 1.7, 2 * Math.hypot(yAnchor, W * 0.55) + 80), 1600);
+      cw = Math.round(wPx); chh = Math.round(hPx);
+      mapEl.style.width = cw + 'px';
+      mapEl.style.height = chh + 'px';
+      mapEl.style.left = Math.round((W - wPx) / 2) + 'px';
+      mapEl.style.top = (-overhang) + 'px';
+      mapEl.width = Math.round(cw * DPR); mapEl.height = Math.round(chh * DPR);
+      if (!ctx) ctx = mapEl.getContext('2d');
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      anchorRatio = (yAnchor + overhang) / hPx;
+      mapEl.style.transformOrigin = '50% ' + (anchorRatio * 100).toFixed(2) + '%';
+      needsRedraw = true;
+    }
+    window.addEventListener('resize', () => { if (active) { sizeGround(); drawGround(); } });
+
+    const WALK_OP_KEY = 'nlOldMaps.walkOpacity';
+    let walkOpacity = 0.85;
+    try {
+      const v = parseFloat(localStorage.getItem(WALK_OP_KEY));
+      if (!Number.isNaN(v) && v >= 0.2 && v <= 1) walkOpacity = v;
+    } catch (e) {}
+    const opSlider = document.getElementById('walk-opacity');
+    const opVal = document.getElementById('walk-op-val');
+    function applyWalkOpacity(v) {
+      walkOpacity = v;
+      needsRedraw = true;
+      if (opVal) opVal.textContent = Math.round(v * 100) + '%';
+      try { localStorage.setItem(WALK_OP_KEY, String(v)); } catch (e) {}
+    }
+    if (opSlider) {
+      opSlider.value = Math.round(walkOpacity * 100);
+      if (opVal) opVal.textContent = Math.round(walkOpacity * 100) + '%';
+      opSlider.addEventListener('input', e => applyWalkOpacity(parseInt(e.target.value, 10) / 100));
+    }
+
+    function anchorLL() {
+      if (lastFix) return lastFix;
+      const c = map.getCenter();
+      return { lat: c.lat, lng: c.lng };
+    }
+    function ensureLayer() {
+      const svc = nearestService(state.year).id;
+      if (walkSvc !== svc) { walkSvc = svc; needsRedraw = true; }
+      eraEl.textContent = '◷ ANNO ' + state.year + ' · © Kadaster';
+    }
+    let lastAppliedHeading = null, lastCenterPx = null;
+    function frame() {
+      if (targetPos) {
+        pos = pos
+          ? { lat: pos.lat + (targetPos.lat - pos.lat) * 0.12,
+              lng: pos.lng + (targetPos.lng - pos.lng) * 0.12 }
+          : targetPos;
+        const px = { x: lngToPx(pos.lng, WZ), y: latToPx(pos.lat, WZ) };
+        if (!lastCenterPx || Math.abs(px.x - lastCenterPx.x) + Math.abs(px.y - lastCenterPx.y) >= 1.5) {
+          lastCenterPx = px;
+          needsRedraw = true;
+        }
+      }
+      if (needsRedraw) drawGround();
+      const dh = ((targetHeading - heading + 540) % 360) - 180;
+      heading = (heading + dh * 0.12 + 360) % 360;
+      if (lastAppliedHeading === null || Math.abs(((heading - lastAppliedHeading + 540) % 360) - 180) > 0.1) {
+        lastAppliedHeading = heading;
+        mapEl.style.transform = 'rotateZ(' + (-heading).toFixed(2) + 'deg)';
+        if (needle) needle.setAttribute('transform', 'rotate(' + (-heading).toFixed(1) + ' 23 23)');
+      }
+      rafId = requestAnimationFrame(frame);
+    }
+    // Kompasdiscipline: zodra er één absolute meting is, relatieve negeren
+    // (Android geeft anders twee referentiekaders die om beurten winnen).
+    let haveAbsolute = false;
+    function onOrient(e) {
+      let h = null;
+      if (typeof e.webkitCompassHeading === 'number') {
+        h = e.webkitCompassHeading; haveAbsolute = true;
+      } else if (e.type === 'deviceorientationabsolute' || e.absolute === true) {
+        if (typeof e.alpha === 'number') { h = 360 - e.alpha; haveAbsolute = true; }
+      } else if (!haveAbsolute && typeof e.alpha === 'number') {
+        h = 360 - e.alpha;
+      }
+      if (h == null || Number.isNaN(h)) return;
+      const dh = ((h - targetHeading + 540) % 360) - 180;
+      if (Math.abs(dh) < 1.5) return;
+      targetHeading = h;
+    }
+    async function enableCompass() {
+      try {
+        if (typeof DeviceOrientationEvent !== 'undefined' &&
+            typeof DeviceOrientationEvent.requestPermission === 'function') {
+          const r = await DeviceOrientationEvent.requestPermission();
+          if (r !== 'granted') return;
+        }
+        window.addEventListener('deviceorientationabsolute', onOrient, true);
+        window.addEventListener('deviceorientation', onOrient, true);
+      } catch (e) {}
+    }
+
+    const locBtn = document.getElementById('walk-locate');
+    const recBtn = document.getElementById('walk-record');
+    const recReadout = document.getElementById('walk-rec-readout');
+    function syncControls() {
+      if (locBtn) locBtn.classList.toggle('on', watchId != null);
+      if (recBtn) {
+        recBtn.disabled = watchId == null;
+        recBtn.classList.toggle('on', isRecording);
+        const lbl = recBtn.querySelector('.wb-t');
+        if (lbl) lbl.textContent = isRecording ? t('walk.stop') : t('walk.record');
+      }
+      if (recReadout) {
+        recReadout.hidden = !isRecording;
+        if (isRecording && currentTrace) {
+          document.getElementById('walk-rec-dist').textContent = fmtDist(calcDistance(currentTrace.points));
+          document.getElementById('walk-rec-time').textContent = fmtDur(Date.now() - currentTrace.startTime);
+        }
+      }
+      hintEl.textContent = isRecording ? t('walk3d.hint.rec')
+        : lastFix ? t('walk3d.hint.ready') : t('walk3d.hint.idle');
+    }
+    if (locBtn) locBtn.addEventListener('click', () => {
+      if (watchId == null) toggleLocate();
+      syncControls(); setTimeout(syncControls, 400);
+    });
+    if (recBtn) recBtn.addEventListener('click', () => {
+      toggleRecording();
+      syncControls();
+    });
+
+    function open() {
+      active = true;
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden', 'false');
+      ensureLayer();
+      requestAnimationFrame(() => {
+        sizeGround();
+        const ll = anchorLL();
+        targetPos = { lat: ll.lat, lng: ll.lng };
+        pos = { lat: ll.lat, lng: ll.lng };
+        lastCenterPx = null;
+        drawGround();
+        if (!rafId) frame();
+      });
+      enableCompass();
+      syncControls();
+      pollId = setInterval(() => {
+        const ll = anchorLL();
+        if (!targetPos || haversine(targetPos.lat, targetPos.lng, ll.lat, ll.lng) >= 4) {
+          targetPos = { lat: ll.lat, lng: ll.lng };
+        }
+        ensureLayer();
+        syncControls();
+      }, 900);
+    }
+    function close() {
+      active = false;
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden', 'true');
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      if (pollId) { clearInterval(pollId); pollId = null; }
+      window.removeEventListener('deviceorientationabsolute', onOrient, true);
+      window.removeEventListener('deviceorientation', onOrient, true);
+    }
+    fab.addEventListener('click', open);
+    document.getElementById('walk-close').addEventListener('click', close);
+  })();
+
+  document.getElementById('btn-record').addEventListener('click', toggleRecording);
+  document.getElementById('trace-list').addEventListener('click', e => {
+    const actBtn = e.target.closest('button[data-act]');
+    if (actBtn) {
+      const id = actBtn.dataset.id;
+      if (actBtn.dataset.act === 'share') shareWalk(id, actBtn);
+      else if (actBtn.dataset.act === 'export') exportTraceGeoJSON(id);
+      else if (actBtn.dataset.act === 'delete') deleteTrace(id);
+      return;
+    }
+    const row = e.target.closest('.trace-row');
+    if (row) showTraceOnMap(row.dataset.id);
+  });
+  renderTraceList();
 
   function updateMeta() {
     const c = map.getCenter();
@@ -1217,6 +2187,88 @@
   // Tonen altijd in de lijst; in "Verzamelen" (GPS) blijven ze vergrendeld
   // tot je dicht bij de stad loopt.
   const CARD_RADIUS = 1500; // meter rond het stadscentrum om te ontgrendelen
+  const LANDMARK_RADIUS = 200; // metres to trigger visited-state for architecture dots
+
+  let LANDMARKS = [], LANDMARKS_BY_CITY = {};
+  const landmarkMarkers = new Map(); // id → L.circleMarker
+  const visitedLandmarks = new Set();
+  try { const sv = localStorage.getItem('nlOldMaps.visited'); if (sv) JSON.parse(sv).forEach(id => visitedLandmarks.add(id)); } catch (e) {}
+
+  function createLandmarkMarker(item) {
+    const vis = visitedLandmarks.has(item.id);
+    const m = L.circleMarker([item.lat, item.lng], {
+      radius: 7,
+      color: vis ? '#C15F3C' : '#807C73',
+      weight: 2,
+      fillColor: vis ? '#C15F3C' : '#D6D3CB',
+      fillOpacity: 0.9,
+      interactive: true,
+    });
+    m.bindTooltip(() => locName(item.name), { direction: 'top', offset: [0, -9] });
+    m.on('click', () => openLightbox(item));
+    m.addTo(map);
+    return m;
+  }
+
+  function checkLandmarkProximity(lat, lng) {
+    let changed = false;
+    LANDMARKS.forEach(item => {
+      if (visitedLandmarks.has(item.id)) return;
+      if (haversine(lat, lng, item.lat, item.lng) <= LANDMARK_RADIUS) {
+        visitedLandmarks.add(item.id);
+        const m = landmarkMarkers.get(item.id);
+        if (m) m.setStyle({ color: '#C15F3C', fillColor: '#C15F3C' });
+        changed = true;
+      }
+    });
+    if (changed) {
+      try { localStorage.setItem('nlOldMaps.visited', JSON.stringify([...visitedLandmarks])); } catch (e) {}
+      renderLandmarkCards();
+    }
+  }
+
+  function renderLandmarkCards() {
+    const archDiv = document.getElementById('arch-divider');
+    const archGrid = document.getElementById('arch-grid');
+    if (!archDiv || !archGrid) return;
+    const list = LANDMARKS_BY_CITY[state.city.id] || [];
+    if (!list.length) { archDiv.hidden = true; archGrid.innerHTML = ''; return; }
+    archDiv.hidden = false;
+    archGrid.innerHTML = '';
+    list.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const img = document.createElement('img');
+      img.className = 'card-thumb'; img.loading = 'lazy';
+      img.alt = locName(item.name) + ' — ' + locName(item.architect);
+      img.src = item.img;
+      card.appendChild(img);
+      const cap = document.createElement('div'); cap.className = 'card-cap';
+      const tt = document.createElement('div'); tt.className = 'card-title'; tt.textContent = locName(item.name);
+      const ar = document.createElement('div'); ar.className = 'card-artist'; ar.textContent = locName(item.architect) + ' · ' + item.year;
+      const tag = document.createElement('div'); tag.className = 'card-arch-tag'; tag.textContent = locName(item.style_label);
+      cap.appendChild(tt); cap.appendChild(ar); cap.appendChild(tag);
+      card.appendChild(cap);
+      card.addEventListener('click', () => openLightbox(item));
+      archGrid.appendChild(card);
+    });
+  }
+
+  function loadLandmarks() {
+    fetch('landmarks/landmarks.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data || !Array.isArray(data.items)) return;
+        LANDMARKS = data.items.filter(i => i && i.img && i.city && i.lat != null && i.lng != null);
+        LANDMARKS_BY_CITY = {};
+        LANDMARKS.forEach(i => {
+          (LANDMARKS_BY_CITY[i.city] = LANDMARKS_BY_CITY[i.city] || []).push(i);
+          landmarkMarkers.set(i.id, createLandmarkMarker(i));
+        });
+        renderLandmarkCards();
+      })
+      .catch(() => {});
+  }
   let CARDS = [], CARDS_BY_CITY = {};
   let collectMode = false, cardWatchId = null;
   const collected = new Set();
@@ -1305,55 +2357,76 @@
       img.onload = async () => {
         try {
           if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
-          const W = 1080, PAD = 60, FRAME = 30, maxTextW = W - PAD * 2;
+
+          const W = 1080, PAD = 56;
+          const maxTextW = W - PAD * 2;
           const imgH = Math.round(W * img.naturalHeight / img.naturalWidth);
+          const isArchShare = !!item.architect;
+
+          // Measure title line count
           const measure = document.createElement('canvas').getContext('2d');
           measure.font = "600 42px 'Noto Serif TC','Songti TC',serif";
-          const titleLines = wrapLines(measure, locName(item.title), maxTextW);
-          const bandH = 44 + titleLines.length * 52 + 44 + 32 + 40 + 46;
-          const cardH = imgH + bandH;
+          const titleLines = wrapLines(measure, locName(isArchShare ? item.name : item.title), maxTextW);
+
+          // Band height: top-pad + title + artist + museum + credit + url + bottom-pad
+          const LINE_TITLE = 52, LINE_SM = 36;
+          const bandH = 48 + titleLines.length * LINE_TITLE + 12
+                      + LINE_SM + 8     // artist
+                      + LINE_SM        // museum
+                      + LINE_SM        // credit/license
+                      + LINE_SM        // url
+                      + 44;            // bottom pad
+
           const cv = document.createElement('canvas');
-          cv.width = W + FRAME * 2; cv.height = cardH + FRAME * 2;
+          cv.width = W; cv.height = imgH + bandH;
           const ctx = cv.getContext('2d');
-          ctx.fillStyle = '#F1EFE9'; ctx.fillRect(0, 0, cv.width, cv.height);     // paper frame
-          ctx.strokeStyle = '#D6D3CB'; ctx.lineWidth = 2;                          // faint outer keyline
-          ctx.strokeRect(11, 11, cv.width - 22, cv.height - 22);
-          ctx.save(); ctx.translate(FRAME, FRAME);
+
+          // ── painting, full-bleed, no mat ──────────────────────────────
           ctx.drawImage(img, 0, 0, W, imgH);
-          ctx.fillStyle = '#EAE8E2'; ctx.fillRect(0, imgH, W, bandH);
+
+          // ── 6px vermilion separator (mirrors .lightbox-cap border-top) ─
           ctx.fillStyle = '#C15F3C'; ctx.fillRect(0, imgH, W, 6);
+
+          // ── caption band ──────────────────────────────────────────────
+          ctx.fillStyle = '#EAE8E2'; ctx.fillRect(0, imgH + 6, W, bandH - 6);
+
           ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-          let y = imgH + 44 + 34;
-          ctx.fillStyle = '#1F1D19'; ctx.font = "600 42px 'Noto Serif TC','Songti TC',serif";
-          titleLines.forEach(line => { ctx.fillText(line, PAD, y); y += 52; });
-          y += 6;
-          ctx.fillStyle = '#9E4B2E'; ctx.font = "italic 32px 'EB Garamond',Georgia,serif";
-          ctx.fillText(locName(item.artist) + ' · ' + item.year, PAD, y); y += 44;
-          ctx.fillStyle = '#565347'; ctx.font = "400 23px 'Noto Sans TC',system-ui,sans-serif";
-          ctx.fillText(item.credit, PAD, y); y += 32;
-          ctx.fillStyle = '#807C73'; ctx.font = "400 20px 'Noto Sans TC',system-ui,sans-serif";
-          ctx.fillText('Public Domain · via Wikimedia Commons', PAD, y); y += 42;
-          ctx.fillStyle = '#A6A399'; ctx.font = "400 18px 'JetBrains Mono',monospace";
+          let y = imgH + 6 + 48 + 34;  // first baseline inside band
+
+          // Title
+          ctx.fillStyle = '#1F1D19';
+          ctx.font = "600 42px 'Noto Serif TC','Songti TC',serif";
+          titleLines.forEach(line => { ctx.fillText(line, PAD, y); y += LINE_TITLE; });
+          y += 12;
+
+          // Artist · year (italic vermilion, mirrors .lc-artist)
+          ctx.fillStyle = '#9E4B2E';
+          ctx.font = "italic 30px 'EB Garamond',Georgia,serif";
+          ctx.fillText(locName(isArchShare ? item.architect : item.artist) + ' · ' + item.year, PAD, y);
+          y += LINE_SM + 8;
+
+          // Museum / address (mono uppercase, mirrors .lc-meta)
+          const museumLabel = (isArchShare ? (item.address || item.credit) : item.credit).toUpperCase();
+          ctx.fillStyle = '#565347';
+          ctx.font = "400 20px 'JetBrains Mono',monospace";
+          ctx.fillText(museumLabel, PAD, y);
+          y += LINE_SM;
+
+          // License line (ash, mirrors .lc-credit)
+          ctx.fillStyle = '#807C73';
+          ctx.font = "400 20px 'Noto Sans TC',system-ui,sans-serif";
+          const licLabel = isArchShare
+            ? (item.license || 'CC-BY-SA')
+            : ('公眾領域 · Public Domain · via Wikimedia Commons');
+          ctx.fillText(licLabel, PAD, y);
+          y += LINE_SM;
+
+          // URL / watermark (silver mono, mirrors bottom of lightbox)
+          ctx.fillStyle = '#A6A399';
+          ctx.font = "400 18px 'JetBrains Mono',monospace";
           ctx.fillText('荷蘭古地圖散策 · yunching0513.github.io/Netherlands-historical-map', PAD, y);
-          // postmark date stamp (lower-right of the caption band)
-          (function () {
-            const dt = new Date();
-            const ds = dt.getDate() + '.' + (dt.getMonth() + 1) + '.' + dt.getFullYear();
-            ctx.save();
-            ctx.translate(W - 108, imgH + bandH - 78); ctx.rotate(-8 * Math.PI / 180);
-            ctx.globalAlpha = 0.9; ctx.strokeStyle = '#C15F3C'; ctx.fillStyle = '#C15F3C';
-            ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(0, 0, 52, 0, Math.PI * 2); ctx.stroke();
-            ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(0, 0, 43, 0, Math.PI * 2); ctx.stroke();
-            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            ctx.font = "700 12px 'JetBrains Mono',monospace"; ctx.fillText('NEDERLAND', 0, -22);
-            ctx.font = "700 21px 'JetBrains Mono',monospace"; ctx.fillText(ds, 0, 1);
-            ctx.font = "500 11px 'Noto Serif TC','Songti TC',serif"; ctx.fillText('古地圖散策', 0, 24);
-            ctx.restore();
-          })();
-          ctx.restore();
-          ctx.strokeStyle = '#BBB8AE'; ctx.lineWidth = 2;                          // card border
-          ctx.strokeRect(FRAME, FRAME, W, cardH);
-          cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.92);
+
+          cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.93);
         } catch (e) { reject(e); }
       };
       img.src = item.img;
@@ -1388,27 +2461,46 @@
   }
 
   function openMuseumMap() {
-    if (!currentCard || !currentCard.credit) return;
-    window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(currentCard.credit), '_blank', 'noopener');
+    if (!currentCard) return;
+    if (currentCard.architect) {
+      // Architecture landmark: fly to building on map
+      if (currentCard.lat != null && currentCard.lng != null) {
+        closeLightbox();
+        map.flyTo([currentCard.lat, currentCard.lng], 17, { duration: 1.2 });
+      }
+    } else {
+      if (!currentCard.credit) return;
+      window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(currentCard.credit), '_blank', 'noopener');
+    }
   }
 
   function openLightbox(item) {
     currentCard = item;
+    const isArch = !!item.architect;
     const lbimg = document.getElementById('lightbox-img');
     lbimg.src = item.img;
-    lbimg.alt = locName(item.title) + ' — ' + locName(item.artist);
-    lbimg.title = t('card.locatehint');
-    document.getElementById('lc-title').textContent = locName(item.title);
-    document.getElementById('lc-artist').textContent = locName(item.artist) + ', ' + item.year;
+    lbimg.alt = locName(isArch ? item.name : item.title) + ' — ' + locName(isArch ? item.architect : item.artist);
+    lbimg.title = isArch ? t('arch.locatehint') : t('card.locatehint');
+    document.getElementById('lc-title').textContent = locName(isArch ? item.name : item.title);
+    document.getElementById('lc-artist').textContent = locName(isArch ? item.architect : item.artist) + ', ' + item.year;
+    const styleEl = document.getElementById('lc-style');
+    if (isArch && item.style_label) {
+      styleEl.textContent = locName(item.style_label);
+      styleEl.hidden = false;
+    } else {
+      styleEl.hidden = true;
+    }
     const meta = document.getElementById('lc-meta');
     meta.innerHTML = '<span class="ic">⌖</span><span class="mtxt"></span><span class="arr">↗</span>';
-    meta.querySelector('.mtxt').textContent = item.credit;
-    meta.title = t('card.locate');
+    meta.querySelector('.mtxt').textContent = isArch ? (item.address || item.credit) : item.credit;
+    meta.title = isArch ? t('arch.visit') : t('card.locate');
     const descEl = document.getElementById('lc-desc');
     const dtext = item.desc ? (item.desc[lang] || item.desc.en || item.desc.nl) : '';
     descEl.textContent = dtext || '';
     descEl.hidden = !dtext;
-    document.getElementById('lc-credit').textContent = t('card.pd');
+    document.getElementById('lc-credit').textContent = isArch
+      ? (item.license || 'CC-BY-SA') + ' · via Wikimedia Commons'
+      : t('card.pd');
     const src = document.getElementById('lc-source');
     src.href = item.sourceUrl;
     src.textContent = t('card.source') + ': Wikimedia Commons ↗';
@@ -1473,6 +2565,7 @@
       if (haversine(latitude, longitude, item.lat, item.lng) <= CARD_RADIUS) { collected.add(item.id); changed = true; }
     });
     if (changed) { saveCollected(); renderCards(); }
+    checkLandmarkProximity(latitude, longitude);
   }
   function onCardDenied() {
     const countEl = document.getElementById('cards-count');
@@ -1781,6 +2874,18 @@
   applyI18n();
   updateMeta();
   loadPostcards();
+  loadLandmarks();
+  // Vooraf gebakken offline-tegels ophalen; daarna de historische laag
+  // verversen zodat zichtbare tegels het lokale archief gaan gebruiken.
+  loadPmtilesManifest().then(() => {
+    if (pmtilesReady) {
+      renderBundledList();
+      renderCityList('');
+      renderEraChips();
+      updateEraChips();
+      setHistYear(state.year);
+    }
+  });
   ['zoning', 'landuse'].forEach(id => { try { if (localStorage.getItem('nlOldMaps.plan.' + id) === '1') togglePlan(id); } catch (e) {} });
 
   // Service worker tijdelijk uitgeschakeld: oude SW + caches opruimen.
