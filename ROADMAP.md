@@ -47,6 +47,8 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
 | B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | todo | follow-up to B-16 |
 | B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | todo | retention loop |
+| B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
+| B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
 
 ### P2 — institutional / academic track
 | id | item | status | notes |
@@ -78,6 +80,14 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-07-08** — B-19 shipped: β 3D walk mode (street-view stroll on the old map)
+  ported from taiwan-historical-maps/beta. Single-canvas tile ground (base +
+  historical via renderHistTileCanvas: PMTiles-first), rotateX(60°) perspective,
+  compass rotateZ with absolute-heading discipline, GPS lerp + deadzones, fog band,
+  dynamic plane sizing (iOS Safari camera-plane fix). Also vendored leaflet/proj4/
+  pmtiles into vendor/ (B-19b) — no more unpkg dependency. Verified in headless
+  Chromium with mocked GPS at Dam square: ANNO 1900 ground renders from local
+  PMTiles, zero network. Fixed [hidden] vs display:flex bug on rec readout.
 - **2026-07-03 (2)** — B-16 shipped: walk recording ported from the owner's
   taiwan-historical-maps (GPS trace w/ noise filter >80m acc & <3m step, wake lock,
   live dist/time/points, saved walks in nlOldMaps.traces, replay on map, GeoJSON

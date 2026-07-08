@@ -80,9 +80,7 @@
 }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin="" />
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
 <style>
   :root {
     --paper:#F1EFE9; --paper-2:#EAE8E2; --mist:#D6D3CB; --stone:#BBB8AE; --silver:#A6A399;
@@ -197,6 +195,66 @@
   .trace-actions button:hover { border-color:var(--vermilion); color:var(--vermilion); }
   .trace-actions button.danger:hover { border-color:#a33; color:#a33; }
   .trace-empty { font-family:var(--sans); font-size:12px; color:var(--ash); padding:6px 2px; }
+  /* ── β 3D 漫遊 walk mode ─────────────────────────────
+     Perspectief-grond: één canvas met tegels, rotateX(60°) gekanteld,
+     rotateZ volgt het kompas. Geport uit taiwan-historical-maps/beta. */
+  .walk-fab { position:absolute; left:20px; top:154px; z-index:905; width:38px; height:38px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid var(--stone); background:var(--paper-2); color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; font-size:15px; line-height:1; }
+  .walk-fab:hover { color:var(--vermilion); border-color:var(--vermilion); }
+  .walk-fab .wf-b { font-family:var(--mono); font-size:6.5px; letter-spacing:0.08em; color:var(--vermilion); margin-top:1px; }
+  .walk-overlay { position:fixed; inset:0; z-index:9600; display:none; background:var(--paper); overflow:hidden; }
+  .walk-overlay.show { display:block; }
+  .walk-sky { position:absolute; left:0; top:0; right:0; height:27%;
+    background:linear-gradient(180deg,#CDC9BE 0%,#E5E2D9 70%,#F1EFE9 100%); }
+  html.theme-dark .walk-sky { background:linear-gradient(180deg,#121212 0%,#1C1B18 70%,#242320 100%); }
+  .walk-groundwrap { position:absolute; left:0; right:0; top:26%; bottom:0; overflow:hidden;
+    background:var(--paper-2); perspective:640px; perspective-origin:50% 0; }
+  #walk-tilt { position:absolute; inset:0; transform:rotateX(60deg); transform-origin:50% 0; }
+  #walk-map { position:absolute; background:var(--paper-2); transform-origin:50% 78%; backface-visibility:hidden; }
+  .walk-chip, .walk-close, .walk-compass, .walk-op, .walk-hint, .walk-feet, .walk-fog, .walk-sky { will-change:transform; transform:translateZ(0); }
+  .walk-fog { position:absolute; left:0; right:0; top:calc(26% - 70px); height:230px; pointer-events:none; z-index:4;
+    background:linear-gradient(180deg,rgba(241,239,233,1) 0%,rgba(241,239,233,1) 26%,rgba(241,239,233,0.85) 52%,rgba(241,239,233,0) 100%); }
+  html.theme-dark .walk-fog { background:linear-gradient(180deg,rgba(26,26,26,1) 0%,rgba(26,26,26,1) 26%,rgba(26,26,26,0.85) 52%,rgba(26,26,26,0) 100%); }
+  .walk-chip { position:absolute; font-family:var(--mono); font-size:12px; letter-spacing:0.12em; color:var(--vermilion);
+    background:rgba(241,239,233,0.9); border:1px solid var(--stone); padding:6px 12px; z-index:5; }
+  html.theme-dark .walk-chip { background:rgba(26,26,26,0.85); }
+  .walk-era { left:14px; top:calc(env(safe-area-inset-top,0px) + 14px); }
+  .walk-close { position:absolute; right:14px; top:calc(env(safe-area-inset-top,0px) + 14px); z-index:6;
+    font-family:var(--sans); font-size:13px; letter-spacing:0.1em; color:var(--ink); background:rgba(241,239,233,0.9);
+    border:1px solid var(--stone); padding:7px 13px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  html.theme-dark .walk-close { background:rgba(26,26,26,0.85); }
+  .walk-compass { position:absolute; right:18px; top:calc(env(safe-area-inset-top,0px) + 62px); width:46px; height:46px; z-index:5; }
+  .walk-feet { position:absolute; left:50%; bottom:18%; transform:translateX(-50%); z-index:5; pointer-events:none; }
+  .walk-feet .ring { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:120px; height:46px;
+    border-radius:50%; border:2px solid rgba(193,95,60,0.5);
+    background:radial-gradient(ellipse,rgba(193,95,60,0.16),rgba(193,95,60,0) 70%);
+    animation:walk-breathe 2.4s ease-in-out infinite; }
+  .walk-feet .dot { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:18px; height:18px;
+    border-radius:50%; background:var(--vermilion); border:3px solid #fff; box-shadow:0 3px 8px rgba(31,29,25,0.4); }
+  @keyframes walk-breathe { 0%,100% { transform:translate(-50%,-50%) scale(1); } 50% { transform:translate(-50%,-50%) scale(1.09); } }
+  .walk-hint { position:absolute; left:50%; bottom:calc(env(safe-area-inset-bottom,0px) + 14px); transform:translateX(-50%);
+    z-index:5; font-family:var(--mono); font-size:10px; letter-spacing:0.1em; color:var(--graphite);
+    background:rgba(241,239,233,0.85); padding:5px 12px; white-space:nowrap; max-width:92vw; overflow:hidden; text-overflow:ellipsis; }
+  html.theme-dark .walk-hint { background:rgba(26,26,26,0.8); }
+  .walk-ctrl { position:absolute; left:14px; bottom:calc(env(safe-area-inset-bottom,0px) + 52px); z-index:6; display:flex; gap:8px; }
+  .walk-btn { display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px; letter-spacing:0.08em;
+    color:var(--graphite); background:rgba(241,239,233,0.9); border:1px solid var(--stone); padding:9px 13px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  html.theme-dark .walk-btn { background:rgba(26,26,26,0.85); }
+  .walk-btn.on { color:var(--vermilion); border-color:var(--vermilion); }
+  .walk-btn:disabled { opacity:0.45; }
+  .walk-rec-readout[hidden] { display:none; }
+  .walk-rec-readout { position:absolute; left:14px; bottom:calc(env(safe-area-inset-bottom,0px) + 104px); z-index:5;
+    font-family:var(--mono); font-size:11px; color:var(--vermilion); background:rgba(241,239,233,0.9);
+    border:1px solid var(--vermilion); padding:6px 11px; display:flex; align-items:center; gap:7px; }
+  html.theme-dark .walk-rec-readout { background:rgba(26,26,26,0.85); }
+  .walk-rec-readout .wr-dot { width:8px; height:8px; border-radius:50%; background:var(--vermilion); animation:pulse 1.2s ease-in-out infinite; }
+  .walk-op { position:absolute; right:14px; bottom:calc(env(safe-area-inset-bottom,0px) + 52px); z-index:6;
+    display:flex; align-items:center; gap:8px; background:rgba(241,239,233,0.9); border:1px solid var(--stone); padding:8px 12px; }
+  html.theme-dark .walk-op { background:rgba(26,26,26,0.85); }
+  .walk-op .wo-ic { color:var(--vermilion); font-size:13px; line-height:1; }
+  .walk-op input[type=range] { -webkit-appearance:none; appearance:none; width:100px; height:3px;
+    background:linear-gradient(90deg,var(--mist),var(--vermilion)); outline:none; }
+  .walk-op input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:var(--vermilion); border:2px solid var(--paper); cursor:pointer; }
+  .walk-op .wo-val { font-family:var(--mono); font-size:10px; color:var(--ash); min-width:32px; text-align:right; }
   .panel-foot { margin-top:22px; padding-top:16px; border-top:1px solid var(--mist); font-family:var(--sans); font-size:10px; color:var(--ash); line-height:1.8; }
   .panel-foot a { color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
   .panel-foot a:hover { color:var(--vermilion); border-color:var(--vermilion); }
@@ -403,6 +461,29 @@
 <div class="zoom-ctl">
   <button type="button" id="zoom-in" aria-label="Inzoomen">+</button>
   <button type="button" id="zoom-out" aria-label="Uitzoomen">−</button>
+</div>
+
+<button type="button" class="walk-fab" id="walk-fab" aria-label="3D wandelmodus (beta)">👣<span class="wf-b">β</span></button>
+
+<div class="walk-overlay" id="walk-overlay" aria-hidden="true">
+  <div class="walk-sky"></div>
+  <div class="walk-groundwrap"><div id="walk-tilt"><canvas id="walk-map"></canvas></div></div>
+  <div class="walk-fog"></div>
+  <div class="walk-chip walk-era" id="walk-era">◷ —</div>
+  <button type="button" class="walk-close" id="walk-close">✕ <span data-i18n="walk3d.exit">離開</span></button>
+  <div class="walk-compass"><svg viewBox="0 0 46 46">
+    <circle cx="23" cy="23" r="21" fill="rgba(241,239,233,.9)" stroke="#BBB8AE"/>
+    <g id="walk-needle"><polygon points="23,7 27,25 23,22 19,25" fill="#C15F3C"/><polygon points="23,39 27,25 23,28 19,25" fill="#A6A399"/></g>
+    <text x="23" y="14" text-anchor="middle" fill="#807C73" font-size="8" font-family="monospace">N</text>
+  </svg></div>
+  <div class="walk-feet"><div class="ring"></div><div class="dot"></div></div>
+  <div class="walk-rec-readout" id="walk-rec-readout" hidden><span class="wr-dot"></span><span id="walk-rec-dist">0 m</span> · <span id="walk-rec-time">0:00</span></div>
+  <div class="walk-ctrl">
+    <button type="button" class="walk-btn" id="walk-locate"><span>◎</span><span>GPS</span></button>
+    <button type="button" class="walk-btn" id="walk-record" disabled><span>●</span><span class="wb-t" data-i18n="walk.record">記錄路線</span></button>
+  </div>
+  <div class="walk-op"><span class="wo-ic">◐</span><input type="range" id="walk-opacity" min="20" max="100" step="5" value="85" aria-label="opacity" /><span class="wo-val" id="walk-op-val">85%</span></div>
+  <div class="walk-hint" id="walk-hint">—</div>
 </div>
 
 <button type="button" class="daily-fab" id="daily-fab" aria-label="今日的牌" hidden>
@@ -668,11 +749,9 @@
   </figure>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
-<script src="https://unpkg.com/proj4@2.11.0/dist/proj4.js"></script>
-<script src="https://unpkg.com/pmtiles@3.0.6/dist/pmtiles.js"></script>
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/proj4.js"></script>
+<script src="vendor/pmtiles.js"></script>
 <script>
 (function () {
   'use strict';
@@ -981,6 +1060,10 @@
       'walk.empty': 'Nog geen wandelingen', 'walk.share': 'Kaart', 'walk.export': 'GeoJSON', 'walk.delete': 'Wis',
       'walk.confirmdel': 'Deze wandeling wissen?', 'walk.saving': 'Bezig…',
       'kofi.label': 'Trakteer op koffie',
+      'walk3d.exit': 'Sluiten',
+      'walk3d.hint.idle': 'Druk op GPS — de oude kaart loopt dan met je mee.',
+      'walk3d.hint.ready': 'De oude kaart ligt onder je voeten · loop maar.',
+      'walk3d.hint.rec': 'Opname loopt · je route wordt onderweg vastgelegd.',
       'sec.plan': 'Ruimtelijk', 'sec.plan.en': 'ruimtelijk', 'plan.zoning': 'Bestemmingsplan', 'plan.landuse': 'Bodemgebruik',
       'plan.hint': 'Actuele bestemmingsplannen & bodemgebruik (CC0, via PDOK), als overlay op de kaart.',
       'legend.title': 'Legenda', 'legend.note': 'Labels in het Nederlands (officiële PDOK-legenda).',
@@ -1024,6 +1107,10 @@
       'walk.empty': 'No walks yet', 'walk.share': 'Card', 'walk.export': 'GeoJSON', 'walk.delete': 'Delete',
       'walk.confirmdel': 'Delete this walk?', 'walk.saving': 'Saving…',
       'kofi.label': 'Buy me a coffee',
+      'walk3d.exit': 'Exit',
+      'walk3d.hint.idle': 'Tap GPS — the old map will walk along with you.',
+      'walk3d.hint.ready': 'The old map is under your feet · start walking.',
+      'walk3d.hint.rec': 'Recording · your route is being traced as you go.',
       'sec.plan': 'Planning', 'sec.plan.en': 'planning', 'plan.zoning': 'Zoning', 'plan.landuse': 'Land use',
       'plan.hint': 'Current Dutch zoning plans & land use (CC0, via PDOK), as a map overlay.',
       'legend.title': 'Legend', 'legend.note': 'Labels are in Dutch (official PDOK legend).',
@@ -1067,6 +1154,10 @@
       'walk.empty': '尚無散策記錄', 'walk.share': '分享卡', 'walk.export': 'GeoJSON', 'walk.delete': '刪除',
       'walk.confirmdel': '確定刪除這條散策路線？', 'walk.saving': '輸出中…',
       'kofi.label': '請我喝杯咖啡',
+      'walk3d.exit': '離開',
+      'walk3d.hint.idle': '按 GPS 開始，古地圖就會跟著你走。',
+      'walk3d.hint.ready': '腳下就是古地圖 · 走動時跟著你捲動。',
+      'walk3d.hint.rec': '記錄中 · 走動時路徑會沿路記下。',
       'sec.plan': '規劃圖', 'sec.plan.en': '規劃', 'plan.zoning': '都市計畫', 'plan.landuse': '土地利用',
       'plan.hint': '荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。',
       'legend.title': '圖例', 'legend.note': '標籤為荷蘭文（PDOK 官方圖例）。',
@@ -1344,7 +1435,7 @@
   })();
   map.on('move zoom moveend zoomend resize', applyCompareClip);
 
-  let meMarker = null, meCircle = null, watchId = null;
+  let meMarker = null, meCircle = null, watchId = null, lastFix = null;
   function toggleLocate() {
     const btn = document.getElementById('btn-locate');
     if (watchId != null) {
@@ -1375,6 +1466,7 @@
       document.getElementById('loc-coords').textContent = 'N ' + latitude.toFixed(5) + ' · E ' + longitude.toFixed(5);
       document.getElementById('loc-accuracy').textContent = '± ' + Math.round(accuracy) + ' m';
       checkLandmarkProximity(latitude, longitude);
+      lastFix = { lat: latitude, lng: longitude };
       if (isRecording) addTracePoint(latitude, longitude, accuracy, pos.timestamp || Date.now());
     }, err => {
       btn.classList.remove('active');
@@ -1705,6 +1797,266 @@
     } catch (e) {}
     if (btnEl) { btnEl.disabled = false; btnEl.textContent = orig; }
   }
+
+  // ── β 3D wandelmodus: loop óp de oude kaart ──────────────────────────
+  // Geport uit taiwan-historical-maps/beta. De grond is één canvas met twee
+  // tegellagen (basiskaart + historisch, PMTiles-eerst), rotateX(60°) door CSS,
+  // rotateZ volgt het kompas, GPS scrolt de kaart onder je voeten. Interactie
+  // is bewust uit — onder 3D-transform kloppen kaartcoördinaten niet meer.
+  (function setupWalkMode() {
+    const overlay = document.getElementById('walk-overlay');
+    const fab = document.getElementById('walk-fab');
+    if (!overlay || !fab) return;
+    const mapEl = document.getElementById('walk-map');
+    const eraEl = document.getElementById('walk-era');
+    const hintEl = document.getElementById('walk-hint');
+    const needle = document.getElementById('walk-needle');
+    let active = false, rafId = null, pollId = null;
+    let heading = 0, targetHeading = 0, pos = null, targetPos = null;
+    let anchorRatio = 0.78;
+    const TILE = 256, WZ = 16, DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let ctx = null, walkSvc = null, needsRedraw = false;
+    let cw = 0, chh = 0;
+    // Tegelcache: basistegels als <img>, historische tegels als canvas
+    // (renderHistTileCanvas doet PMTiles → RD-herprojectie). FIFO-eviction.
+    const tileCache = new Map();
+    function cacheGetBase(key, url) {
+      let e = tileCache.get(key);
+      if (e) return e;
+      e = { img: new Image(), ok: false, fail: false };
+      e.img.decoding = 'async';
+      e.img.onload = () => { e.ok = true; needsRedraw = true; };
+      e.img.onerror = () => { e.fail = true; };
+      offlineTileSrc(url).then(src => { e.img.src = src; });
+      tileCache.set(key, e);
+      evict();
+      return e;
+    }
+    function cacheGetHist(key, x, y, z, svc) {
+      let e = tileCache.get(key);
+      if (e) return e;
+      e = { cv: null, ok: false, fail: false };
+      renderHistTileCanvas(x, y, z, svc)
+        .then(cv => { if (cv) { e.cv = cv; e.ok = true; needsRedraw = true; } else e.fail = true; })
+        .catch(() => { e.fail = true; });
+      tileCache.set(key, e);
+      evict();
+      return e;
+    }
+    function evict() {
+      if (tileCache.size <= 360) return;
+      const it = tileCache.keys();
+      for (let i = 0; i < 60; i++) {
+        const k = it.next().value;
+        if (!k) break;
+        tileCache.delete(k);
+      }
+    }
+    const lngToPx = (lng, z) => (lng + 180) / 360 * TILE * Math.pow(2, z);
+    const latToPx = (lat, z) => { const r = lat * Math.PI / 180;
+      return (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * TILE * Math.pow(2, z); };
+    function drawGround() {
+      if (!ctx || !pos || !walkSvc) return;
+      const z = WZ;
+      const originX = lngToPx(pos.lng, z) - cw / 2;
+      const originY = latToPx(pos.lat, z) - chh * anchorRatio;
+      ctx.fillStyle = '#EAE8E2'; ctx.fillRect(0, 0, cw, chh);
+      const baseTpl = BASE_MAPS[state.base].url;
+      const tx0 = Math.floor(originX / TILE), ty0 = Math.floor(originY / TILE);
+      const tx1 = Math.floor((originX + cw) / TILE), ty1 = Math.floor((originY + chh) / TILE);
+      const max = Math.pow(2, z);
+      for (let tx = tx0; tx <= tx1; tx++) for (let ty = ty0; ty <= ty1; ty++) {
+        if (ty < 0 || ty >= max) continue;
+        const wx = ((tx % max) + max) % max;
+        const e = cacheGetBase('b/' + z + '/' + wx + '/' + ty,
+          baseTpl.replace('{z}', z).replace('{x}', wx).replace('{y}', ty));
+        if (e.ok) ctx.drawImage(e.img, tx * TILE - originX, ty * TILE - originY, TILE, TILE);
+      }
+      ctx.globalAlpha = walkOpacity;
+      for (let tx = tx0; tx <= tx1; tx++) for (let ty = ty0; ty <= ty1; ty++) {
+        if (ty < 0 || ty >= max) continue;
+        const wx = ((tx % max) + max) % max;
+        const e = cacheGetHist('h' + walkSvc + '/' + z + '/' + wx + '/' + ty, wx, ty, z, walkSvc);
+        if (e.ok) ctx.drawImage(e.cv, tx * TILE - originX, ty * TILE - originY, TILE, TILE);
+      }
+      ctx.globalAlpha = 1;
+      needsRedraw = false;
+    }
+    // Vlakgrootte dynamisch: onder rotateX(60°)+perspective mag het vlak niet
+    // achter het cameravlak komen (iOS Safari rendert dan zwarte gaten).
+    const TILT_DEG = 60, PERSP = 640;
+    function sizeGround() {
+      const wrap = mapEl.parentElement.parentElement;
+      const H = wrap.clientHeight || 1, W = wrap.clientWidth || 1;
+      const s = Math.sin(TILT_DEG * Math.PI / 180), c = Math.cos(TILT_DEG * Math.PI / 180);
+      const yFor = sy => sy * PERSP / (c * PERSP + sy * s);
+      const overhang = 60;
+      const hPx = Math.min(yFor(H) * 1.18, (PERSP / s) * 0.92) + overhang;
+      const yAnchor = yFor(0.76 * H);
+      const wPx = Math.min(Math.max(W * 1.7, 2 * Math.hypot(yAnchor, W * 0.55) + 80), 1600);
+      cw = Math.round(wPx); chh = Math.round(hPx);
+      mapEl.style.width = cw + 'px';
+      mapEl.style.height = chh + 'px';
+      mapEl.style.left = Math.round((W - wPx) / 2) + 'px';
+      mapEl.style.top = (-overhang) + 'px';
+      mapEl.width = Math.round(cw * DPR); mapEl.height = Math.round(chh * DPR);
+      if (!ctx) ctx = mapEl.getContext('2d');
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      anchorRatio = (yAnchor + overhang) / hPx;
+      mapEl.style.transformOrigin = '50% ' + (anchorRatio * 100).toFixed(2) + '%';
+      needsRedraw = true;
+    }
+    window.addEventListener('resize', () => { if (active) { sizeGround(); drawGround(); } });
+
+    const WALK_OP_KEY = 'nlOldMaps.walkOpacity';
+    let walkOpacity = 0.85;
+    try {
+      const v = parseFloat(localStorage.getItem(WALK_OP_KEY));
+      if (!Number.isNaN(v) && v >= 0.2 && v <= 1) walkOpacity = v;
+    } catch (e) {}
+    const opSlider = document.getElementById('walk-opacity');
+    const opVal = document.getElementById('walk-op-val');
+    function applyWalkOpacity(v) {
+      walkOpacity = v;
+      needsRedraw = true;
+      if (opVal) opVal.textContent = Math.round(v * 100) + '%';
+      try { localStorage.setItem(WALK_OP_KEY, String(v)); } catch (e) {}
+    }
+    if (opSlider) {
+      opSlider.value = Math.round(walkOpacity * 100);
+      if (opVal) opVal.textContent = Math.round(walkOpacity * 100) + '%';
+      opSlider.addEventListener('input', e => applyWalkOpacity(parseInt(e.target.value, 10) / 100));
+    }
+
+    function anchorLL() {
+      if (lastFix) return lastFix;
+      const c = map.getCenter();
+      return { lat: c.lat, lng: c.lng };
+    }
+    function ensureLayer() {
+      const svc = nearestService(state.year).id;
+      if (walkSvc !== svc) { walkSvc = svc; needsRedraw = true; }
+      eraEl.textContent = '◷ ANNO ' + state.year + ' · © Kadaster';
+    }
+    let lastAppliedHeading = null, lastCenterPx = null;
+    function frame() {
+      if (targetPos) {
+        pos = pos
+          ? { lat: pos.lat + (targetPos.lat - pos.lat) * 0.12,
+              lng: pos.lng + (targetPos.lng - pos.lng) * 0.12 }
+          : targetPos;
+        const px = { x: lngToPx(pos.lng, WZ), y: latToPx(pos.lat, WZ) };
+        if (!lastCenterPx || Math.abs(px.x - lastCenterPx.x) + Math.abs(px.y - lastCenterPx.y) >= 1.5) {
+          lastCenterPx = px;
+          needsRedraw = true;
+        }
+      }
+      if (needsRedraw) drawGround();
+      const dh = ((targetHeading - heading + 540) % 360) - 180;
+      heading = (heading + dh * 0.12 + 360) % 360;
+      if (lastAppliedHeading === null || Math.abs(((heading - lastAppliedHeading + 540) % 360) - 180) > 0.1) {
+        lastAppliedHeading = heading;
+        mapEl.style.transform = 'rotateZ(' + (-heading).toFixed(2) + 'deg)';
+        if (needle) needle.setAttribute('transform', 'rotate(' + (-heading).toFixed(1) + ' 23 23)');
+      }
+      rafId = requestAnimationFrame(frame);
+    }
+    // Kompasdiscipline: zodra er één absolute meting is, relatieve negeren
+    // (Android geeft anders twee referentiekaders die om beurten winnen).
+    let haveAbsolute = false;
+    function onOrient(e) {
+      let h = null;
+      if (typeof e.webkitCompassHeading === 'number') {
+        h = e.webkitCompassHeading; haveAbsolute = true;
+      } else if (e.type === 'deviceorientationabsolute' || e.absolute === true) {
+        if (typeof e.alpha === 'number') { h = 360 - e.alpha; haveAbsolute = true; }
+      } else if (!haveAbsolute && typeof e.alpha === 'number') {
+        h = 360 - e.alpha;
+      }
+      if (h == null || Number.isNaN(h)) return;
+      const dh = ((h - targetHeading + 540) % 360) - 180;
+      if (Math.abs(dh) < 1.5) return;
+      targetHeading = h;
+    }
+    async function enableCompass() {
+      try {
+        if (typeof DeviceOrientationEvent !== 'undefined' &&
+            typeof DeviceOrientationEvent.requestPermission === 'function') {
+          const r = await DeviceOrientationEvent.requestPermission();
+          if (r !== 'granted') return;
+        }
+        window.addEventListener('deviceorientationabsolute', onOrient, true);
+        window.addEventListener('deviceorientation', onOrient, true);
+      } catch (e) {}
+    }
+
+    const locBtn = document.getElementById('walk-locate');
+    const recBtn = document.getElementById('walk-record');
+    const recReadout = document.getElementById('walk-rec-readout');
+    function syncControls() {
+      if (locBtn) locBtn.classList.toggle('on', watchId != null);
+      if (recBtn) {
+        recBtn.disabled = watchId == null;
+        recBtn.classList.toggle('on', isRecording);
+        const lbl = recBtn.querySelector('.wb-t');
+        if (lbl) lbl.textContent = isRecording ? t('walk.stop') : t('walk.record');
+      }
+      if (recReadout) {
+        recReadout.hidden = !isRecording;
+        if (isRecording && currentTrace) {
+          document.getElementById('walk-rec-dist').textContent = fmtDist(calcDistance(currentTrace.points));
+          document.getElementById('walk-rec-time').textContent = fmtDur(Date.now() - currentTrace.startTime);
+        }
+      }
+      hintEl.textContent = isRecording ? t('walk3d.hint.rec')
+        : lastFix ? t('walk3d.hint.ready') : t('walk3d.hint.idle');
+    }
+    if (locBtn) locBtn.addEventListener('click', () => {
+      if (watchId == null) toggleLocate();
+      syncControls(); setTimeout(syncControls, 400);
+    });
+    if (recBtn) recBtn.addEventListener('click', () => {
+      toggleRecording();
+      syncControls();
+    });
+
+    function open() {
+      active = true;
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden', 'false');
+      ensureLayer();
+      requestAnimationFrame(() => {
+        sizeGround();
+        const ll = anchorLL();
+        targetPos = { lat: ll.lat, lng: ll.lng };
+        pos = { lat: ll.lat, lng: ll.lng };
+        lastCenterPx = null;
+        drawGround();
+        if (!rafId) frame();
+      });
+      enableCompass();
+      syncControls();
+      pollId = setInterval(() => {
+        const ll = anchorLL();
+        if (!targetPos || haversine(targetPos.lat, targetPos.lng, ll.lat, ll.lng) >= 4) {
+          targetPos = { lat: ll.lat, lng: ll.lng };
+        }
+        ensureLayer();
+        syncControls();
+      }, 900);
+    }
+    function close() {
+      active = false;
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden', 'true');
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      if (pollId) { clearInterval(pollId); pollId = null; }
+      window.removeEventListener('deviceorientationabsolute', onOrient, true);
+      window.removeEventListener('deviceorientation', onOrient, true);
+    }
+    fab.addEventListener('click', open);
+    document.getElementById('walk-close').addEventListener('click', close);
+  })();
 
   document.getElementById('btn-record').addEventListener('click', toggleRecording);
   document.getElementById('trace-list').addEventListener('click', e => {
