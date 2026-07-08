@@ -174,6 +174,29 @@
   .loc-status { display:none; margin-top:10px; padding:10px 12px; background:var(--paper); border:1px solid var(--mist); font-family:var(--mono); font-size:10px; color:var(--ash); line-height:1.7; }
   .loc-status.show { display:block; }
   .loc-status .label { color:var(--silver); letter-spacing:0.14em; text-transform:uppercase; font-size:9px; }
+  /* Walk recording (散策記錄) */
+  .btn.recording { border-color:var(--vermilion); color:var(--vermilion); }
+  .btn.recording .dot { background:var(--vermilion); animation:pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
+  .btn:disabled { opacity:0.45; cursor:default; }
+  .rec-status { display:none; margin-top:10px; padding:12px 14px; background:var(--paper); border:1px solid var(--vermilion); }
+  .rec-status.show { display:block; }
+  .rec-status .label { font-family:var(--mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--vermilion); }
+  .rec-stats { display:flex; gap:18px; margin-top:8px; }
+  .rec-stats .col { flex:1; }
+  .rec-stats .k { font-family:var(--mono); font-size:9px; letter-spacing:0.1em; color:var(--silver); text-transform:uppercase; }
+  .rec-stats .v { font-family:var(--serif); font-size:17px; font-weight:600; color:var(--ink); margin-top:2px; }
+  .trace-list { margin-top:10px; }
+  .trace-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border:1px solid var(--mist); background:var(--paper); margin-bottom:6px; cursor:pointer; transition:border-color 0.18s; }
+  .trace-row:hover, .trace-row.shown { border-color:var(--vermilion); }
+  .trace-date { font-family:var(--mono); font-size:10px; color:var(--ash); }
+  .trace-city { font-family:var(--serif); font-size:13px; font-weight:500; color:var(--graphite); margin-top:1px; }
+  .trace-meta { font-family:var(--mono); font-size:10px; color:var(--silver); margin-top:2px; }
+  .trace-actions { display:flex; gap:5px; flex-shrink:0; }
+  .trace-actions button { padding:5px 8px; border:1px solid var(--mist); background:var(--paper-2); font-family:var(--mono); font-size:9px; letter-spacing:0.04em; color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .trace-actions button:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  .trace-actions button.danger:hover { border-color:#a33; color:#a33; }
+  .trace-empty { font-family:var(--sans); font-size:12px; color:var(--ash); padding:6px 2px; }
   .panel-foot { margin-top:22px; padding-top:16px; border-top:1px solid var(--mist); font-family:var(--sans); font-size:10px; color:var(--ash); line-height:1.8; }
   .panel-foot a { color:var(--graphite); text-decoration:none; border-bottom:1px solid var(--stone); }
   .panel-foot a:hover { color:var(--vermilion); border-color:var(--vermilion); }
@@ -514,6 +537,23 @@
         <div id="loc-coords">—</div>
         <div id="loc-accuracy">—</div>
       </div>
+
+      <div class="pane-label" data-i18n="sec.walk">散策記錄</div>
+      <button type="button" class="btn" id="btn-record" disabled>
+        <span class="dot"></span>
+        <span class="lbl" data-i18n="walk.record">記錄路線</span>
+        <span class="en">stroll</span>
+      </button>
+      <div class="offline-hint" data-i18n="walk.hint">先開啟定位，就能一邊散步一邊記錄路線，輸出成明信片風格的分享卡。</div>
+      <div class="rec-status" id="rec-status">
+        <div class="label" data-i18n="walk.rec">RECORDING</div>
+        <div class="rec-stats">
+          <div class="col"><div class="k" data-i18n="walk.dist">距離</div><div class="v" id="rec-dist">0 m</div></div>
+          <div class="col"><div class="k" data-i18n="walk.time">時間</div><div class="v" id="rec-time">0:00</div></div>
+          <div class="col"><div class="k" data-i18n="walk.pts">點數</div><div class="v" id="rec-points">0</div></div>
+        </div>
+      </div>
+      <div class="trace-list" id="trace-list"></div>
 
       <div id="offline-section">
         <div class="pane-label" data-i18n="sec.offline">離線</div>
@@ -929,6 +969,11 @@
       'offline.cleared': 'Downloads gewist', 'offline.clear': 'Wissen', 'offline.used': 'Gebruikt', 'offline.unsupported': 'Offline niet ondersteund in deze browser.',
       'offline.hint': 'Bewaart de huidige basiskaart en het huidige jaar (tot straatniveau) op je apparaat — sneller en offline te gebruiken.',
       'offline.bundled': 'Ingebouwde tegels', 'offline.bundled.hint': 'Geen download nodig · CC-BY 4.0 Kadaster',
+      'sec.walk': 'Wandeling', 'walk.record': 'Route opnemen', 'walk.stop': 'Stop opname',
+      'walk.hint': 'Zet eerst GPS aan; loop en neem je route op — deel als ansichtkaart-stijl kaart.',
+      'walk.rec': 'OPNAME', 'walk.dist': 'Afstand', 'walk.time': 'Tijd', 'walk.pts': 'Punten',
+      'walk.empty': 'Nog geen wandelingen', 'walk.share': 'Kaart', 'walk.export': 'GeoJSON', 'walk.delete': 'Wis',
+      'walk.confirmdel': 'Deze wandeling wissen?', 'walk.saving': 'Bezig…',
       'sec.plan': 'Ruimtelijk', 'sec.plan.en': 'ruimtelijk', 'plan.zoning': 'Bestemmingsplan', 'plan.landuse': 'Bodemgebruik',
       'plan.hint': 'Actuele bestemmingsplannen & bodemgebruik (CC0, via PDOK), als overlay op de kaart.',
       'legend.title': 'Legenda', 'legend.note': 'Labels in het Nederlands (officiële PDOK-legenda).',
@@ -966,6 +1011,11 @@
       'offline.cleared': 'Downloads cleared', 'offline.clear': 'Clear', 'offline.used': 'Used', 'offline.unsupported': 'Offline not supported in this browser.',
       'offline.hint': 'Saves the current base map and year (to street level) on your device — faster and usable offline.',
       'offline.bundled': 'Built-in tiles', 'offline.bundled.hint': 'No download needed · CC-BY 4.0 Kadaster',
+      'sec.walk': 'Walk', 'walk.record': 'Record route', 'walk.stop': 'Stop recording',
+      'walk.hint': 'Turn on GPS first; walk and record your route — share it as a postcard-style card.',
+      'walk.rec': 'RECORDING', 'walk.dist': 'Distance', 'walk.time': 'Time', 'walk.pts': 'Points',
+      'walk.empty': 'No walks yet', 'walk.share': 'Card', 'walk.export': 'GeoJSON', 'walk.delete': 'Delete',
+      'walk.confirmdel': 'Delete this walk?', 'walk.saving': 'Saving…',
       'sec.plan': 'Planning', 'sec.plan.en': 'planning', 'plan.zoning': 'Zoning', 'plan.landuse': 'Land use',
       'plan.hint': 'Current Dutch zoning plans & land use (CC0, via PDOK), as a map overlay.',
       'legend.title': 'Legend', 'legend.note': 'Labels are in Dutch (official PDOK legend).',
@@ -1003,6 +1053,11 @@
       'offline.cleared': '已清除下載', 'offline.clear': '清除下載', 'offline.used': '已用約', 'offline.unsupported': '此瀏覽器不支援離線下載。',
       'offline.hint': '下載目前底圖與年份（到街道級），存到裝置後讀取更快、可離線使用。',
       'offline.bundled': '內建離線圖層', 'offline.bundled.hint': '無需下載，隨時可用 · CC-BY 4.0 Kadaster',
+      'sec.walk': '散策記錄', 'walk.record': '記錄路線', 'walk.stop': '停止記錄',
+      'walk.hint': '先開啟定位，一邊散步一邊記錄路線，輸出成明信片風格的分享卡。',
+      'walk.rec': '記錄中', 'walk.dist': '距離', 'walk.time': '時間', 'walk.pts': '點數',
+      'walk.empty': '尚無散策記錄', 'walk.share': '分享卡', 'walk.export': 'GeoJSON', 'walk.delete': '刪除',
+      'walk.confirmdel': '確定刪除這條散策路線？', 'walk.saving': '輸出中…',
       'sec.plan': '規劃圖', 'sec.plan.en': '規劃', 'plan.zoning': '都市計畫', 'plan.landuse': '土地利用',
       'plan.hint': '荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。',
       'legend.title': '圖例', 'legend.note': '標籤為荷蘭文（PDOK 官方圖例）。',
@@ -1047,6 +1102,8 @@
     renderLegend();
     renderAbout();
     updateDailyFab();
+    renderTraceList();
+    updateRecordBtn();
     document.getElementById('theme-toggle').textContent =
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
   }
@@ -1287,11 +1344,14 @@
       document.getElementById('loc-status').classList.remove('show');
       if (meMarker) { map.removeLayer(meMarker); meMarker = null; }
       if (meCircle) { map.removeLayer(meCircle); meCircle = null; }
+      stopRecording();
+      document.getElementById('btn-record').disabled = true;
       return;
     }
     if (!navigator.geolocation) { alert('Geolocatie niet beschikbaar'); return; }
     btn.classList.add('active');
     document.getElementById('loc-status').classList.add('show');
+    document.getElementById('btn-record').disabled = false;
     let first = true;
     watchId = navigator.geolocation.watchPosition(pos => {
       const { latitude, longitude, accuracy } = pos.coords;
@@ -1306,11 +1366,351 @@
       document.getElementById('loc-coords').textContent = 'N ' + latitude.toFixed(5) + ' · E ' + longitude.toFixed(5);
       document.getElementById('loc-accuracy').textContent = '± ' + Math.round(accuracy) + ' m';
       checkLandmarkProximity(latitude, longitude);
+      if (isRecording) addTracePoint(latitude, longitude, accuracy, pos.timestamp || Date.now());
     }, err => {
       btn.classList.remove('active');
       document.getElementById('loc-coords').textContent = '⚠ ' + (err.message || 'fout');
     }, { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 });
   }
+
+  // ── Wandeling / 散策記錄 (route recording, geport uit Taiwan Old-Map Stroll) ──
+  // Punten worden gefilterd (nauwkeurigheid > 80 m of < 3 m verplaatsing = ruis),
+  // sporen blijven volledig lokaal in localStorage — geen backend, geen tracking.
+  let isRecording = false, currentTrace = null, recordPolyline = null, recTimerId = null;
+  let shownTraceId = null, shownTraceLayer = null, walkWakeLock = null;
+  let savedTraces = [];
+  try { savedTraces = JSON.parse(localStorage.getItem('nlOldMaps.traces') || '[]'); } catch (e) {}
+  function persistTraces() { try { localStorage.setItem('nlOldMaps.traces', JSON.stringify(savedTraces)); } catch (e) {} }
+
+  function calcDistance(pts) {
+    let d = 0;
+    for (let i = 1; i < pts.length; i++) d += haversine(pts[i-1].lat, pts[i-1].lng, pts[i].lat, pts[i].lng);
+    return d;
+  }
+  function fmtDist(m) { return m < 1000 ? Math.round(m) + ' m' : (m / 1000).toFixed(2) + ' km'; }
+  function fmtDur(ms) {
+    const s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
+    return h ? h + ':' + String(m).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0')
+             : m + ':' + String(s % 60).padStart(2, '0');
+  }
+  async function acquireWalkWakeLock() {
+    try { if ('wakeLock' in navigator) walkWakeLock = await navigator.wakeLock.request('screen'); } catch (e) {}
+  }
+  function releaseWalkWakeLock() {
+    try { if (walkWakeLock) { walkWakeLock.release(); walkWakeLock = null; } } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && isRecording) acquireWalkWakeLock();
+  });
+
+  function updateRecordBtn() {
+    const btn = document.getElementById('btn-record');
+    btn.classList.toggle('recording', isRecording);
+    btn.querySelector('.lbl').textContent = isRecording ? t('walk.stop') : t('walk.record');
+  }
+  function toggleRecording() { if (isRecording) stopRecording(); else startRecording(); }
+  function startRecording() {
+    if (isRecording || watchId == null) return;
+    isRecording = true;
+    currentTrace = {
+      id: 'tr-' + Date.now(),
+      startTime: Date.now(),
+      cityId: state.city.id,
+      year: state.year,
+      points: [],
+    };
+    if (recordPolyline) map.removeLayer(recordPolyline);
+    recordPolyline = L.polyline([], { color: '#C15F3C', weight: 5, opacity: 0.85, lineCap: 'round', lineJoin: 'round' }).addTo(map);
+    document.getElementById('rec-status').classList.add('show');
+    if (recTimerId) clearInterval(recTimerId);
+    recTimerId = setInterval(updateRecTimer, 1000);
+    updateRecTimer();
+    updateRecordBtn();
+    acquireWalkWakeLock();
+  }
+  function stopRecording() {
+    if (!isRecording) return;
+    isRecording = false;
+    releaseWalkWakeLock();
+    if (recTimerId) { clearInterval(recTimerId); recTimerId = null; }
+    if (recordPolyline) { map.removeLayer(recordPolyline); recordPolyline = null; }
+    if (currentTrace && currentTrace.points.length >= 2) {
+      currentTrace.endTime = Date.now();
+      currentTrace.distance = calcDistance(currentTrace.points);
+      savedTraces.unshift(currentTrace);
+      persistTraces();
+      renderTraceList();
+    }
+    currentTrace = null;
+    document.getElementById('rec-status').classList.remove('show');
+    updateRecordBtn();
+  }
+  function addTracePoint(lat, lng, acc, ts) {
+    if (!currentTrace || acc > 80) return;
+    const last = currentTrace.points[currentTrace.points.length - 1];
+    if (last && haversine(last.lat, last.lng, lat, lng) < 3) return;
+    currentTrace.points.push({ lat: lat, lng: lng, t: ts, a: Math.round(acc) });
+    recordPolyline.addLatLng([lat, lng]);
+    updateRecTimer();
+  }
+  function updateRecTimer() {
+    if (!currentTrace) return;
+    document.getElementById('rec-dist').textContent = fmtDist(calcDistance(currentTrace.points));
+    document.getElementById('rec-time').textContent = fmtDur(Date.now() - currentTrace.startTime);
+    document.getElementById('rec-points').textContent = String(currentTrace.points.length);
+  }
+
+  function traceCityName(tr) {
+    const c = CITIES.find(x => x.id === tr.cityId);
+    return c ? (lang === 'zh' ? c.zh : c.en) : (tr.cityId || '');
+  }
+  function renderTraceList() {
+    const list = document.getElementById('trace-list');
+    if (!savedTraces.length) { list.innerHTML = '<div class="trace-empty">' + t('walk.empty') + '</div>'; return; }
+    list.innerHTML = savedTraces.map(tr => {
+      const dur = (tr.endTime || Date.now()) - tr.startTime;
+      const dateStr = new Date(tr.startTime).toLocaleString(lang === 'zh' ? 'zh-TW' : (lang === 'nl' ? 'nl-NL' : 'en-GB'),
+        { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+      return '<div class="trace-row' + (tr.id === shownTraceId ? ' shown' : '') + '" data-id="' + tr.id + '">'
+        + '<div class="trace-info">'
+        + '<div class="trace-date">' + dateStr + '</div>'
+        + '<div class="trace-city">' + traceCityName(tr) + ' · ' + (tr.year || '') + '</div>'
+        + '<div class="trace-meta">' + fmtDist(tr.distance || 0) + ' · ' + fmtDur(dur) + ' · ' + tr.points.length + ' pts</div>'
+        + '</div><div class="trace-actions">'
+        + '<button data-act="share" data-id="' + tr.id + '">' + t('walk.share') + '</button>'
+        + '<button data-act="export" data-id="' + tr.id + '">' + t('walk.export') + '</button>'
+        + '<button data-act="delete" data-id="' + tr.id + '" class="danger">' + t('walk.delete') + '</button>'
+        + '</div></div>';
+    }).join('');
+  }
+  function showTraceOnMap(id) {
+    if (shownTraceLayer) { map.removeLayer(shownTraceLayer); shownTraceLayer = null; }
+    if (shownTraceId === id) { shownTraceId = null; renderTraceList(); return; }
+    const tr = savedTraces.find(x => x.id === id);
+    if (!tr || tr.points.length < 2) return;
+    const coords = tr.points.map(p => [p.lat, p.lng]);
+    shownTraceLayer = L.polyline(coords, { color: '#C15F3C', weight: 5, opacity: 0.8, lineCap: 'round', lineJoin: 'round' }).addTo(map);
+    map.fitBounds(shownTraceLayer.getBounds(), { padding: [40, 40] });
+    shownTraceId = id;
+    renderTraceList();
+  }
+  function exportTraceGeoJSON(id) {
+    const tr = savedTraces.find(x => x.id === id);
+    if (!tr) return;
+    const gj = {
+      type: 'Feature',
+      properties: {
+        app: 'nl-old-map-stroll', city: tr.cityId, mapYear: tr.year,
+        startTime: new Date(tr.startTime).toISOString(),
+        endTime: tr.endTime ? new Date(tr.endTime).toISOString() : null,
+        distance_m: Math.round(tr.distance || 0),
+      },
+      geometry: { type: 'LineString', coordinates: tr.points.map(p => [p.lng, p.lat]) },
+    };
+    const blob = new Blob([JSON.stringify(gj, null, 2)], { type: 'application/geo+json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'walk-' + new Date(tr.startTime).toISOString().slice(0, 10) + '.geojson';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  }
+  function deleteTrace(id) {
+    if (!confirm(t('walk.confirmdel'))) return;
+    savedTraces = savedTraces.filter(x => x.id !== id);
+    persistTraces();
+    if (shownTraceId === id && shownTraceLayer) { map.removeLayer(shownTraceLayer); shownTraceLayer = null; shownTraceId = null; }
+    renderTraceList();
+  }
+
+  // ── Wandel-deelkaart: 1080×1920 met kaartcompositie (basis + historisch) ──
+  function loadTileImg(src) {
+    return new Promise((resolve, reject) => {
+      const i = new Image(); i.crossOrigin = 'anonymous';
+      i.onload = () => resolve(i); i.onerror = reject; i.src = src;
+    });
+  }
+  // Eén historische 3857-tegel op een eigen 256px-canvas (PMTiles eerst, dan RD-herprojectie).
+  async function renderHistTileCanvas(x, y, z, serviceId) {
+    const cv = document.createElement('canvas');
+    cv.width = 256; cv.height = 256;
+    const ctx = cv.getContext('2d');
+    const arch = pmtilesFor(serviceId, { x: x, y: y, z: z });
+    if (arch) {
+      try {
+        const res = await arch.pm.getZxy(z, x, y);
+        if (res && res.data) {
+          const url = URL.createObjectURL(new Blob([res.data]));
+          try { ctx.drawImage(await loadTileImg(url), 0, 0, 256, 256); return cv; }
+          finally { URL.revokeObjectURL(url); }
+        }
+      } catch (e) {}
+    }
+    const base = ARC + 'Historische_tijdreis_' + serviceId + '/MapServer/tile';
+    const geom = histTileGeom(x, y, z);
+    const rdToPx = (rx, ry) => {
+      const merc = RD_TO_3857.forward([rx, ry]);
+      const wp = map.project(L.CRS.EPSG3857.unproject(L.point(merc[0], merc[1])), z);
+      return [wp.x - geom.tilePoint.x, wp.y - geom.tilePoint.y];
+    };
+    let painted = false;
+    await Promise.all(geom.tiles.map(async cr => {
+      try {
+        const src = await offlineTileSrc(base + '/' + geom.lvl + '/' + cr[1] + '/' + cr[0]);
+        const img = await loadTileImg(src);
+        const x0 = RD_ORIGIN_X + cr[0] * geom.rdTileM, y0 = RD_ORIGIN_Y - cr[1] * geom.rdTileM;
+        const a = rdToPx(x0, y0), b = rdToPx(x0 + geom.rdTileM, y0 - geom.rdTileM);
+        ctx.drawImage(img, a[0], a[1], b[0] - a[0], b[1] - a[1]);
+        painted = true;
+      } catch (e) {}
+    }));
+    return painted ? cv : null;
+  }
+  function pickZoomForBounds(bounds, w, h) {
+    for (let z = 17; z >= 7; z--) {
+      const a = map.project(bounds.getNorthWest(), z), b = map.project(bounds.getSouthEast(), z);
+      if (Math.abs(b.x - a.x) <= w && Math.abs(b.y - a.y) <= h) return z;
+    }
+    return 7;
+  }
+  async function renderWalkMap(ctx, tr, dx, dy, size) {
+    const lats = tr.points.map(p => p.lat), lngs = tr.points.map(p => p.lng);
+    let bounds = L.latLngBounds([Math.min.apply(null, lats), Math.min.apply(null, lngs)],
+                                [Math.max.apply(null, lats), Math.max.apply(null, lngs)]);
+    bounds = bounds.pad(0.35);
+    const zoom = pickZoomForBounds(bounds, size, size);
+    const c = map.project(bounds.getCenter(), zoom);
+    const originX = c.x - size / 2, originY = c.y - size / 2;
+    const t0x = Math.floor(originX / 256), t0y = Math.floor(originY / 256);
+    const t1x = Math.floor((originX + size) / 256), t1y = Math.floor((originY + size) / 256);
+    const svc = nearestService(tr.year || state.year).id;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(dx, dy, size, size); ctx.clip();
+    ctx.fillStyle = '#EAE8E2'; ctx.fillRect(dx, dy, size, size);
+    const baseTpl = BASE_MAPS[state.base].url;
+    const cells = [];
+    for (let tx = t0x; tx <= t1x; tx++) for (let ty = t0y; ty <= t1y; ty++) {
+      cells.push({ tx: tx, ty: ty, px: dx + tx * 256 - originX, py: dy + ty * 256 - originY });
+    }
+    await Promise.all(cells.map(cell =>
+      offlineTileSrc(baseTpl.replace('{z}', zoom).replace('{x}', cell.tx).replace('{y}', cell.ty))
+        .then(loadTileImg)
+        .then(img => { ctx.drawImage(img, cell.px, cell.py, 256, 256); })
+        .catch(() => {})
+    ));
+    const histCanvases = await Promise.all(cells.map(cell =>
+      renderHistTileCanvas(cell.tx, cell.ty, zoom, svc).catch(() => null)));
+    ctx.globalAlpha = state.opacity;
+    histCanvases.forEach((cv, i) => { if (cv) ctx.drawImage(cv, cells[i].px, cells[i].py); });
+    ctx.globalAlpha = 1;
+    ctx.restore();
+    return function (lat, lng) {
+      const p = map.project([lat, lng], zoom);
+      return { x: dx + p.x - originX, y: dy + p.y - originY };
+    };
+  }
+  async function buildWalkCard(tr) {
+    if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+    const W = 1080, H = 1920, PAD = 80;
+    const cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#F1EFE9'; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = '#D6D3CB'; ctx.lineWidth = 2;
+    ctx.strokeRect(24, 24, W - 48, H - 48);
+    // Kop
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#C15F3C'; ctx.font = "italic 30px 'EB Garamond',Georgia,serif";
+    ctx.fillText('Nederland · Old-Map Stroll', PAD, 130);
+    ctx.fillStyle = '#1F1D19'; ctx.font = "600 84px 'Noto Serif TC','Songti TC',serif";
+    ctx.fillText(lang === 'zh' ? '荷蘭古地圖散策' : (lang === 'nl' ? 'Oude-Kaart Wandeling' : 'Old-Map Stroll'), PAD, 232);
+    const dateStr = new Date(tr.startTime).toLocaleString(lang === 'zh' ? 'zh-TW' : 'nl-NL',
+      { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+    ctx.fillStyle = '#807C73'; ctx.font = "400 24px 'JetBrains Mono',monospace";
+    ctx.fillText(dateStr + ' · ' + traceCityName(tr) + ' · ANNO ' + (tr.year || state.year), PAD, 286);
+    ctx.fillStyle = '#C15F3C'; ctx.fillRect(PAD, 312, 64, 5);
+    // Statistieken
+    const stats = [
+      [t('walk.dist').toUpperCase(), fmtDist(tr.distance || 0)],
+      [t('walk.time').toUpperCase(), fmtDur((tr.endTime || Date.now()) - tr.startTime)],
+      [t('walk.pts').toUpperCase(), String(tr.points.length)],
+    ];
+    const colW = (W - PAD * 2) / 3;
+    ctx.fillStyle = '#A6A399'; ctx.font = "500 21px 'JetBrains Mono',monospace";
+    stats.forEach((s, i) => ctx.fillText(s[0], PAD + i * colW, 390));
+    ctx.fillStyle = '#1F1D19'; ctx.font = "600 54px 'Noto Serif TC','Songti TC',serif";
+    stats.forEach((s, i) => ctx.fillText(s[1], PAD + i * colW, 452));
+    // Kaart (920×920) met route
+    const mapX = PAD, mapY = 510, mapSize = W - PAD * 2;
+    let project = null;
+    try { project = await renderWalkMap(ctx, tr, mapX, mapY, mapSize); } catch (e) {}
+    ctx.strokeStyle = '#BBB8AE'; ctx.lineWidth = 2;
+    ctx.strokeRect(mapX, mapY, mapSize, mapSize);
+    if (project) {
+      ctx.save();
+      ctx.beginPath(); ctx.rect(mapX, mapY, mapSize, mapSize); ctx.clip();
+      ctx.strokeStyle = 'rgba(241,239,233,0.9)'; ctx.lineWidth = 16;
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath();
+      tr.points.forEach((p, i) => { const q = project(p.lat, p.lng); if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
+      ctx.stroke();
+      ctx.strokeStyle = '#C15F3C'; ctx.lineWidth = 9;
+      ctx.stroke();
+      const s0 = project(tr.points[0].lat, tr.points[0].lng);
+      const s1 = project(tr.points[tr.points.length - 1].lat, tr.points[tr.points.length - 1].lng);
+      ctx.fillStyle = '#F1EFE9'; ctx.beginPath(); ctx.arc(s0.x, s0.y, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#565347'; ctx.beginPath(); ctx.arc(s0.x, s0.y, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#F1EFE9'; ctx.beginPath(); ctx.arc(s1.x, s1.y, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#C15F3C'; ctx.beginPath(); ctx.arc(s1.x, s1.y, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+    // Voet
+    const footY = mapY + mapSize + 70;
+    ctx.strokeStyle = '#D6D3CB'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(PAD, footY); ctx.lineTo(W - PAD, footY); ctx.stroke();
+    ctx.fillStyle = '#807C73'; ctx.font = "400 22px 'JetBrains Mono',monospace";
+    ctx.fillText('yunching0513.github.io/Netherlands-historical-map', PAD, footY + 52);
+    ctx.fillStyle = '#A6A399'; ctx.font = "400 19px 'Noto Sans TC',system-ui,sans-serif";
+    ctx.fillText('Historische kaart © Kadaster, CC-BY 4.0 · Basiskaart © PDOK', PAD, footY + 92);
+    return new Promise((resolve, reject) => {
+      cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.92);
+    });
+  }
+  async function shareWalk(id, btnEl) {
+    const tr = savedTraces.find(x => x.id === id);
+    if (!tr || tr.points.length < 2) return;
+    const orig = btnEl ? btnEl.textContent : '';
+    if (btnEl) { btnEl.disabled = true; btnEl.textContent = t('walk.saving'); }
+    try {
+      const blob = await buildWalkCard(tr);
+      const file = new File([blob], 'walk-' + new Date(tr.startTime).toISOString().slice(0, 10) + '.jpg', { type: 'image/jpeg' });
+      const text = traceCityName(tr) + ' · ' + fmtDist(tr.distance || 0)
+        + '\n荷蘭古地圖散策 https://yunching0513.github.io/Netherlands-historical-map/';
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text: text });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = file.name;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      }
+    } catch (e) {}
+    if (btnEl) { btnEl.disabled = false; btnEl.textContent = orig; }
+  }
+
+  document.getElementById('btn-record').addEventListener('click', toggleRecording);
+  document.getElementById('trace-list').addEventListener('click', e => {
+    const actBtn = e.target.closest('button[data-act]');
+    if (actBtn) {
+      const id = actBtn.dataset.id;
+      if (actBtn.dataset.act === 'share') shareWalk(id, actBtn);
+      else if (actBtn.dataset.act === 'export') exportTraceGeoJSON(id);
+      else if (actBtn.dataset.act === 'delete') deleteTrace(id);
+      return;
+    }
+    const row = e.target.closest('.trace-row');
+    if (row) showTraceOnMap(row.dataset.id);
+  });
+  renderTraceList();
 
   function updateMeta() {
     const c = map.getCenter();

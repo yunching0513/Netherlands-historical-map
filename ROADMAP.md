@@ -44,6 +44,9 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | todo | verify coords + PD/CC images via Commons API |
 | B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | todo | licensing rules in postcards/SOURCING.md |
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | todo | low effort, high credibility |
+| B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
+| B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | todo | follow-up to B-16 |
+| B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | todo | retention loop |
 
 ### P2 — institutional / academic track
 | id | item | status | notes |
@@ -75,6 +78,11 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-07-03 (2)** — B-16 shipped: walk recording ported from the owner's
+  taiwan-historical-maps (GPS trace w/ noise filter >80m acc & <3m step, wake lock,
+  live dist/time/points, saved walks in nlOldMaps.traces, replay on map, GeoJSON
+  export, delete, 1080×1920 share card compositing base+historical tiles with the
+  vermilion route). Follow-ups queued: B-17 photos, B-18 city seals.
 - **2026-07-03** — Loop bootstrapped. Shipped: og:image (baked-map postcard style),
   twitter cards, canonical, JSON-LD, sitemap.xml (25 URLs), robots.txt, this roadmap,
   outreach drafts (docs/OUTREACH.md). Next: B-4 launch copy pack, B-5 SEO anchors,
