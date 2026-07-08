@@ -327,6 +327,8 @@
   .plan-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
   .sister-pill { display:inline-flex; align-items:center; gap:5px; text-decoration:none; }
   .sister-pill .arr { color:var(--vermilion); font-size:11px; }
+  .kofi-pill { display:inline-flex; align-items:center; gap:5px; text-decoration:none; border-color:var(--vermilion) !important; color:var(--vermilion) !important; }
+  .kofi-pill:hover { background:var(--vermilion-l); }
   /* Daily draw */
   .daily-fab { position:absolute; left:20px; top:108px; z-index:905; width:38px; height:38px; display:flex; align-items:center; justify-content:center; border:1px solid var(--stone); background:var(--paper-2); color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; }
   .daily-fab:hover { color:var(--vermilion); border-color:var(--vermilion); }
@@ -593,6 +595,9 @@
           <a class="pill-toggle sister-pill" id="sister-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener">
             <span data-i18n="sister.label">台灣舊地圖</span> <span class="arr">↗</span>
           </a>
+          <a class="pill-toggle kofi-pill" href="https://ko-fi.com/yunching0513" target="_blank" rel="noopener">
+            ☕ <span data-i18n="kofi.label">請我喝杯咖啡</span>
+          </a>
         </div>
         <div class="head-meta" id="head-meta">N — · E —</div>
       </div>
@@ -614,6 +619,7 @@
       <span class="about-links">
         <a class="about-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener"><span data-i18n="sister.full">姊妹專案：台灣舊地圖</span> ↗</a>
         <a class="about-link" href="https://github.com/yunching0513/Netherlands-historical-map" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="about-link" href="https://ko-fi.com/yunching0513" target="_blank" rel="noopener">☕ <span data-i18n="kofi.label">請我喝杯咖啡</span> ↗</a>
       </span>
     </footer>
   </article>
@@ -974,6 +980,7 @@
       'walk.rec': 'OPNAME', 'walk.dist': 'Afstand', 'walk.time': 'Tijd', 'walk.pts': 'Punten',
       'walk.empty': 'Nog geen wandelingen', 'walk.share': 'Kaart', 'walk.export': 'GeoJSON', 'walk.delete': 'Wis',
       'walk.confirmdel': 'Deze wandeling wissen?', 'walk.saving': 'Bezig…',
+      'kofi.label': 'Trakteer op koffie',
       'sec.plan': 'Ruimtelijk', 'sec.plan.en': 'ruimtelijk', 'plan.zoning': 'Bestemmingsplan', 'plan.landuse': 'Bodemgebruik',
       'plan.hint': 'Actuele bestemmingsplannen & bodemgebruik (CC0, via PDOK), als overlay op de kaart.',
       'legend.title': 'Legenda', 'legend.note': 'Labels in het Nederlands (officiële PDOK-legenda).',
@@ -1016,6 +1023,7 @@
       'walk.rec': 'RECORDING', 'walk.dist': 'Distance', 'walk.time': 'Time', 'walk.pts': 'Points',
       'walk.empty': 'No walks yet', 'walk.share': 'Card', 'walk.export': 'GeoJSON', 'walk.delete': 'Delete',
       'walk.confirmdel': 'Delete this walk?', 'walk.saving': 'Saving…',
+      'kofi.label': 'Buy me a coffee',
       'sec.plan': 'Planning', 'sec.plan.en': 'planning', 'plan.zoning': 'Zoning', 'plan.landuse': 'Land use',
       'plan.hint': 'Current Dutch zoning plans & land use (CC0, via PDOK), as a map overlay.',
       'legend.title': 'Legend', 'legend.note': 'Labels are in Dutch (official PDOK legend).',
@@ -1058,6 +1066,7 @@
       'walk.rec': '記錄中', 'walk.dist': '距離', 'walk.time': '時間', 'walk.pts': '點數',
       'walk.empty': '尚無散策記錄', 'walk.share': '分享卡', 'walk.export': 'GeoJSON', 'walk.delete': '刪除',
       'walk.confirmdel': '確定刪除這條散策路線？', 'walk.saving': '輸出中…',
+      'kofi.label': '請我喝杯咖啡',
       'sec.plan': '規劃圖', 'sec.plan.en': '規劃', 'plan.zoning': '都市計畫', 'plan.landuse': '土地利用',
       'plan.hint': '荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。',
       'legend.title': '圖例', 'legend.note': '標籤為荷蘭文（PDOK 官方圖例）。',
