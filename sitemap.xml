@@ -5,6 +5,10 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/about.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=amsterdam</loc>
     <priority>0.8</priority>
   </url>
