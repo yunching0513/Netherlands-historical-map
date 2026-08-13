@@ -57,7 +57,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-20 | `about.html` / colofon: method (RD→3857 reprojection, PMTiles), data sources & licenses, citation block (BibTeX), contact | done | 2026-08-13 |
 | B-21 | Outreach emails NL/EN drafted (Kadaster, Amsterdam Time Machine/UvA, TU Delft, CLUE+ VU, Netherlands eScience Center) | done | see docs/OUTREACH.md — owner sends |
 | B-22 | Submission targets: DH Benelux 2027, FOSS4G-NL, Stimuleringsfonds Creatieve Industrie open call | todo | loop drafts abstracts when B-20 done |
-| B-23 | Zenodo DOI for the repo (citable artifact) | BLOCKED(user) | needs owner's ORCID/Zenodo login |
+| B-23 | Zenodo DOI for the repo (citable artifact) | BLOCKED(user) | owner sent `10.5281/zenodo.21924252` on 2026-08-13 but it does NOT resolve (doi.org, Zenodo API, and DataCite all 404 it — record id is far above Zenodo's current allocated range). Not added to about.html's citation block to avoid publishing a dead DOI. Owner: please re-check the Zenodo deposit was actually published (not just a draft/reserved DOI) and re-send the correct id. |
 
 ### P3 — app-store track (owner-driven, guides ready)
 | id | item | status | notes |
@@ -81,6 +81,15 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-13 (3)** — Owner sent a Zenodo DOI (`10.5281/zenodo.21924252`) intended to close
+  B-23. Verified it before touching any files: `curl -L https://doi.org/...`, the DataCite
+  API, and `zenodo.org/api/records/21924252` all return 404. Sanity check confirmed network/
+  tooling was fine (a known-good Zenodo DOI resolved 200, and record id 14,000,000 exists) —
+  21,924,252 is simply outside Zenodo's current allocated id range, so this is very likely a
+  typo/transcription error or a draft deposit that was never actually published. Did **not**
+  add it to about.html's BibTeX block — a dead DOI in a citation aimed at academics would be
+  worse than no DOI. B-23 stays BLOCKED(user); left a note in the backlog row above asking
+  the owner to confirm the Zenodo record is published and re-send the id.
 - **2026-08-13 (2)** — B-1 unblocked: owner supplied GoatCounter site code (`yunching`).
   Added the GoatCounter script tag (`data-goatcounter`, async, cookieless) to index.html's
   `<head>`; excluded from the inline-script `node --check` sweep because it uses `src=`.
