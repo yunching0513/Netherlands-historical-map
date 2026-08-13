@@ -18,8 +18,9 @@
 
 ## Operating metrics
 
-- Pageviews: **NOT YET MEASURED** — blocked on analytics (see B-1). Until then the
-  5M goal is unfalsifiable; this is the single most urgent user action.
+- Pageviews: **instrumented 2026-08-13** via GoatCounter (site `yunching`, script tag live
+  in index.html). No historical data yet — check https://yunching.goatcounter.com for counts
+  going forward; update this section once there's a real number to report against the 5M goal.
 - Secondary: PWA installs, share-card downloads, GitHub stars, inbound links.
 
 ## Backlog
@@ -29,7 +30,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 ### P0 — measurement & distribution readiness
 | id | item | status | notes |
 |---|---|---|---|
-| B-1 | Analytics: owner creates free GoatCounter account, gives site code; loop adds the script tag | **BLOCKED(user)** | Without this, no view counting. ~5 min task. |
+| B-1 | Analytics: owner creates free GoatCounter account, gives site code; loop adds the script tag | done | 2026-08-13 — owner gave site code `yunching`; script tag added to index.html `<head>`; privacy.html updated to disclose it |
 | B-2 | OG image + twitter card + canonical + JSON-LD | done | 2026-07-03 |
 | B-3 | sitemap.xml + robots.txt (25 URLs) | done | 2026-07-03 |
 | B-4 | Launch-post copy pack: Reddit (r/thenetherlands, r/MapPorn, r/dataisbeautiful, r/Amsterdam), Show HN, Tweakers, X/Bluesky threads — NL + EN versions ready to paste | todo | owner posts; loop writes |
@@ -80,6 +81,15 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-13 (2)** — B-1 unblocked: owner supplied GoatCounter site code (`yunching`).
+  Added the GoatCounter script tag (`data-goatcounter`, async, cookieless) to index.html's
+  `<head>`; excluded from the inline-script `node --check` sweep because it uses `src=`.
+  Updated privacy.html (NL/EN/ZH) to honestly disclose the new analytics — removed the blanket
+  "no tracking" claim and added a bullet describing GoatCounter as privacy-friendly/cookieless
+  aggregate-only pageview counting, with a link to GoatCounter's own privacy policy. Updated
+  Operating metrics: pageviews are now instrumented but no historical data exists yet — next
+  loop (or the owner) should check https://yunching.goatcounter.com and report a real number
+  once there's traffic to look at. No other backlog items touched this pass.
 - **2026-08-13** — Shipped B-5, B-20, B-15 (SEO + academic-credibility cluster, per the
   "compounds toward the north-star goals" bias). B-5: added a `<noscript>` block right after
   `<body>` with an h1 + per-city (all 20) NL paragraphs describing each city's historical-map
