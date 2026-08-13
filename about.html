@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Colofon · Methode &amp; bronnen · 學術資訊 — Oude-Kaart Wandeling</title>
+<meta name="description" content="Colofon: methode (RD→Web Mercator herprojectie, PMTiles), databronnen &amp; licenties, citatie (BibTeX), contact — voor onderzoekers en erfgoedinstellingen." />
+<link rel="canonical" href="https://yunching0513.github.io/Netherlands-historical-map/about.html" />
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+<style>
+  body { font-family: 'Noto Sans TC', system-ui, sans-serif; max-width: 760px; margin: 0 auto;
+         padding: 48px 24px 96px; color: #1F1D19; background: #F1EFE9; line-height: 1.85; font-weight: 300; }
+  h1 { font-size: 24px; letter-spacing: 0.08em; border-bottom: 3px solid #C15F3C; padding-bottom: 12px; }
+  h2 { font-size: 17px; margin-top: 40px; color: #565347; letter-spacing: 0.04em; border-top: 1px solid #DAD7CC; padding-top: 28px; }
+  h3 { font-size: 13px; margin-top: 22px; color: #9E4B2E; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+  a { color: #C15F3C; }
+  ul, ol { padding-left: 1.2em; }
+  li { margin: 5px 0; }
+  code { background: #EAE8E2; padding: 1px 5px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; }
+  pre { background: #1F1D19; color: #F1EFE9; padding: 18px 20px; overflow-x: auto; font-size: 12.5px;
+        font-family: 'JetBrains Mono', monospace; line-height: 1.6; border-radius: 2px; }
+  .lead { color: #807C73; }
+  .note { color: #807C73; font-size: 13px; border-left: 3px solid #BBB8AE; padding-left: 12px; margin-top: 28px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 13.5px; }
+  th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid #DAD7CC; vertical-align: top; }
+  th { color: #565347; font-weight: 500; }
+</style>
+</head>
+<body>
+  <h1>Colofon &amp; methode · 學術資訊 · Colophon</h1>
+  <p class="lead">Oude-Kaart Wandeling door Nederland · 荷蘭古地圖散策 — voor onderzoekers, erfgoedinstellingen en iedereen die wil weten hoe dit gemaakt is.</p>
+
+  <h2>NL — Methode</h2>
+  <p>De kaart draait in <strong>EPSG:3857 (Web Mercator)</strong>, met Leaflet 1.9.4 als kaartmotor. De
+  historische kaartlagen van Kadaster/Topotijdreis bestaan echter alleen in het nationale
+  driehoeksstelsel <strong>RD, EPSG:28992</strong> (Bessel-ellipsoïde, dubbele stereografische projectie,
+  oorsprong Amersfoort). Elke tegel wordt <em>on the fly</em> met <strong>proj4js</strong> herprojecteerd:
+  voor elke pixel van de doeltegel (3857) wordt de RD-coördinaat berekend, de bijbehorende bronpixel uit de
+  RD-tegel opgezocht en op een <code>&lt;canvas&gt;</code> getekend. Dit gebeurt in een eigen
+  Leaflet <code>GridLayer</code> (<code>createTopotijdreisLayer</code>) — geen kant-en-klare
+  proj4leaflet-afhankelijkheid.</p>
+  <p>Voor offline gebruik en snellere laadtijden worden veelbezochte stad/jaar-combinaties vooraf gebakken
+  tot <strong><a href="https://github.com/protomaps/PMTiles" target="_blank" rel="noopener">PMTiles</a></strong>-archieven
+  (al herprojecteerd naar 3857, zodat geen runtime-canvasbewerking nodig is): zie
+  <code><a href="https://github.com/yunching0513/Netherlands-historical-map/blob/main/tools/bake_pmtiles.py" target="_blank" rel="noopener">tools/bake_pmtiles.py</a></code>.
+  De app laadt eerst <code>pmtiles/manifest.json</code>; is er een archief voor de huidige laag/kaartuitsnede,
+  dan wordt de tegel daaruit gelezen (geen netwerkverkeer); anders valt de app terug op de online
+  Topotijdreis-service. De jaarschuif (1815–2021) rondt af naar het dichtstbijzijnde jaar waarvoor
+  daadwerkelijk een kaartserie bestaat (TMK, Bonnebladen, topografische kaart 1:25.000, actueel).</p>
+
+  <h3>Databronnen &amp; licenties</h3>
+  <table>
+    <tr><th>Bron</th><th>Gebruik</th><th>Licentie</th></tr>
+    <tr><td>Kadaster — Topotijdreis (via Esri Nederland, ArcGIS Online)</td><td>Historische topografische kaartseries, 1815–heden</td><td>CC BY 4.0</td></tr>
+    <tr><td>PDOK — BRT Achtergrondkaart (Kadaster)</td><td>Actuele basiskaart (straat/grijs)</td><td>CC BY 4.0</td></tr>
+    <tr><td>PDOK — Beeldmateriaal Nederland</td><td>Actuele luchtfoto</td><td>Open data</td></tr>
+    <tr><td>Wikimedia Commons (via <code>action=query&amp;prop=imageinfo</code>)</td><td>Kunst-ansichtkaarten &amp; architectuur-landmarks</td><td>Alleen Public Domain / CC0 / CC-BY(-SA); per afbeelding geverifieerd via <code>extmetadata.LicenseShortName</code></td></tr>
+    <tr><td>Leaflet, proj4js, PMTiles.js</td><td>Kaartmotor, coördinaattransformatie, offline-tegels</td><td>Open source (zie repo)</td></tr>
+  </table>
+  <p>Bij elke ansichtkaart en elk landmark staan kunstenaar/architect, jaartal, instelling, licentie en een
+  directe link naar de Commons-bestandspagina. Volledige bronvermelding: <a href="credits.html">credits.html</a>.</p>
+
+  <h3>Citeren</h3>
+  <p>Gebruik je dit platform in onderzoek, onderwijs of een publicatie? Citeer het als volgt:</p>
+  <pre>@misc{wu_oudekaartwandeling,
+  author       = {Wu, Yunching (吳昀慶)},
+  title        = {Oude-Kaart Wandeling door Nederland
+                  (荷蘭古地圖散策): an interactive overlay of
+                  Dutch historical topographic maps, 1815--2021},
+  year         = {2026},
+  url          = {https://yunching0513.github.io/Netherlands-historical-map/},
+  howpublished = {\url{https://github.com/yunching0513/Netherlands-historical-map}},
+  note         = {Web application. Historical map data:
+                  Kadaster Topotijdreis, CC BY 4.0.}
+}</pre>
+
+  <h3>Contact</h3>
+  <p>Vragen, samenwerking, correcties of institutionele interesse (Kadaster, universiteiten,
+  erfgoedorganisaties) — welkom via:</p>
+  <ul>
+    <li>GitHub: <a href="https://github.com/yunching0513/Netherlands-historical-map/issues" target="_blank" rel="noopener">issues op de repo</a> of <a href="https://github.com/yunching0513" target="_blank" rel="noopener">@yunching0513</a></li>
+    <li>Steun het project: <a href="https://ko-fi.com/yunching0513" target="_blank" rel="noopener">ko-fi.com/yunching0513</a></li>
+  </ul>
+
+  <h2>EN — Methodology</h2>
+  <p>The map runs in <strong>EPSG:3857 (Web Mercator)</strong> using Leaflet 1.9.4. Kadaster's Topotijdreis
+  historical layers, however, only exist in the Dutch national grid <strong>RD (EPSG:28992)</strong>
+  (Bessel ellipsoid, double stereographic projection, origin at Amersfoort). Every tile is reprojected
+  on the fly with <strong>proj4js</strong>: for each pixel of the target (3857) tile, the corresponding
+  RD coordinate is computed, the matching source pixel is sampled from the RD tile, and drawn to a
+  <code>&lt;canvas&gt;</code>. This runs inside a custom Leaflet <code>GridLayer</code>
+  (<code>createTopotijdreisLayer</code>) — no proj4leaflet dependency.</p>
+  <p>For offline use and faster loads, popular city/year combinations are pre-baked into
+  <strong><a href="https://github.com/protomaps/PMTiles" target="_blank" rel="noopener">PMTiles</a></strong>
+  archives (already reprojected to 3857, so no runtime canvas work is needed): see
+  <code><a href="https://github.com/yunching0513/Netherlands-historical-map/blob/main/tools/bake_pmtiles.py" target="_blank" rel="noopener">tools/bake_pmtiles.py</a></code>.
+  The app first loads <code>pmtiles/manifest.json</code>; if a baked archive covers the current
+  layer/viewport it reads the tile from there (zero network); otherwise it falls back to the live
+  Topotijdreis service. The year slider (1815–2021) snaps to the nearest year for which a real map
+  series exists (TMK, Bonnebladen, 1:25,000 topographic map, current).</p>
+
+  <h3>Data sources &amp; licences</h3>
+  <table>
+    <tr><th>Source</th><th>Use</th><th>Licence</th></tr>
+    <tr><td>Kadaster — Topotijdreis (hosted by Esri Nederland, ArcGIS Online)</td><td>Historical topographic map series, 1815–present</td><td>CC BY 4.0</td></tr>
+    <tr><td>PDOK — BRT Achtergrondkaart (Kadaster)</td><td>Current base map (street/grey)</td><td>CC BY 4.0</td></tr>
+    <tr><td>PDOK — Beeldmateriaal Nederland</td><td>Current aerial imagery</td><td>Open data</td></tr>
+    <tr><td>Wikimedia Commons (via <code>action=query&amp;prop=imageinfo</code>)</td><td>Art postcards &amp; architecture landmarks</td><td>Public Domain / CC0 / CC-BY(-SA) only; each image verified via <code>extmetadata.LicenseShortName</code></td></tr>
+    <tr><td>Leaflet, proj4js, PMTiles.js</td><td>Map engine, coordinate transform, offline tiles</td><td>Open source (see repo)</td></tr>
+  </table>
+  <p>Every postcard and landmark lists artist/architect, date, institution, licence and a direct link to
+  the Commons file page. Full attribution: <a href="credits.html">credits.html</a>.</p>
+
+  <h3>Citation</h3>
+  <p>If you use this platform in research, teaching, or a publication, please cite it as:</p>
+  <pre>@misc{wu_oudekaartwandeling,
+  author       = {Wu, Yunching (吳昀慶)},
+  title        = {Oude-Kaart Wandeling door Nederland
+                  (荷蘭古地圖散策): an interactive overlay of
+                  Dutch historical topographic maps, 1815--2021},
+  year         = {2026},
+  url          = {https://yunching0513.github.io/Netherlands-historical-map/},
+  howpublished = {\url{https://github.com/yunching0513/Netherlands-historical-map}},
+  note         = {Web application. Historical map data:
+                  Kadaster Topotijdreis, CC BY 4.0.}
+}</pre>
+
+  <h3>Contact</h3>
+  <p>Questions, collaboration, corrections, or institutional interest (Kadaster, universities,
+  heritage organisations) are welcome via:</p>
+  <ul>
+    <li>GitHub: <a href="https://github.com/yunching0513/Netherlands-historical-map/issues" target="_blank" rel="noopener">repo issues</a> or <a href="https://github.com/yunching0513" target="_blank" rel="noopener">@yunching0513</a></li>
+    <li>Support the project: <a href="https://ko-fi.com/yunching0513" target="_blank" rel="noopener">ko-fi.com/yunching0513</a></li>
+  </ul>
+
+  <h2>繁體中文 — 方法說明</h2>
+  <p>地圖使用 <strong>EPSG:3857（Web Mercator）</strong>座標系統，以 Leaflet 1.9.4 為地圖引擎。但荷蘭
+  Kadaster「Topotijdreis（時光地圖）」的歷史圖層只存在於荷蘭國家坐標系 <strong>RD（EPSG:28992）</strong>
+  （Bessel 橢球、雙重立體投影，原點位於 Amersfoort）。每張圖磚都即時用 <strong>proj4js</strong> 重新投影：
+  對目標（3857）圖磚上的每個像素，計算對應的 RD 座標，從 RD 圖磚取得對應像素，再畫到
+  <code>&lt;canvas&gt;</code> 上。這個流程包在自訂的 Leaflet <code>GridLayer</code>
+  （<code>createTopotijdreisLayer</code>）中，不依賴 proj4leaflet。</p>
+  <p>為了離線使用與加快載入，常用的城市/年份組合會預先烘焙成
+  <strong><a href="https://github.com/protomaps/PMTiles" target="_blank" rel="noopener">PMTiles</a></strong>
+  封存檔（已預先投影到 3857，執行時不需再做 canvas 運算），見
+  <code><a href="https://github.com/yunching0513/Netherlands-historical-map/blob/main/tools/bake_pmtiles.py" target="_blank" rel="noopener">tools/bake_pmtiles.py</a></code>。
+  App 會先載入 <code>pmtiles/manifest.json</code>；若目前圖層/範圍有對應封存檔，就直接從中讀取圖磚（零網路請求）；
+  否則退回即時 Topotijdreis 服務。年份滑桿（1815–2021）會自動吸附到實際存在圖資的年份（TMK、Bonnebladen、
+  1:25,000 地形圖、現況）。</p>
+
+  <h3>資料來源與授權</h3>
+  <table>
+    <tr><th>來源</th><th>用途</th><th>授權</th></tr>
+    <tr><td>Kadaster — Topotijdreis（由 Esri Nederland 於 ArcGIS Online 託管）</td><td>1815 年至今的歷史地形圖系列</td><td>CC BY 4.0</td></tr>
+    <tr><td>PDOK — BRT Achtergrondkaart（Kadaster）</td><td>現況底圖（街道／灰階）</td><td>CC BY 4.0</td></tr>
+    <tr><td>PDOK — Beeldmateriaal Nederland</td><td>現況空照圖</td><td>開放資料</td></tr>
+    <tr><td>Wikimedia Commons（透過 <code>action=query&amp;prop=imageinfo</code>）</td><td>名畫明信片與建築地標</td><td>僅收公眾領域／CC0／CC-BY(-SA)，每張圖經 <code>extmetadata.LicenseShortName</code> 驗證</td></tr>
+    <tr><td>Leaflet、proj4js、PMTiles.js</td><td>地圖引擎、座標轉換、離線圖磚</td><td>開源軟體（詳見原始碼）</td></tr>
+  </table>
+  <p>每張明信片與地標都標明畫家／建築師、年代、館藏機構、授權，以及 Commons 檔案頁連結。完整致謝：
+  <a href="credits.html">credits.html</a>。</p>
+
+  <h3>引用方式</h3>
+  <p>若在研究、教學或出版品中使用本平台，請以下列格式引用：</p>
+  <pre>@misc{wu_oudekaartwandeling,
+  author       = {Wu, Yunching (吳昀慶)},
+  title        = {Oude-Kaart Wandeling door Nederland
+                  (荷蘭古地圖散策): an interactive overlay of
+                  Dutch historical topographic maps, 1815--2021},
+  year         = {2026},
+  url          = {https://yunching0513.github.io/Netherlands-historical-map/},
+  howpublished = {\url{https://github.com/yunching0513/Netherlands-historical-map}},
+  note         = {Web application. Historical map data:
+                  Kadaster Topotijdreis, CC BY 4.0.}
+}</pre>
+
+  <h3>聯絡方式</h3>
+  <p>歡迎透過以下管道聯繫：問題回報、合作、勘誤，或機構合作意向（Kadaster、大學、文化資產機構）：</p>
+  <ul>
+    <li>GitHub：<a href="https://github.com/yunching0513/Netherlands-historical-map/issues" target="_blank" rel="noopener">repo issues</a> 或 <a href="https://github.com/yunching0513" target="_blank" rel="noopener">@yunching0513</a></li>
+    <li>贊助支持：<a href="https://ko-fi.com/yunching0513" target="_blank" rel="noopener">ko-fi.com/yunching0513</a></li>
+  </ul>
+
+  <p class="note">
+    Bronnen / Sources / 來源:
+    <a href="https://www.topotijdreis.nl" target="_blank" rel="noopener">Topotijdreis</a> ·
+    <a href="https://www.kadaster.nl" target="_blank" rel="noopener">Kadaster</a> ·
+    <a href="https://www.pdok.nl" target="_blank" rel="noopener">PDOK</a> ·
+    <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> ·
+    <a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a> ·
+    <a href="http://proj4js.org" target="_blank" rel="noopener">proj4js</a> ·
+    <a href="https://github.com/protomaps/PMTiles" target="_blank" rel="noopener">PMTiles</a>
+  </p>
+
+  <p style="margin-top:40px"><a href="./">← Terug naar de kaart · 回到地圖</a> &nbsp;·&nbsp; <a href="credits.html">Credits</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a></p>
+</body>
+</html>

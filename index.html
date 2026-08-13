@@ -453,8 +453,56 @@
   .legend-note { font-family:var(--sans); font-size:9.5px; color:var(--ash); margin-top:6px; line-height:1.55; }
   @media (max-width:640px) { .legend { left:12px; bottom:90px; max-width:64vw; } }
 </style>
+<script data-goatcounter="https://yunching.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body class="grain">
+
+<noscript>
+  <div style="max-width:760px;margin:0 auto;padding:48px 24px 96px;font-family:sans-serif;line-height:1.8;color:#1F1D19;background:#F1EFE9;">
+    <h1>Oude-Kaart Wandeling door Nederland — historische topografische kaarten 1815–2021</h1>
+    <p>Interactief overzicht van twee eeuwen Nederlandse historische kaarten (Kadaster Topotijdreis, 1815–heden) over de hedendaagse straten, met kunst-ansichtkaarten en architectuur-landmarks. Deze pagina heeft JavaScript nodig om de interactieve kaart te tonen; hieronder een tekstoverzicht van de twintig steden die de kaart dekt.</p>
+    <h2>Amsterdam</h2>
+    <p>De grachtengordel (1613 e.v.) en de latere uitbreidingen — van Plan Zuid (Berlage) tot de naoorlogse Westelijke Tuinsteden — zijn goed te volgen op de historische kaartseries van 1815 tot nu.</p>
+    <h2>Rotterdam</h2>
+    <p>Het centrum werd in mei 1940 grotendeels verwoest en daarna modernistisch herbouwd; de kaarten van voor en na 1940 laten dit contrast scherp zien.</p>
+    <h2>Den Haag</h2>
+    <p>Regeringszetel met negentiende- en twintigste-eeuwse stadsuitbreidingen zoals het Statenkwartier en Zeeheldenkwartier, duidelijk zichtbaar in de Bonnebladen en topografische kaarten.</p>
+    <h2>Utrecht</h2>
+    <p>Middeleeuwse grachtenstad met unieke werven; de historische kaartlagen tonen de groei rond de Domtoren en latere Rietveld-architectuur.</p>
+    <h2>Leiden</h2>
+    <p>Universiteitsstad sinds 1575 met een compacte grachtenring en textielindustrieverleden, terug te zien in de kaarten van de negentiende eeuw.</p>
+    <h2>Delft</h2>
+    <p>Grachtenstad met een historische kern die opvallend gaaf bewaard is gebleven — de kaartlagen laten zien hoe weinig het stratenpatroon sinds 1815 is veranderd.</p>
+    <h2>Haarlem</h2>
+    <p>Stad aan het Spaarne met een middeleeuwse kern rond de Grote Markt; de kaartseries tonen de negentiende-eeuwse vestingwerken en hun latere ontmanteling.</p>
+    <h2>Gouda</h2>
+    <p>Bekend om de kaasmarkt en het gotische stadhuis; de historische kaarten volgen de grachten en veenontginning rond de stad.</p>
+    <h2>Dordrecht</h2>
+    <p>De oudste stad van Holland (stadsrecht 1220), gelegen op een eiland bij de samenvloeiing van rivieren — de kaarten tonen de karakteristieke eilandvorm.</p>
+    <h2>Amersfoort</h2>
+    <p>Middeleeuwse ommuurde stad met twee concentrische grachtenringen die de historische stadsuitbreiding markeren, goed zichtbaar op de oudste kaartlagen.</p>
+    <h2>Groningen</h2>
+    <p>Noordelijke universiteitsstad met vroegere stervormige vestingwerken; de kaarten tonen hoe de bolwerken plaatsmaakten voor parken zoals rond de Ossenmarkt.</p>
+    <h2>Leeuwarden</h2>
+    <p>Hoofdstad van Friesland met een grachtenpatroon rond de scheve Oldehove-toren, te volgen door de kaartseries sinds 1815.</p>
+    <h2>Zwolle</h2>
+    <p>Hanzestad met een ring van vestingwallen die nu een parkgordel vormen — duidelijk herkenbaar op de historische kaarten.</p>
+    <h2>Deventer</h2>
+    <p>Een van de oudste Hanzesteden aan de IJssel, met een middeleeuws stratenpatroon dat op de kaarten nauwelijks is gewijzigd.</p>
+    <h2>Arnhem</h2>
+    <p>Stad die zwaar beschadigd raakte tijdens de Slag om Arnhem (1944) en daarna herbouwd werd; de naoorlogse kaartlagen tonen de wederopbouw.</p>
+    <h2>Nijmegen</h2>
+    <p>De oudste stad van Nederland (Romeins Noviomagus), ook zwaar getroffen door bombardementen in 1944 — de kaartseries tonen eeuwen stadsontwikkeling en wederopbouw.</p>
+    <h2>'s-Hertogenbosch</h2>
+    <p>Geboortestad van schilder Jheronimus Bosch, met een vestingstad-plattegrond van grachten en bastions die op de historische kaarten goed te herkennen is.</p>
+    <h2>Eindhoven</h2>
+    <p>Groeide in de twintigste eeuw van dorp tot industriestad dankzij Philips; de kaartserie 1900–2021 toont deze snelle stedelijke expansie.</p>
+    <h2>Maastricht</h2>
+    <p>De oudste continu bewoonde stad van Nederland, met Romeinse wortels aan de Maas; de kaarten tonen eeuwen vestingbouw rond het Vrijthof.</p>
+    <h2>Middelburg</h2>
+    <p>Hoofdstad van Zeeland en VOC-kamerstad, in 1940 zwaar getroffen door bombardementen en nadien in oude stijl herbouwd — te volgen op de historische kaartlagen.</p>
+  </div>
+</noscript>
 
 <div id="map"></div>
 
@@ -698,6 +746,7 @@
     <footer class="about-foot">
       <span class="about-sig">— 吳昀慶 Yunching Wu</span>
       <span class="about-links">
+        <a class="about-link" href="about.html" data-i18n="about.colofon">學術資訊・方法與引用</a>
         <a class="about-link" href="https://yunching0513.github.io/taiwan-historical-maps/" target="_blank" rel="noopener"><span data-i18n="sister.full">姊妹專案：台灣舊地圖</span> ↗</a>
         <a class="about-link" href="https://github.com/yunching0513/Netherlands-historical-map" target="_blank" rel="noopener">GitHub ↗</a>
         <a class="about-link" href="https://ko-fi.com/yunching0513" target="_blank" rel="noopener">☕ <span data-i18n="kofi.label">請我喝杯咖啡</span> ↗</a>
@@ -743,6 +792,7 @@
       <div class="lc-credit" id="lc-credit"></div>
       <div class="lc-actions">
         <a class="lc-source" id="lc-source" target="_blank" rel="noopener"></a>
+        <a class="lc-source" id="lc-wiki" target="_blank" rel="noopener" hidden>Wikipedia ↗</a>
         <button type="button" class="lc-share" id="lc-share" data-i18n="card.save">下載／分享</button>
       </div>
     </figcaption>
@@ -1037,7 +1087,7 @@
       'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
       'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding', 'foot.about': 'Over',
-      'about.kicker': 'Nederland · door de tijd', 'about.title': 'Over dit platform',
+      'about.kicker': 'Nederland · door de tijd', 'about.title': 'Over dit platform', 'about.colofon': 'Colofon · methode & citatie',
       'sister.label': 'Oude kaarten van Taiwan', 'sister.full': 'Zusterproject: Oude kaarten van Taiwan',
       'theme.light': 'Papier', 'theme.dark': 'Inkt', 'loading': 'Laden…', 'sheet.hint': 'Tik om te openen',
       'sec.cards': 'Ansichtkaarten', 'sec.cards.en': 'ansichtkaarten', 'cards.collect': 'Verzamelen',
@@ -1084,7 +1134,7 @@
       'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
       'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits', 'foot.about': 'About',
-      'about.kicker': 'Netherlands · through time', 'about.title': 'About this platform',
+      'about.kicker': 'Netherlands · through time', 'about.title': 'About this platform', 'about.colofon': 'Colophon · methodology & citation',
       'sister.label': 'Taiwan old maps', 'sister.full': 'Sister project: Taiwan historical maps',
       'theme.light': 'Paper', 'theme.dark': 'Ink', 'loading': 'Loading…', 'sheet.hint': 'Tap to open',
       'sec.cards': 'Postcards', 'sec.cards.en': 'postcards', 'cards.collect': 'Collect',
@@ -1131,7 +1181,7 @@
       'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
       'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝', 'foot.about': '關於',
-      'about.kicker': '荷蘭 · 穿越時光', 'about.title': '關於這個平台',
+      'about.kicker': '荷蘭 · 穿越時光', 'about.title': '關於這個平台', 'about.colofon': '學術資訊・方法與引用',
       'sister.label': '台灣舊地圖', 'sister.full': '姊妹專案：台灣舊地圖',
       'theme.light': '紙色', 'theme.dark': '墨色', 'loading': '載入中…', 'sheet.hint': '點此展開',
       'sec.cards': '明信片', 'sec.cards.en': '明信片', 'cards.collect': '收集模式',
@@ -2504,6 +2554,14 @@
     const src = document.getElementById('lc-source');
     src.href = item.sourceUrl;
     src.textContent = t('card.source') + ': Wikimedia Commons ↗';
+    const wikiEl = document.getElementById('lc-wiki');
+    const wikiUrl = item.wiki && (item.wiki[lang] || item.wiki.en || item.wiki.nl);
+    if (wikiUrl) {
+      wikiEl.href = wikiUrl;
+      wikiEl.hidden = false;
+    } else {
+      wikiEl.hidden = true;
+    }
     document.getElementById('lightbox').hidden = false;
   }
   function closeLightbox() {

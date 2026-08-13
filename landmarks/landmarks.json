@@ -15,7 +15,8 @@
     "credit": "圖片來源標注",
     "license": "授權：Public Domain / CC0 / CC-BY 3.0 / CC-BY-SA 3.0 / CC-BY-SA 4.0",
     "sourceUrl": "Wikimedia Commons 檔案頁連結",
-    "desc": { "zh": "中文說明", "en": "English description", "nl": "Nederlandse beschrijving" }
+    "desc": { "zh": "中文說明", "en": "English description", "nl": "Nederlandse beschrijving" },
+    "wiki": "選填。Wikipedia 深連結，每個語言版本各自確認存在後才加，格式 { \"nl\": \"https://nl.wikipedia.org/wiki/...\", \"en\": \"https://en.wikipedia.org/wiki/...\" }"
   },
   "items": [
     {
@@ -33,6 +34,7 @@
       "credit": "Wikimedia Commons / Rijksdienst voor het Cultureel Erfgoed",
       "license": "CC-BY-SA 3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rijksmonument_4158_Scheepvaarthuis_Amsterdam_31.JPG",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Scheepvaarthuis", "en": "https://en.wikipedia.org/wiki/Scheepvaarthuis" },
       "desc": {
         "zh": "航運大廈（Scheepvaarthuis）建於1913–1916年，由約翰・范德梅伊設計，皮特・克拉默與米歇爾・德克萊爾克也參與部分裝飾細節。這棟建築被公認為阿姆斯特丹學派最早的代表作，船頭形平面、富麗堂皇的磚砌裝飾與青銅船錨主題雕刻，是此流派表現主義特徵的完美體現。現為格蘭阿姆拉斯飯店。",
         "en": "The Scheepvaarthuis (Shipping House), built 1913–1916 by Johan van der Mey with ornamental contributions by Piet Kramer and Michel de Klerk, is considered the first true Amsterdam School building. Its ship-prow ground plan, lavish brick ornamentation and nautical bronze reliefs set the template for the entire movement. Today it houses the Grand Hotel Amrâth Amsterdam.",
@@ -54,6 +56,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY-SA 3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amsterdam_Het_Schip_001.JPG",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Het_Schip", "en": "https://en.wikipedia.org/wiki/Het_Schip" },
       "desc": {
         "zh": "「大船」（Het Schip）是米歇爾・德克萊爾克為Eigen Haard住宅協會設計的第三棟住宅街區，1917–1920年建造。因外形酷似一艘輪船而得名——尤其是角落那座象徵船橋的郵局塔樓。高聳的砌磚量體、弧形陽台與精緻浮雕，將工人住宅提升到藝術的高度。今為阿姆斯特丹學派博物館。",
         "en": "Het Schip (The Ship), built 1917–1920 by Michel de Klerk for the Eigen Haard housing cooperative, is the finest expression of Amsterdam School housing. Named for its ship-like silhouette — especially the tower that evokes a ship's bridge — its sweeping brick masses, curved balconies, and intricate mouldings elevated workers' housing to art. Today it is home to Museum Het Schip.",
@@ -75,6 +78,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY 3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amsterdam_De_Dageraad_007.JPG",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/De_Dageraad_(Amsterdam)", "en": "https://en.wikipedia.org/wiki/De_Dageraad" },
       "desc": {
         "zh": "「黎明」（De Dageraad）住宅合作社委託皮特・克拉默與米歇爾・德克萊爾克，在阿姆斯特丹南部的鑽石工人聚居區建造了這片1919–1922年的街區。圓潤轉角、起伏屋頂線與手工磚紋，使整個街區有如一座雕塑。這是阿姆斯特丹學派在集合住宅上最成熟的詮釋之一。",
         "en": "The De Dageraad (The Dawn) housing cooperative commissioned Piet Kramer and Michel de Klerk to design this 1919–1922 complex in Amsterdam-Zuid for diamond workers. Its rounded corners, undulating roofline and hand-laid brick patterns give the entire block the quality of a single sculpture — one of the movement's most sophisticated housing achievements.",
@@ -96,6 +100,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY-SA 4.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amsterdam_-_Beursplein_-_View_NE_on_Beurs_van_Berlage_1898-1903.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Beurs_van_Berlage", "en": "https://en.wikipedia.org/wiki/Beurs_van_Berlage" },
       "desc": {
         "zh": "亨德里克・彼得・貝爾拉赫設計的證券交易所（1896–1903）是荷蘭現代建築的奠基之作。貝爾拉赫以誠實地展現磚砌結構——不加虛飾地展示磚、鋼與玻璃的本來面目——打破了維多利亞時代的折衷主義，為阿姆斯特丹學派乃至整個現代主義運動鋪平了道路。現為音樂廳與展演場地。",
         "en": "H.P. Berlage's Stock Exchange (1896–1903) is the cornerstone of Dutch modern architecture. By exposing brick, steel and glass honestly — without historicist ornament — Berlage broke with Victorian eclecticism and laid the groundwork for both the Amsterdam School and broader Modernism. Today it functions as a concert hall and events venue.",
@@ -117,6 +122,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY-SA 3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tuschinski_Amsterdam_interior.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Tuschinski", "en": "https://en.wikipedia.org/wiki/Tuschinski_Theatre" },
       "desc": {
         "zh": "土辛斯基劇院（1918–1921）由波蘭移民亞伯拉罕・土辛斯基出資興建，建築師希曼・路易・德容設計，室內裝飾由賈普・吉丁主持。外觀融合阿姆斯特丹學派的表現主義磚牆與裝飾藝術的幾何細節；富麗堂皇的大廳以彩繪玻璃、波斯地毯與黃金色調聞名。是阿姆斯特丹最華麗的電影院，迄今仍在使用。",
         "en": "Theater Tuschinski (1918–1921), commissioned by Polish-Jewish immigrant Abraham Tuschinski and designed by H.L. de Jong with interiors by Jaap Gidding, blends Amsterdam School expressionist brickwork with Art Deco geometry. Its opulent lobby — stained glass, Persian carpets, gilded tones — makes it Amsterdam's most lavish cinema, still in operation today.",
@@ -138,6 +144,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY-SA 3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/Category:Zaanstraat,_Amsterdam",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Michel_de_Klerk", "en": "https://en.wikipedia.org/wiki/Michel_de_Klerk" },
       "desc": {
         "zh": "德克萊爾克為Eigen Haard住宅協會設計的第一棟街區（1913–1915），是阿姆斯特丹學派早期住宅建築的重要例子。此時他的風格仍較含蓄，但磚砌圖案、弧形窗框與細膩的立面節奏已顯示出他後來在大船中充分展開的創作語言。",
         "en": "The first Eigen Haard housing block by Michel de Klerk (1913–1915) in the Spaarndammerbuurt, an early but already distinctive example of Amsterdam School housing. More restrained than Het Schip, it nonetheless shows his characteristic brick patterning, arched window frames and rhythmic facade composition that would reach full expression a few years later.",
@@ -159,6 +166,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY-SA 3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Utrecht_Schröder_Huis_01.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Rietveld_Schröderhuis", "en": "https://en.wikipedia.org/wiki/Rietveld_Schröder_House" },
       "desc": {
         "zh": "里特費爾德-施洛德住宅（1924）是赫利特・里特費爾德為特魯斯・施洛德-史拉德斯設計的，是風格派（De Stijl）建築理念在建築上最完整的體現。滑動隔間可讓整個上層成為一個開放空間，紅、黃、藍與灰色的幾何構成呼應蒙德里安的繪畫。1987年列為荷蘭國家古蹟，2000年列入UNESCO世界遺產。",
         "en": "The Rietveld Schröder House (1924), designed by Gerrit Rietveld for Truus Schröder-Schräder, is the most complete architectural realisation of De Stijl principles. Sliding partitions allow the entire upper floor to become one open space; the primary-colour-and-grey geometry echoes Mondrian's canvases. Designated a Dutch national monument in 1987 and a UNESCO World Heritage Site in 2000.",
@@ -180,6 +188,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY-SA 3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/Category:Van_Nelle_Factory",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Van_Nellefabriek", "en": "https://en.wikipedia.org/wiki/Van_Nelle_Factory" },
       "desc": {
         "zh": "范內勒工廠（1927–1931）由布林克曼與范德弗呂赫特（馬特・斯塔姆參與設計）為van Nelle煙草、咖啡與茶葉公司設計，是歐洲新即物主義（新功能主義）建築的巔峰之作。大面積玻璃幕牆、清晰的鋼構框架與蘑菇形柱頭，讓整棟建築呈現極度透明的輕盈感，勒・柯比意讚譽其為「現代時代的詩篇」。2014年列入UNESCO世界遺產。",
         "en": "The Van Nelle Factory (1927–1931), designed by Brinkman & Van der Vlugt (with Mart Stam) for the Van Nelle tobacco, coffee and tea company, is a pinnacle of European New Functionalism. Its extensive glass curtain walls, exposed steel frame and mushroom columns create a radical transparency that Le Corbusier called 'a poem of the modern age.' UNESCO World Heritage Site since 2014.",
@@ -201,6 +210,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY-SA 3.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/Category:Witte_Huis_(Rotterdam)",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Witte_Huis_(Rotterdam)", "en": "https://en.wikipedia.org/wiki/Witte_Huis" },
       "desc": {
         "zh": "白屋（1897–1898）建成時是歐洲第一棟鋼骨高層建築，高達43公尺，共11層，以新哥德與新文藝復興混合風格外立面包覆鋼骨框架，是荷蘭建築史上摩天樓時代的開端。儘管後來鹿特丹港區蓬勃發展的現代高樓已遠超其高度，白屋仍完好地矗立於馬斯河畔，俯瞰此後整個城市的變遷。",
         "en": "The Witte Huis (1897–1898) was the first steel-framed high-rise in Europe — 43 metres, 11 storeys — its Neo-Gothic/Neo-Renaissance façade wrapping a steel skeleton that inaugurated the skyscraper era in the Netherlands. Though long dwarfed by Rotterdam's later towers, it still stands intact on the Maas, a witness to the city's entire transformation.",
@@ -222,6 +232,7 @@
       "credit": "Wikimedia Commons",
       "license": "CC-BY-SA 4.0",
       "sourceUrl": "https://commons.wikimedia.org/wiki/Category:Stadhuis_van_Haarlem",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Stadhuis_van_Haarlem", "en": "https://en.wikipedia.org/wiki/Haarlem_City_Hall" },
       "desc": {
         "zh": "哈倫市政廳是荷蘭保存最完整的中世紀市政廳之一，最早的建築核心可追溯至13世紀，後來歷經文藝復興時期擴建，形成現今的荷蘭文藝復興正面。大廳（Gravenzaal）內展示17世紀哈倫黃金時代的繪畫收藏。面向大廣場的外立面是荷蘭城市市政建築的典範。",
         "en": "Haarlem's Stadhuis is one of the best-preserved medieval town halls in the Netherlands, with a core dating to the 13th century and a Dutch Renaissance façade added in successive campaigns. Its Gravenzaal (Counts' Hall) holds 17th-century paintings from Haarlem's Golden Age. The façade facing the Grote Markt is a model of Dutch civic architecture.",

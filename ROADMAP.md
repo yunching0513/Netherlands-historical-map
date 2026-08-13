@@ -18,8 +18,9 @@
 
 ## Operating metrics
 
-- Pageviews: **NOT YET MEASURED** — blocked on analytics (see B-1). Until then the
-  5M goal is unfalsifiable; this is the single most urgent user action.
+- Pageviews: **instrumented 2026-08-13** via GoatCounter (site `yunching`, script tag live
+  in index.html). No historical data yet — check https://yunching.goatcounter.com for counts
+  going forward; update this section once there's a real number to report against the 5M goal.
 - Secondary: PWA installs, share-card downloads, GitHub stars, inbound links.
 
 ## Backlog
@@ -29,11 +30,11 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 ### P0 — measurement & distribution readiness
 | id | item | status | notes |
 |---|---|---|---|
-| B-1 | Analytics: owner creates free GoatCounter account, gives site code; loop adds the script tag | **BLOCKED(user)** | Without this, no view counting. ~5 min task. |
+| B-1 | Analytics: owner creates free GoatCounter account, gives site code; loop adds the script tag | done | 2026-08-13 — owner gave site code `yunching`; script tag added to index.html `<head>`; privacy.html updated to disclose it |
 | B-2 | OG image + twitter card + canonical + JSON-LD | done | 2026-07-03 |
 | B-3 | sitemap.xml + robots.txt (25 URLs) | done | 2026-07-03 |
 | B-4 | Launch-post copy pack: Reddit (r/thenetherlands, r/MapPorn, r/dataisbeautiful, r/Amsterdam), Show HN, Tweakers, X/Bluesky threads — NL + EN versions ready to paste | todo | owner posts; loop writes |
-| B-5 | Per-city landing anchor content for SEO (short NL text per city rendered in a crawlable `<noscript>`/details block) | todo | GH Pages is JS-heavy; give crawlers real text |
+| B-5 | Per-city landing anchor content for SEO (short NL text per city rendered in a crawlable `<noscript>`/details block) | done | 2026-08-13 |
 
 ### P1 — product depth (share loops & retention)
 | id | item | status | notes |
@@ -43,7 +44,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-12 | Amsterdam full era ladder: add 1815, 2021 archives | todo | completes the time-travel story offline |
 | B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | todo | verify coords + PD/CC images via Commons API |
 | B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | todo | licensing rules in postcards/SOURCING.md |
-| B-15 | Wikipedia deep links per landmark (nl/en/zh) | todo | low effort, high credibility |
+| B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
 | B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | todo | follow-up to B-16 |
 | B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | todo | retention loop |
@@ -53,10 +54,10 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 ### P2 — institutional / academic track
 | id | item | status | notes |
 |---|---|---|---|
-| B-20 | `about.html` / colofon: method (RD→3857 reprojection, PMTiles), data sources & licenses, citation block (BibTeX), contact | todo | academics check the colofon first |
+| B-20 | `about.html` / colofon: method (RD→3857 reprojection, PMTiles), data sources & licenses, citation block (BibTeX), contact | done | 2026-08-13 |
 | B-21 | Outreach emails NL/EN drafted (Kadaster, Amsterdam Time Machine/UvA, TU Delft, CLUE+ VU, Netherlands eScience Center) | done | see docs/OUTREACH.md — owner sends |
 | B-22 | Submission targets: DH Benelux 2027, FOSS4G-NL, Stimuleringsfonds Creatieve Industrie open call | todo | loop drafts abstracts when B-20 done |
-| B-23 | Zenodo DOI for the repo (citable artifact) | BLOCKED(user) | needs owner's ORCID/Zenodo login |
+| B-23 | Zenodo DOI for the repo (citable artifact) | BLOCKED(user) | owner sent `10.5281/zenodo.21924252` on 2026-08-13 but it does NOT resolve (doi.org, Zenodo API, and DataCite all 404 it — record id is far above Zenodo's current allocated range). Not added to about.html's citation block to avoid publishing a dead DOI. Owner: please re-check the Zenodo deposit was actually published (not just a draft/reserved DOI) and re-send the correct id. |
 
 ### P3 — app-store track (owner-driven, guides ready)
 | id | item | status | notes |
@@ -80,6 +81,43 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-13 (3)** — Owner sent a Zenodo DOI (`10.5281/zenodo.21924252`) intended to close
+  B-23. Verified it before touching any files: `curl -L https://doi.org/...`, the DataCite
+  API, and `zenodo.org/api/records/21924252` all return 404. Sanity check confirmed network/
+  tooling was fine (a known-good Zenodo DOI resolved 200, and record id 14,000,000 exists) —
+  21,924,252 is simply outside Zenodo's current allocated id range, so this is very likely a
+  typo/transcription error or a draft deposit that was never actually published. Did **not**
+  add it to about.html's BibTeX block — a dead DOI in a citation aimed at academics would be
+  worse than no DOI. B-23 stays BLOCKED(user); left a note in the backlog row above asking
+  the owner to confirm the Zenodo record is published and re-send the id.
+- **2026-08-13 (2)** — B-1 unblocked: owner supplied GoatCounter site code (`yunching`).
+  Added the GoatCounter script tag (`data-goatcounter`, async, cookieless) to index.html's
+  `<head>`; excluded from the inline-script `node --check` sweep because it uses `src=`.
+  Updated privacy.html (NL/EN/ZH) to honestly disclose the new analytics — removed the blanket
+  "no tracking" claim and added a bullet describing GoatCounter as privacy-friendly/cookieless
+  aggregate-only pageview counting, with a link to GoatCounter's own privacy policy. Updated
+  Operating metrics: pageviews are now instrumented but no historical data exists yet — next
+  loop (or the owner) should check https://yunching.goatcounter.com and report a real number
+  once there's traffic to look at. No other backlog items touched this pass.
+- **2026-08-13** — Shipped B-5, B-20, B-15 (SEO + academic-credibility cluster, per the
+  "compounds toward the north-star goals" bias). B-5: added a `<noscript>` block right after
+  `<body>` with an h1 + per-city (all 20) NL paragraphs describing each city's historical-map
+  story — gives non-JS crawlers real indexable text without touching the live app's visual
+  layout (body has `overflow:hidden`, everything else is absolutely positioned). B-20: new
+  standalone `about.html` colofon (trilingual NL/EN/ZH) covering the RD(EPSG:28992)→3857
+  canvas-reprojection method, the PMTiles baking pipeline, a data-sources/licences table, a
+  BibTeX citation block, and contact info; linked from the in-app about-modal footer,
+  credits.html, privacy.html, and sitemap.xml. B-15: added verified Wikipedia deep links
+  (nl+en) to all 10 architecture landmarks in landmarks.json (new `wiki` field) and wired a
+  new "Wikipedia ↗" link into the landmark lightbox (`lc-wiki`, keyed by current UI language
+  with en/nl fallback). Every URL was confirmed to exist via the MediaWiki `action=query`
+  API (batched, paced ~15s apart — the proxy's shared IP hits Wikipedia's rate limiter often)
+  before being written; zh Wikipedia has no articles for these specific buildings so zh links
+  were omitted rather than guessed. Verified: both inline `<script>` blocks pass
+  `node --check`, all JSON files parse, about.html parses cleanly. Next up: B-4 launch copy
+  pack, B-10 then/now GIF export, B-13/B-14 more landmarks/postcards. Blockers unchanged:
+  B-1 analytics, B-23 Zenodo DOI, B-30/B-31 app-store builds — all need owner action (see
+  end-of-run report).
 - **2026-07-08** — B-19 shipped: β 3D walk mode (street-view stroll on the old map)
   ported from taiwan-historical-maps/beta. Single-canvas tile ground (base +
   historical via renderHistTileCanvas: PMTiles-first), rotateX(60°) perspective,
