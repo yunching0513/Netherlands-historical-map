@@ -2,6 +2,9 @@
 
 ![荷蘭古地圖散策 · Oude-Kaart Wandeling door Nederland](banner.svg)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21924251.svg)](https://doi.org/10.5281/zenodo.21924251)
+[![License: MIT](https://img.shields.io/badge/License-MIT-C15F3C.svg)](LICENSE)
+
 > **把 1815 年以來的荷蘭歷史地圖，疊在今日的街道上。**
 > Schuif door twee eeuwen Nederlandse topografische kaarten, over de straten van vandaag.
 
@@ -67,6 +70,29 @@ index.html?city=maastricht&year=1850
 - **Bonnebladen** — 1:25.000 套色地形圖（1855–1933）
 - **Topografische kaart** 1:25.000（1934–1990）
 - **Actuele topografie**（1991–heden）
+
+## 引用 · Citeren · Citation
+
+本專案已存檔於 Zenodo，具永久 DOI：**[10.5281/zenodo.21924251](https://doi.org/10.5281/zenodo.21924251)**（永遠指向最新版本）。
+
+```bibtex
+@software{wu_oudekaartwandeling,
+  author    = {Wu, Yunching (吳昀慶)},
+  title     = {Oude-Kaart Wandeling door Nederland (荷蘭古地圖散策):
+               an interactive overlay of Dutch historical
+               topographic maps, 1815--2021},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.21924251},
+  url       = {https://doi.org/10.5281/zenodo.21924251}
+}
+```
+
+方法說明、資料來源與授權詳見 [`about.html`](about.html)。
+
+## 授權 · Licentie · License
+
+程式碼採 [MIT](LICENSE)。地圖資料與圖片**不在此授權範圍內**，各自維持原授權：Kadaster/PDOK 圖資為 CC BY 4.0，明信片與地標照片來自 Wikimedia Commons（僅收 PD / CC0 / CC-BY(-SA)）。詳見 [`credits.html`](credits.html)。
 
 ## 設計 · Ontwerp
 

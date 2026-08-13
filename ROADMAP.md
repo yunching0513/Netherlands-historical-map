@@ -57,7 +57,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-20 | `about.html` / colofon: method (RD→3857 reprojection, PMTiles), data sources & licenses, citation block (BibTeX), contact | done | 2026-08-13 |
 | B-21 | Outreach emails NL/EN drafted (Kadaster, Amsterdam Time Machine/UvA, TU Delft, CLUE+ VU, Netherlands eScience Center) | done | see docs/OUTREACH.md — owner sends |
 | B-22 | Submission targets: DH Benelux 2027, FOSS4G-NL, Stimuleringsfonds Creatieve Industrie open call | todo | loop drafts abstracts when B-20 done |
-| B-23 | Zenodo DOI for the repo (citable artifact) | BLOCKED(user) | owner sent `10.5281/zenodo.21924252` on 2026-08-13 but it does NOT resolve (doi.org, Zenodo API, and DataCite all 404 it — record id is far above Zenodo's current allocated range). Not added to about.html's citation block to avoid publishing a dead DOI. Owner: please re-check the Zenodo deposit was actually published (not just a draft/reserved DOI) and re-send the correct id. |
+| B-23 | Zenodo DOI for the repo (citable artifact) | done | 2026-08-13 — published. Concept DOI (always latest) `10.5281/zenodo.21924251`, v1 DOI `10.5281/zenodo.21924252`. Both verified resolving. Wired into about.html (3 languages) + README badge + BibTeX. Also added a MIT LICENSE file with a third-party data carve-out, which the deposit needed. |
 
 ### P3 — app-store track (owner-driven, guides ready)
 | id | item | status | notes |
@@ -81,6 +81,21 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-13 (4)** — B-23 closed. The earlier 404 is explained: the owner had selected
+  "No, I need one" in Zenodo, which *reserves* a DOI that only starts resolving on publish —
+  so the id was correct all along and holding it out of the citation block was the right call.
+  Deposit is now published: concept DOI `10.5281/zenodo.21924251` (always resolves to the
+  latest version) and v1 DOI `10.5281/zenodo.21924252`; both verified 200 via doi.org and the
+  Zenodo API (title "Old Map Stroll", licence mit-license, 1 file). Wired the concept DOI into
+  about.html's citation section in all three languages (visible DOI line + BibTeX upgraded from
+  `@misc` to `@software` with `publisher`/`doi` fields), and added a DOI + MIT badge and new
+  Citation/Licence sections to README.md. Prerequisite shipped in the same pass: a MIT LICENSE
+  file (the repo had none, and Zenodo requires a licence) carrying an explicit carve-out that
+  MIT covers source code only, with Kadaster/PDOK CC BY 4.0 map data and Wikimedia Commons
+  imagery keeping their own terms. Note: the Zenodo record lists the creator as "WU, YUNCHING"
+  in all caps — cosmetic, owner may want to fix it on the record for a cleaner citation.
+  **Still not deployed:** everything from today remains on `claude/peaceful-gauss-axvnhn`;
+  `origin/main` is stale at f9e9c1a, so about.html 404s live and GoatCounter is not yet counting.
 - **2026-08-13 (3)** — Owner sent a Zenodo DOI (`10.5281/zenodo.21924252`) intended to close
   B-23. Verified it before touching any files: `curl -L https://doi.org/...`, the DataCite
   API, and `zenodo.org/api/records/21924252` all return 404. Sanity check confirmed network/

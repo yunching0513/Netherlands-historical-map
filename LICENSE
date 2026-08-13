@@ -1,0 +1,42 @@
+MIT License
+
+Copyright (c) 2026 吳昀慶 Yunching Wu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+THIRD-PARTY DATA AND CONTENT
+
+The MIT licence above covers the source code of this project only.
+Map data, imagery and artwork displayed by the application are NOT covered by
+it and remain under their own licences:
+
+  * Historical topographic maps (1815-2021), including the pre-baked PMTiles
+    archives in pmtiles/, are derived from Kadaster / Topotijdreis and are
+    licensed CC BY 4.0. Attribution: "© Kadaster, CC-BY 4.0".
+  * Base maps: PDOK BRT Achtergrondkaart © Kadaster, CC BY 4.0.
+  * Aerial imagery: Beeldmateriaal Nederland, open data.
+  * Art postcards and architecture landmark photographs come from Wikimedia
+    Commons and are restricted to Public Domain / CC0 / CC-BY / CC-BY-SA;
+    each image carries its own credit, licence and source link in the app.
+  * Bundled libraries in vendor/ (Leaflet, proj4js, PMTiles) are distributed
+    under their own open-source licences.
+
+Full attribution for all sources: see credits.html and about.html.
