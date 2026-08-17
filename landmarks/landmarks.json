@@ -238,6 +238,50 @@
         "en": "Haarlem's Stadhuis is one of the best-preserved medieval town halls in the Netherlands, with a core dating to the 13th century and a Dutch Renaissance façade added in successive campaigns. Its Gravenzaal (Counts' Hall) holds 17th-century paintings from Haarlem's Golden Age. The façade facing the Grote Markt is a model of Dutch civic architecture.",
         "nl": "Het stadhuis van Haarlem is een van de best bewaard gebleven middeleeuwse stadhuizen van Nederland, met een kern uit de 13e eeuw en een Nederlandse renaissancegevel die in fasen werd toegevoegd. De Gravenzaal bevat 17e-eeuwse schilderijen uit Haarlems Gouden Eeuw. De gevel aan de Grote Markt is een schoolvoorbeeld van Nederlandse burgerlijke architectuur."
       }
+    },
+    {
+      "id": "rotterdam-kiefhoek",
+      "city": "rotterdam",
+      "lat": 51.89333,
+      "lng": 4.50611,
+      "year": "1925–1930",
+      "style": "new-functionalism",
+      "style_label": { "zh": "新即物主義", "en": "New Functionalism", "nl": "Nieuwe Zakelijkheid" },
+      "architect": { "zh": "J.J.P.奧德", "en": "J.J.P. Oud", "nl": "J.J.P. Oud" },
+      "name": { "zh": "基夫霍克住宅區", "en": "Kiefhoek", "nl": "Kiefhoek" },
+      "address": "Hordijk, Rotterdam",
+      "img": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/Rotterdam_kiefhoek_complex.jpg&width=1280",
+      "credit": "Wikimedia Commons / Wikifrits",
+      "license": "Public domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rotterdam_kiefhoek_complex.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Kiefhoek", "en": "https://en.wikipedia.org/wiki/Kiefhoek" },
+      "desc": {
+        "zh": "基夫霍克（Kiefhoek）是J.J.P.奧德為鹿特丹市府設計的社會住宅區，1925–1930年建成，共約300戶。以水平長條的白色粉刷立面、標準化預鑄構件與簡潔的功能主義語彙，示範了以低成本建材為勞工階級蓋出兼具尊嚴與現代感的居所。是荷蘭「新即物主義」（Nieuwe Zakelijkheid）住宅設計的代表作，1990年代整修後仍作為社會住宅使用。",
+        "en": "Kiefhoek, designed by J.J.P. Oud for the City of Rotterdam and built 1925–1930, comprises around 300 dwellings in long white-rendered terraces. Its horizontal bands, standardised prefabricated components and stripped-down functionalist vocabulary showed that cheap materials could still produce dignified, modern working-class housing. A landmark of Dutch New Functionalism (Nieuwe Zakelijkheid), restored in the 1990s and still in use as social housing.",
+        "nl": "Kiefhoek, ontworpen door J.J.P. Oud in opdracht van de gemeente Rotterdam en gebouwd tussen 1925 en 1930, telt zo'n 300 woningen in lange, wit gepleisterde rijen. De horizontale banden, gestandaardiseerde geprefabriceerde onderdelen en sobere functionalistische vormentaal bewezen dat goedkope materialen toch waardige, moderne arbeiderswoningen konden opleveren. Een mijlpaal van de Nieuwe Zakelijkheid, in de jaren negentig gerestaureerd en nog altijd in gebruik als sociale huisvesting."
+      }
+    },
+    {
+      "id": "rotterdam-sonneveld-house",
+      "city": "rotterdam",
+      "lat": 51.91556,
+      "lng": 4.47222,
+      "year": "1933",
+      "style": "new-functionalism",
+      "style_label": { "zh": "新即物主義", "en": "New Functionalism", "nl": "Nieuwe Zakelijkheid" },
+      "architect": { "zh": "布林克曼 ＆ 范德弗呂赫特", "en": "Brinkman & Van der Vlugt", "nl": "Brinkman & Van der Vlugt" },
+      "name": { "zh": "松內費爾德別墅", "en": "Sonneveld House", "nl": "Huis Sonneveld" },
+      "address": "Jongkindstraat 12, Rotterdam",
+      "img": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/Rotterdam_sonneveld.jpg&width=1280",
+      "credit": "Wikimedia Commons / Wikifrits",
+      "license": "Public domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rotterdam_sonneveld.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Huis_Sonneveld" },
+      "desc": {
+        "zh": "松內費爾德別墅（1933）由設計范內勒工廠的布林克曼與范德弗呂赫特事務所為范內勒公司董事阿德里安努斯・松內費爾德興建，是荷蘭「新即物主義」住宅建築保存最完整的範例之一。開放式平面、大片鋼窗、內建家具與Art Deco色彩的室內設計，完整呈現1930年代前衛荷蘭中產階級生活的理想樣貌。現由荷蘭建築中心（Het Nieuwe Instituut）管理，作為博物館對外開放。",
+        "en": "Sonneveld House (1933), built by Brinkman & Van der Vlugt — the same firm behind the Van Nelle Factory — for Van Nelle director Adrianus Sonneveld, is one of the best-preserved examples of Dutch New Functionalist domestic architecture. Its open floor plan, expansive steel-framed windows, built-in furniture and Art Deco-tinged interior capture the ideal of progressive 1930s Dutch middle-class living in full. Now run as a house museum by Het Nieuwe Instituut.",
+        "nl": "Huis Sonneveld (1933), gebouwd door Brinkman & Van der Vlugt — hetzelfde bureau achter de Van Nellefabriek — voor Van Nelle-directeur Adrianus Sonneveld, is een van de best bewaarde voorbeelden van de Nieuwe Zakelijkheid in de Nederlandse woningbouw. De open plattegrond, grote stalen vensters, ingebouwde meubels en art-deco-achtig interieur vangen het ideaal van het vooruitstrevende Nederlandse burgerleven van de jaren dertig volledig. Tegenwoordig een museumwoning, beheerd door Het Nieuwe Instituut."
+      }
     }
   ]
 }

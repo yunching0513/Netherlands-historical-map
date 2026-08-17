@@ -33,7 +33,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-1 | Analytics: owner creates free GoatCounter account, gives site code; loop adds the script tag | done | 2026-08-13 — owner gave site code `yunching`; script tag added to index.html `<head>`; privacy.html updated to disclose it |
 | B-2 | OG image + twitter card + canonical + JSON-LD | done | 2026-07-03 |
 | B-3 | sitemap.xml + robots.txt (25 URLs) | done | 2026-07-03 |
-| B-4 | Launch-post copy pack: Reddit (r/thenetherlands, r/MapPorn, r/dataisbeautiful, r/Amsterdam), Show HN, Tweakers, X/Bluesky threads — NL + EN versions ready to paste | todo | owner posts; loop writes |
+| B-4 | Launch-post copy pack: Reddit (r/thenetherlands, r/MapPorn, r/dataisbeautiful, r/Amsterdam), Show HN, Tweakers, X/Bluesky threads — NL + EN versions ready to paste | done | 2026-08-17 — see `docs/LAUNCH_COPY.md`; owner posts |
 | B-5 | Per-city landing anchor content for SEO (short NL text per city rendered in a crawlable `<noscript>`/details block) | done | 2026-08-13 |
 
 ### P1 — product depth (share loops & retention)
@@ -42,7 +42,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-10 | "Then/now" animated GIF/WebM export of the compare slider (highly shareable) | todo | canvas capture, ~few sec loop |
 | B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | todo | tools/bake_pmtiles.py ready; watch repo size (<1 GB) |
 | B-12 | Amsterdam full era ladder: add 1815, 2021 archives | todo | completes the time-travel story offline |
-| B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | todo | verify coords + PD/CC images via Commons API |
+| B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | doing | 2026-08-17 — Rotterdam pair shipped (Kiefhoek, Sonneveld House), both Public Domain via Commons API. Hilversum isn't in the app's `CITIES` list yet (no tiles baked), so Zonnestraal/Dudok Raadhuis need Hilversum added as a city first — out of scope for a landmarks-only pass. Utrecht "Werkbond" target unclear (no canonical building of that name found); needs the owner to confirm which building was meant, or drop it. |
 | B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | todo | licensing rules in postcards/SOURCING.md |
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
@@ -81,6 +81,34 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-17** — Shipped B-4 and started B-13 (distribution + content-depth cluster).
+  B-4: `docs/LAUNCH_COPY.md` — ready-to-paste launch posts for r/thenetherlands,
+  r/MapPorn, r/dataisbeautiful, r/Amsterdam, Show HN, Tweakers.net, and X/Bluesky threads,
+  NL+EN, matching the tone already established in `docs/OUTREACH.md`; includes a "first
+  comment" for each Reddit/HN post and posting-etiquette notes (space out postings, don't
+  cross-post same-day, check each sub's self-promo rule) since a spammy launch would burn
+  the accounts needed for the 5M-pageview push. B-13: added two Rotterdam landmarks to
+  `landmarks/landmarks.json` — Kiefhoek (J.J.P. Oud, 1925–1930, worker housing, New
+  Functionalism) and Sonneveld House (Brinkman & Van der Vlugt, 1933, same firm as the
+  already-listed Van Nelle Factory). Both images verified Public Domain via the Wikimedia
+  Commons `imageinfo` API (same photographer, Wikifrits, for both — consistent sourcing),
+  coordinates verified via Wikipedia `coordinates` API, Wikipedia deep links verified to
+  exist before adding (Kiefhoek has nl+en articles; Sonneveld House only has a dedicated nl
+  article, so `wiki` carries nl only — same "don't guess" rule as B-15). B-13 stays `doing`,
+  not `done`: the other two targets in that row need input the loop can't supply alone —
+  Hilversum (Zonnestraal, Dudok Raadhuis) isn't buildable yet because Hilversum isn't in the
+  app's `CITIES` list or PMTiles set (adding a landmark there first requires baking a new
+  city, which is really B-11-adjacent scope, not a landmarks-only edit), and Utrecht
+  "Werkbond" doesn't resolve to any canonical building in Commons/Wikipedia searches — likely
+  a shorthand the owner had a specific building in mind for; flagging for clarification
+  rather than guessing and risking a wrong/unverifiable entry. Verified before push: both
+  inline `<script>` blocks pass `node --check`, all JSON files (landmarks, postcards,
+  4 manifests) parse. Next up: B-10 then/now GIF export (highest-shareability item left),
+  B-14 more postcards, B-11 bake remaining Randstad cities (pmtiles/ is still only ~42 MB,
+  plenty of budget under the 300 MB ceiling). Blockers unchanged — see end-of-run report.
+  Also re-confirmed: `origin/main` is still stale relative to this branch's earlier work
+  history (diverged, not an ancestor) — everything shipped since 2026-08-13 is live only on
+  `claude/peaceful-gauss-axvnhn` until a PR merges it, which is outside this loop's mandate.
 - **2026-08-13 (4)** — B-23 closed. The earlier 404 is explained: the owner had selected
   "No, I need one" in Zenodo, which *reserves* a DOI that only starts resolving on publish —
   so the id was correct all along and holding it out of the citation block was the right call.
