@@ -2116,6 +2116,32 @@
         "en": "Hailed as 'the painter of Amsterdam', Breitner was a leading figure of late-19th-century Amsterdam Impressionism. As Japonisme swept Europe in the 1890s he became captivated by the kimono, posing his young model Geesje Kwak in his studio draped in various kimonos for a celebrated series. This white-kimono version, with its soft light, languid pose and subtle gradations of white, is the best loved of them. Rijksmuseum, Amsterdam.",
         "nl": "Geroemd als 'de schilder van Amsterdam' was Breitner een leidende figuur van het Amsterdamse impressionisme aan het eind van de 19e eeuw. Toen het japonisme in de jaren 1890 Europa veroverde, raakte hij gefascineerd door de kimono en liet hij zijn jonge model Geesje Kwak in zijn atelier in verschillende kimono's poseren voor een beroemde reeks. Deze versie in witte kimono, met haar zachte licht, loom gebaar en subtiele wittinten, is daarvan de meest geliefde. Rijksmuseum, Amsterdam."
       }
+    },
+    {
+      "id": "amersfoort-mondriaan-windmill",
+      "city": "amersfoort",
+      "year": "1907",
+      "artist": {
+        "zh": "皮特·蒙德里安",
+        "en": "Piet Mondrian",
+        "nl": "Piet Mondriaan"
+      },
+      "title": {
+        "zh": "高樹旁的風車與洗衣婦",
+        "en": "Windmill near Tall Trees with Woman at the Wash Stoop",
+        "nl": "Molen bij hoge bomen, met een wassende vrouw"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Piet_Mondriaan_-_Windmill_near_tall_trees_with_woman_at_the_wash_stoop_-_A423_-_Piet_Mondrian%2C_catalogue_raisonn%C3%A9.jpg/1280px-Piet_Mondriaan_-_Windmill_near_tall_trees_with_woman_at_the_wash_stoop_-_A423_-_Piet_Mondrian%2C_catalogue_raisonn%C3%A9.jpg",
+      "credit": "RKD – Netherlands Institute for Art History",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Piet_Mondriaan_-_Windmill_near_tall_trees_with_woman_at_the_wash_stoop_-_A423_-_Piet_Mondrian,_catalogue_raisonn%C3%A9.jpg",
+      "lat": 52.1561,
+      "lng": 5.3878,
+      "desc": {
+        "zh": "皮特·蒙德里安 1872 年出生於阿默斯福特，今日的阿默斯福特還留有他的故居博物館 Mondriaanhuis。但這幅畫完全不是那種著名的紅黃藍格線抽象畫——它畫於 1907 年，是蒙德里安尚未走向抽象前、深受海牙畫派影響的自然主義時期作品：暮色中的風車、白楊樹列與水面倒影，筆觸濕潤朦朧。從這幅畫到日後的《構成》系列，是整個二十世紀藝術史最劇烈的一次轉向之一。",
+        "en": "Piet Mondrian was born in Amersfoort in 1872 — the town still keeps his childhood home as the Mondriaanhuis museum. This painting, however, looks nothing like the red-yellow-blue grids he'd later become famous for: painted in 1907, it belongs to his early naturalistic period, still under the spell of the Hague School — a windmill at dusk, a row of poplars, water blurred with reflections. The distance between this canvas and his later Compositions marks one of the sharpest turns in 20th-century art.",
+        "nl": "Piet Mondriaan werd in 1872 geboren in Amersfoort, waar zijn geboortehuis nu het Mondriaanhuis is. Dit schilderij lijkt echter niets op de later zo beroemde rood-geel-blauwe rasters: het is uit 1907, nog uit zijn vroege naturalistische periode onder invloed van de Haagse School — een molen in de schemering, een rij populieren, wazige reflecties in het water. De afstand tussen dit doek en zijn latere Composities is een van de scherpste ommekeren in de twintigste-eeuwse kunst."
+      }
     }
   ]
 }

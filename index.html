@@ -613,6 +613,11 @@
         <span data-i18n="compare.btn">今昔對照</span>
         <span class="en">swipe</span>
       </button>
+      <button type="button" class="btn" id="btn-video">
+        <span class="dot"></span>
+        <span data-i18n="video.btn">今昔動態影片</span>
+        <span class="en">export</span>
+      </button>
       <div class="opa-row">
         <span class="lbl" data-i18n="opacity">透明度</span>
         <input type="range" class="opa" id="opa-slider" min="0" max="100" value="85" step="1" />
@@ -1085,6 +1090,8 @@
       'sec.time': 'Tijdreis', 'sec.time.en': 'tijdreis',
       'sec.locate': 'Locatie', 'sec.locate.en': 'locatie',
       'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
+      'video.btn': 'Toen/nu-video', 'video.making': 'Video maken…', 'video.err': 'Kon video niet maken',
+      'video.unsupported': 'Video-export wordt niet ondersteund in deze browser',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
       'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding', 'foot.about': 'Over',
       'about.kicker': 'Nederland · door de tijd', 'about.title': 'Over dit platform', 'about.colofon': 'Colofon · methode & citatie',
@@ -1132,6 +1139,8 @@
       'sec.time': 'Time travel', 'sec.time.en': 'time travel',
       'sec.locate': 'Locate', 'sec.locate.en': 'locate',
       'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
+      'video.btn': 'Then/now video', 'video.making': 'Making video…', 'video.err': 'Could not create video',
+      'video.unsupported': 'Video export not supported in this browser',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
       'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits', 'foot.about': 'About',
       'about.kicker': 'Netherlands · through time', 'about.title': 'About this platform', 'about.colofon': 'Colophon · methodology & citation',
@@ -1179,6 +1188,8 @@
       'sec.time': '時光', 'sec.time.en': '時光旅行',
       'sec.locate': '定位', 'sec.locate.en': '定位',
       'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
+      'video.btn': '今昔動態影片', 'video.making': '製作影片中…', 'video.err': '無法製作影片',
+      'video.unsupported': '此瀏覽器不支援影片匯出',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
       'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝', 'foot.about': '關於',
       'about.kicker': '荷蘭 · 穿越時光', 'about.title': '關於這個平台', 'about.colofon': '學術資訊・方法與引用',
@@ -1848,6 +1859,155 @@
     if (btnEl) { btnEl.disabled = false; btnEl.textContent = orig; }
   }
 
+  // ── Toen/nu-video: geanimeerde swipe tussen basiskaart en historische laag ──
+  // Rendert het huidige beeldveld tweemaal (nu / toen) op vaste 1080×1080-canvassen
+  // (zelfde tegelpijplijn als renderWalkMap: OfflineTileSrc + renderHistTileCanvas,
+  // dus PMTiles-eerst, offline-vriendelijk) en tekent per frame een animerende
+  // wipe-overgang op een uitvoer-canvas, opgenomen via canvas.captureStream +
+  // MediaRecorder tot WebM/MP4 (geen externe GIF-encoder nodig).
+  async function renderThenNowSquare(size) {
+    const zoom = Math.round(map.getZoom());
+    const c = map.project(map.getCenter(), zoom);
+    const originX = c.x - size / 2, originY = c.y - size / 2;
+    const t0x = Math.floor(originX / 256), t0y = Math.floor(originY / 256);
+    const t1x = Math.floor((originX + size) / 256), t1y = Math.floor((originY + size) / 256);
+    const svc = nearestService(state.year).id;
+    const nowCv = document.createElement('canvas'); nowCv.width = size; nowCv.height = size;
+    const thenCv = document.createElement('canvas'); thenCv.width = size; thenCv.height = size;
+    const nctx = nowCv.getContext('2d'), tctx = thenCv.getContext('2d');
+    const baseTpl = BASE_MAPS[state.base].url;
+    const cells = [];
+    for (let tx = t0x; tx <= t1x; tx++) for (let ty = t0y; ty <= t1y; ty++) {
+      cells.push({ tx: tx, ty: ty, px: tx * 256 - originX, py: ty * 256 - originY });
+    }
+    await Promise.all(cells.map(cell =>
+      offlineTileSrc(baseTpl.replace('{z}', zoom).replace('{x}', cell.tx).replace('{y}', cell.ty))
+        .then(loadTileImg)
+        .then(img => {
+          nctx.drawImage(img, cell.px, cell.py, 256, 256);
+          tctx.drawImage(img, cell.px, cell.py, 256, 256);
+        })
+        .catch(() => {})
+    ));
+    const histCanvases = await Promise.all(cells.map(cell =>
+      renderHistTileCanvas(cell.tx, cell.ty, zoom, svc).catch(() => null)));
+    histCanvases.forEach((cv, i) => { if (cv) tctx.drawImage(cv, cells[i].px, cells[i].py); });
+    return { nowCv: nowCv, thenCv: thenCv };
+  }
+  function pickVideoMime() {
+    if (!window.MediaRecorder || !MediaRecorder.isTypeSupported) return null;
+    const cands = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm', 'video/mp4'];
+    for (let i = 0; i < cands.length; i++) { if (MediaRecorder.isTypeSupported(cands[i])) return cands[i]; }
+    return null;
+  }
+  async function buildThenNowVideo(mime) {
+    if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+    const SIZE = 1080;
+    const layers = await renderThenNowSquare(SIZE);
+    const out = document.createElement('canvas'); out.width = SIZE; out.height = SIZE;
+    const ctx = out.getContext('2d');
+    const cityLabel = lang === 'zh' ? state.city.zh : state.city.en;
+    const thenLabel = t('compare.then') + ' · ' + state.year;
+    const nowLabel = t('compare.now');
+    function drawFrame(pct) {
+      ctx.clearRect(0, 0, SIZE, SIZE);
+      ctx.drawImage(layers.nowCv, 0, 0);
+      const wipeX = SIZE * pct;
+      if (wipeX > 0) {
+        ctx.save();
+        ctx.beginPath(); ctx.rect(0, 0, wipeX, SIZE); ctx.clip();
+        ctx.drawImage(layers.thenCv, 0, 0);
+        ctx.restore();
+      }
+      ctx.strokeStyle = '#C15F3C'; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(wipeX, 0); ctx.lineTo(wipeX, SIZE); ctx.stroke();
+      ctx.fillStyle = '#C15F3C';
+      ctx.beginPath(); ctx.arc(wipeX, SIZE / 2, 28, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.font = '600 26px system-ui,sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('↔', wipeX, SIZE / 2 + 2);
+      ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.shadowColor = 'rgba(0,0,0,0.6)'; ctx.shadowBlur = 8;
+      ctx.font = "700 34px 'JetBrains Mono',monospace"; ctx.fillStyle = '#F1EFE9';
+      ctx.fillText(thenLabel, 36, 60);
+      ctx.textAlign = 'right';
+      ctx.fillText(nowLabel, SIZE - 36, 60);
+      ctx.shadowBlur = 0; ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(31,29,25,0.72)'; ctx.fillRect(0, SIZE - 64, SIZE, 64);
+      ctx.fillStyle = '#F1EFE9'; ctx.font = "italic 26px 'EB Garamond',Georgia,serif";
+      ctx.fillText(cityLabel + ' · 荷蘭古地圖散策', 28, SIZE - 24);
+    }
+    drawFrame(0);
+    const stream = out.captureStream(30);
+    const chunks = [];
+    const recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 6000000 });
+    recorder.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+    const stopped = new Promise(function (resolve) { recorder.onstop = resolve; });
+    recorder.start();
+    const CYCLE_MS = 2600, CYCLES = 2, HOLD_MS = 400;
+    const totalMs = CYCLES * CYCLE_MS + HOLD_MS * 2;
+    const t0 = performance.now();
+    await new Promise(function (resolve) {
+      function tick(now) {
+        const el = now - t0;
+        if (el >= totalMs) { drawFrame(1); resolve(); return; }
+        let p;
+        if (el < HOLD_MS) p = 0;
+        else if (el > totalMs - HOLD_MS) p = 1;
+        else {
+          const cyclePos = (el - HOLD_MS) % CYCLE_MS;
+          const half = CYCLE_MS / 2;
+          const raw = cyclePos < half ? cyclePos / half : 2 - cyclePos / half;
+          p = 0.5 - 0.5 * Math.cos(raw * Math.PI);
+        }
+        drawFrame(p);
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+    recorder.stop();
+    await stopped;
+    return new Blob(chunks, { type: mime.split(';')[0] });
+  }
+  async function exportThenNowVideo() {
+    const btn = document.getElementById('btn-video');
+    if (!btn || btn.disabled) return;
+    const mime = pickVideoMime();
+    if (!mime || !canvasCaptureStreamSupported()) { alert(t('video.unsupported')); return; }
+    const origHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = t('video.making');
+    try {
+      const blob = await buildThenNowVideo(mime);
+      const ext = mime.indexOf('mp4') >= 0 ? 'mp4' : 'webm';
+      const cityLabel = lang === 'zh' ? state.city.zh : state.city.en;
+      const fname = 'then-now-' + state.city.id + '-' + state.year + '.' + ext;
+      const file = new File([blob], fname, { type: mime.split(';')[0] });
+      const text = cityLabel + ' · ' + state.year + ' → ' + new Date().getFullYear()
+        + '\n荷蘭古地圖散策 https://yunching0513.github.io/Netherlands-historical-map/';
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text: text });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = fname;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 8000);
+      }
+    } catch (e) {
+      if (!(e && e.name === 'AbortError')) {
+        btn.textContent = t('video.err');
+        setTimeout(function () { btn.innerHTML = origHTML; btn.disabled = false; }, 1800);
+        return;
+      }
+    }
+    btn.innerHTML = origHTML;
+    btn.disabled = false;
+  }
+  function canvasCaptureStreamSupported() {
+    const cv = document.createElement('canvas');
+    return typeof cv.captureStream === 'function';
+  }
+
   // ── β 3D wandelmodus: loop óp de oude kaart ──────────────────────────
   // Geport uit taiwan-historical-maps/beta. De grond is één canvas met twee
   // tegellagen (basiskaart + historisch, PMTiles-eerst), rotateX(60°) door CSS,
@@ -2215,6 +2375,7 @@
   });
 
   document.getElementById('btn-compare').addEventListener('click', toggleCompare);
+  document.getElementById('btn-video').addEventListener('click', exportThenNowVideo);
   document.getElementById('btn-locate').addEventListener('click', toggleLocate);
 
   document.querySelectorAll('#lang-switch button').forEach(b =>

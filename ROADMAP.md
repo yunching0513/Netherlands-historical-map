@@ -39,11 +39,11 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 ### P1 — product depth (share loops & retention)
 | id | item | status | notes |
 |---|---|---|---|
-| B-10 | "Then/now" animated GIF/WebM export of the compare slider (highly shareable) | todo | canvas capture, ~few sec loop |
+| B-10 | "Then/now" animated GIF/WebM export of the compare slider (highly shareable) | done | 2026-08-20 — shipped as WebM/MP4 (MediaRecorder + canvas.captureStream), see Loop Log |
 | B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | todo | tools/bake_pmtiles.py ready; watch repo size (<1 GB) |
 | B-12 | Amsterdam full era ladder: add 1815, 2021 archives | todo | completes the time-travel story offline |
 | B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | doing | 2026-08-17 — Rotterdam pair shipped (Kiefhoek, Sonneveld House), both Public Domain via Commons API. Hilversum isn't in the app's `CITIES` list yet (no tiles baked), so Zonnestraal/Dudok Raadhuis need Hilversum added as a city first — out of scope for a landmarks-only pass. Utrecht "Werkbond" target unclear (no canonical building of that name found); needs the owner to confirm which building was meant, or drop it. |
-| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | todo | licensing rules in postcards/SOURCING.md |
+| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | doing | 2026-08-20 — audit found all of Frans Hals/Haarlem, Vermeer-View-of-Delft/Delft, Van Gogh/Den Haag already shipped in earlier passes not reflected in this row; the real gap is 9 of 20 cities (groningen, leeuwarden, deventer, arnhem, nijmegen, maastricht, middelburg, gouda, amersfoort) with **zero** postcards. Shipped one: Mondriaan/Amersfoort (his birthplace). Row stays `doing` — 8 zero-coverage cities remain, several without an obvious/verifiable PD-artwork tie (risk of guessing wrong per the "don't guess" rule) — see Loop Log. |
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
 | B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | todo | follow-up to B-16 |
@@ -81,6 +81,49 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-20** — Shipped B-10 (highest-shareability item, flagged "next up" for three
+  loops running) and made progress on B-14. B-10: added a "Toen/nu-video" / "Then/now
+  video" button next to the existing compare toggle. It composites the current map
+  viewport twice into 1080×1080 canvases (base-only "now", base+historical "then") using
+  the same tile pipeline as the walk-share card (`offlineTileSrc` + `renderHistTileCanvas`,
+  PMTiles-first), then animates a vermilion wipe divider between them (two ease-in-out
+  sweep cycles, ~6s) on an output canvas recorded via `canvas.captureStream` +
+  `MediaRecorder` — encoded straight to WebM (VP9/VP8, feature-detected) or MP4 on Safari,
+  no external GIF/video-encoding library needed. Shares via the Web Share API when
+  available, otherwise downloads. Verified two ways: (1) headless Chromium against the
+  real app — confirmed the button, mime-type detection, and `captureStream` support all
+  present, and the export correctly reaches a "Making video…" busy state with no thrown
+  errors; (2) headless Chromium with all cross-origin tile requests stubbed to an instant
+  1×1 PNG (to route around this *build sandbox's* flaky outbound proxy to PDOK/ArcGIS,
+  confirmed separately via plain `curl` to be fine — a sandbox/headless-browser quirk, not
+  a real-network issue) — this produced an actual playable 1080×1080 VP9 WebM,
+  ffprobe-verified at ~5.96s duration, and the button correctly disabled during export and
+  restored after. B-14: audited actual postcard coverage vs. the backlog's suggested
+  targets and found Frans Hals/Haarlem, Vermeer *View of Delft*/Delft, and Van Gogh/Den
+  Haag were already shipped in earlier passes (the row just hadn't been updated) — Delft
+  alone has 36 Vermeer postcards. The real content gap is elsewhere: **9 of 20 cities have
+  zero postcards** (groningen, leeuwarden, deventer, arnhem, nijmegen, maastricht,
+  middelburg, gouda, amersfoort), which is a bigger hole in "content depth" than adding
+  more paintings to already-deep cities. Shipped one fix: Piet Mondriaan's *Windmill near
+  Tall Trees with Woman at the Wash Stoop* (1907, early naturalistic period, RKD catalogue
+  raisonné A423) for Amersfoort — his birthplace (Mondriaanhuis museum is there today).
+  Verified Public Domain via the Commons `imageinfo`/`extmetadata` API before adding
+  (`Copyrighted: False`, `LicenseShortName: Public domain` — note a *different*,
+  visually-similar Mondrian windmill file on Commons is CC-BY-SA 4.0, a photographer's own
+  photo of the canvas, not PD-Art, and was correctly rejected); downloaded and
+  visually inspected the actual painting before writing copy. Left the other 8 cities
+  alone rather than force weak/guessed attributions into them — several (Groningen,
+  Leeuwarden, Deventer, Arnhem, Nijmegen, Maastricht, Middelburg, Gouda) don't have an
+  obvious, well-documented Golden-Age-or-equivalent PD masterpiece tied to them the way
+  Amersfoort has Mondriaan; forcing one in risks the exact "guessed and got it wrong"
+  failure mode flagged in earlier loop entries (B-13's Utrecht "Werkbond" case). Flagging
+  this as a good target for either owner input (does the owner know of a real
+  city↔painting connection for any of these?) or a future loop pass with more research
+  budget. Verified before push: both inline `<script>` blocks pass `node --check`, all
+  JSON files (landmarks, postcards ×85 items, 4 manifests) parse. Next up: continue B-14
+  (remaining 8 zero-coverage cities, carefully), B-11 bake remaining Randstad PMTiles
+  (pmtiles/ still well under the 300 MB ceiling), B-22 submission-target abstracts (B-20
+  colofon prerequisite is done). Blockers unchanged — see end-of-run report.
 - **2026-08-17** — Shipped B-4 and started B-13 (distribution + content-depth cluster).
   B-4: `docs/LAUNCH_COPY.md` — ready-to-paste launch posts for r/thenetherlands,
   r/MapPorn, r/dataisbeautiful, r/Amsterdam, Show HN, Tweakers.net, and X/Bluesky threads,
