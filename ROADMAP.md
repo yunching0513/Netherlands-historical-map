@@ -47,7 +47,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
 | B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | todo | follow-up to B-16 |
-| B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | todo | retention loop |
+| B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | done | 2026-08-24 — see Loop Log |
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
 
@@ -56,7 +56,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 |---|---|---|---|
 | B-20 | `about.html` / colofon: method (RD→3857 reprojection, PMTiles), data sources & licenses, citation block (BibTeX), contact | done | 2026-08-13 |
 | B-21 | Outreach emails NL/EN drafted (Kadaster, Amsterdam Time Machine/UvA, TU Delft, CLUE+ VU, Netherlands eScience Center) | done | see docs/OUTREACH.md — owner sends |
-| B-22 | Submission targets: DH Benelux 2027, FOSS4G-NL, Stimuleringsfonds Creatieve Industrie open call | todo | loop drafts abstracts when B-20 done |
+| B-22 | Submission targets: DH Benelux 2027, FOSS4G-NL, Stimuleringsfonds Creatieve Industrie open call | done | 2026-08-24 — see `docs/SUBMISSIONS.md` and Loop Log |
 | B-23 | Zenodo DOI for the repo (citable artifact) | done | 2026-08-13 — published. Concept DOI (always latest) `10.5281/zenodo.21924251`, v1 DOI `10.5281/zenodo.21924252`. Both verified resolving. Wired into about.html (3 languages) + README badge + BibTeX. Also added a MIT LICENSE file with a third-party data carve-out, which the deposit needed. |
 
 ### P3 — app-store track (owner-driven, guides ready)
@@ -81,6 +81,46 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-24** — Shipped B-18 (retention loop) and B-22 (institutional-track content), one
+  P1 product feature and one P2 academic-track deliverable. B-18: added a "city stamps" wall
+  to the walk pane (More tab, right below the existing walk-recording list) — a 20-cell grid,
+  one seal per NL city, that fills in (vermilion ink-stamp styling matching the app's existing
+  aesthetic) the first time the walker finishes a recorded walk of ≥200 m in that city (a small
+  floor to keep a stray GPS blip from earning a stamp). Reuses the existing `savedTraces`
+  localStorage data — no new storage, no new permissions, purely a derived view — computed as
+  `earnedCityIds()` from trace distance+cityId and re-rendered on every trace mutation (stop
+  recording, delete) and on language switch. Tapping any stamp (earned or not) jumps the map to
+  that city via the existing `selectCity()`, nudging exploration toward the 12 not-yet-walked
+  cities. Trilingual labels added to all three `I18N` blocks. Verified in headless Chromium
+  against the live app on a local static server: grid renders all 20 cities, progress counter
+  reads "0 / 20 stamped" on a fresh profile, injecting a synthetic 500 m Delft trace into
+  `localStorage` and reloading correctly flips exactly the Delft cell to `.earned` and updates
+  the counter to "1 / 20" — confirms the earn logic, not just the render. No new console errors
+  (the only console noise was pre-existing `ERR_CONNECTION_RESET` on tile fetches, the same
+  sandbox-only outbound-proxy flakiness to PDOK/ArcGIS noted in the 2026-08-20 entry, unrelated
+  to this change and confirmed separately not to affect the real network). B-22: researched the
+  three named submission targets live rather than drafting blind — found DH Benelux's own site
+  serving stale (2023) cached content and no 2027 CFP announced yet; FOSS4G-NL's 2026 edition
+  (8–9 July, Groningen) already happened and its CFP is closed, no 2027 posted; both of
+  Stimuleringsfonds Creatieve Industrie's 2026 "Digitale cultuur" rounds (Feb, Aug) are also
+  already closed. So none of the three drafts in the new `docs/SUBMISSIONS.md` can be submitted
+  today — the deliverable is ready-to-fire copy for the next cycle of each, so writing happens
+  ahead of deadline pressure instead of during it: a DH Benelux short-paper/demo abstract on the
+  RD→Web Mercator client-side reprojection + PMTiles offline-distribution pattern (the two
+  technical contributions likely to interest a DH/geohumanities audience), a Dutch-language
+  FOSS4G-NL talk proposal aimed at OSGeo.nl practitioners, and a Stimuleringsfonds phase-I grant
+  pitch. Flagged one real blocker found during the research, not invented: the Stimuleringsfonds
+  route requires Dutch KVK (Chamber of Commerce) registration for phase-I materials, which the
+  fund's own page doesn't clarify for a non-resident applicant — recommended the owner either
+  confirm eligibility directly with the fund or route the application through a Dutch academic
+  partner (dovetails with the existing B-21 outreach targets) before investing time in a full
+  phase-II plan. Verified before push: both inline `<script>` blocks pass `node --check`, all
+  JSON files in the repo parse. Next up: B-11 bake remaining Randstad PMTiles (pmtiles/ still
+  only 42 MB, plenty of headroom under 300 MB; outbound connectivity to the ArcGIS tile source
+  was spot-checked working this session, so this is a good next target), B-14 continue on the
+  8 zero-postcard-coverage cities flagged 2026-08-20, B-17 walk photos (natural follow-up to
+  B-18's stamp wall — same "make a completed walk feel rewarding" thread). Blockers unchanged —
+  see end-of-run report.
 - **2026-08-20** — Shipped B-10 (highest-shareability item, flagged "next up" for three
   loops running) and made progress on B-14. B-10: added a "Toen/nu-video" / "Then/now
   video" button next to the existing compare toggle. It composites the current map

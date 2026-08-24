@@ -195,6 +195,14 @@
   .trace-actions button:hover { border-color:var(--vermilion); color:var(--vermilion); }
   .trace-actions button.danger:hover { border-color:#a33; color:#a33; }
   .trace-empty { font-family:var(--sans); font-size:12px; color:var(--ash); padding:6px 2px; }
+  .stamp-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:7px; margin-top:10px; }
+  .stamp { position:relative; aspect-ratio:1; border:1.5px dashed var(--mist); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color 0.2s,transform 0.2s; }
+  .stamp:hover { border-color:var(--vermilion); }
+  .stamp .zh { font-family:var(--serif); font-size:11px; font-weight:600; letter-spacing:0.02em; color:var(--silver); text-align:center; line-height:1.15; padding:0 2px; }
+  .stamp.earned { border:2px solid var(--vermilion); background:var(--vermilion-l); transform:rotate(-5deg); }
+  .stamp.earned::after { content:''; position:absolute; inset:3px; border:1px solid var(--vermilion); border-radius:50%; opacity:0.55; }
+  .stamp.earned .zh { color:var(--vermilion-d); }
+  .stamps-progress { font-family:var(--mono); font-size:10px; color:var(--ash); margin-top:8px; text-align:right; }
   /* ── β 3D 漫遊 walk mode ─────────────────────────────
      Perspectief-grond: één canvas met tegels, rotateX(60°) gekanteld,
      rotateZ volgt het kompas. Geport uit taiwan-historical-maps/beta. */
@@ -691,6 +699,11 @@
       </div>
       <div class="trace-list" id="trace-list"></div>
 
+      <div class="pane-label" data-i18n="sec.stamps">城市印章</div>
+      <div class="offline-hint" data-i18n="stamps.hint">完成一段至少 200 公尺的散策，即可蓋上該城市的印章。</div>
+      <div class="stamp-grid" id="stamp-grid"></div>
+      <div class="stamps-progress" id="stamps-progress"></div>
+
       <div id="offline-section">
         <div class="pane-label" data-i18n="sec.offline">離線</div>
         <button type="button" class="btn" id="btn-download">
@@ -1121,6 +1134,8 @@
       'walk3d.hint.idle': 'Druk op GPS — de oude kaart loopt dan met je mee.',
       'walk3d.hint.ready': 'De oude kaart ligt onder je voeten · loop maar.',
       'walk3d.hint.rec': 'Opname loopt · je route wordt onderweg vastgelegd.',
+      'sec.stamps': 'Stadszegels', 'stamps.hint': 'Rond een wandeling van minstens 200 m af om het zegel van die stad te verdienen.',
+      'stamps.progress': 'gestempeld',
       'sec.plan': 'Ruimtelijk', 'sec.plan.en': 'ruimtelijk', 'plan.zoning': 'Bestemmingsplan', 'plan.landuse': 'Bodemgebruik',
       'plan.hint': 'Actuele bestemmingsplannen & bodemgebruik (CC0, via PDOK), als overlay op de kaart.',
       'legend.title': 'Legenda', 'legend.note': 'Labels in het Nederlands (officiële PDOK-legenda).',
@@ -1170,6 +1185,8 @@
       'walk3d.hint.idle': 'Tap GPS — the old map will walk along with you.',
       'walk3d.hint.ready': 'The old map is under your feet · start walking.',
       'walk3d.hint.rec': 'Recording · your route is being traced as you go.',
+      'sec.stamps': 'City stamps', 'stamps.hint': 'Finish a walk of at least 200 m to earn that city\'s stamp.',
+      'stamps.progress': 'stamped',
       'sec.plan': 'Planning', 'sec.plan.en': 'planning', 'plan.zoning': 'Zoning', 'plan.landuse': 'Land use',
       'plan.hint': 'Current Dutch zoning plans & land use (CC0, via PDOK), as a map overlay.',
       'legend.title': 'Legend', 'legend.note': 'Labels are in Dutch (official PDOK legend).',
@@ -1219,6 +1236,8 @@
       'walk3d.hint.idle': '按 GPS 開始，古地圖就會跟著你走。',
       'walk3d.hint.ready': '腳下就是古地圖 · 走動時跟著你捲動。',
       'walk3d.hint.rec': '記錄中 · 走動時路徑會沿路記下。',
+      'sec.stamps': '城市印章', 'stamps.hint': '完成一段至少 200 公尺的散策，即可蓋上該城市的印章。',
+      'stamps.progress': '已蓋章',
       'sec.plan': '規劃圖', 'sec.plan.en': '規劃', 'plan.zoning': '都市計畫', 'plan.landuse': '土地利用',
       'plan.hint': '荷蘭現行都市計畫與土地利用圖（CC0，來自 PDOK），可疊在地圖上參考。',
       'legend.title': '圖例', 'legend.note': '標籤為荷蘭文（PDOK 官方圖例）。',
@@ -1264,6 +1283,7 @@
     renderAbout();
     updateDailyFab();
     renderTraceList();
+    renderStamps();
     updateRecordBtn();
     document.getElementById('theme-toggle').textContent =
       document.documentElement.classList.contains('theme-dark') ? t('theme.dark') : t('theme.light');
@@ -1602,6 +1622,7 @@
       savedTraces.unshift(currentTrace);
       persistTraces();
       renderTraceList();
+      renderStamps();
     }
     currentTrace = null;
     document.getElementById('rec-status').classList.remove('show');
@@ -1645,6 +1666,26 @@
         + '</div></div>';
     }).join('');
   }
+
+  // ── Stadszegels / City stamps — one per city, earned by finishing a walk there ──
+  const STAMP_MIN_DIST = 200; // metres; keeps a stray GPS tap from earning a stamp
+  function earnedCityIds() {
+    const ids = new Set();
+    savedTraces.forEach(tr => { if (tr.cityId && (tr.distance || 0) >= STAMP_MIN_DIST) ids.add(tr.cityId); });
+    return ids;
+  }
+  function renderStamps() {
+    const grid = document.getElementById('stamp-grid');
+    const prog = document.getElementById('stamps-progress');
+    if (!grid || !prog) return;
+    const earned = earnedCityIds();
+    grid.innerHTML = CITIES.map(c => {
+      const name = lang === 'zh' ? c.zh : c.en;
+      return '<div class="stamp' + (earned.has(c.id) ? ' earned' : '') + '" data-id="' + c.id + '" title="' + name + '">'
+        + '<span class="zh">' + name + '</span></div>';
+    }).join('');
+    prog.textContent = earned.size + ' / ' + CITIES.length + ' ' + t('stamps.progress');
+  }
   function showTraceOnMap(id) {
     if (shownTraceLayer) { map.removeLayer(shownTraceLayer); shownTraceLayer = null; }
     if (shownTraceId === id) { shownTraceId = null; renderTraceList(); return; }
@@ -1682,6 +1723,7 @@
     persistTraces();
     if (shownTraceId === id && shownTraceLayer) { map.removeLayer(shownTraceLayer); shownTraceLayer = null; shownTraceId = null; }
     renderTraceList();
+    renderStamps();
   }
 
   // ── Wandel-deelkaart: 1080×1920 met kaartcompositie (basis + historisch) ──
@@ -2282,6 +2324,12 @@
     if (row) showTraceOnMap(row.dataset.id);
   });
   renderTraceList();
+
+  document.getElementById('stamp-grid').addEventListener('click', e => {
+    const cell = e.target.closest('.stamp');
+    if (cell) selectCity(cell.dataset.id);
+  });
+  renderStamps();
 
   function updateMeta() {
     const c = map.getCenter();
