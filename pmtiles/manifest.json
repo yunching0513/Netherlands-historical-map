@@ -111,6 +111,102 @@
       "maxzoom": 17,
       "format": "webp",
       "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "leiden-1900",
+      "city": "leiden",
+      "service": "1900",
+      "url": "leiden-1900.pmtiles",
+      "bounds": [
+        4.4657,
+        52.1409,
+        4.521699999999999,
+        52.1769
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "delft-1900",
+      "city": "delft",
+      "service": "1900",
+      "url": "delft-1900.pmtiles",
+      "bounds": [
+        4.3291,
+        51.9936,
+        4.3850999999999996,
+        52.0296
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "haarlem-1900",
+      "city": "haarlem",
+      "service": "1900",
+      "url": "haarlem-1900.pmtiles",
+      "bounds": [
+        4.609500000000001,
+        52.3634,
+        4.6655,
+        52.3994
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "gouda-1900",
+      "city": "gouda",
+      "service": "1900",
+      "url": "gouda-1900.pmtiles",
+      "bounds": [
+        4.6824,
+        51.9935,
+        4.7383999999999995,
+        52.0295
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "dordrecht-1900",
+      "city": "dordrecht",
+      "service": "1900",
+      "url": "dordrecht-1900.pmtiles",
+      "bounds": [
+        4.662100000000001,
+        51.7953,
+        4.7181,
+        51.8313
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "amersfoort-1900",
+      "city": "amersfoort",
+      "service": "1900",
+      "url": "amersfoort-1900.pmtiles",
+      "bounds": [
+        5.359800000000001,
+        52.1381,
+        5.4158,
+        52.1741
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
     }
   ]
 }

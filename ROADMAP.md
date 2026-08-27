@@ -40,10 +40,10 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | id | item | status | notes |
 |---|---|---|---|
 | B-10 | "Then/now" animated GIF/WebM export of the compare slider (highly shareable) | done | 2026-08-20 — shipped as WebM/MP4 (MediaRecorder + canvas.captureStream), see Loop Log |
-| B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | todo | tools/bake_pmtiles.py ready; watch repo size (<1 GB) |
+| B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | done | 2026-08-27 — all 6 baked z12–17, see Loop Log |
 | B-12 | Amsterdam full era ladder: add 1815, 2021 archives | todo | completes the time-travel story offline |
 | B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | doing | 2026-08-17 — Rotterdam pair shipped (Kiefhoek, Sonneveld House), both Public Domain via Commons API. Hilversum isn't in the app's `CITIES` list yet (no tiles baked), so Zonnestraal/Dudok Raadhuis need Hilversum added as a city first — out of scope for a landmarks-only pass. Utrecht "Werkbond" target unclear (no canonical building of that name found); needs the owner to confirm which building was meant, or drop it. |
-| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | doing | 2026-08-20 — audit found all of Frans Hals/Haarlem, Vermeer-View-of-Delft/Delft, Van Gogh/Den Haag already shipped in earlier passes not reflected in this row; the real gap is 9 of 20 cities (groningen, leeuwarden, deventer, arnhem, nijmegen, maastricht, middelburg, gouda, amersfoort) with **zero** postcards. Shipped one: Mondriaan/Amersfoort (his birthplace). Row stays `doing` — 8 zero-coverage cities remain, several without an obvious/verifiable PD-artwork tie (risk of guessing wrong per the "don't guess" rule) — see Loop Log. |
+| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | doing | 2026-08-27 — shipped 2 more verified: Jan van Goyen "View of Nijmegen" (c.1649, depicts the city itself) and Balthasar van der Ast "Fruit Still Life with Shells and Tulip" (c.1620, born in Middelburg). 6 zero-coverage cities remain (groningen, leeuwarden, deventer, arnhem, maastricht, gouda) — see Loop Log. |
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
 | B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | todo | follow-up to B-16 |
@@ -81,6 +81,57 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-27** — Shipped B-11 (fully closes the row) and made further progress on B-14, both
+  flagged "next up" for two loops running. B-11: set up a fresh `.venv-pmtiles` (pyproj/pillow/
+  pmtiles/requests) and baked all 6 remaining Randstad cities — leiden, delft, haarlem, gouda,
+  dordrecht, amersfoort — at 1900/z12–17/webp-q82, matching the exact parameters (half-lat
+  0.018, half-lng 0.028) already used for amsterdam/rotterdam/denhaag/utrecht so archive
+  coverage lines up with each city's default view. Every single planned tile in every archive
+  rendered non-empty (no gaps in source coverage): leiden 672/672, delft 650/650, haarlem
+  673/673, gouda 672/672, dordrecht 633/633, amersfoort 683/683. `pmtiles/manifest.json` now
+  lists 13 archives; total `pmtiles/` size grew from 42 MB to 75 MB, comfortably under the
+  ~300 MB ceiling. Verified two ways: (1) a headless-Chromium pass against the real app on a
+  local static server confirmed the manifest loads (13 archives), the new files are reachable,
+  and at least one tile request for Leiden/1900 hit the local `.pmtiles` archive successfully
+  with no errors specific to it (further attempts to force more tile churn via pan/zoom/year-
+  scrub hit this *sandbox's* known browser-cache/timing quirks rather than any app bug — same
+  category of sandbox-only flakiness flagged in the 2026-08-20 and 2026-08-24 entries); (2) a
+  direct Python read of each new archive via `pmtiles.reader` decoded a real, non-blank WEBP
+  tile both at the archive's center zoom (z12) and at the app's default city zoom (z15) for all
+  6 files — the strongest and most sandbox-independent confirmation that the bakes are correct.
+  B-14: continued the "8 zero-coverage cities" gap flagged 2026-08-20/08-24, this time with
+  actual research budget instead of guessing. Found and verified two solid, well-documented
+  connections rather than forcing weak ones: Jan van Goyen's *View of Nijmegen* (c. 1649,
+  Gemäldegalerie Berlin) — a direct depiction of the city itself (Nijmegen, the Netherlands'
+  oldest city, seen across the Waal with the Valkhof castle), the same "painting *of* the city"
+  pattern as Delft/Vermeer rather than a birthplace tie; and Balthasar van der Ast's *Fruit
+  Still Life with Shells and Tulip* (c. 1620, Mauritshuis) — van der Ast was born in Middelburg,
+  a VOC chamber city and the literal port of entry for the exotic shells/tulips/fruit that
+  define his still lifes, a genuinely documented city↔artist connection (not the "guessed and
+  got it wrong" risk flagged for Utrecht's "Werkbond" in B-13). Both verified Public Domain via
+  the Wikimedia Commons `imageinfo` API (`Copyrighted: False`, `LicenseShortName: Public
+  domain`) before writing copy; both artists died in the 1650s, well past any copyright term.
+  Hit persistent `429`s from `upload.wikimedia.org` on first attempts to fetch the Van der Ast
+  thumbnail (not a licensing issue — a transient rate-limit on that specific image's CDN shard
+  via this sandbox's shared-IP proxy) — confirmed by retrying with backoff until it returned
+  200, and cross-checking that other thumbnails resolved fine throughout, so this was correctly
+  treated as "retry", not "file is broken" or "give up". Wrote full zh/en/nl narrative `desc`
+  blocks for both (matching the Mondriaan/Amersfoort entry's house style: connect the artist to
+  the city with real, specific facts, not generic Wikipedia summary). Left 6 cities alone
+  (groningen, leeuwarden, deventer, arnhem, maastricht, gouda) — spent real search budget on
+  Groningen (Cornelis Springer did paint Groningen townscapes but no specific, well-documented
+  Commons-verified file surfaced) and Maastricht (no Golden-Age-caliber painting of the city
+  found) rather than forcing a weak match; Leeuwarden's most famous native artist is M.C.
+  Escher, whose work is firmly still in copyright (died 1972) and explicitly out of scope.
+  Verified before push: all 4 JSON files in the repo parse (postcards now 87 items, up from 85;
+  pmtiles manifest now 13 archives), both inline `<script>` blocks pass `node --check` (index.html
+  itself wasn't touched this pass — B-11 is pure asset addition, B-14 is pure JSON addition), and
+  a headless-Chromium pass confirmed both new postcards render on their city's Cards tab with the
+  artist name visible and zero console errors. Next up: B-14 remaining 6 cities (worth another
+  research pass, ideally with the owner's own knowledge of any city↔artist ties this loop
+  missed), B-17 walk photos (natural follow-up to B-18's stamp wall, but camera+IndexedDB is
+  hard to verify headlessly — worth flagging to the owner as a manual-test item once shipped),
+  B-12 Amsterdam era ladder (1815/2021). Blockers unchanged — see end-of-run report.
 - **2026-08-24** — Shipped B-18 (retention loop) and B-22 (institutional-track content), one
   P1 product feature and one P2 academic-track deliverable. B-18: added a "city stamps" wall
   to the walk pane (More tab, right below the existing walk-recording list) — a 20-cell grid,

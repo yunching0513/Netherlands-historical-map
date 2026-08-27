@@ -2142,6 +2142,58 @@
         "en": "Piet Mondrian was born in Amersfoort in 1872 — the town still keeps his childhood home as the Mondriaanhuis museum. This painting, however, looks nothing like the red-yellow-blue grids he'd later become famous for: painted in 1907, it belongs to his early naturalistic period, still under the spell of the Hague School — a windmill at dusk, a row of poplars, water blurred with reflections. The distance between this canvas and his later Compositions marks one of the sharpest turns in 20th-century art.",
         "nl": "Piet Mondriaan werd in 1872 geboren in Amersfoort, waar zijn geboortehuis nu het Mondriaanhuis is. Dit schilderij lijkt echter niets op de later zo beroemde rood-geel-blauwe rasters: het is uit 1907, nog uit zijn vroege naturalistische periode onder invloed van de Haagse School — een molen in de schemering, een rij populieren, wazige reflecties in het water. De afstand tussen dit doek en zijn latere Composities is een van de scherpste ommekeren in de twintigste-eeuwse kunst."
       }
+    },
+    {
+      "id": "nijmegen-vangoyen-view-of-nijmegen",
+      "city": "nijmegen",
+      "year": "c. 1649",
+      "artist": {
+        "zh": "揚·凡·戈因",
+        "en": "Jan van Goyen",
+        "nl": "Jan van Goyen"
+      },
+      "title": {
+        "zh": "奈梅亨遠眺",
+        "en": "View of Nijmegen",
+        "nl": "Gezicht op Nijmegen"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Jan_van_Goyen_-_View_of_Nijmegen_-_WGA10190.jpg/1280px-Jan_van_Goyen_-_View_of_Nijmegen_-_WGA10190.jpg",
+      "credit": "Gemäldegalerie, Berlin",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jan_van_Goyen_-_View_of_Nijmegen_-_WGA10190.jpg",
+      "lat": 51.8126,
+      "lng": 5.8372,
+      "desc": {
+        "zh": "奈梅亨是荷蘭現存最古老的城市，早在羅馬時代已是要塞聚落，畫面中聳立的瓦爾克霍夫城堡（Valkhof）曾是查理曼大帝的行宮所在地。凡·戈因是荷蘭黃金時代最重要的風景畫家之一，一生沿著尼德蘭的河岸畫遍一座又一座水岸城鎮，這幅約1649年的作品以他招牌的低視角與銀灰色調天空，捕捉瓦爾河對岸的奈梅亨剪影——手法與他為台夫特、鹿特丹留下的城市風景一脈相承。",
+        "en": "Nijmegen is the oldest city in the Netherlands, a fortified settlement since Roman times; the Valkhof castle rising over its skyline once held a palace of Charlemagne. Jan van Goyen was one of the defining landscape painters of the Dutch Golden Age, traveling the country's riverbanks to paint one waterside town after another. This c. 1649 view, in his signature low horizon and silvery sky, captures Nijmegen's silhouette across the river Waal — painted with the same eye he brought to his townscapes of Delft and Rotterdam.",
+        "nl": "Nijmegen is de oudste stad van Nederland, al in de Romeinse tijd een versterkte nederzetting; de Valkhofburcht die boven de skyline uitsteekt, huisvestte ooit een paleis van Karel de Grote. Jan van Goyen was een van de belangrijkste landschapsschilders van de Gouden Eeuw en trok langs de rivieroevers van het hele land om de ene na de andere waterstad vast te leggen. Dit gezicht uit ca. 1649, met zijn kenmerkende lage horizon en zilvergrijze lucht, toont Nijmegen gezien over de Waal — geschilderd met dezelfde blik die hij ook op Delft en Rotterdam richtte."
+      }
+    },
+    {
+      "id": "middelburg-vanderast-fruit-still-life",
+      "city": "middelburg",
+      "year": "c. 1620",
+      "artist": {
+        "zh": "巴爾塔薩·凡·德·阿斯特",
+        "en": "Balthasar van der Ast",
+        "nl": "Balthasar van der Ast"
+      },
+      "title": {
+        "zh": "有貝殼與鬱金香的水果靜物",
+        "en": "Fruit Still Life with Shells and Tulip",
+        "nl": "Stilleven met vruchten, schelpen en tulp"
+      },
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Balthasar_van_der_Ast_-_Fruit_Still_Life_with_Shells_and_Tulip_-_1066_-_Mauritshuis.jpg/1280px-Balthasar_van_der_Ast_-_Fruit_Still_Life_with_Shells_and_Tulip_-_1066_-_Mauritshuis.jpg",
+      "credit": "Mauritshuis, Den Haag",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Balthasar_van_der_Ast_-_Fruit_Still_Life_with_Shells_and_Tulip_-_1066_-_Mauritshuis.jpg",
+      "lat": 51.4988,
+      "lng": 3.6111,
+      "desc": {
+        "zh": "巴爾塔薩·凡·德·阿斯特約1593年生於米德爾堡——荷蘭東印度公司（VOC）六大商會之一的所在地，異國香料、貝殼與球根植物由此登陸尼德蘭。這正是他畫中反覆出現的元素：稀有的熱帶貝殼、剛引進不久還被當作投機商品的鬱金香、遠渡重洋而來的水果，堆疊成一座座小小的財富劇場。他後來移居烏特勒支、台夫特，成為荷蘭黃金時代靜物畫的奠基者之一，但畫面裡那份對「舶來品」的癡迷，始終帶著故鄉米德爾堡港口的氣味。",
+        "en": "Balthasar van der Ast was born around 1593 in Middelburg — home to one of the six chambers of the Dutch East India Company (VOC), and the port where exotic spices, shells, and bulb plants first landed in the Netherlands. Those are exactly the props that recur across his work: rare tropical shells, tulips (still a speculative luxury import at the time), and fruit shipped in from across the ocean, all arranged into small theaters of wealth. He later moved on to Utrecht and Delft and became one of the founders of Dutch Golden Age still-life painting, but the fascination with imported goods in his canvases still carries the scent of his home port.",
+        "nl": "Balthasar van der Ast werd rond 1593 geboren in Middelburg — zetel van een van de zes kamers van de VOC, en de haven waar exotische specerijen, schelpen en bolgewassen als eerste in Nederland aan land kwamen. Precies die elementen keren terug in zijn werk: zeldzame tropische schelpen, tulpen (toen nog een speculatief luxeproduct), fruit dat van ver over zee kwam — allemaal opgebouwd tot kleine theaters van rijkdom. Hij verhuisde later naar Utrecht en Delft en werd een van de grondleggers van het Hollandse stillevenschilderij, maar de fascinatie voor import in zijn doeken ademt nog altijd de haven van zijn geboortestad."
+      }
     }
   ]
 }
