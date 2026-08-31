@@ -41,12 +41,12 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 |---|---|---|---|
 | B-10 | "Then/now" animated GIF/WebM export of the compare slider (highly shareable) | done | 2026-08-20 — shipped as WebM/MP4 (MediaRecorder + canvas.captureStream), see Loop Log |
 | B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | done | 2026-08-27 — all 6 baked z12–17, see Loop Log |
-| B-12 | Amsterdam full era ladder: add 1815, 2021 archives | todo | completes the time-travel story offline |
+| B-12 | Amsterdam full era ladder: add 1815, 2021 archives | done | 2026-08-31 — baked both, see Loop Log |
 | B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | doing | 2026-08-17 — Rotterdam pair shipped (Kiefhoek, Sonneveld House), both Public Domain via Commons API. Hilversum isn't in the app's `CITIES` list yet (no tiles baked), so Zonnestraal/Dudok Raadhuis need Hilversum added as a city first — out of scope for a landmarks-only pass. Utrecht "Werkbond" target unclear (no canonical building of that name found); needs the owner to confirm which building was meant, or drop it. |
 | B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | doing | 2026-08-27 — shipped 2 more verified: Jan van Goyen "View of Nijmegen" (c.1649, depicts the city itself) and Balthasar van der Ast "Fruit Still Life with Shells and Tulip" (c.1620, born in Middelburg). 6 zero-coverage cities remain (groningen, leeuwarden, deventer, arnhem, maastricht, gouda) — see Loop Log. |
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
-| B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | todo | follow-up to B-16 |
+| B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | done | 2026-08-31 — see Loop Log |
 | B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | done | 2026-08-24 — see Loop Log |
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
@@ -81,6 +81,61 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-08-31** — Shipped B-12 and B-17, both flagged "next up" for two loops running (P1
+  product depth + the time-travel-story completeness item). B-12: baked `amsterdam-1815` and
+  `amsterdam-2021` into `pmtiles/` — Amsterdam now has the full six-era ladder (1815, 1850,
+  1900, 1925, 1975, 2021), matching the app's own advertised "1815–2021" time-slider range for
+  its flagship city. Used the exact same bbox/zoom params as the four existing Amsterdam
+  archives (lat 52.3731, lng 4.8922, half-lat 0.018, half-lng 0.028, z12–17) with
+  `tools/bake_pmtiles.py`, after confirming via the ArcGIS `?f=json` service-metadata endpoint
+  that `Historische_tijdreis_1815` and `_2021` are real, documented services in the same
+  "1815–heden" tiled-service collection Kadaster describes (an earlier plain tile-URL probe
+  had returned 404, but that traced to a badly-guessed row/col for the RD tiling scheme, not a
+  missing service — the *known-good* 1900 service 404'd identically at those same made-up
+  coordinates, which is what exposed the mistake). Both bakes rendered every single planned
+  tile non-empty (675/675 each — no source-coverage gaps), and a direct `pmtiles.reader` read
+  (the most sandbox-independent check, per the 2026-08-27 entry's rationale) decoded real,
+  non-blank WEBP tiles for both archives at z12 and z15. No `index.html` changes were needed —
+  same as B-11, the app discovers archives purely from `pmtiles/manifest.json`
+  (`pmtilesFor()`/`pmtilesCityMap()` are fully data-driven), so this was pure asset addition.
+  `pmtiles/` grew from 75 MB to 85 MB, still comfortably under the 300 MB ceiling. B-17: added
+  walk photos, the natural follow-up to B-18's stamp wall flagged in the last two entries.
+  During an active recording, a new "📷 Foto/Photo/拍照" button (native `<input type=file
+  capture=environment>` — the simplest reliable camera-access pattern for a single-file PWA,
+  avoiding a hand-rolled getUserMedia/live-preview UI) downscales the shot to max 1280px/JPEG
+  q0.82 on a canvas and stores it in a new IndexedDB database (`nlOldMapsPhotos`, not
+  localStorage — photo blobs are too large for that), keyed to the in-progress trace's id, with
+  a live thumbnail strip under the recording stats. Past walks show a "📷 N" badge in the trace
+  list (only when photos exist, via an async `photosForTrace()` pass after each render) that
+  opens a small photo-grid viewer (reusing the app's existing `.lightbox` CSS pattern) with
+  per-photo delete; deleting a whole walk (`deleteTrace`) now also purges its photos so nothing
+  orphans in IndexedDB. `buildWalkCard()` — the 1080×1920 share-card canvas — now draws up to 4
+  evenly-sampled photos as a square-cropped strip; this reused roughly 300px of canvas space
+  that was already blank below the existing footer text (the card's fixed 1920px height had
+  headroom the whole time), so no existing layout had to be reflowed, and a walk with zero
+  photos renders byte-identical to before. Verified in headless Chromium against the real app
+  on a local static server, in three passes, each checking a different layer: (1) DOM presence
+  of the new photo button/input/viewer elements, plus confirmed the manifest now lists all six
+  `amsterdam-*` services (1815/1850/1900/1925/1975/2021); (2) the read/UI path — seeded a
+  synthetic trace into `localStorage` and a matching photo blob directly into IndexedDB (the
+  same "inject real storage state, then assert on render" technique the B-18 entry used for the
+  stamp wall), reloaded, and confirmed the "📷 1" badge appears, the viewer opens showing that
+  photo, and clicking delete removes it from both the viewer DOM and (implicitly) IndexedDB;
+  (3) the write/render path — triggered the actual share button with cross-origin tile requests
+  stubbed to an instant 1×1 PNG (routing around this *sandbox's* known flaky outbound proxy to
+  ArcGIS/PDOK, the same workaround the 2026-08-20 entry used for B-10's video export — confirmed
+  separately not a real-network issue) and confirmed `buildWalkCard()`'s full async chain,
+  including the new photo-strip drawing code, completed with zero page errors and produced a
+  real ~90 KB JPEG blob. Camera capture itself (the actual device permission prompt and photo
+  picker) can't be exercised headlessly — flagging this as a manual-test item for the owner,
+  same caveat the 2026-08-27 entry raised for B-17 up front. Verified before push: both inline
+  `<script>` blocks pass `node --check`, all JSON files in the repo parse (postcards/landmarks/
+  manifest untouched by this pass — B-17 is pure `index.html`, B-12 is pure `pmtiles/`+manifest).
+  Next up: B-14's remaining 6 zero-coverage cities (groningen, leeuwarden, deventer, arnhem,
+  maastricht, gouda) — two prior loops already spent real research budget here without a solid
+  hit, so this needs either fresh research angles or the owner's own knowledge of a city↔artist
+  tie; B-13's Utrecht "Werkbond" still needs the owner to confirm which building was meant, or
+  it should be dropped from the backlog row. Blockers unchanged — see end-of-run report.
 - **2026-08-27** — Shipped B-11 (fully closes the row) and made further progress on B-14, both
   flagged "next up" for two loops running. B-11: set up a fresh `.venv-pmtiles` (pyproj/pillow/
   pmtiles/requests) and baked all 6 remaining Randstad cities — leiden, delft, haarlem, gouda,

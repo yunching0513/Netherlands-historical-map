@@ -207,6 +207,38 @@
       "maxzoom": 17,
       "format": "webp",
       "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "amsterdam-1815",
+      "city": "amsterdam",
+      "service": "1815",
+      "url": "amsterdam-1815.pmtiles",
+      "bounds": [
+        4.8642,
+        52.3551,
+        4.9201999999999995,
+        52.3911
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "amsterdam-2021",
+      "city": "amsterdam",
+      "service": "2021",
+      "url": "amsterdam-2021.pmtiles",
+      "bounds": [
+        4.8642,
+        52.3551,
+        4.9201999999999995,
+        52.3911
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
     }
   ]
 }

@@ -194,7 +194,13 @@
   .trace-actions button { padding:5px 8px; border:1px solid var(--mist); background:var(--paper-2); font-family:var(--mono); font-size:9px; letter-spacing:0.04em; color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; }
   .trace-actions button:hover { border-color:var(--vermilion); color:var(--vermilion); }
   .trace-actions button.danger:hover { border-color:#a33; color:#a33; }
+  .trace-actions button.trace-photos[hidden] { display:none; }
   .trace-empty { font-family:var(--sans); font-size:12px; color:var(--ash); padding:6px 2px; }
+  .rec-photo-row { display:flex; align-items:center; gap:8px; margin-top:10px; }
+  .btn-photo { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid var(--stone); background:var(--paper-2); font-family:var(--mono); font-size:10px; letter-spacing:0.04em; color:var(--graphite); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .btn-photo:hover { border-color:var(--vermilion); color:var(--vermilion); }
+  .rec-photo-thumbs { display:flex; gap:6px; flex-wrap:wrap; }
+  .rec-photo-thumbs img { width:34px; height:34px; object-fit:cover; border:1px solid var(--stone); }
   .stamp-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:7px; margin-top:10px; }
   .stamp { position:relative; aspect-ratio:1; border:1.5px dashed var(--mist); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color 0.2s,transform 0.2s; }
   .stamp:hover { border-color:var(--vermilion); }
@@ -375,6 +381,12 @@
     .lc-share { justify-content:center; padding:15px; font-size:16px; }
     .lc-source { text-align:center; }
   }
+  /* Walk-photo viewer */
+  .photo-lb-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; padding:20px; }
+  .photo-cell { position:relative; aspect-ratio:1; overflow:hidden; background:#15130f; }
+  .photo-cell img { width:100%; height:100%; object-fit:cover; display:block; }
+  .photo-del { position:absolute; top:4px; right:4px; width:26px; height:26px; border:none; border-radius:50%; background:rgba(20,19,16,0.72); color:#F1EFE9; font-size:15px; line-height:1; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .photo-del:hover { background:var(--vermilion); }
   /* Offline download */
   .offline-hint { margin-top:8px; font-family:var(--sans); font-size:10px; color:var(--ash); line-height:1.65; }
   .dl-status { display:none; margin-top:10px; padding:10px 12px; background:var(--paper); border:1px solid var(--mist); font-family:var(--mono); font-size:10px; color:var(--ash); line-height:1.7; }
@@ -696,6 +708,11 @@
           <div class="col"><div class="k" data-i18n="walk.time">時間</div><div class="v" id="rec-time">0:00</div></div>
           <div class="col"><div class="k" data-i18n="walk.pts">點數</div><div class="v" id="rec-points">0</div></div>
         </div>
+        <div class="rec-photo-row">
+          <button type="button" class="btn-photo" id="btn-walk-photo" data-i18n="walk.photo">📷 拍照</button>
+          <input type="file" accept="image/*" capture="environment" id="walk-photo-input" hidden />
+        </div>
+        <div class="rec-photo-thumbs" id="rec-photo-thumbs"></div>
       </div>
       <div class="trace-list" id="trace-list"></div>
 
@@ -814,6 +831,14 @@
         <button type="button" class="lc-share" id="lc-share" data-i18n="card.save">下載／分享</button>
       </div>
     </figcaption>
+  </figure>
+</div>
+
+<div class="lightbox" id="photo-lightbox" hidden>
+  <div class="lightbox-backdrop" id="photo-lightbox-backdrop"></div>
+  <figure class="lightbox-card">
+    <button type="button" class="lightbox-close" id="photo-lightbox-close" aria-label="Close">×</button>
+    <div class="photo-lb-grid" id="photo-lb-grid"></div>
   </figure>
 </div>
 
@@ -1129,6 +1154,8 @@
       'walk.rec': 'OPNAME', 'walk.dist': 'Afstand', 'walk.time': 'Tijd', 'walk.pts': 'Punten',
       'walk.empty': 'Nog geen wandelingen', 'walk.share': 'Kaart', 'walk.export': 'GeoJSON', 'walk.delete': 'Wis',
       'walk.confirmdel': 'Deze wandeling wissen?', 'walk.saving': 'Bezig…',
+      'walk.photo': '📷 Foto', 'walk.nophotos': 'Nog geen foto\'s bij deze wandeling',
+      'walk.confirmdelphoto': 'Deze foto wissen?', 'walk.photosloading': 'Laden…', 'walk.photocaption': 'Onderweg',
       'kofi.label': 'Trakteer op koffie',
       'walk3d.exit': 'Sluiten',
       'walk3d.hint.idle': 'Druk op GPS — de oude kaart loopt dan met je mee.',
@@ -1180,6 +1207,8 @@
       'walk.rec': 'RECORDING', 'walk.dist': 'Distance', 'walk.time': 'Time', 'walk.pts': 'Points',
       'walk.empty': 'No walks yet', 'walk.share': 'Card', 'walk.export': 'GeoJSON', 'walk.delete': 'Delete',
       'walk.confirmdel': 'Delete this walk?', 'walk.saving': 'Saving…',
+      'walk.photo': '📷 Photo', 'walk.nophotos': 'No photos on this walk yet',
+      'walk.confirmdelphoto': 'Delete this photo?', 'walk.photosloading': 'Loading…', 'walk.photocaption': 'Along the way',
       'kofi.label': 'Buy me a coffee',
       'walk3d.exit': 'Exit',
       'walk3d.hint.idle': 'Tap GPS — the old map will walk along with you.',
@@ -1231,6 +1260,8 @@
       'walk.rec': '記錄中', 'walk.dist': '距離', 'walk.time': '時間', 'walk.pts': '點數',
       'walk.empty': '尚無散策記錄', 'walk.share': '分享卡', 'walk.export': 'GeoJSON', 'walk.delete': '刪除',
       'walk.confirmdel': '確定刪除這條散策路線？', 'walk.saving': '輸出中…',
+      'walk.photo': '📷 拍照', 'walk.nophotos': '這趟散策還沒有照片',
+      'walk.confirmdelphoto': '確定刪除這張照片？', 'walk.photosloading': '載入中…', 'walk.photocaption': '沿途所見',
       'kofi.label': '請我喝杯咖啡',
       'walk3d.exit': '離開',
       'walk3d.hint.idle': '按 GPS 開始，古地圖就會跟著你走。',
@@ -1564,6 +1595,84 @@
   try { savedTraces = JSON.parse(localStorage.getItem('nlOldMaps.traces') || '[]'); } catch (e) {}
   function persistTraces() { try { localStorage.setItem('nlOldMaps.traces', JSON.stringify(savedTraces)); } catch (e) {} }
 
+  // ── Wandelfoto's — camera + IndexedDB (blobs zijn te groot voor localStorage) ──
+  const PHOTO_DB_NAME = 'nlOldMapsPhotos', PHOTO_STORE = 'photos';
+  let photoDBPromise = null;
+  function openPhotoDB() {
+    if (!window.indexedDB) return Promise.reject(new Error('no indexedDB'));
+    if (photoDBPromise) return photoDBPromise;
+    photoDBPromise = new Promise((resolve, reject) => {
+      const req = indexedDB.open(PHOTO_DB_NAME, 1);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(PHOTO_STORE)) {
+          db.createObjectStore(PHOTO_STORE, { keyPath: 'id' }).createIndex('traceId', 'traceId', { unique: false });
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+    return photoDBPromise;
+  }
+  function addWalkPhoto(traceId, blob, lat, lng) {
+    return openPhotoDB().then(db => new Promise((resolve, reject) => {
+      const photo = { id: 'ph-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8), traceId: traceId, blob: blob, lat: lat, lng: lng, ts: Date.now() };
+      const tx = db.transaction(PHOTO_STORE, 'readwrite');
+      tx.objectStore(PHOTO_STORE).add(photo);
+      tx.oncomplete = () => resolve(photo);
+      tx.onerror = () => reject(tx.error);
+    }));
+  }
+  function photosForTrace(traceId) {
+    return openPhotoDB().then(db => new Promise((resolve, reject) => {
+      const req = db.transaction(PHOTO_STORE, 'readonly').objectStore(PHOTO_STORE).index('traceId').getAll(traceId);
+      req.onsuccess = () => resolve(req.result.sort((a, b) => a.ts - b.ts));
+      req.onerror = () => reject(req.error);
+    })).catch(() => []);
+  }
+  function deleteWalkPhoto(id) {
+    return openPhotoDB().then(db => new Promise((resolve, reject) => {
+      const tx = db.transaction(PHOTO_STORE, 'readwrite');
+      tx.objectStore(PHOTO_STORE).delete(id);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    })).catch(() => {});
+  }
+  function deletePhotosForTrace(traceId) {
+    return photosForTrace(traceId).then(photos => Promise.all(photos.map(p => deleteWalkPhoto(p.id))));
+  }
+  function downscaleImage(file, maxDim, quality) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        let w = img.naturalWidth, h = img.naturalHeight;
+        const scale = Math.min(1, maxDim / Math.max(w, h));
+        w = Math.round(w * scale); h = Math.round(h * scale);
+        const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+        cv.getContext('2d').drawImage(img, 0, 0, w, h);
+        cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', quality);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('img load')); };
+      img.src = url;
+    });
+  }
+  let recPhotoThumbUrls = [];
+  async function renderRecPhotos() {
+    const wrap = document.getElementById('rec-photo-thumbs');
+    if (!wrap) return;
+    recPhotoThumbUrls.forEach(u => URL.revokeObjectURL(u));
+    recPhotoThumbUrls = [];
+    if (!currentTrace) { wrap.innerHTML = ''; return; }
+    const photos = await photosForTrace(currentTrace.id);
+    wrap.innerHTML = photos.map(p => {
+      const u = URL.createObjectURL(p.blob);
+      recPhotoThumbUrls.push(u);
+      return '<img src="' + u + '" alt="" />';
+    }).join('');
+  }
+
   function calcDistance(pts) {
     let d = 0;
     for (let i = 1; i < pts.length; i++) d += haversine(pts[i-1].lat, pts[i-1].lng, pts[i].lat, pts[i].lng);
@@ -1604,6 +1713,7 @@
     if (recordPolyline) map.removeLayer(recordPolyline);
     recordPolyline = L.polyline([], { color: '#C15F3C', weight: 5, opacity: 0.85, lineCap: 'round', lineJoin: 'round' }).addTo(map);
     document.getElementById('rec-status').classList.add('show');
+    renderRecPhotos();
     if (recTimerId) clearInterval(recTimerId);
     recTimerId = setInterval(updateRecTimer, 1000);
     updateRecTimer();
@@ -1627,6 +1737,7 @@
     currentTrace = null;
     document.getElementById('rec-status').classList.remove('show');
     updateRecordBtn();
+    renderRecPhotos();
   }
   function addTracePoint(lat, lng, acc, ts) {
     if (!currentTrace || acc > 80) return;
@@ -1661,10 +1772,21 @@
         + '<div class="trace-meta">' + fmtDist(tr.distance || 0) + ' · ' + fmtDur(dur) + ' · ' + tr.points.length + ' pts</div>'
         + '</div><div class="trace-actions">'
         + '<button data-act="share" data-id="' + tr.id + '">' + t('walk.share') + '</button>'
+        + '<button data-act="photos" data-id="' + tr.id + '" class="trace-photos" hidden>📷 <span class="cnt">0</span></button>'
         + '<button data-act="export" data-id="' + tr.id + '">' + t('walk.export') + '</button>'
         + '<button data-act="delete" data-id="' + tr.id + '" class="danger">' + t('walk.delete') + '</button>'
         + '</div></div>';
     }).join('');
+    annotateTracePhotoCounts();
+  }
+  function annotateTracePhotoCounts() {
+    document.querySelectorAll('#trace-list button.trace-photos').forEach(async btn => {
+      const photos = await photosForTrace(btn.dataset.id);
+      if (photos.length) {
+        btn.hidden = false;
+        btn.querySelector('.cnt').textContent = String(photos.length);
+      }
+    });
   }
 
   // ── Stadszegels / City stamps — one per city, earned by finishing a walk there ──
@@ -1721,9 +1843,35 @@
     if (!confirm(t('walk.confirmdel'))) return;
     savedTraces = savedTraces.filter(x => x.id !== id);
     persistTraces();
+    deletePhotosForTrace(id);
     if (shownTraceId === id && shownTraceLayer) { map.removeLayer(shownTraceLayer); shownTraceLayer = null; shownTraceId = null; }
     renderTraceList();
     renderStamps();
+  }
+
+  // ── Foto-viewer: bekijk/verwijder de foto's van één wandeling ──
+  let photoLbUrls = [];
+  async function openPhotoViewer(traceId) {
+    const grid = document.getElementById('photo-lb-grid');
+    grid.innerHTML = '<div class="trace-empty">' + t('walk.photosloading') + '</div>';
+    document.getElementById('photo-lightbox').hidden = false;
+    const photos = await photosForTrace(traceId);
+    photoLbUrls.forEach(u => URL.revokeObjectURL(u));
+    photoLbUrls = [];
+    if (!photos.length) { grid.innerHTML = '<div class="trace-empty">' + t('walk.nophotos') + '</div>'; return; }
+    grid.innerHTML = photos.map(p => {
+      const u = URL.createObjectURL(p.blob);
+      photoLbUrls.push(u);
+      return '<div class="photo-cell" data-id="' + p.id + '">'
+        + '<img src="' + u + '" alt="" />'
+        + '<button type="button" class="photo-del" data-id="' + p.id + '" aria-label="delete">×</button>'
+        + '</div>';
+    }).join('');
+  }
+  function closePhotoViewer() {
+    document.getElementById('photo-lightbox').hidden = true;
+    photoLbUrls.forEach(u => URL.revokeObjectURL(u));
+    photoLbUrls = [];
   }
 
   // ── Wandel-deelkaart: 1080×1920 met kaartcompositie (basis + historisch) ──
@@ -1875,6 +2023,33 @@
     ctx.fillText('yunching0513.github.io/Netherlands-historical-map', PAD, footY + 52);
     ctx.fillStyle = '#A6A399'; ctx.font = "400 19px 'Noto Sans TC',system-ui,sans-serif";
     ctx.fillText('Historische kaart © Kadaster, CC-BY 4.0 · Basiskaart © PDOK', PAD, footY + 92);
+    // Fotostrook — momentopnamen onderweg, indien aanwezig
+    try {
+      const photos = await photosForTrace(tr.id);
+      if (photos.length) {
+        const shown = photos.length > 4
+          ? [photos[0], photos[Math.floor(photos.length / 3)], photos[Math.floor(photos.length * 2 / 3)], photos[photos.length - 1]]
+          : photos;
+        const urls = shown.map(p => URL.createObjectURL(p.blob));
+        const imgs = await Promise.all(urls.map(u => loadTileImg(u).catch(() => null)));
+        urls.forEach(u => URL.revokeObjectURL(u));
+        const okImgs = imgs.filter(Boolean);
+        if (okImgs.length) {
+          ctx.fillStyle = '#807C73'; ctx.font = "500 20px 'JetBrains Mono',monospace";
+          ctx.fillText(t('walk.photocaption').toUpperCase(), PAD, footY + 118);
+          const cell = 210, gap = 20, n = okImgs.length;
+          const totalW = n * cell + (n - 1) * gap;
+          let sx = PAD + (mapSize - totalW) / 2;
+          const sy = footY + 132;
+          okImgs.forEach(img => {
+            const s = Math.min(img.width, img.height);
+            const ox = (img.width - s) / 2, oy = (img.height - s) / 2;
+            ctx.drawImage(img, ox, oy, s, s, sx, sy, cell, cell);
+            sx += cell + gap;
+          });
+        }
+      }
+    } catch (e) {}
     return new Promise((resolve, reject) => {
       cv.toBlob(b => b ? resolve(b) : reject(new Error('blob')), 'image/jpeg', 0.92);
     });
@@ -2318,12 +2493,39 @@
       if (actBtn.dataset.act === 'share') shareWalk(id, actBtn);
       else if (actBtn.dataset.act === 'export') exportTraceGeoJSON(id);
       else if (actBtn.dataset.act === 'delete') deleteTrace(id);
+      else if (actBtn.dataset.act === 'photos') openPhotoViewer(id);
       return;
     }
     const row = e.target.closest('.trace-row');
     if (row) showTraceOnMap(row.dataset.id);
   });
   renderTraceList();
+
+  document.getElementById('btn-walk-photo').addEventListener('click', () => {
+    document.getElementById('walk-photo-input').click();
+  });
+  document.getElementById('walk-photo-input').addEventListener('change', async e => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file || !currentTrace) return;
+    try {
+      const blob = await downscaleImage(file, 1280, 0.82);
+      const last = currentTrace.points[currentTrace.points.length - 1];
+      await addWalkPhoto(currentTrace.id, blob, last ? last.lat : null, last ? last.lng : null);
+      renderRecPhotos();
+    } catch (err) {}
+  });
+  document.getElementById('photo-lightbox-close').addEventListener('click', closePhotoViewer);
+  document.getElementById('photo-lightbox-backdrop').addEventListener('click', closePhotoViewer);
+  document.getElementById('photo-lb-grid').addEventListener('click', async e => {
+    const del = e.target.closest('.photo-del');
+    if (!del) return;
+    if (!confirm(t('walk.confirmdelphoto'))) return;
+    await deleteWalkPhoto(del.dataset.id);
+    const cell = del.closest('.photo-cell');
+    if (cell) cell.remove();
+    renderTraceList();
+  });
 
   document.getElementById('stamp-grid').addEventListener('click', e => {
     const cell = e.target.closest('.stamp');
