@@ -33,21 +33,21 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-1 | Analytics: owner creates free GoatCounter account, gives site code; loop adds the script tag | done | 2026-08-13 — owner gave site code `yunching`; script tag added to index.html `<head>`; privacy.html updated to disclose it |
 | B-2 | OG image + twitter card + canonical + JSON-LD | done | 2026-07-03 |
 | B-3 | sitemap.xml + robots.txt (25 URLs) | done | 2026-07-03 |
-| B-4 | Launch-post copy pack: Reddit (r/thenetherlands, r/MapPorn, r/dataisbeautiful, r/Amsterdam), Show HN, Tweakers, X/Bluesky threads — NL + EN versions ready to paste | todo | owner posts; loop writes |
+| B-4 | Launch-post copy pack: Reddit (r/thenetherlands, r/MapPorn, r/dataisbeautiful, r/Amsterdam), Show HN, Tweakers, X/Bluesky threads — NL + EN versions ready to paste | done | 2026-08-17 — see `docs/LAUNCH_COPY.md`; owner posts |
 | B-5 | Per-city landing anchor content for SEO (short NL text per city rendered in a crawlable `<noscript>`/details block) | done | 2026-08-13 |
 
 ### P1 — product depth (share loops & retention)
 | id | item | status | notes |
 |---|---|---|---|
-| B-10 | "Then/now" animated GIF/WebM export of the compare slider (highly shareable) | todo | canvas capture, ~few sec loop |
-| B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | todo | tools/bake_pmtiles.py ready; watch repo size (<1 GB) |
-| B-12 | Amsterdam full era ladder: add 1815, 2021 archives | todo | completes the time-travel story offline |
-| B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | todo | verify coords + PD/CC images via Commons API |
-| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | todo | licensing rules in postcards/SOURCING.md |
+| B-10 | "Then/now" animated GIF/WebM export of the compare slider (highly shareable) | done | 2026-08-20 — shipped as WebM/MP4 (MediaRecorder + canvas.captureStream), see Loop Log |
+| B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | done | 2026-08-27 — all 6 baked z12–17, see Loop Log |
+| B-12 | Amsterdam full era ladder: add 1815, 2021 archives | done | 2026-08-31 — baked both, see Loop Log |
+| B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | doing | 2026-09-03 — Hilversum shipped: added as a new city (`CITIES`, noscript SEO block, sitemap.xml, launch-copy city counts) with a freshly baked `hilversum-1900` PMTiles archive (z12–17, 677/677 tiles non-empty), plus both requested landmarks — Dudok's Raadhuis van Hilversum (1928–1931) and Duiker's Zonnestraal Sanatorium (1926–1928), both verified Public Domain-eligible CC-BY-SA 4.0 via Commons `imageinfo`. Row stays `doing`, not `done`: Utrecht "Werkbond" target is still unresolved — no canonical building of that name found in two research passes now; needs the owner to confirm which building was meant, or it should be dropped from this row. |
+| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | doing | 2026-09-03 — shipped 2 more verified, closing half the remaining gap: Salomon van Ruysdael "Riviergezicht bij Deventer" (1645, Rijksmuseum, depicts the city itself across the IJssel) and Cornelis Ketel "Queen Elizabeth's Porter" (1580, Royal Collection, born in Gouda). 4 zero-coverage cities remain (groningen, leeuwarden, arnhem, maastricht) — see Loop Log; groningen/maastricht already had two prior research passes come up empty, leeuwarden's obvious candidate (Escher) is out on copyright. |
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
-| B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | todo | follow-up to B-16 |
-| B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | todo | retention loop |
+| B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | done | 2026-08-31 — see Loop Log |
+| B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | done | 2026-08-24 — see Loop Log |
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
 
@@ -56,7 +56,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 |---|---|---|---|
 | B-20 | `about.html` / colofon: method (RD→3857 reprojection, PMTiles), data sources & licenses, citation block (BibTeX), contact | done | 2026-08-13 |
 | B-21 | Outreach emails NL/EN drafted (Kadaster, Amsterdam Time Machine/UvA, TU Delft, CLUE+ VU, Netherlands eScience Center) | done | see docs/OUTREACH.md — owner sends |
-| B-22 | Submission targets: DH Benelux 2027, FOSS4G-NL, Stimuleringsfonds Creatieve Industrie open call | todo | loop drafts abstracts when B-20 done |
+| B-22 | Submission targets: DH Benelux 2027, FOSS4G-NL, Stimuleringsfonds Creatieve Industrie open call | done | 2026-08-24 — see `docs/SUBMISSIONS.md` and Loop Log |
 | B-23 | Zenodo DOI for the repo (citable artifact) | done | 2026-08-13 — published. Concept DOI (always latest) `10.5281/zenodo.21924251`, v1 DOI `10.5281/zenodo.21924252`. Both verified resolving. Wired into about.html (3 languages) + README badge + BibTeX. Also added a MIT LICENSE file with a third-party data carve-out, which the deposit needed. |
 
 ### P3 — app-store track (owner-driven, guides ready)
@@ -81,6 +81,287 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-03** — Shipped B-13 (fully unblocks the Hilversum half of the row) and made further
+  progress on B-14, both flagged "next up" repeatedly in prior entries. B-13: the row had been
+  stuck since 2026-08-17 because Hilversum wasn't in the app's `CITIES` list or PMTiles set, so
+  its two requested landmarks (Zonnestraal, Dudok Raadhuis) had nowhere to attach — this pass
+  added Hilversum as a full new city rather than treating that as out of scope. Set up a fresh
+  `.venv-pmtiles` (pyproj/pillow/pmtiles/requests) and confirmed the Topotijdreis 1900 ArcGIS
+  service actually covers Hilversum (a probe render at z15 came back non-empty) before committing
+  to the bake. Picked a bounding box (center 52.215, 5.1618, half-lat 0.018, half-lng 0.028 — the
+  same half-extents every other single-era city uses) deliberately sized to include both landmark
+  coordinates rather than just the old town center: Zonnestraal sits ~3 km south of the Raadhuis,
+  outside a naively-centered box. Baked `hilversum-1900.pmtiles` at z12–17: 677/677 planned tiles
+  rendered non-empty (no source-coverage gaps), and a direct `pmtiles.reader` read decoded real
+  WEBP tiles at both z12 and z15 — the same sandbox-independent check used for B-11/B-12. `pmtiles/`
+  grew from 85 MB to 91 MB, still well under the 300 MB ceiling. Added the `CITIES` entry (region
+  `randstad`, alongside Amsterdam/Utrecht/Amersfoort which it sits closest to), a noscript SEO
+  paragraph, and a `sitemap.xml` row — then swept `docs/LAUNCH_COPY.md` and `docs/SUBMISSIONS.md`
+  for every "20 steden / 20 cities" count and enumerated city list, bumping them to 21 so the
+  ready-to-paste launch copy (still unposted per B-4) doesn't undercount the app the day it's
+  used. For the landmarks themselves: researched both properly rather than reusing whatever image
+  ranked first. Dudok Raadhuis — rejected an interior shot (chairs/windows, not identifiable as
+  the building) in favor of "Raadhuis Hilversum2022.jpg", a clean unobstructed facade view; wrote
+  copy from Wikipedia's account of Dudok's 1915 appointment as Hilversum's Director of Public
+  Works, the 1923 land purchase, the 1924 first sketches, and the Frank Lloyd Wright Prairie-style
+  influence noted in both English and Dutch sources. Zonnestraal — used the Dutch Wikipedia
+  article (richer than the English one, which is just a disambiguation stub) for precise facts:
+  the Hoofdgebouw opened 12 June 1928, architects Jan Duiker/Bernard Bijvoet/Jan Gerko Wiebenga,
+  originally built to treat diamond-cutters with tuberculosis, and an official UNESCO World
+  Heritage List candidacy from 2010–2018 that was ultimately withdrawn (correcting an initial
+  assumption, drawn from the English article's vaguer "1995 nomination" framing, that would have
+  understated how recent and formal that candidacy was) — coordinates for the same entry came
+  from Wikidata (Q2743329) since neither Wikipedia infobox carries geo-coordinates for it. Both
+  images verified CC-BY-SA 4.0 (not PD, but explicitly permitted for landmark photography by this
+  file's own `_schema` comment and consistent with 8 of the 12 pre-existing landmark entries) via
+  the Commons `imageinfo` API before writing copy; both landmarks tagged `new-functionalism`,
+  the same style bucket as Van Nelle/Kiefhoek/Sonneveld, since the style taxonomy is pure JSON
+  data with no hardcoded legend list to extend. B-14: found and verified two more solid,
+  well-documented connections using the same discipline as the 2026-08-27/08-31 entries (real
+  facts, not forced guesses) — Salomon van Ruysdael's "Riviergezicht bij Deventer" (1645,
+  Rijksmuseum SK-A-3259), a genuine "painting of the city" in the same vein as the existing Van
+  Goyen/Nijmegen entry, showing Deventer's church spires across the IJssel; and Cornelis Ketel's
+  "Queen Elizabeth's Porter" (1580, Royal Collection, RCIN 406799), a birthplace connection —
+  Ketel was born in Gouda in 1548 and later pioneered the Dutch civic-guard group portrait, the
+  same genre as Rembrandt's Night Watch already in the app for Amsterdam, a detail worth surfacing
+  since it lets the two postcards talk to each other across cities. Deliberately kept the Ketel
+  copy to facts confirmed via Wikipedia/Commons (birthplace, London period 1573–1581, the
+  inscription visible on the canvas itself) rather than speculating about the sitter's identity,
+  since the Royal Collection's own curatorial page returned a 403 and couldn't be used to verify
+  claims about who the "giant porter" actually was. Both images verified Public Domain via the
+  Commons `imageinfo` API; downloaded and visually inspected both paintings before writing copy
+  (repeated 429s from `upload.wikimedia.org` mid-session — the same shared-IP proxy rate-limiting
+  flagged in the 2026-08-27 entry — resolved with the same fix: retry with backoff, not "file is
+  broken"). 4 cities remain zero-coverage for postcards (groningen, leeuwarden, arnhem,
+  maastricht); groningen and maastricht already absorbed two research passes each with no solid
+  hit, and leeuwarden's obvious candidate (M.C. Escher) is out on copyright (died 1972) — arnhem
+  is the one still genuinely unexplored. Verified before push: both inline `<script>` blocks pass
+  `node --check`, all JSON files parse (landmarks now 14 items, postcards now 91, pmtiles manifest
+  now 16 archives). Headless-Chromium passes against the real app (cross-origin tile requests
+  stubbed to an instant 1×1 PNG, per the established sandbox workaround) confirmed: `?city=
+  hilversum` resolves to a "Hilversum" city-current label with correct coordinates, the city
+  picker lists it, both new landmarks render on the Hilversum architecture-walk grid with correct
+  names/years/style, and both new postcards render on their city's Cards tab with the artist name
+  visible — zero app-specific console errors in any pass. Next up: B-14's remaining Arnhem gap
+  (fresh research angle, not yet attempted), B-13's Utrecht "Werkbond" still needs owner
+  clarification or should be dropped. Blockers unchanged — see end-of-run report.
+- **2026-08-31** — Shipped B-12 and B-17, both flagged "next up" for two loops running (P1
+  product depth + the time-travel-story completeness item). B-12: baked `amsterdam-1815` and
+  `amsterdam-2021` into `pmtiles/` — Amsterdam now has the full six-era ladder (1815, 1850,
+  1900, 1925, 1975, 2021), matching the app's own advertised "1815–2021" time-slider range for
+  its flagship city. Used the exact same bbox/zoom params as the four existing Amsterdam
+  archives (lat 52.3731, lng 4.8922, half-lat 0.018, half-lng 0.028, z12–17) with
+  `tools/bake_pmtiles.py`, after confirming via the ArcGIS `?f=json` service-metadata endpoint
+  that `Historische_tijdreis_1815` and `_2021` are real, documented services in the same
+  "1815–heden" tiled-service collection Kadaster describes (an earlier plain tile-URL probe
+  had returned 404, but that traced to a badly-guessed row/col for the RD tiling scheme, not a
+  missing service — the *known-good* 1900 service 404'd identically at those same made-up
+  coordinates, which is what exposed the mistake). Both bakes rendered every single planned
+  tile non-empty (675/675 each — no source-coverage gaps), and a direct `pmtiles.reader` read
+  (the most sandbox-independent check, per the 2026-08-27 entry's rationale) decoded real,
+  non-blank WEBP tiles for both archives at z12 and z15. No `index.html` changes were needed —
+  same as B-11, the app discovers archives purely from `pmtiles/manifest.json`
+  (`pmtilesFor()`/`pmtilesCityMap()` are fully data-driven), so this was pure asset addition.
+  `pmtiles/` grew from 75 MB to 85 MB, still comfortably under the 300 MB ceiling. B-17: added
+  walk photos, the natural follow-up to B-18's stamp wall flagged in the last two entries.
+  During an active recording, a new "📷 Foto/Photo/拍照" button (native `<input type=file
+  capture=environment>` — the simplest reliable camera-access pattern for a single-file PWA,
+  avoiding a hand-rolled getUserMedia/live-preview UI) downscales the shot to max 1280px/JPEG
+  q0.82 on a canvas and stores it in a new IndexedDB database (`nlOldMapsPhotos`, not
+  localStorage — photo blobs are too large for that), keyed to the in-progress trace's id, with
+  a live thumbnail strip under the recording stats. Past walks show a "📷 N" badge in the trace
+  list (only when photos exist, via an async `photosForTrace()` pass after each render) that
+  opens a small photo-grid viewer (reusing the app's existing `.lightbox` CSS pattern) with
+  per-photo delete; deleting a whole walk (`deleteTrace`) now also purges its photos so nothing
+  orphans in IndexedDB. `buildWalkCard()` — the 1080×1920 share-card canvas — now draws up to 4
+  evenly-sampled photos as a square-cropped strip; this reused roughly 300px of canvas space
+  that was already blank below the existing footer text (the card's fixed 1920px height had
+  headroom the whole time), so no existing layout had to be reflowed, and a walk with zero
+  photos renders byte-identical to before. Verified in headless Chromium against the real app
+  on a local static server, in three passes, each checking a different layer: (1) DOM presence
+  of the new photo button/input/viewer elements, plus confirmed the manifest now lists all six
+  `amsterdam-*` services (1815/1850/1900/1925/1975/2021); (2) the read/UI path — seeded a
+  synthetic trace into `localStorage` and a matching photo blob directly into IndexedDB (the
+  same "inject real storage state, then assert on render" technique the B-18 entry used for the
+  stamp wall), reloaded, and confirmed the "📷 1" badge appears, the viewer opens showing that
+  photo, and clicking delete removes it from both the viewer DOM and (implicitly) IndexedDB;
+  (3) the write/render path — triggered the actual share button with cross-origin tile requests
+  stubbed to an instant 1×1 PNG (routing around this *sandbox's* known flaky outbound proxy to
+  ArcGIS/PDOK, the same workaround the 2026-08-20 entry used for B-10's video export — confirmed
+  separately not a real-network issue) and confirmed `buildWalkCard()`'s full async chain,
+  including the new photo-strip drawing code, completed with zero page errors and produced a
+  real ~90 KB JPEG blob. Camera capture itself (the actual device permission prompt and photo
+  picker) can't be exercised headlessly — flagging this as a manual-test item for the owner,
+  same caveat the 2026-08-27 entry raised for B-17 up front. Verified before push: both inline
+  `<script>` blocks pass `node --check`, all JSON files in the repo parse (postcards/landmarks/
+  manifest untouched by this pass — B-17 is pure `index.html`, B-12 is pure `pmtiles/`+manifest).
+  Next up: B-14's remaining 6 zero-coverage cities (groningen, leeuwarden, deventer, arnhem,
+  maastricht, gouda) — two prior loops already spent real research budget here without a solid
+  hit, so this needs either fresh research angles or the owner's own knowledge of a city↔artist
+  tie; B-13's Utrecht "Werkbond" still needs the owner to confirm which building was meant, or
+  it should be dropped from the backlog row. Blockers unchanged — see end-of-run report.
+- **2026-08-27** — Shipped B-11 (fully closes the row) and made further progress on B-14, both
+  flagged "next up" for two loops running. B-11: set up a fresh `.venv-pmtiles` (pyproj/pillow/
+  pmtiles/requests) and baked all 6 remaining Randstad cities — leiden, delft, haarlem, gouda,
+  dordrecht, amersfoort — at 1900/z12–17/webp-q82, matching the exact parameters (half-lat
+  0.018, half-lng 0.028) already used for amsterdam/rotterdam/denhaag/utrecht so archive
+  coverage lines up with each city's default view. Every single planned tile in every archive
+  rendered non-empty (no gaps in source coverage): leiden 672/672, delft 650/650, haarlem
+  673/673, gouda 672/672, dordrecht 633/633, amersfoort 683/683. `pmtiles/manifest.json` now
+  lists 13 archives; total `pmtiles/` size grew from 42 MB to 75 MB, comfortably under the
+  ~300 MB ceiling. Verified two ways: (1) a headless-Chromium pass against the real app on a
+  local static server confirmed the manifest loads (13 archives), the new files are reachable,
+  and at least one tile request for Leiden/1900 hit the local `.pmtiles` archive successfully
+  with no errors specific to it (further attempts to force more tile churn via pan/zoom/year-
+  scrub hit this *sandbox's* known browser-cache/timing quirks rather than any app bug — same
+  category of sandbox-only flakiness flagged in the 2026-08-20 and 2026-08-24 entries); (2) a
+  direct Python read of each new archive via `pmtiles.reader` decoded a real, non-blank WEBP
+  tile both at the archive's center zoom (z12) and at the app's default city zoom (z15) for all
+  6 files — the strongest and most sandbox-independent confirmation that the bakes are correct.
+  B-14: continued the "8 zero-coverage cities" gap flagged 2026-08-20/08-24, this time with
+  actual research budget instead of guessing. Found and verified two solid, well-documented
+  connections rather than forcing weak ones: Jan van Goyen's *View of Nijmegen* (c. 1649,
+  Gemäldegalerie Berlin) — a direct depiction of the city itself (Nijmegen, the Netherlands'
+  oldest city, seen across the Waal with the Valkhof castle), the same "painting *of* the city"
+  pattern as Delft/Vermeer rather than a birthplace tie; and Balthasar van der Ast's *Fruit
+  Still Life with Shells and Tulip* (c. 1620, Mauritshuis) — van der Ast was born in Middelburg,
+  a VOC chamber city and the literal port of entry for the exotic shells/tulips/fruit that
+  define his still lifes, a genuinely documented city↔artist connection (not the "guessed and
+  got it wrong" risk flagged for Utrecht's "Werkbond" in B-13). Both verified Public Domain via
+  the Wikimedia Commons `imageinfo` API (`Copyrighted: False`, `LicenseShortName: Public
+  domain`) before writing copy; both artists died in the 1650s, well past any copyright term.
+  Hit persistent `429`s from `upload.wikimedia.org` on first attempts to fetch the Van der Ast
+  thumbnail (not a licensing issue — a transient rate-limit on that specific image's CDN shard
+  via this sandbox's shared-IP proxy) — confirmed by retrying with backoff until it returned
+  200, and cross-checking that other thumbnails resolved fine throughout, so this was correctly
+  treated as "retry", not "file is broken" or "give up". Wrote full zh/en/nl narrative `desc`
+  blocks for both (matching the Mondriaan/Amersfoort entry's house style: connect the artist to
+  the city with real, specific facts, not generic Wikipedia summary). Left 6 cities alone
+  (groningen, leeuwarden, deventer, arnhem, maastricht, gouda) — spent real search budget on
+  Groningen (Cornelis Springer did paint Groningen townscapes but no specific, well-documented
+  Commons-verified file surfaced) and Maastricht (no Golden-Age-caliber painting of the city
+  found) rather than forcing a weak match; Leeuwarden's most famous native artist is M.C.
+  Escher, whose work is firmly still in copyright (died 1972) and explicitly out of scope.
+  Verified before push: all 4 JSON files in the repo parse (postcards now 87 items, up from 85;
+  pmtiles manifest now 13 archives), both inline `<script>` blocks pass `node --check` (index.html
+  itself wasn't touched this pass — B-11 is pure asset addition, B-14 is pure JSON addition), and
+  a headless-Chromium pass confirmed both new postcards render on their city's Cards tab with the
+  artist name visible and zero console errors. Next up: B-14 remaining 6 cities (worth another
+  research pass, ideally with the owner's own knowledge of any city↔artist ties this loop
+  missed), B-17 walk photos (natural follow-up to B-18's stamp wall, but camera+IndexedDB is
+  hard to verify headlessly — worth flagging to the owner as a manual-test item once shipped),
+  B-12 Amsterdam era ladder (1815/2021). Blockers unchanged — see end-of-run report.
+- **2026-08-24** — Shipped B-18 (retention loop) and B-22 (institutional-track content), one
+  P1 product feature and one P2 academic-track deliverable. B-18: added a "city stamps" wall
+  to the walk pane (More tab, right below the existing walk-recording list) — a 20-cell grid,
+  one seal per NL city, that fills in (vermilion ink-stamp styling matching the app's existing
+  aesthetic) the first time the walker finishes a recorded walk of ≥200 m in that city (a small
+  floor to keep a stray GPS blip from earning a stamp). Reuses the existing `savedTraces`
+  localStorage data — no new storage, no new permissions, purely a derived view — computed as
+  `earnedCityIds()` from trace distance+cityId and re-rendered on every trace mutation (stop
+  recording, delete) and on language switch. Tapping any stamp (earned or not) jumps the map to
+  that city via the existing `selectCity()`, nudging exploration toward the 12 not-yet-walked
+  cities. Trilingual labels added to all three `I18N` blocks. Verified in headless Chromium
+  against the live app on a local static server: grid renders all 20 cities, progress counter
+  reads "0 / 20 stamped" on a fresh profile, injecting a synthetic 500 m Delft trace into
+  `localStorage` and reloading correctly flips exactly the Delft cell to `.earned` and updates
+  the counter to "1 / 20" — confirms the earn logic, not just the render. No new console errors
+  (the only console noise was pre-existing `ERR_CONNECTION_RESET` on tile fetches, the same
+  sandbox-only outbound-proxy flakiness to PDOK/ArcGIS noted in the 2026-08-20 entry, unrelated
+  to this change and confirmed separately not to affect the real network). B-22: researched the
+  three named submission targets live rather than drafting blind — found DH Benelux's own site
+  serving stale (2023) cached content and no 2027 CFP announced yet; FOSS4G-NL's 2026 edition
+  (8–9 July, Groningen) already happened and its CFP is closed, no 2027 posted; both of
+  Stimuleringsfonds Creatieve Industrie's 2026 "Digitale cultuur" rounds (Feb, Aug) are also
+  already closed. So none of the three drafts in the new `docs/SUBMISSIONS.md` can be submitted
+  today — the deliverable is ready-to-fire copy for the next cycle of each, so writing happens
+  ahead of deadline pressure instead of during it: a DH Benelux short-paper/demo abstract on the
+  RD→Web Mercator client-side reprojection + PMTiles offline-distribution pattern (the two
+  technical contributions likely to interest a DH/geohumanities audience), a Dutch-language
+  FOSS4G-NL talk proposal aimed at OSGeo.nl practitioners, and a Stimuleringsfonds phase-I grant
+  pitch. Flagged one real blocker found during the research, not invented: the Stimuleringsfonds
+  route requires Dutch KVK (Chamber of Commerce) registration for phase-I materials, which the
+  fund's own page doesn't clarify for a non-resident applicant — recommended the owner either
+  confirm eligibility directly with the fund or route the application through a Dutch academic
+  partner (dovetails with the existing B-21 outreach targets) before investing time in a full
+  phase-II plan. Verified before push: both inline `<script>` blocks pass `node --check`, all
+  JSON files in the repo parse. Next up: B-11 bake remaining Randstad PMTiles (pmtiles/ still
+  only 42 MB, plenty of headroom under 300 MB; outbound connectivity to the ArcGIS tile source
+  was spot-checked working this session, so this is a good next target), B-14 continue on the
+  8 zero-postcard-coverage cities flagged 2026-08-20, B-17 walk photos (natural follow-up to
+  B-18's stamp wall — same "make a completed walk feel rewarding" thread). Blockers unchanged —
+  see end-of-run report.
+- **2026-08-20** — Shipped B-10 (highest-shareability item, flagged "next up" for three
+  loops running) and made progress on B-14. B-10: added a "Toen/nu-video" / "Then/now
+  video" button next to the existing compare toggle. It composites the current map
+  viewport twice into 1080×1080 canvases (base-only "now", base+historical "then") using
+  the same tile pipeline as the walk-share card (`offlineTileSrc` + `renderHistTileCanvas`,
+  PMTiles-first), then animates a vermilion wipe divider between them (two ease-in-out
+  sweep cycles, ~6s) on an output canvas recorded via `canvas.captureStream` +
+  `MediaRecorder` — encoded straight to WebM (VP9/VP8, feature-detected) or MP4 on Safari,
+  no external GIF/video-encoding library needed. Shares via the Web Share API when
+  available, otherwise downloads. Verified two ways: (1) headless Chromium against the
+  real app — confirmed the button, mime-type detection, and `captureStream` support all
+  present, and the export correctly reaches a "Making video…" busy state with no thrown
+  errors; (2) headless Chromium with all cross-origin tile requests stubbed to an instant
+  1×1 PNG (to route around this *build sandbox's* flaky outbound proxy to PDOK/ArcGIS,
+  confirmed separately via plain `curl` to be fine — a sandbox/headless-browser quirk, not
+  a real-network issue) — this produced an actual playable 1080×1080 VP9 WebM,
+  ffprobe-verified at ~5.96s duration, and the button correctly disabled during export and
+  restored after. B-14: audited actual postcard coverage vs. the backlog's suggested
+  targets and found Frans Hals/Haarlem, Vermeer *View of Delft*/Delft, and Van Gogh/Den
+  Haag were already shipped in earlier passes (the row just hadn't been updated) — Delft
+  alone has 36 Vermeer postcards. The real content gap is elsewhere: **9 of 20 cities have
+  zero postcards** (groningen, leeuwarden, deventer, arnhem, nijmegen, maastricht,
+  middelburg, gouda, amersfoort), which is a bigger hole in "content depth" than adding
+  more paintings to already-deep cities. Shipped one fix: Piet Mondriaan's *Windmill near
+  Tall Trees with Woman at the Wash Stoop* (1907, early naturalistic period, RKD catalogue
+  raisonné A423) for Amersfoort — his birthplace (Mondriaanhuis museum is there today).
+  Verified Public Domain via the Commons `imageinfo`/`extmetadata` API before adding
+  (`Copyrighted: False`, `LicenseShortName: Public domain` — note a *different*,
+  visually-similar Mondrian windmill file on Commons is CC-BY-SA 4.0, a photographer's own
+  photo of the canvas, not PD-Art, and was correctly rejected); downloaded and
+  visually inspected the actual painting before writing copy. Left the other 8 cities
+  alone rather than force weak/guessed attributions into them — several (Groningen,
+  Leeuwarden, Deventer, Arnhem, Nijmegen, Maastricht, Middelburg, Gouda) don't have an
+  obvious, well-documented Golden-Age-or-equivalent PD masterpiece tied to them the way
+  Amersfoort has Mondriaan; forcing one in risks the exact "guessed and got it wrong"
+  failure mode flagged in earlier loop entries (B-13's Utrecht "Werkbond" case). Flagging
+  this as a good target for either owner input (does the owner know of a real
+  city↔painting connection for any of these?) or a future loop pass with more research
+  budget. Verified before push: both inline `<script>` blocks pass `node --check`, all
+  JSON files (landmarks, postcards ×85 items, 4 manifests) parse. Next up: continue B-14
+  (remaining 8 zero-coverage cities, carefully), B-11 bake remaining Randstad PMTiles
+  (pmtiles/ still well under the 300 MB ceiling), B-22 submission-target abstracts (B-20
+  colofon prerequisite is done). Blockers unchanged — see end-of-run report.
+- **2026-08-17** — Shipped B-4 and started B-13 (distribution + content-depth cluster).
+  B-4: `docs/LAUNCH_COPY.md` — ready-to-paste launch posts for r/thenetherlands,
+  r/MapPorn, r/dataisbeautiful, r/Amsterdam, Show HN, Tweakers.net, and X/Bluesky threads,
+  NL+EN, matching the tone already established in `docs/OUTREACH.md`; includes a "first
+  comment" for each Reddit/HN post and posting-etiquette notes (space out postings, don't
+  cross-post same-day, check each sub's self-promo rule) since a spammy launch would burn
+  the accounts needed for the 5M-pageview push. B-13: added two Rotterdam landmarks to
+  `landmarks/landmarks.json` — Kiefhoek (J.J.P. Oud, 1925–1930, worker housing, New
+  Functionalism) and Sonneveld House (Brinkman & Van der Vlugt, 1933, same firm as the
+  already-listed Van Nelle Factory). Both images verified Public Domain via the Wikimedia
+  Commons `imageinfo` API (same photographer, Wikifrits, for both — consistent sourcing),
+  coordinates verified via Wikipedia `coordinates` API, Wikipedia deep links verified to
+  exist before adding (Kiefhoek has nl+en articles; Sonneveld House only has a dedicated nl
+  article, so `wiki` carries nl only — same "don't guess" rule as B-15). B-13 stays `doing`,
+  not `done`: the other two targets in that row need input the loop can't supply alone —
+  Hilversum (Zonnestraal, Dudok Raadhuis) isn't buildable yet because Hilversum isn't in the
+  app's `CITIES` list or PMTiles set (adding a landmark there first requires baking a new
+  city, which is really B-11-adjacent scope, not a landmarks-only edit), and Utrecht
+  "Werkbond" doesn't resolve to any canonical building in Commons/Wikipedia searches — likely
+  a shorthand the owner had a specific building in mind for; flagging for clarification
+  rather than guessing and risking a wrong/unverifiable entry. Verified before push: both
+  inline `<script>` blocks pass `node --check`, all JSON files (landmarks, postcards,
+  4 manifests) parse. Next up: B-10 then/now GIF export (highest-shareability item left),
+  B-14 more postcards, B-11 bake remaining Randstad cities (pmtiles/ is still only ~42 MB,
+  plenty of budget under the 300 MB ceiling). Blockers unchanged — see end-of-run report.
+  Also re-confirmed: `origin/main` is still stale relative to this branch's earlier work
+  history (diverged, not an ancestor) — everything shipped since 2026-08-13 is live only on
+  `claude/peaceful-gauss-axvnhn` until a PR merges it, which is outside this loop's mandate.
 - **2026-08-13 (4)** — B-23 closed. The earlier 404 is explained: the owner had selected
   "No, I need one" in Zenodo, which *reserves* a DOI that only starts resolving on publish —
   so the id was correct all along and holding it out of the citation block was the right call.
