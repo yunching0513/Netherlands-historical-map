@@ -27,10 +27,10 @@ Hoi allemaal,
 
 De afgelopen maanden heb ik in mijn vrije tijd een web-app gebouwd die de historische
 TOPraster-kaarten van het Kadaster (1815 tot nu) laadt op basis van je locatie, met een
-schuifbalk om tussen kaartjaren te bladeren. Werkt offline voor 20 steden (Amsterdam,
+schuifbalk om tussen kaartjaren te bladeren. Werkt offline voor 21 steden (Amsterdam,
 Rotterdam, Den Haag, Utrecht, Leiden, Delft, Haarlem, Gouda, Dordrecht, Amersfoort,
-Groningen, Leeuwarden, Zwolle, Deventer, Arnhem, Nijmegen, 's-Hertogenbosch, Eindhoven,
-Maastricht, Middelburg) — handig als je onderweg bent en slechte ontvangst hebt.
+Hilversum, Groningen, Leeuwarden, Zwolle, Deventer, Arnhem, Nijmegen, 's-Hertogenbosch,
+Eindhoven, Maastricht, Middelburg) — handig als je onderweg bent en slechte ontvangst hebt.
 
 Een paar dingen erin:
 - Tijdschuif tussen kaartlagen per stad (verschilt per stad hoeveel jaren er zijn)
@@ -64,7 +64,7 @@ app.
 
 https://yunching0513.github.io/Netherlands-historical-map/
 
-Free web app, no login. Pick any of 20 Dutch cities, drag a slider through historical
+Free web app, no login. Pick any of 21 Dutch cities, drag a slider through historical
 topographic surveys (Kadaster's open TOPraster series, 1815 → present), and — if you're
 physically there — it tracks your GPS so the old map moves with you as you walk.
 
@@ -94,7 +94,7 @@ especially).
 Source: Kadaster (Dutch national land registry/cadastre) Topotijdreis series, CC-BY 4.0.
 Tool: a web app I built that reprojects the historical RD (EPSG:28992) raster tiles to
 Web Mercator client-side and renders them as a draggable time-slider over a live Leaflet
-basemap, city by city (20 Dutch cities covered so far, more coming).
+basemap, city by city (21 Dutch cities covered so far, more coming).
 
 https://yunching0513.github.io/Netherlands-historical-map/
 
@@ -149,7 +149,7 @@ Technical bits that might interest this crowd:
   client-side with proj4 and then bake per-city, per-year archives into PMTiles so the
   app works fully offline once a city is loaded (no server, static hosting on GitHub
   Pages).
-- 20 Dutch cities so far, each with a different span of surveyed years depending on what
+- 21 Dutch cities so far, each with a different span of surveyed years depending on what
   Kadaster has digitized.
 - A couple of "extra" layers on top of the core map: public-domain art postcards
   (Rijksmuseum etc.) geolocated to where the scene was painted, so they surface as you
@@ -181,7 +181,7 @@ als tijdschuif over de huidige straten legt, gesynchroniseerd met je live GPS-po
 https://yunching0513.github.io/Netherlands-historical-map/
 
 Techniek: Leaflet + proj4 + PMTiles, geen backend — alles is statisch gehost (GitHub
-Pages) en per stad/jaar vooraf gebakken tot offline-werkende PMTiles-archieven. 20 steden
+Pages) en per stad/jaar vooraf gebakken tot offline-werkende PMTiles-archieven. 21 steden
 tot nu toe. Broncode en methodiek (incl. hoe de RD-reprojectie is aangepakt) staan
 gelinkt vanuit de "about"-pagina in de app.
 
@@ -205,7 +205,7 @@ Data: @Het_Kadaster's open Topotijdreis series (1815→today), CC-BY 4.0, reproj
 client-side from the Dutch national grid (RD/EPSG:28992) to Web Mercator, then baked
 per-city into offline PMTiles archives.
 
-20 cities covered so far — Amsterdam has the deepest year range.
+21 cities covered so far — Amsterdam has the deepest year range.
 
 **3/**
 Extra layers: public-domain art postcards that "develop" as you walk toward the real
@@ -224,7 +224,7 @@ where you'd expect?
 ## Bluesky (EN, single post — shorter format, no thread needed)
 
 Built a free app that overlays 200 years of Dutch Kadaster topographic maps (1815→today)
-on the street you're standing on, GPS-synced, works offline. 20 cities, CC-BY data,
+on the street you're standing on, GPS-synced, works offline. 21 cities, CC-BY data,
 fully attributed, open source.
 
 https://yunching0513.github.io/Netherlands-historical-map/
@@ -234,7 +234,7 @@ https://yunching0513.github.io/Netherlands-historical-map/
 ## Bluesky (NL, single post)
 
 Gratis app die 200 jaar Nederlandse Kadaster-kaarten (1815–nu) over je huidige locatie
-legt, GPS-gesynchroniseerd, werkt offline. 20 steden, CC-BY data netjes vermeld,
+legt, GPS-gesynchroniseerd, werkt offline. 21 steden, CC-BY data netjes vermeld,
 open source.
 
 https://yunching0513.github.io/Netherlands-historical-map/

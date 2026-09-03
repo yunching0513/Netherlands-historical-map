@@ -42,8 +42,8 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-10 | "Then/now" animated GIF/WebM export of the compare slider (highly shareable) | done | 2026-08-20 — shipped as WebM/MP4 (MediaRecorder + canvas.captureStream), see Loop Log |
 | B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | done | 2026-08-27 — all 6 baked z12–17, see Loop Log |
 | B-12 | Amsterdam full era ladder: add 1815, 2021 archives | done | 2026-08-31 — baked both, see Loop Log |
-| B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | doing | 2026-08-17 — Rotterdam pair shipped (Kiefhoek, Sonneveld House), both Public Domain via Commons API. Hilversum isn't in the app's `CITIES` list yet (no tiles baked), so Zonnestraal/Dudok Raadhuis need Hilversum added as a city first — out of scope for a landmarks-only pass. Utrecht "Werkbond" target unclear (no canonical building of that name found); needs the owner to confirm which building was meant, or drop it. |
-| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | doing | 2026-08-27 — shipped 2 more verified: Jan van Goyen "View of Nijmegen" (c.1649, depicts the city itself) and Balthasar van der Ast "Fruit Still Life with Shells and Tulip" (c.1620, born in Middelburg). 6 zero-coverage cities remain (groningen, leeuwarden, deventer, arnhem, maastricht, gouda) — see Loop Log. |
+| B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | doing | 2026-09-03 — Hilversum shipped: added as a new city (`CITIES`, noscript SEO block, sitemap.xml, launch-copy city counts) with a freshly baked `hilversum-1900` PMTiles archive (z12–17, 677/677 tiles non-empty), plus both requested landmarks — Dudok's Raadhuis van Hilversum (1928–1931) and Duiker's Zonnestraal Sanatorium (1926–1928), both verified Public Domain-eligible CC-BY-SA 4.0 via Commons `imageinfo`. Row stays `doing`, not `done`: Utrecht "Werkbond" target is still unresolved — no canonical building of that name found in two research passes now; needs the owner to confirm which building was meant, or it should be dropped from this row. |
+| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | doing | 2026-09-03 — shipped 2 more verified, closing half the remaining gap: Salomon van Ruysdael "Riviergezicht bij Deventer" (1645, Rijksmuseum, depicts the city itself across the IJssel) and Cornelis Ketel "Queen Elizabeth's Porter" (1580, Royal Collection, born in Gouda). 4 zero-coverage cities remain (groningen, leeuwarden, arnhem, maastricht) — see Loop Log; groningen/maastricht already had two prior research passes come up empty, leeuwarden's obvious candidate (Escher) is out on copyright. |
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
 | B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | done | 2026-08-31 — see Loop Log |
@@ -81,6 +81,70 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-03** — Shipped B-13 (fully unblocks the Hilversum half of the row) and made further
+  progress on B-14, both flagged "next up" repeatedly in prior entries. B-13: the row had been
+  stuck since 2026-08-17 because Hilversum wasn't in the app's `CITIES` list or PMTiles set, so
+  its two requested landmarks (Zonnestraal, Dudok Raadhuis) had nowhere to attach — this pass
+  added Hilversum as a full new city rather than treating that as out of scope. Set up a fresh
+  `.venv-pmtiles` (pyproj/pillow/pmtiles/requests) and confirmed the Topotijdreis 1900 ArcGIS
+  service actually covers Hilversum (a probe render at z15 came back non-empty) before committing
+  to the bake. Picked a bounding box (center 52.215, 5.1618, half-lat 0.018, half-lng 0.028 — the
+  same half-extents every other single-era city uses) deliberately sized to include both landmark
+  coordinates rather than just the old town center: Zonnestraal sits ~3 km south of the Raadhuis,
+  outside a naively-centered box. Baked `hilversum-1900.pmtiles` at z12–17: 677/677 planned tiles
+  rendered non-empty (no source-coverage gaps), and a direct `pmtiles.reader` read decoded real
+  WEBP tiles at both z12 and z15 — the same sandbox-independent check used for B-11/B-12. `pmtiles/`
+  grew from 85 MB to 91 MB, still well under the 300 MB ceiling. Added the `CITIES` entry (region
+  `randstad`, alongside Amsterdam/Utrecht/Amersfoort which it sits closest to), a noscript SEO
+  paragraph, and a `sitemap.xml` row — then swept `docs/LAUNCH_COPY.md` and `docs/SUBMISSIONS.md`
+  for every "20 steden / 20 cities" count and enumerated city list, bumping them to 21 so the
+  ready-to-paste launch copy (still unposted per B-4) doesn't undercount the app the day it's
+  used. For the landmarks themselves: researched both properly rather than reusing whatever image
+  ranked first. Dudok Raadhuis — rejected an interior shot (chairs/windows, not identifiable as
+  the building) in favor of "Raadhuis Hilversum2022.jpg", a clean unobstructed facade view; wrote
+  copy from Wikipedia's account of Dudok's 1915 appointment as Hilversum's Director of Public
+  Works, the 1923 land purchase, the 1924 first sketches, and the Frank Lloyd Wright Prairie-style
+  influence noted in both English and Dutch sources. Zonnestraal — used the Dutch Wikipedia
+  article (richer than the English one, which is just a disambiguation stub) for precise facts:
+  the Hoofdgebouw opened 12 June 1928, architects Jan Duiker/Bernard Bijvoet/Jan Gerko Wiebenga,
+  originally built to treat diamond-cutters with tuberculosis, and an official UNESCO World
+  Heritage List candidacy from 2010–2018 that was ultimately withdrawn (correcting an initial
+  assumption, drawn from the English article's vaguer "1995 nomination" framing, that would have
+  understated how recent and formal that candidacy was) — coordinates for the same entry came
+  from Wikidata (Q2743329) since neither Wikipedia infobox carries geo-coordinates for it. Both
+  images verified CC-BY-SA 4.0 (not PD, but explicitly permitted for landmark photography by this
+  file's own `_schema` comment and consistent with 8 of the 12 pre-existing landmark entries) via
+  the Commons `imageinfo` API before writing copy; both landmarks tagged `new-functionalism`,
+  the same style bucket as Van Nelle/Kiefhoek/Sonneveld, since the style taxonomy is pure JSON
+  data with no hardcoded legend list to extend. B-14: found and verified two more solid,
+  well-documented connections using the same discipline as the 2026-08-27/08-31 entries (real
+  facts, not forced guesses) — Salomon van Ruysdael's "Riviergezicht bij Deventer" (1645,
+  Rijksmuseum SK-A-3259), a genuine "painting of the city" in the same vein as the existing Van
+  Goyen/Nijmegen entry, showing Deventer's church spires across the IJssel; and Cornelis Ketel's
+  "Queen Elizabeth's Porter" (1580, Royal Collection, RCIN 406799), a birthplace connection —
+  Ketel was born in Gouda in 1548 and later pioneered the Dutch civic-guard group portrait, the
+  same genre as Rembrandt's Night Watch already in the app for Amsterdam, a detail worth surfacing
+  since it lets the two postcards talk to each other across cities. Deliberately kept the Ketel
+  copy to facts confirmed via Wikipedia/Commons (birthplace, London period 1573–1581, the
+  inscription visible on the canvas itself) rather than speculating about the sitter's identity,
+  since the Royal Collection's own curatorial page returned a 403 and couldn't be used to verify
+  claims about who the "giant porter" actually was. Both images verified Public Domain via the
+  Commons `imageinfo` API; downloaded and visually inspected both paintings before writing copy
+  (repeated 429s from `upload.wikimedia.org` mid-session — the same shared-IP proxy rate-limiting
+  flagged in the 2026-08-27 entry — resolved with the same fix: retry with backoff, not "file is
+  broken"). 4 cities remain zero-coverage for postcards (groningen, leeuwarden, arnhem,
+  maastricht); groningen and maastricht already absorbed two research passes each with no solid
+  hit, and leeuwarden's obvious candidate (M.C. Escher) is out on copyright (died 1972) — arnhem
+  is the one still genuinely unexplored. Verified before push: both inline `<script>` blocks pass
+  `node --check`, all JSON files parse (landmarks now 14 items, postcards now 91, pmtiles manifest
+  now 16 archives). Headless-Chromium passes against the real app (cross-origin tile requests
+  stubbed to an instant 1×1 PNG, per the established sandbox workaround) confirmed: `?city=
+  hilversum` resolves to a "Hilversum" city-current label with correct coordinates, the city
+  picker lists it, both new landmarks render on the Hilversum architecture-walk grid with correct
+  names/years/style, and both new postcards render on their city's Cards tab with the artist name
+  visible — zero app-specific console errors in any pass. Next up: B-14's remaining Arnhem gap
+  (fresh research angle, not yet attempted), B-13's Utrecht "Werkbond" still needs owner
+  clarification or should be dropped. Blockers unchanged — see end-of-run report.
 - **2026-08-31** — Shipped B-12 and B-17, both flagged "next up" for two loops running (P1
   product depth + the time-travel-story completeness item). B-12: baked `amsterdam-1815` and
   `amsterdam-2021` into `pmtiles/` — Amsterdam now has the full six-era ladder (1815, 1850,

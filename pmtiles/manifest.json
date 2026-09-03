@@ -239,6 +239,22 @@
       "maxzoom": 17,
       "format": "webp",
       "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "hilversum-1900",
+      "city": "hilversum",
+      "service": "1900",
+      "url": "hilversum-1900.pmtiles",
+      "bounds": [
+        5.133800000000001,
+        52.197,
+        5.1898,
+        52.233000000000004
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
     }
   ]
 }

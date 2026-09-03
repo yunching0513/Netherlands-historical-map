@@ -49,6 +49,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=hilversum</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=groningen</loc>
     <priority>0.8</priority>
   </url>

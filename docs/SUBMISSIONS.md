@@ -10,7 +10,7 @@
 
 Old Map Stroll (荷蘭古地圖散策) is a free, open-source web app that overlays two centuries
 of Dutch topographic maps (Kadaster Topotijdreis, 1815–2021, CC-BY 4.0) onto today's streets
-across 20 cities, with a time slider, GPS-triggered "postcard" collection of public-domain
+across 21 cities, with a time slider, GPS-triggered "postcard" collection of public-domain
 Dutch art tied to real locations, architecture walking routes (Amsterdam School, De Stijl),
 and offline-first delivery via client-side RD(EPSG:28992)→Web Mercator reprojection baked into
 PMTiles archives. Built solo, trilingual (NL/EN/zh-Hant), MIT-licensed code, citable via Zenodo
@@ -98,7 +98,7 @@ distribution problem, built and shipped solo.
 >
 > Topotijdreis levert prachtige CC-BY historische kaarten — maar in RD (EPSG:28992), niet in de
 > Web Mercator-tegelstructuur die Leaflet/MapLibre verwachten. Voor "Old Map Stroll", een gratis
-> wandel-app die 1815–2021 over 20 Nederlandse steden legt, loste ik dit client-side op:
+> wandel-app die 1815–2021 over 21 Nederlandse steden legt, loste ik dit client-side op:
 > herprojectie op een `<canvas>`, zowel realtime in de browser als vooraf gebakken in PMTiles-
 > archieven voor offline gebruik tijdens het wandelen zelf. Geen tile-server, geen PostGIS —
 > alles static hostable (GitHub Pages).
@@ -140,7 +140,7 @@ owner as the named maker/researcher.
 > **Werktitel: Old Map Stroll — twee eeuwen Nederlandse topografie als locatief digitaal
 > erfgoedwerk**
 >
-> Old Map Stroll is een bestaande, gratis, open-source web-app (20 steden, 1815–2021, Kadaster
+> Old Map Stroll is een bestaande, gratis, open-source web-app (21 steden, 1815–2021, Kadaster
 > Topotijdreis CC-BY 4.0) die historische kaarten fysiek aan de wandelaar koppelt: een
 > tijdschuif over de eigen locatie, een GPS-gestuurde verzameling publiek-domein kunstwerken op
 > hun originele plek, en architectuurwandelingen. Het project bestaat al en trekt organisch

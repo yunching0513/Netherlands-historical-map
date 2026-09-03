@@ -282,6 +282,50 @@
         "en": "Sonneveld House (1933), built by Brinkman & Van der Vlugt — the same firm behind the Van Nelle Factory — for Van Nelle director Adrianus Sonneveld, is one of the best-preserved examples of Dutch New Functionalist domestic architecture. Its open floor plan, expansive steel-framed windows, built-in furniture and Art Deco-tinged interior capture the ideal of progressive 1930s Dutch middle-class living in full. Now run as a house museum by Het Nieuwe Instituut.",
         "nl": "Huis Sonneveld (1933), gebouwd door Brinkman & Van der Vlugt — hetzelfde bureau achter de Van Nellefabriek — voor Van Nelle-directeur Adrianus Sonneveld, is een van de best bewaarde voorbeelden van de Nieuwe Zakelijkheid in de Nederlandse woningbouw. De open plattegrond, grote stalen vensters, ingebouwde meubels en art-deco-achtig interieur vangen het ideaal van het vooruitstrevende Nederlandse burgerleven van de jaren dertig volledig. Tegenwoordig een museumwoning, beheerd door Het Nieuwe Instituut."
       }
+    },
+    {
+      "id": "hilversum-dudok-raadhuis",
+      "city": "hilversum",
+      "lat": 52.22917,
+      "lng": 5.16972,
+      "year": "1928–1931",
+      "style": "new-functionalism",
+      "style_label": { "zh": "新即物主義", "en": "New Functionalism", "nl": "Nieuwe Zakelijkheid" },
+      "architect": { "zh": "威廉・馬里努斯・杜多克", "en": "Willem Marinus Dudok", "nl": "Willem Marinus Dudok" },
+      "name": { "zh": "希爾弗瑟姆市政廳", "en": "Hilversum Town Hall", "nl": "Raadhuis van Hilversum" },
+      "address": "Dudokpark 1, Hilversum",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Raadhuis_Hilversum2022.jpg/1280px-Raadhuis_Hilversum2022.jpg",
+      "credit": "Wikimedia Commons / Choinowski",
+      "license": "CC-BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Raadhuis_Hilversum2022.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Raadhuis_van_Hilversum", "en": "https://en.wikipedia.org/wiki/Hilversum_Town_Hall" },
+      "desc": {
+        "zh": "希爾弗瑟姆市政廳（1928–1931）由該市公共工程處處長威廉・馬里努斯・杜多克設計，坐落於市府1923年購入的高地莊園上，四周環繞公園與水面。不對稱的磚造量體組合、細長鐘塔與大片留白立面，結合了阿姆斯特丹學派的磚工技藝與國際新即物主義的幾何語彙，並帶有法蘭克・洛伊・萊特草原式風格的影響。建成後聲名遠播，成為兩次大戰之間全球最受推崇、也最常被仿效的市政建築之一，從美國到日本都能見到向它致敬的市政廳設計。",
+        "en": "Hilversum Town Hall (1928–1931), designed by Willem Marinus Dudok — Hilversum's own Director of Public Works — rises above a park and pond on an elevated estate the municipality bought in 1923. Its asymmetrical composition of brick volumes, slender clock tower and broad blank wall planes fuse Amsterdam School brickwork with the geometric clarity of the international Nieuwe Zakelijkheid, echoing Frank Lloyd Wright's Prairie style. It became one of the most admired and imitated civic buildings of the interwar period, inspiring town halls and public buildings as far afield as the United States and Japan.",
+        "nl": "Het Raadhuis van Hilversum (1928–1931), ontworpen door Willem Marinus Dudok — destijds directeur Publieke Werken van de gemeente — rijst op uit een park met vijver op een verhoogd landgoed dat de gemeente in 1923 aankocht. De asymmetrische compositie van bakstenen volumes, de slanke klokkentoren en de grote, kale gevelvlakken combineren Amsterdamse School-baksteenwerk met de geometrische helderheid van de internationale Nieuwe Zakelijkheid, met een echo van Frank Lloyd Wrights prairiestijl. Het gebouw werd een van de meest bewonderde en nagevolgde stadhuizen van het interbellum en inspireerde raadhuizen tot in de Verenigde Staten en Japan."
+      }
+    },
+    {
+      "id": "hilversum-zonnestraal",
+      "city": "hilversum",
+      "lat": 52.200556,
+      "lng": 5.153889,
+      "year": "1926–1928",
+      "style": "new-functionalism",
+      "style_label": { "zh": "新即物主義", "en": "New Functionalism", "nl": "Nieuwe Zakelijkheid" },
+      "architect": { "zh": "揚・杜克", "en": "Jan Duiker", "nl": "Jan Duiker" },
+      "name": { "zh": "宗內斯特拉爾療養院", "en": "Zonnestraal Sanatorium", "nl": "Sanatorium Zonnestraal" },
+      "address": "Loosdrechtseweg 150, Hilversum",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Sanatorium_Zonnestraal_2.jpg/1280px-Sanatorium_Zonnestraal_2.jpg",
+      "credit": "Wikimedia Commons / MPhernambucq",
+      "license": "CC-BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sanatorium_Zonnestraal_2.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Sanatorium_Zonnestraal", "en": "https://en.wikipedia.org/wiki/Zonnestraal_(estate)" },
+      "desc": {
+        "zh": "宗內斯特拉爾療養院主樓於1928年6月12日啟用，由揚・杜克設計，伯納德・貝弗特與結構工程師揚・海爾科・維本加參與，是荷蘭「新即物主義」建築的代表作。這座療養院最初是為罹患肺結核的鑽石工人所建——與阿姆斯特丹百年鑽石加工業直接相關——以鋼構玻璃帷幕、日光浴陽台與極簡的白色量體，實踐當時盛行的「日光療法」理念。建築群曾於2010至2018年列為聯合國教科文組織世界遺產候選名單，後遭移除，此後依原始設計精神修復至今。",
+        "en": "The main pavilion of the Zonnestraal Sanatorium opened on 12 June 1928, designed by Jan Duiker with Bernard Bijvoet and structural engineer Jan Gerko Wiebenga — a landmark of the Dutch Nieuwe Bouwen (New Objectivity). The complex was originally built to treat diamond workers with tuberculosis, a direct link to Amsterdam's historic diamond trade, using steel-framed glass curtain walls, sunbathing balconies and stark white volumes to put the era's heliotherapy ideas into built form. It was an official candidate for UNESCO World Heritage status from 2010 to 2018, later removed from the list, and has since been restored to its original design.",
+        "nl": "Het hoofdgebouw van Sanatorium Zonnestraal werd op 12 juni 1928 geopend, ontworpen door Jan Duiker met Bernard Bijvoet en constructeur Jan Gerko Wiebenga — een hoogtepunt van het Nieuwe Bouwen. Het complex was oorspronkelijk bestemd voor diamantslijpers met tuberculose, een directe link met Amsterdams eeuwenoude diamantindustrie, en gebruikte stalen vliesgevels, zonligbalkons en strakke witte volumes om de heliotherapie van die tijd vorm te geven. Van 2010 tot 2018 was het complex officieel kandidaat voor de Werelderfgoedlijst van UNESCO, later van de lijst afgevoerd, en sindsdien gerestaureerd naar het oorspronkelijke ontwerp."
+      }
     }
   ]
 }
