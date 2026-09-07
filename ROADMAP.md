@@ -43,14 +43,14 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-11 | Bake remaining Randstad cities 1900 (leiden, delft, haarlem, gouda, dordrecht, amersfoort) as PMTiles z12–16 | done | 2026-08-27 — all 6 baked z12–17, see Loop Log |
 | B-12 | Amsterdam full era ladder: add 1815, 2021 archives | done | 2026-08-31 — baked both, see Loop Log |
 | B-13 | More landmarks: Rotterdam (Kiefhoek, Sonneveld House), Utrecht (Werkbond), Hilversum (Zonnestraal, Dudok Raadhuis) | done | 2026-09-07 — closed out. Rotterdam + Hilversum targets were already shipped (2026-08-17 / 2026-09-03). Utrecht "Werkbond" is dropped from this row rather than left open indefinitely: three separate research passes (2026-08-17, 2026-08-31, 2026-09-07) across Wikipedia/Commons found no canonical Utrecht building actually named/known as "Werkbond" — the closest real entity, the Nederlandsche Werkbond (est. 1924, Dutch sibling of the Deutscher Werkbund), was a design-reform association, not a building, and didn't commission a specific Utrecht landmark under that name. Forcing a guessed building in would repeat the exact wrong-attribution risk this backlog has flagged since 2026-08-17. If the owner had a specific building in mind, re-add it as a fresh backlog row with the real name/architect once known — that's a cleaner path than an indefinitely-`doing` row. |
-| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | doing | 2026-09-03 — shipped 2 more verified, closing half the remaining gap: Salomon van Ruysdael "Riviergezicht bij Deventer" (1645, Rijksmuseum, depicts the city itself across the IJssel) and Cornelis Ketel "Queen Elizabeth's Porter" (1580, Royal Collection, born in Gouda). 4 zero-coverage cities remain (groningen, leeuwarden, arnhem, maastricht) — see Loop Log; groningen/maastricht already had two prior research passes come up empty, leeuwarden's obvious candidate (Escher) is out on copyright. |
+| B-14 | More postcards: Van Gogh (Amsterdam/Otterlo), Frans Hals (Haarlem), Vermeer View of Delft (already?), Mondriaan (Den Haag) | done | 2026-09-07 — row fully closed: all 20 originally-in-scope cities now have ≥1 verified postcard. Shipped the last 4: Jan van Goyen "Gezicht op Arnhem" (1643, Museum Arnhem, PD), Wybrand de Geest self-portrait (1629, Rijksmuseum/on loan to Fries Museum Leeuwarden, PD), Jozef Israëls "Alleen op de wereld" watercolor (Rijksmuseum, PD, Groningen birthplace), and an anonymous 1673 Siege-of-Maastricht print (Rijksmuseum, CC0). See Loop Log for how groningen/leeuwarden/maastricht — flagged empty after 2+ prior passes each — finally got fresh, solid hits. |
 | B-15 | Wikipedia deep links per landmark (nl/en/zh) | done | 2026-08-13, nl+en (all 10 landmarks verified via API); zh skipped — no zh articles exist for these niche buildings |
 | B-16 | Walk recording (散策記錄) ported from taiwan-historical-maps: GPS trace + live stats + saved walks + GeoJSON export + 1080×1920 share card with map composite | done | 2026-07-03 |
 | B-17 | Walk photos along route (camera + IndexedDB) + photo strip on share card, as in Taiwan app | done | 2026-08-31 — see Loop Log |
 | B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | done | 2026-08-24 — see Loop Log |
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
-
+| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | todo | 2026-09-07 — new row, opened after auditing `landmarks/landmarks.json` city coverage while closing B-13/B-14 (same "content depth" audit pattern B-14 used for postcards). Same licensing bar as B-13: CC0/PD/CC-BY/CC-BY-SA via Commons `imageinfo`, verified before adding. |
 ### P2 — institutional / academic track
 | id | item | status | notes |
 |---|---|---|---|
@@ -81,6 +81,60 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-07** — Closed both P1 rows that had been "doing" since 2026-08-17/09-03 (B-13,
+  B-14), plus opened one new backlog row after an audit. B-13: dropped the unresolvable Utrecht
+  "Werkbond" target after a third research pass (this session's own web search, not just re-reading
+  prior loop notes) confirmed no Utrecht building is actually named/known as "Werkbond" — the only
+  real match, the Nederlandsche Werkbond (est. 1924), was a design-reform association, not a
+  building. Rotterdam and Hilversum targets in the same row were already done, so the row closes
+  as `done` rather than staying open on an unresolvable third of it; re-openable as a fresh row if
+  the owner ever names the actual building. B-14: delegated fresh research (via a background
+  subagent, to keep this session's own context free for verification rather than search) on the
+  4 remaining zero-coverage cities — groningen, leeuwarden, arnhem, maastricht — each of which had
+  already absorbed 2+ prior research passes with no hit (except arnhem, genuinely untouched until
+  now). The agent came back with 4 real candidates; every one was independently re-verified in this
+  session before writing to `postcards.json`, not taken on the agent's word — and re-verification
+  caught one real error the agent's own report got wrong: it credited Jozef Israëls' Groningen
+  postcard to "Mesdag Collection, The Hague" and described it as a 125×200cm oil, but the actual
+  Commons file for that image (used for the img/sourceUrl) is a different, smaller Rijksmuseum
+  watercolor study (33×49.5cm, brush on paper, accession SK-A-2613) — the credit/technique in the
+  shipped entry describes what the cited image actually is, not what the agent assumed it was.
+  Also cross-checked the Leeuwarden self-portrait's "on loan to Fries Museum since 1948" claim
+  against the Rijksmuseum's own object page directly (a Commons metadata field made it look like
+  that loan had an end date around 2005, which the primary source didn't confirm) before writing
+  it as current. Final 4 shipped, all verified PD/CC0 via the Commons `imageinfo` API and cross-
+  checked against Wikipedia/Rijksmuseum for the underlying facts: Jan van Goyen's *Gezicht op
+  Arnhem* (1643, Museum Arnhem/NK-collectie — one of ~20 documented Van Goyen views of Arnhem, the
+  same prolific-town-portraitist pattern as his existing Nijmegen entry); Wybrand de Geest's 1629
+  self-portrait (Leeuwarden-born-and-died "Frisian Apelles," on loan from the Rijksmuseum to the
+  Fries Museum in his own city since 1948, with a documented 1634 studio visit from Rembrandt via
+  his marriage to a niece of Saskia van Uylenburgh); Jozef Israëls' *Alleen op de wereld* watercolor
+  study (Groningen-born Hague School founder, Rijksmuseum, described honestly as the study it is);
+  and an anonymous 1676 print of the 1673 Siege of Maastricht (Rijksmuseum, CC0, notable as the
+  siege where the real d'Artagnan — the historical basis for Dumas's Three Musketeers — died, and
+  where Vauban first used the parallel-trench siege method that became the European standard).
+  This closes B-14 completely: all 20 originally-in-scope cities now have ≥1 verified postcard
+  (93 items total, up from 89). B-24 (new): while auditing postcard city-coverage the same way
+  B-14's own log entries have for months, ran the identical audit against `landmarks.json` and
+  found a much bigger, previously undocumented gap — only 5 of 21 cities have any landmark at all
+  (amsterdam, rotterdam, denhaag, utrecht, hilversum); 16 cities have zero architecture-walk
+  content. Opened this as a new P1 row with 5 concrete starting candidates (Delft, Den Bosch,
+  Nijmegen, Eindhoven, Leiden) rather than starting the work this session — B-13/B-14 were already
+  a full session's worth of finish-what's-open work, and starting a third, larger item risked
+  under-delivering on all three instead of fully closing the two that were already `doing`. Also
+  checked https://yunching.goatcounter.com per the standing Operating-metrics to-do: it's a login
+  wall with no public stats page configured, so still no real pageview number to report — this
+  needs either the owner logging in themselves or enabling GoatCounter's public-dashboard setting;
+  noting it explicitly rather than repeating the same unresolved to-do silently every loop.
+  Verified before push: all JSON files parse (postcards now 93 items, landmarks unchanged at 14),
+  both inline `<script>` blocks pass `node --check`. Headless-browser verification wasn't available
+  this session (no Playwright/browser install in this sandbox), so instead traced the actual render
+  path in `index.html` (`loadPostcards()` → `CARDS_BY_CITY` keyed purely by each item's `city`
+  field, no hardcoded per-city whitelist) to confirm the 4 new entries will render on their city's
+  Cards tab without needing a live-browser pass — flagging this as a lighter verification bar than
+  prior loops' headless-Chromium passes, so worth a real browser check next time the tooling is
+  available. Next up: B-24 (new, landmark coverage — start with Delft or Den Bosch, both have an
+  obvious, well-documented candidate). Blockers unchanged — see end-of-run report.
 - **2026-09-03** — Shipped B-13 (fully unblocks the Hilversum half of the row) and made further
   progress on B-14, both flagged "next up" repeatedly in prior entries. B-13: the row had been
   stuck since 2026-08-17 because Hilversum wasn't in the app's `CITIES` list or PMTiles set, so
