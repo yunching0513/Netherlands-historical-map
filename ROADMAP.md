@@ -50,7 +50,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | done | 2026-08-24 — see Loop Log |
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
-| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | todo | 2026-09-07 — new row, opened after auditing `landmarks/landmarks.json` city coverage while closing B-13/B-14 (same "content depth" audit pattern B-14 used for postcards). Same licensing bar as B-13: CC0/PD/CC-BY/CC-BY-SA via Commons `imageinfo`, verified before adding. |
+| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | doing | 2026-09-10 — shipped 3 of the row's 5 starting candidates: Delft (Nieuwe Kerk), 's-Hertogenbosch/denbosch (Sint-Janskathedraal), Leiden (Pieterskerk). Correcting the row's own original coverage count while at it: it listed denhaag as one of the original 5 covered cities, but denhaag actually has zero landmarks — haarlem (stadhuis) was the 5th, just not named. True coverage is now 8 of 21 (amsterdam, rotterdam, utrecht, hilversum, haarlem, delft, denbosch, leiden), up from 5. Remaining at zero (13): denhaag, gouda, dordrecht, amersfoort, groningen, leeuwarden, zwolle, deventer, arnhem, nijmegen, eindhoven, maastricht, middelburg — including this row's own nijmegen (Waalbrug) and eindhoven (Van Abbemuseum/Philips) candidates, not yet attempted. See Loop Log for research detail. Row stays `doing`: real work remains. |
 ### P2 — institutional / academic track
 | id | item | status | notes |
 |---|---|---|---|
@@ -81,6 +81,59 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-10** — Started B-24 (landmark coverage gap, opened 2026-09-07 but not yet worked).
+  Picked the 3 of its 5 named starting candidates with the strongest, most famous, best-documented
+  buildings — Delft's Nieuwe Kerk, 's-Hertogenbosch's Sint-Janskathedraal, and Leiden's
+  Pieterskerk — rather than trying all 5 in one pass; nijmegen (Waalbrug) and eindhoven
+  (Van Abbemuseum/Philips heritage) are more speculative fits for the app's existing "architecture
+  walk" framing (civic/religious/housing landmarks, not infrastructure or corporate heritage) and
+  were deliberately left for a future pass with more research budget rather than rushed in weak.
+  Delegated the initial research to a background subagent (same pattern B-14's 2026-09-07 entry
+  used) to keep this session's own context free for independent verification, then re-verified
+  every claim before writing: confirmed all 3 coordinates via direct Wikidata `EntityData` lookups
+  (Q678611, Q2050553, Q1537972) — all matched the agent's report exactly; confirmed all 6
+  Wikipedia URLs (nl+en for each building) resolve 200; independently re-ran the Commons
+  `imageinfo` API on all 3 images (hit the same `upload.wikimedia.org`/API 429 rate-limiting this
+  sandbox's shared IP has flagged repeatedly since 2026-08-27 — resolved with a backgrounded
+  retry-with-backoff script rather than treating the first 429 as failure) and confirmed licenses
+  independently: Delft CC-BY-SA 4.0 (W. Bulach), 's-Hertogenbosch CC-BY 4.0 (Acediscovery), Leiden
+  CC-BY-SA 3.0 (Jan van Galen/RCE) — all matching the agent's report; then downloaded and visually
+  inspected all 3 images directly rather than trusting filenames/metadata, confirming each is a
+  genuine, clean, recognizable modern exterior photo (Delft: straight-on tower/facade; 's-Hertogenbosch:
+  dramatic transept-and-tower view; Leiden: full west-facade shot) — none are interior shots,
+  fragments, or old prints, the failure mode the agent's own report flagged it had already screened
+  a rejected 's-Hertogenbosch candidate for. Added a new `gothic` style bucket (Delft's Nieuwe
+  Kerk, Leiden's Pieterskerk) and a more specific `brabantine-gothic` bucket ('s-Hertogenbosch's
+  Sint-Jan, genuinely a distinct regional style, not just "generic Gothic") — safe to introduce
+  since the style taxonomy is pure JSON data with no hardcoded legend to extend (confirmed via
+  grep, same finding as the 2026-09-03 entry). Wrote honest zh/en/nl copy strictly from the
+  verified facts (construction dates, master builders across multi-century building campaigns,
+  the Delft church's role as the Orange-Nassau royal crypt since William the Silent's 1584
+  assassination, the Leiden church's Pilgrim Fathers/John Robinson connection and other notable
+  burials, the 's-Hertogenbosch restoration history including its well-known modern angel-with-
+  mobile-phone statue) rather than the agent's own prose. Verified before push: `landmarks.json`
+  parses (17 items, up from 14, 8 cities up from 5 — also caught and logged in the backlog row
+  that the row's own "5 covered cities" list had a latent error, denhaag not haarlem, unrelated to
+  this session's new work but worth fixing while touching the row), `postcards.json` and
+  `pmtiles/manifest.json` still parse (untouched), both inline `<script>` blocks in `index.html`
+  pass `node --check` (index.html itself wasn't touched — this was pure landmarks-data addition).
+  Unlike recent prior entries, a real headless-Chromium pass **was** available this session
+  (`playwright` + a pre-installed Chromium at `/opt/pw-browsers`, globally on `npm -g`) — ran it
+  against a local static server for all 3 new cities (`?city=delft/denbosch/leiden`), with all
+  cross-origin requests stubbed to a 1×1 PNG to route around this sandbox's outbound-network
+  flakiness to tile/analytics hosts: confirmed each city's Cards-tab architecture grid renders
+  exactly one card with the correct title/architect/year, and that opening the lightbox shows the
+  correct style label, description text, and a working Wikipedia deep-link — zero app-specific
+  console errors (the only console noise was from the request-stubbing itself misserving the
+  GoatCounter analytics script, an artifact of the test harness, not the app). This closes the gap
+  the 2026-08-31/09-03 entries flagged (no browser available then) — worth keeping this heavier
+  verification bar now that the tooling exists. Next up: B-24 remaining candidates — nijmegen and
+  eindhoven (the row's own suggestions, needs a "does this fit the architecture-walk framing"
+  judgment call first) plus completely uncovered cities with no candidate yet researched at all
+  (groningen, leeuwarden, zwolle, deventer, arnhem, maastricht, middelburg, gouda, dordrecht,
+  amersfoort, denhaag — notably denhaag itself, a capital-region Randstad city with obvious
+  candidates like the Vredespaleis or Mauritshuis, is a surprising gap worth prioritizing next).
+  Blockers unchanged — see end-of-run report.
 - **2026-09-07** — Closed both P1 rows that had been "doing" since 2026-08-17/09-03 (B-13,
   B-14), plus opened one new backlog row after an audit. B-13: dropped the unresolvable Utrecht
   "Werkbond" target after a third research pass (this session's own web search, not just re-reading

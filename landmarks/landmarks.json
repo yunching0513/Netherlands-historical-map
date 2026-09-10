@@ -326,6 +326,72 @@
         "en": "The main pavilion of the Zonnestraal Sanatorium opened on 12 June 1928, designed by Jan Duiker with Bernard Bijvoet and structural engineer Jan Gerko Wiebenga — a landmark of the Dutch Nieuwe Bouwen (New Objectivity). The complex was originally built to treat diamond workers with tuberculosis, a direct link to Amsterdam's historic diamond trade, using steel-framed glass curtain walls, sunbathing balconies and stark white volumes to put the era's heliotherapy ideas into built form. It was an official candidate for UNESCO World Heritage status from 2010 to 2018, later removed from the list, and has since been restored to its original design.",
         "nl": "Het hoofdgebouw van Sanatorium Zonnestraal werd op 12 juni 1928 geopend, ontworpen door Jan Duiker met Bernard Bijvoet en constructeur Jan Gerko Wiebenga — een hoogtepunt van het Nieuwe Bouwen. Het complex was oorspronkelijk bestemd voor diamantslijpers met tuberculose, een directe link met Amsterdams eeuwenoude diamantindustrie, en gebruikte stalen vliesgevels, zonligbalkons en strakke witte volumes om de heliotherapie van die tijd vorm te geven. Van 2010 tot 2018 was het complex officieel kandidaat voor de Werelderfgoedlijst van UNESCO, later van de lijst afgevoerd, en sindsdien gerestaureerd naar het oorspronkelijke ontwerp."
       }
+    },
+    {
+      "id": "delft-nieuwe-kerk",
+      "city": "delft",
+      "lat": 52.012139,
+      "lng": 4.360194,
+      "year": "1396–1496",
+      "style": "gothic",
+      "style_label": { "zh": "哥德式", "en": "Gothic", "nl": "Gotiek" },
+      "architect": { "zh": "雅各布・范德博赫（塔樓）；亨德里克與彼得・德凱瑟（王室墓）", "en": "Jacob van der Borch (tower); Hendrick & Pieter de Keyser (mausoleum)", "nl": "Jacob van der Borch (toren); Hendrick en Pieter de Keyser (praalgraf)" },
+      "name": { "zh": "新教堂（台夫特）", "en": "New Church, Delft", "nl": "Nieuwe Kerk (Delft)" },
+      "address": "Markt 80, Delft",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/00_0725_Tower_of_Nieuwe_Kerk_-_Delft.jpg/1280px-00_0725_Tower_of_Nieuwe_Kerk_-_Delft.jpg",
+      "credit": "Wikimedia Commons / W. Bulach",
+      "license": "CC-BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:00_0725_Tower_of_Nieuwe_Kerk_-_Delft.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Nieuwe_Kerk_(Delft)", "en": "https://en.wikipedia.org/wiki/Nieuwe_Kerk_(Delft)" },
+      "desc": {
+        "zh": "新教堂矗立於台夫特市集廣場，正對市政廳。塔樓由建築師雅各布・范德博赫於1396至1496年間建成，高108.75公尺，是荷蘭僅次於烏特勒支大教堂的第二高教堂塔。1584年，荷蘭國父「沉默者」威廉一世在台夫特遇刺身亡後安葬於此，亨德里克・德凱瑟與其子彼得設計的王室墓於1623年左右完工，此後這裡便成為奧蘭治－拿騷王室的世代墓室，包括2004年安葬的貝恩哈德親王。法學家格勞秀斯也長眠於此。",
+        "en": "The New Church stands on Delft's Markt square, facing the town hall. Its tower, built 1396–1496 by master builder Jacob van der Borch, reaches 108.75 m — the second-tallest church tower in the Netherlands after Utrecht's Dom. William the Silent, father of the Dutch nation, was entombed here after his 1584 assassination in Delft; the mausoleum designed by Hendrick de Keyser and completed by his son Pieter (c. 1623) has served ever since as the royal crypt of the House of Orange-Nassau, most recently receiving Prince Bernhard in 2004. Legal scholar Hugo Grotius is also buried here.",
+        "nl": "De Nieuwe Kerk staat aan de Markt van Delft, tegenover het stadhuis. De toren, gebouwd tussen 1396 en 1496 door bouwmeester Jacob van der Borch, is met 108,75 meter de op één na hoogste kerktoren van Nederland, na de Utrechtse Dom. Willem van Oranje werd hier bijgezet na zijn moord in Delft in 1584; het praalgraf, ontworpen door Hendrick de Keyser en voltooid door zijn zoon Pieter (rond 1623), dient sindsdien als grafkelder van het Huis Oranje-Nassau — Prins Bernhard werd er in 2004 als laatste bijgezet. Ook rechtsgeleerde Hugo de Groot ligt er begraven."
+      }
+    },
+    {
+      "id": "denbosch-sint-jan",
+      "city": "denbosch",
+      "lat": 51.688056,
+      "lng": 5.308333,
+      "year": "1220–1530",
+      "style": "brabantine-gothic",
+      "style_label": { "zh": "布拉班特哥德式", "en": "Brabantine Gothic", "nl": "Brabantse gotiek" },
+      "architect": { "zh": "阿萊爾特・杜哈梅爾（哥德式建造期）；朗貝特・赫岑曼斯（近代修復）", "en": "Alaert du Hamel (Gothic-era master builder); Lambert Hezenmans (19th–20th c. restoration)", "nl": "Alaert du Hamel (bouwmeester, gotische bouwfase); Lambert Hezenmans (restauratiearchitect)" },
+      "name": { "zh": "聖若望主教座堂（斯海爾托亨博斯）", "en": "St. John's Cathedral, 's-Hertogenbosch", "nl": "Sint-Janskathedraal ('s-Hertogenbosch)" },
+      "address": "Torenstraat 16, 's-Hertogenbosch",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Sint_Jan_-_S-Hertogenbosch.jpg/1280px-Sint_Jan_-_S-Hertogenbosch.jpg",
+      "credit": "Wikimedia Commons / Acediscovery",
+      "license": "CC-BY 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sint_Jan_-_S-Hertogenbosch.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Sint-Janskathedraal_('s-Hertogenbosch)", "en": "https://en.wikipedia.org/wiki/St._John%27s_Cathedral_('s-Hertogenbosch)" },
+      "desc": {
+        "zh": "聖若望主教座堂始於1220年祝聖的一座羅馬式堂區教堂，自約1340年起逐步改建為布拉班特哥德式風格，直到約1530年才大致完工，建築師阿萊爾特・杜哈梅爾在晚期哥德式擴建工程中留下重要紀錄。全長約115公尺、寬62公尺，交叉甬道塔樓高約73公尺，是荷蘭最大的主教座堂，也是歐洲布拉班特哥德式建築的代表作之一。19至20世紀由朗貝特・赫岑曼斯主持大規模修復，1985年獲教宗封為次級聖殿，1998至2010年再度進行耗資逾4800萬歐元的修復，期間增添的現代裝飾雕像——包括一尊手持手機的天使——曾引發熱議。",
+        "en": "St. John's Cathedral began as a Romanesque parish church consecrated in 1220, rebuilt from around 1340 in Brabantine Gothic style and largely completed by roughly 1530; master builder Alaert du Hamel is documented working on the late-Gothic campaigns. At about 115 m long, 62 m wide, with a crossing tower roughly 73 m tall, it is the largest cathedral in the Netherlands and a showpiece of Brabantine Gothic architecture. A major 19th–20th century restoration was led by architect Lambert Hezenmans; the church was raised to Basilica Minor status in 1985, and a further restoration (1998–2010, over €48 million) added new decorative statues, including a widely-discussed modern angel holding a mobile phone.",
+        "nl": "De Sint-Janskathedraal begon als een romaanse parochiekerk, gewijd in 1220, en werd vanaf circa 1340 in Brabantse gotiek herbouwd, een proces dat rond 1530 grotendeels voltooid was; bouwmeester Alaert du Hamel is gedocumenteerd tijdens de laatgotische bouwfasen. Met een lengte van ongeveer 115 meter, een breedte van 62 meter en een vieringtoren van circa 73 meter is het de grootste kathedraal van Nederland en een hoogtepunt van de Brabantse gotiek. Architect Lambert Hezenmans leidde een grote restauratie in de 19e en 20e eeuw; in 1985 werd de kerk verheven tot basilica minor, en een volgende restauratie (1998–2010, ruim €48 miljoen) voegde nieuwe decoratieve beelden toe, waaronder een veelbesproken moderne engel met een mobiele telefoon."
+      }
+    },
+    {
+      "id": "leiden-pieterskerk",
+      "city": "leiden",
+      "lat": 52.1575,
+      "lng": 4.487778,
+      "year": "1390–1572",
+      "style": "gothic",
+      "style_label": { "zh": "哥德式", "en": "Gothic", "nl": "Gotiek" },
+      "architect": { "zh": "呂特赫爾・范坎彭（1391年起）；阿爾恩特・范德多姆與埃弗特・斯波爾瓦特（1465年後接續）", "en": "Rutger van Kampen (from 1391); succeeded by Aernt van de Dom and Evert Spoorwater (after 1465)", "nl": "Rutger van Kampen (vanaf 1391); opgevolgd door Aernt van de Dom en Evert Spoorwater (na 1465)" },
+      "name": { "zh": "聖彼得教堂（萊頓）", "en": "Pieterskerk, Leiden", "nl": "Pieterskerk (Leiden)" },
+      "address": "Pieterskerkhof 1A, Leiden",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Pieterskerk_exterieur.jpg/1280px-Pieterskerk_exterieur.jpg",
+      "credit": "Wikimedia Commons / Jan van Galen, Rijksdienst voor het Cultureel Erfgoed",
+      "license": "CC-BY-SA 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pieterskerk_exterieur.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Pieterskerk_(Leiden)", "en": "https://en.wikipedia.org/wiki/Pieterskerk,_Leiden" },
+      "desc": {
+        "zh": "萊頓聖彼得教堂所在地，早在1121年便有荷蘭伯爵家族的禮拜堂落成；現存的哥德式廳堂教堂則自1390年起逐步興建，直到約1572年完工，早期建築師為呂特赫爾・范坎彭（自1391年起），1465年後由阿爾恩特・范德多姆與埃弗特・斯波爾瓦特接續。1620年搭乘五月花號啟航前的清教徒「朝聖先輩」牧師約翰・羅賓遜安葬於此，此外醫師赫爾曼・布爾哈夫、神學家雅各布斯・阿米念、畫家揚・斯特恩、數學家魯多夫・范科伊倫與天文學家威理博・司乃耳等萊頓名人也長眠於此。教堂西塔曾於1512年3月5日夜間倒塌，原有彩繪玻璃又在1807年萊頓火藥爆炸慘案中盡毀。1971年起不再作定期宗教用途，現由基金會管理，作為音樂會與展覽場地對外開放，萊頓大學是主要的長期承租單位。",
+        "en": "A chapel for the counts of Holland was consecrated on this site as early as 1121; the current Gothic hall church was built gradually from 1390 and largely completed around 1572, with master builder Rutger van Kampen leading the work from 1391, succeeded after 1465 by Aernt van de Dom and Evert Spoorwater. John Robinson, pastor to the Pilgrim Fathers before their 1620 Mayflower voyage, is buried here, alongside other Leiden notables including physician Herman Boerhaave, theologian Jacobus Arminius, painter Jan Steen, mathematician Ludolph van Ceulen, and astronomer Willebrord Snellius. The west tower collapsed overnight on 5 March 1512, and the original stained glass was later destroyed in the 1807 Leiden gunpowder explosion disaster. Deconsecrated from regular worship in 1971, it is now run by a foundation as a concert and exhibition venue, with Leiden University as its principal long-term tenant.",
+        "nl": "Al in 1121 werd op deze plek een kapel van de graven van Holland gewijd; de huidige gotische hallenkerk werd vanaf 1390 in fasen gebouwd en was rond 1572 grotendeels voltooid, met Rutger van Kampen als bouwmeester vanaf 1391, na 1465 opgevolgd door Aernt van de Dom en Evert Spoorwater. John Robinson, voorganger van de Pilgrim Fathers vóór hun vertrek met de Mayflower in 1620, ligt hier begraven, samen met andere Leidse beroemdheden als medicus Herman Boerhaave, theoloog Jacobus Arminius, schilder Jan Steen, wiskundige Ludolph van Ceulen en astronoom Willebrord Snellius. De westtoren stortte in de nacht van 5 maart 1512 in, en het oorspronkelijke glas-in-lood ging later verloren bij de Leidse buskruitramp van 1807. Sinds 1971 niet meer in regelmatig religieus gebruik, wordt de kerk nu beheerd door een stichting als concert- en tentoonstellingsruimte, met de Universiteit Leiden als belangrijkste vaste huurder."
+      }
     }
   ]
 }
