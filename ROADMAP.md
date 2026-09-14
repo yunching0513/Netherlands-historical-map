@@ -50,7 +50,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | done | 2026-08-24 — see Loop Log |
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
-| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | doing | 2026-09-10 — shipped 3 of the row's 5 starting candidates: Delft (Nieuwe Kerk), 's-Hertogenbosch/denbosch (Sint-Janskathedraal), Leiden (Pieterskerk). Correcting the row's own original coverage count while at it: it listed denhaag as one of the original 5 covered cities, but denhaag actually has zero landmarks — haarlem (stadhuis) was the 5th, just not named. True coverage is now 8 of 21 (amsterdam, rotterdam, utrecht, hilversum, haarlem, delft, denbosch, leiden), up from 5. Remaining at zero (13): denhaag, gouda, dordrecht, amersfoort, groningen, leeuwarden, zwolle, deventer, arnhem, nijmegen, eindhoven, maastricht, middelburg — including this row's own nijmegen (Waalbrug) and eindhoven (Van Abbemuseum/Philips) candidates, not yet attempted. See Loop Log for research detail. Row stays `doing`: real work remains. |
+| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | doing | 2026-09-14 — shipped 5 more landmarks across 3 new cities: Den Haag (Vredespaleis, Mauritshuis), Nijmegen (St. Stevenskerk — Waalbrug deliberately skipped as a weaker infrastructure fit), Eindhoven (De Witte Dame + Van Abbemuseum, both of the row's original candidates). Coverage now 11 of 21 cities (amsterdam, rotterdam, utrecht, hilversum, haarlem, delft, denbosch, leiden, denhaag, nijmegen, eindhoven), up from 8. Remaining at zero (10): gouda, dordrecht, amersfoort, groningen, leeuwarden, zwolle, deventer, arnhem, maastricht, middelburg. See Loop Log for research/verification detail. Row stays `doing`: real work remains. |
 ### P2 — institutional / academic track
 | id | item | status | notes |
 |---|---|---|---|
@@ -81,6 +81,70 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-14** — Continued B-24 (landmark coverage gap): closed the "denhaag worth prioritizing
+  next" gap flagged in the 2026-09-10 entry, plus finished both of this row's original Eindhoven
+  candidates. Delegated initial research to a background subagent for three cities (denhaag,
+  nijmegen, eindhoven) — same pattern as recent B-14/B-24 entries — then independently re-verified
+  every claim before writing, not taken on the agent's word: re-ran Wikidata `EntityData` lookups
+  for all 5 candidate buildings (Q834448 Vredespaleis, Q221092 Mauritshuis, Q1146466 St. Stevenskerk,
+  Q2039118 De Witte Dame, Q106106048 Van Abbemuseum) — all 5 coordinates matched the agent's report
+  exactly; independently re-ran the Commons `imageinfo` API on all 5 images and confirmed licenses
+  matched exactly (Vredespaleis CC-BY 4.0, Mauritshuis CC-BY 2.0, St. Stevenskerk CC0, De Witte Dame
+  CC0, Van Abbemuseum CC-BY-SA 4.0 — no bad-license candidates, unusually clean batch); live-checked
+  all 9 nl/en Wikipedia URLs (200 each, including confirming De Witte Dame genuinely has no English
+  article rather than trusting the agent's claim); downloaded and visually inspected all 5 images at
+  full/near-full resolution before writing copy — all clean, unobstructed, recognizable modern
+  exteriors (one image, St. Stevenskerk, needed a retry after Wikimedia's shared-IP rate limiter
+  returned an HTML error page instead of the JPEG on the first attempt — the same 429/rate-limit
+  pattern flagged repeatedly since 2026-08-27, correctly treated as retry-with-backoff rather than
+  "broken file"). Cross-checked the agent's own flagged uncertainties against primary sources rather
+  than either asserting or silently dropping them: fetched the full nl.wikipedia St. Stevenskerk
+  article text directly and confirmed, word-for-word, the WWII bombing narrative (22 Feb 1944 USAAF
+  raid, tower spire collapse onto the west aisle and Stikke Hezelstraat houses, 5 air-defense
+  watchmen killed, Mari Andriessen's "de Engel" memorial) and the 1272/1273 Albertus Magnus
+  consecration story; fetched the full en.wikipedia Peace Palace article and confirmed the Carnegie
+  funding chain, the 1905 216-entry competition won by Cordonnier, and van der Steur's budget-driven
+  tower cuts, all matching the agent's report precisely. For the two flagged uncertainties that
+  *didn't* fully resolve — Pieter Post's disputed co-architect credit on the Mauritshuis (English
+  Wikipedia asserts it, Wikidata's P84 doesn't) and Louis Kalff's unconfirmed architect credit on De
+  Witte Dame (Wikidata-only, not in the nl.wikipedia article text) — wrote the copy to reflect that
+  uncertainty honestly (Post mentioned as an English-language-sourced claim, not asserted as fact;
+  Kalff dropped entirely from the shipped entry) rather than picking a side or silently omitting the
+  nuance. Corrected one framing error inherited from the agent's brief: De Witte Dame was a Philips
+  radio-tube (vacuum valve) factory from the outset, not the literal lightbulb factory (a separate,
+  nearby building in the same Emmasingel complex) — fixed in the shipped description. Deliberately
+  did not add Nijmegen's Waalbrug despite it being this row's original suggestion: the agent's own
+  research confirmed it has a real named designer (Gerrit van Heukelom) but is still infrastructure,
+  not a building, the same "not really an architecture-walk landmark" judgment call flagged for
+  Utrecht's dropped "Werkbond" target in B-13 — St. Stevenskerk was the stronger, on-pattern
+  Nijmegen candidate and is what shipped instead. Introduced 3 new style-taxonomy buckets (safe per
+  the established finding, re-confirmed by grep this session, that `style` ids are pure JSON data
+  with no hardcoded legend to extend): `neo-renaissance` reused for Vredespaleis (a second entry
+  alongside 's-Hertogenbosch's earlier Witte Huis-style bucket, with its own clean label), plus two
+  genuinely new ones — `dutch-classicism` for the 17th-century Mauritshuis (distinct from the
+  already-used `dutch-renaissance` bucket, which covers the earlier, more ornate style) and
+  `delft-school` for the Van Abbemuseum's 1936 traditionalist Kropholler wing. Verified before push:
+  `landmarks.json` parses (22 items, up from 17 — caught and fixed two unescaped `"` characters
+  inside English description text, `"de Engel"` and `"Eerste gloeilampenfabriek"`, that broke the
+  first parse attempt), `postcards.json` and `pmtiles/manifest.json` still parse (untouched), both
+  inline `<script>` blocks in `index.html` pass `node --check` (index.html itself wasn't touched —
+  pure landmarks-data addition, same as the 2026-09-10 pass). A real headless-Chromium pass was
+  available this session (playwright + the pre-installed `/opt/pw-browsers` Chromium) — used it more
+  thoroughly than the 2026-09-10 baseline: rendered all 3 new cities (`?city=denhaag/nijmegen/
+  eindhoven`) with cross-origin requests stubbed to a 1×1 PNG, confirmed the `#arch-grid` shows the
+  correct card count/titles/architects/style-tags for each (denhaag: 2, nijmegen: 1, eindhoven: 2),
+  then went one step further and exercised the lightbox click-through for the Nijmegen card,
+  confirming title/artist/style/description/credit/Wikipedia-link all populate correctly with the
+  right resolved URL — zero app-specific console errors in any pass (the only console noise was the
+  test harness's own request-stubbing misserving the GoatCounter script, same artifact flagged
+  2026-09-10). Also re-checked the standing GoatCounter Operating-metrics to-do: still a login wall
+  with no public dashboard configured (`HTTP 303` → `/user/new`), unchanged since 2026-09-07 — still
+  needs the owner to either log in and check real numbers or enable GoatCounter's public-dashboard
+  setting. Next up: B-24's remaining 10 zero-coverage cities (gouda, dordrecht, amersfoort,
+  groningen, leeuwarden, zwolle, deventer, arnhem, maastricht, middelburg) — none yet researched for
+  landmarks specifically (as opposed to postcards, which B-14 already covered for all of them);
+  worth a fresh research pass with the same discipline used this session rather than forcing weak
+  matches. Blockers unchanged — see end-of-run report.
 - **2026-09-10** — Started B-24 (landmark coverage gap, opened 2026-09-07 but not yet worked).
   Picked the 3 of its 5 named starting candidates with the strongest, most famous, best-documented
   buildings — Delft's Nieuwe Kerk, 's-Hertogenbosch's Sint-Janskathedraal, and Leiden's

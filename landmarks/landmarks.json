@@ -392,6 +392,116 @@
         "en": "A chapel for the counts of Holland was consecrated on this site as early as 1121; the current Gothic hall church was built gradually from 1390 and largely completed around 1572, with master builder Rutger van Kampen leading the work from 1391, succeeded after 1465 by Aernt van de Dom and Evert Spoorwater. John Robinson, pastor to the Pilgrim Fathers before their 1620 Mayflower voyage, is buried here, alongside other Leiden notables including physician Herman Boerhaave, theologian Jacobus Arminius, painter Jan Steen, mathematician Ludolph van Ceulen, and astronomer Willebrord Snellius. The west tower collapsed overnight on 5 March 1512, and the original stained glass was later destroyed in the 1807 Leiden gunpowder explosion disaster. Deconsecrated from regular worship in 1971, it is now run by a foundation as a concert and exhibition venue, with Leiden University as its principal long-term tenant.",
         "nl": "Al in 1121 werd op deze plek een kapel van de graven van Holland gewijd; de huidige gotische hallenkerk werd vanaf 1390 in fasen gebouwd en was rond 1572 grotendeels voltooid, met Rutger van Kampen als bouwmeester vanaf 1391, na 1465 opgevolgd door Aernt van de Dom en Evert Spoorwater. John Robinson, voorganger van de Pilgrim Fathers vóór hun vertrek met de Mayflower in 1620, ligt hier begraven, samen met andere Leidse beroemdheden als medicus Herman Boerhaave, theoloog Jacobus Arminius, schilder Jan Steen, wiskundige Ludolph van Ceulen en astronoom Willebrord Snellius. De westtoren stortte in de nacht van 5 maart 1512 in, en het oorspronkelijke glas-in-lood ging later verloren bij de Leidse buskruitramp van 1807. Sinds 1971 niet meer in regelmatig religieus gebruik, wordt de kerk nu beheerd door een stichting als concert- en tentoonstellingsruimte, met de Universiteit Leiden als belangrijkste vaste huurder."
       }
+    },
+    {
+      "id": "denhaag-vredespaleis",
+      "city": "denhaag",
+      "lat": 52.0866,
+      "lng": 4.2955,
+      "year": "1907–1913",
+      "style": "neo-renaissance",
+      "style_label": { "zh": "新文藝復興", "en": "Neo-Renaissance", "nl": "Neorenaissance" },
+      "architect": { "zh": "路易・科多尼耶；范德斯特爾（預算調整）", "en": "Louis M. Cordonnier; J.A.G. van der Steur (budget revisions)", "nl": "Louis M. Cordonnier; J.A.G. van der Steur (budgetaanpassing)" },
+      "name": { "zh": "和平宮", "en": "Peace Palace", "nl": "Vredespaleis" },
+      "address": "Carnegieplein 2, Den Haag",
+      "img": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/(NLD-South_Holland)_Vredespaleis_2025-06-05.jpg&width=1280",
+      "credit": "Wikimedia Commons / S5A-0043",
+      "license": "CC-BY 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:(NLD-South_Holland)_Vredespaleis_2025-06-05.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Vredespaleis", "en": "https://en.wikipedia.org/wiki/Peace_Palace" },
+      "desc": {
+        "zh": "1899年，俄國沙皇尼古拉二世倡議召開海牙和平會議，促成常設仲裁法院成立。美國外交官安德魯・懷特為法院尋覓一座永久會址，說服蘇格蘭裔美國鋼鐵大王安德魯・卡內基捐款150萬美元，1903年成立卡內基基金會負責興建與管理。1905年的建築競圖收到216件參賽作品，最終由法國建築師路易・科多尼耶的新文藝復興式設計勝出；為符合預算，科多尼耶與荷蘭合作建築師范德斯特爾刪減了原設計中的部分鐘塔。庭園則由湯瑪斯・海頓・莫森設計。1907年奠基，1913年8月28日正式啟用，自1913年起為常設仲裁法院所在地，1946年起也成為聯合國最高司法機關國際法院的所在地。",
+        "en": "In 1899, Russian Tsar Nicholas II's proposal led to the First Hague Peace Conference and the founding of the Permanent Court of Arbitration. American diplomat Andrew Dickson White sought a permanent home for the court and persuaded Scottish-American steel magnate Andrew Carnegie to donate US$1.5 million; the Carnegie Foundation was established in 1903 to oversee construction. A 1905 design competition drew 216 entries and was won by French architect Louis M. Cordonnier's Neo-Renaissance design; to stay within budget, Cordonnier and his Dutch associate J.A.G. van der Steur cut several of the original bell towers. The grounds were designed by Thomas Hayton Mawson. The first stone was laid in 1907 and the palace officially opened on 28 August 1913. It has housed the Permanent Court of Arbitration since 1913, and since 1946 also the International Court of Justice, the principal judicial organ of the United Nations.",
+        "nl": "In 1899 leidde het voorstel van de Russische tsaar Nicolaas II tot de Eerste Haagse Vredesconferentie en de oprichting van het Permanent Hof van Arbitrage. De Amerikaanse diplomaat Andrew Dickson White zocht een permanent onderkomen voor het Hof en overtuigde de Schots-Amerikaanse staalmagnaat Andrew Carnegie tot een schenking van 1,5 miljoen dollar; in 1903 werd de Carnegie Stichting opgericht om de bouw te beheren. Een architectuurwedstrijd in 1905 trok 216 inzendingen en werd gewonnen door het neorenaissance-ontwerp van de Franse architect Louis M. Cordonnier; om binnen budget te blijven schrapten Cordonnier en zijn Nederlandse compagnon J.A.G. van der Steur enkele van de oorspronkelijke klokkentorens. De tuinen werden ontworpen door Thomas Hayton Mawson. In 1907 werd de eerste steen gelegd en op 28 augustus 1913 werd het paleis officieel geopend. Sinds 1913 huisvest het het Permanent Hof van Arbitrage, en sinds 1946 ook het Internationaal Gerechtshof, het belangrijkste rechtsprekende orgaan van de Verenigde Naties."
+      }
+    },
+    {
+      "id": "denhaag-mauritshuis",
+      "city": "denhaag",
+      "lat": 52.080389,
+      "lng": 4.314306,
+      "year": "1636–1641",
+      "style": "dutch-classicism",
+      "style_label": { "zh": "荷蘭古典主義", "en": "Dutch Classicism", "nl": "Hollands classicisme" },
+      "architect": { "zh": "雅各布・范坎彭（英語文獻另指彼得・波斯特參與設計）", "en": "Jacob van Campen (English-language sources also credit Pieter Post)", "nl": "Jacob van Campen (Engelstalige bronnen noemen ook Pieter Post)" },
+      "name": { "zh": "莫瑞泰斯皇家美術館", "en": "Mauritshuis", "nl": "Mauritshuis" },
+      "address": "Plein 29, Den Haag",
+      "img": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/Mauritshuis_Museum_(14346890947).jpg&width=1280",
+      "credit": "Wikimedia Commons / Roman Boed",
+      "license": "CC-BY 2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mauritshuis_Museum_(14346890947).jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Mauritshuis", "en": "https://en.wikipedia.org/wiki/Mauritshuis" },
+      "desc": {
+        "zh": "莫瑞泰斯皇家美術館（1636–1641）原是拿騷－西根親王約翰・莫里茨的宅邸——他是荷蘭執政腓特烈・亨德里克的堂弟，興建時正擔任荷屬巴西總督。建築以荷蘭古典主義風格設計，由建築師雅各布・范坎彭主持，英語文獻另指出彼得・波斯特也參與了設計工作。現為荷蘭王室繪畫珍藏館，收藏854件作品，多為荷蘭黃金時代畫作，包括維梅爾《戴珍珠耳環的少女》、林布蘭、揚・斯特恩、法蘭斯・哈爾斯等名家之作，並名列荷蘭百大文化資產。",
+        "en": "The Mauritshuis (1636–1641) was originally the residence of Johan Maurits, Prince of Nassau-Siegen — a cousin of Stadtholder Frederick Henry — built during his tenure as governor of Dutch Brazil. Designed in the Dutch Classicist style under architect Jacob van Campen, with English-language sources also crediting Pieter Post as a contributing designer. It now houses the Royal Cabinet of Paintings, 854 objects mostly from the Dutch Golden Age, including Vermeer's Girl with a Pearl Earring, and works by Rembrandt, Jan Steen and Frans Hals; listed among the Netherlands' top-100 heritage sites.",
+        "nl": "Het Mauritshuis (1636–1641) was oorspronkelijk de residentie van Johan Maurits, prins van Nassau-Siegen — een neef van stadhouder Frederik Hendrik — gebouwd tijdens zijn gouverneurschap over Nederlands-Brazilië. Ontworpen in Hollands-classicistische stijl onder architect Jacob van Campen; Engelstalige bronnen noemen ook Pieter Post als bijdragend ontwerper. Het huisvest tegenwoordig het Koninklijk Kabinet van Schilderijen, 854 stukken, grotendeels uit de Gouden Eeuw, waaronder Vermeers Meisje met de parel en werk van Rembrandt, Jan Steen en Frans Hals; het staat op de lijst van de honderd belangrijkste Nederlandse rijksmonumenten."
+      }
+    },
+    {
+      "id": "nijmegen-sint-stevenskerk",
+      "city": "nijmegen",
+      "lat": 51.847778,
+      "lng": 5.8625,
+      "year": "1254–1456",
+      "style": "gothic",
+      "style_label": { "zh": "哥德式", "en": "Gothic", "nl": "Gotiek" },
+      "architect": { "zh": "（歷代建造師傅；迴廊由吉斯貝特・斯海爾特設計）", "en": "(successive master builders; ambulatory designed by Gisbert Schairt)", "nl": "(opeenvolgende bouwmeesters; kooromgang naar ontwerp van Gisbert Schairt)" },
+      "name": { "zh": "聖史蒂芬教堂（奈梅亨）", "en": "St. Stephen's Church, Nijmegen", "nl": "Grote of Sint-Stevenskerk" },
+      "address": "Sint Stevenskerkhof 62, Nijmegen",
+      "img": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/2013.05.30.164306_Sint_Stevenskerk_Nijmegen_NL.jpg&width=1280",
+      "credit": "Wikimedia Commons / Hermann Luyken",
+      "license": "CC0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2013.05.30.164306_Sint_Stevenskerk_Nijmegen_NL.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Grote_of_Sint-Stevenskerk", "en": "https://en.wikipedia.org/wiki/Saint_Stephen%27s_Church,_Nijmegen" },
+      "desc": {
+        "zh": "聖史蒂芬教堂是奈梅亨市中心最古老、也是規模最大的教堂，1254年由格爾德伯爵奧托二世撥地，於「洪迪斯堡」小丘（奈梅亨七丘之一）動工興建。教堂最古老的部分於1272年9月7日（另有文獻記為1273年）由科隆主教大阿爾伯特祝聖啟用，其聖髑至今仍供奉於教堂的聖墓禮拜堂中。約1307年主體大致完工，1326年鐘樓竣工，1420至1456年間增建了含七座放射狀小禮拜堂的主唱詩席。1944年2月22日，美國陸軍航空軍轟炸奈梅亨市中心，教堂幾乎成為廢墟——塔尖倒塌，部分落在西側側廊與鄰近史提克・海澤街的民宅上，五名防空塔哨兵因此罹難。雕塑家馬里・安德里森為所有戰爭罹難者製作了紀念牌匾「天使」，立於教堂旁。戰後教堂重建至今。",
+        "en": "St. Stephen's is the oldest and largest church in Nijmegen's city centre, begun in 1254 on land granted by Count Otto II of Guelders on the Hundisburg, one of Nijmegen's seven hills. The oldest part was consecrated on 7 September 1272 (some sources say 1273) by the Cologne bishop Albertus Magnus, whose relic is still kept in the church's Holy Sepulchre Chapel. The building was largely complete by about 1307, its tower finished around 1326, and a main choir with seven radiating chapels was added between 1420 and 1456. On 22 February 1944, a United States Army Air Forces bombing raid on Nijmegen's city centre left the church nearly a ruin — the spire collapsed, partly onto the west aisle and partly onto houses on the Stikke Hezelstraat, killing five air-defence tower watchmen. Sculptor Mari Andriessen made a memorial plaque, \"de Engel\" (the Angel), for all the war's victims, installed beside the church. It was rebuilt after the war.",
+        "nl": "De Sint-Stevenskerk is de oudste en grootste kerk in het centrum van Nijmegen, begonnen in 1254 op grond die graaf Otto II van Gelre beschikbaar stelde op de Hundisburg, een van Nijmegens zeven heuvels. Het oudste gedeelte werd op 7 september 1272 (volgens sommige bronnen 1273) gewijd door de Keulse bisschop Albertus Magnus, van wie nog altijd een relikwie wordt bewaard in de Heilig Grafkapel van de kerk. Rond 1307 was de kerk grotendeels voltooid, in 1326 kwam de toren gereed, en tussen 1420 en 1456 werd het hoofdkoor met zeven straalkapellen toegevoegd. Op 22 februari 1944 veranderde een bombardement van de United States Army Air Forces op het centrum van Nijmegen de kerk bijna in een ruïne — de torenspits stortte in, deels op de westelijke zijbeuk en deels op woningen aan de Stikke Hezelstraat, waarbij vijf torenwachters van de Luchtbeschermingsdienst omkwamen. Beeldhouwer Mari Andriessen maakte de gedenkplaquette 'de Engel' voor alle oorlogsslachtoffers, die naast de kerk staat. Na de oorlog werd de kerk herbouwd."
+      }
+    },
+    {
+      "id": "eindhoven-witte-dame",
+      "city": "eindhoven",
+      "lat": 51.43889,
+      "lng": 5.47444,
+      "year": "1928–1931",
+      "style": "new-functionalism",
+      "style_label": { "zh": "新即物主義", "en": "New Functionalism", "nl": "Nieuwe Zakelijkheid" },
+      "architect": { "zh": "迪爾克・羅森伯格", "en": "Dirk Roosenburg", "nl": "Dirk Roosenburg" },
+      "name": { "zh": "白衣女士（飛利浦舊廠房）", "en": "De Witte Dame", "nl": "De Witte Dame" },
+      "address": "Emmasingel 31, Eindhoven",
+      "img": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/Eindhoven-Witte_Dame_(2).jpg&width=1280",
+      "credit": "Wikimedia Commons / Romaine",
+      "license": "CC0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eindhoven-Witte_Dame_(2).jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Witte_Dame_(gebouw)" },
+      "desc": {
+        "zh": "白衣女士（De Witte Dame）由建築師迪爾克・羅森伯格為飛利浦「技術事業部」（工程師布滕主持）設計，以新即物主義風格分三期建於1928至1931年，內部代號EE、EF、EH，是飛利浦埃瑪辛厄爾廠區的一部分，該廠區另有「第一燈泡工廠」與燈塔（Lichttoren）兩棟建築。廠房自啟用起即用於生產真空管（收音機零件），直到1953年才漆成今日著名的白色。1980年代飛利浦將生產線遷往海外，廠房閒置並面臨拆除；埃因霍溫藝術家貝爾特・赫爾曼斯（1944–2012，「白衣女士」一名的發想者）與埃瑪辛厄爾基金會奔走下，1990年代初拆除許可被駁回，建築得以保留。經建築師貝爾特・迪里克斯改建，1998年5月27日由荷蘭教育文化科學大臣約・里岑重新啟用；2002年起列為國家古蹟。現為埃因霍溫設計學院、豐蒂斯應用科學大學與市立圖書館所在地。",
+        "en": "De Witte Dame (The White Lady) was designed by architect Dirk Roosenburg for Philips' Technische Bedrijven department (led by engineer J.R. Bouten) and built in three phases (1928–1931) in the New Functionalist style; internally designated EE, EF and EH, it was part of Philips' Emmasingel complex, alongside the separate \"Eerste gloeilampenfabriek\" (first light-bulb factory) and the Lichttoren tower. From the start it was used to produce vacuum tubes for radios, and only received its signature white paint in 1953. When Philips moved production abroad in the 1980s, the building stood empty and faced demolition; Eindhoven artist Bert Hermens (1944–2012, who also coined the \"Witte Dame\" nickname) and the Stichting Emmasingel got the demolition permit refused in the early 1990s. Converted by architect Bert Dirrix, it reopened on 27 May 1998, inaugurated by Dutch education minister Jo Ritzen, and has been a national heritage monument (rijksmonument) since 2002. It now houses Design Academy Eindhoven, Fontys University of Applied Sciences and the public library.",
+        "nl": "De Witte Dame werd ontworpen door architect Dirk Roosenburg voor de afdeling Technische Bedrijven van Philips (onder leiding van ir. J.R. Bouten) en in drie fasen gebouwd (1928–1931) in de stijl van de Nieuwe Zakelijkheid; intern aangeduid als EE, EF en EH, maakte het deel uit van het Philips-complex aan de Emmasingel, samen met de aparte Eerste gloeilampenfabriek en de Lichttoren. Vanaf het begin werd het gebouw gebruikt voor de productie van radiobuizen, en pas in 1953 kreeg het zijn kenmerkende witte kleur. Toen Philips de productie in de jaren tachtig naar het buitenland verplaatste, kwam het gebouw leeg te staan en dreigde sloop; de Eindhovense kunstenaar Bert Hermens (1944–2012, ook bedenker van de naam 'Witte Dame') en de Stichting Emmasingel zorgden er begin jaren negentig voor dat de sloopvergunning werd afgewezen. Na verbouwing door architect Bert Dirrix werd het gebouw op 27 mei 1998 heropend door minister Jo Ritzen, en is het sinds 2002 rijksmonument. Tegenwoordig zijn er de Design Academy Eindhoven, Fontys Hogescholen en de openbare bibliotheek gevestigd."
+      }
+    },
+    {
+      "id": "eindhoven-van-abbemuseum",
+      "city": "eindhoven",
+      "lat": 51.434722,
+      "lng": 5.481944,
+      "year": "1936 (uitbreiding 2003)",
+      "style": "delft-school",
+      "style_label": { "zh": "台夫特學派／傳統主義", "en": "Delft School / Traditionalism", "nl": "Delftse School / traditionalisme" },
+      "architect": { "zh": "亞歷山大・克羅普勒（1936）；阿貝爾・卡恩（2003年擴建）", "en": "Alexander Kropholler (1936); Abel Cahen (2003 extension)", "nl": "Alexander Kropholler (1936); Abel Cahen (uitbreiding 2003)" },
+      "name": { "zh": "凡阿貝美術館", "en": "Van Abbemuseum", "nl": "Van Abbemuseum" },
+      "address": "Bilderdijklaan 10, Eindhoven",
+      "img": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/Zicht_op_de_voorzijde,_het_oude,_door_Kropholler_ontworpen_gedeelte_-_Eindhoven_-_20536809_-_RCE.jpg&width=1280",
+      "credit": "Wikimedia Commons / Rijksdienst voor het Cultureel Erfgoed (Paul van Galen)",
+      "license": "CC-BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zicht_op_de_voorzijde,_het_oude,_door_Kropholler_ontworpen_gedeelte_-_Eindhoven_-_20536809_-_RCE.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Van_Abbemuseum", "en": "https://en.wikipedia.org/wiki/Van_Abbemuseum" },
+      "desc": {
+        "zh": "凡阿貝美術館於1936年在多梅爾河畔創立，以雪茄商人亨利・凡阿貝命名——他於1934年將個人收藏售予埃因霍溫市議會，其工廠也資助並捐贈了原始館舍。建築師亞歷山大・克羅普勒設計了對稱、傳統主義風格（台夫特學派）的展廳建築群。這是歐洲最早成立的當代藝術公共美術館之一，館藏逾3400件，以擁有全球數一數二豐富的埃爾・李西茨基畫作收藏聞名。2003年，建築師阿貝爾・卡恩設計的27公尺高塔擴建部分啟用，由荷蘭女王貝婭特麗克絲主持開幕。",
+        "en": "The Van Abbemuseum was founded in 1936 on the east bank of the Dommel river, named for cigar manufacturer Henri van Abbe, who sold his art collection to the Eindhoven city council in 1934; his factory funded and donated the original building. Architect Alexander Kropholler designed a symmetrical, traditionalist-style (Delft School) suite of galleries. It is one of the first public museums for contemporary art established in Europe, holding over 3,400 works and known for one of the world's largest collections of paintings by El Lissitzky. A 27-metre tower extension designed by architect Abel Cahen was inaugurated by Queen Beatrix in 2003.",
+        "nl": "Het Van Abbemuseum werd in 1936 opgericht aan de oostoever van de Dommel, vernoemd naar sigarenfabrikant Henri van Abbe, die in 1934 zijn kunstcollectie verkocht aan de gemeente Eindhoven; zijn fabriek financierde en schonk het oorspronkelijke gebouw. Architect Alexander Kropholler ontwierp een symmetrische, traditionalistische zaalopbouw (Delftse School). Het is een van de eerste openbare musea voor hedendaagse kunst in Europa, met een collectie van ruim 3400 werken en bekend om een van de grootste collecties schilderijen van El Lissitzky ter wereld. Een 27 meter hoge torenuitbreiding, ontworpen door architect Abel Cahen, werd in 2003 geopend door koningin Beatrix."
+      }
     }
   ]
 }
