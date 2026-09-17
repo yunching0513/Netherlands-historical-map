@@ -50,7 +50,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | done | 2026-08-24 — see Loop Log |
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
-| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | doing | 2026-09-14 — shipped 5 more landmarks across 3 new cities: Den Haag (Vredespaleis, Mauritshuis), Nijmegen (St. Stevenskerk — Waalbrug deliberately skipped as a weaker infrastructure fit), Eindhoven (De Witte Dame + Van Abbemuseum, both of the row's original candidates). Coverage now 11 of 21 cities (amsterdam, rotterdam, utrecht, hilversum, haarlem, delft, denbosch, leiden, denhaag, nijmegen, eindhoven), up from 8. Remaining at zero (10): gouda, dordrecht, amersfoort, groningen, leeuwarden, zwolle, deventer, arnhem, maastricht, middelburg. See Loop Log for research/verification detail. Row stays `doing`: real work remains. |
+| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | doing | 2026-09-17 — shipped 5 more landmarks across 5 new cities: Gouda (Sint-Janskerk), Dordrecht (Grote Kerk), Groningen (Der Aa-kerk), Leeuwarden (Oldehove), Maastricht (Sint-Servaasbasiliek). Coverage now 16 of 21 cities, up from 11. Remaining at zero (5): amersfoort, zwolle, deventer, arnhem, middelburg — all 5 already have research-agent-sourced, Wikidata-coordinate-verified, Commons-license-verified candidates ready to write up next pass (amersfoort's Onze Lieve Vrouwetoren image just needs a re-attempted download — see Loop Log). Row stays `doing`. |
 ### P2 — institutional / academic track
 | id | item | status | notes |
 |---|---|---|---|
@@ -81,6 +81,81 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-17** — Continued B-24 (landmark coverage gap), same row flagged "next up" since
+  2026-09-14. Delegated research on all 10 remaining zero-coverage cities (gouda, dordrecht,
+  amersfoort, groningen, leeuwarden, zwolle, deventer, arnhem, maastricht, middelburg) to a
+  background subagent in one pass, rather than the usual 3-city batch, since the row had enough
+  candidates queued up to be worth front-loading the research; picked the 6 strongest,
+  best-documented results to independently verify and ship this session (gouda, dordrecht,
+  amersfoort, groningen, leeuwarden, maastricht), leaving zwolle/deventer/arnhem/middelburg's
+  already-researched candidates ready for a future pass without needing fresh research budget.
+  Independently re-verified every claim before writing, not taken on the agent's word: re-ran
+  Wikidata `EntityData` P625 lookups directly for all 6 candidates (Q848290 Sint-Janskerk, Q2024749
+  Grote Kerk Dordrecht, Q2245047 OLV toren Amersfoort, Q2255378 Der Aa-kerk, Q2018608 Oldehove,
+  Q253935 Sint-Servaasbasiliek) — all 6 coordinates matched the agent's report exactly to 5+ decimal
+  places; independently re-ran the Commons `imageinfo` API on all 6 images and confirmed licenses
+  matched exactly (Gouda CC-BY-SA 4.0, Dordrecht CC-BY-SA 4.0, Amersfoort Public Domain, Groningen
+  Public Domain, Leeuwarden CC-BY-SA 3.0, Maastricht CC-BY-SA 4.0); live-checked all 12 nl/en
+  Wikipedia URLs (200 each, including confirming "Sint_Janskerk" isn't a disambiguation stub by
+  pulling its actual extract); independently confirmed one specific flagged fact against the primary
+  source rather than trusting either the agent's claim or dropping it — fetched the Dutch Wikipedia
+  Onze Lieve Vrouwetoren article directly and confirmed word-for-word that the tower's spire is the
+  literal origin point of the Rijksdriehoeksmeting national coordinate grid. Downloaded and visually
+  inspected 5 of 6 images at full/near-full resolution before writing copy (all clean, unobstructed,
+  recognizable exteriors — Gouda's tower/gable, Dordrecht's famous lean visibly captured, Groningen's
+  Akerk tower and apse, Leeuwarden's Oldehove against open sky, Maastricht's Romanesque apse with
+  both towers) — hit the same shared-IP Commons rate-limiting flagged repeatedly since 2026-08-27,
+  but this time it was unusually persistent: Groningen and Leeuwarden needed one retry each and came
+  through, while Amersfoort's original-resolution image stayed hard-429'd through 15+ retries over
+  roughly 10 minutes of backoff, across 3 different thumbnail sizes and even the exact tracked URL
+  from the imageinfo API response — a longer, more stubborn block than any prior loop's "retry once
+  or twice and it clears" pattern. Rather than ship Amersfoort without the visual-inspection step
+  this discipline has required every prior session, left it out of this push: its coordinates and
+  license are independently verified and ready, it just needs someone to re-attempt the image
+  download (very likely to succeed once the block lifts, per every prior instance of this pattern).
+  Caught and fixed one real bug of my own mid-session: the Maastricht entry's `year` field
+  originally read "1039–12世紀", mixing Chinese text into a field the app displays unlocalized in
+  all three UI languages (`item.year` is a shared plain string, not a `{zh,en,nl}` object per the
+  schema) — would have shown Chinese characters in the English/Dutch UI; caught this by actually
+  running the headless-browser render pass and reading its output rather than just checking JSON
+  parses, then fixed it to "1039–1200" (numeric-only, matching every other item's year format).
+  Also caught and fixed a self-inflicted formatting bug before it reached git: a first attempt at
+  writing the JSON used a wholesale `json.dump(..., indent=2)` re-serialization, which reformatted
+  the *entire* file's existing 22 items (compact one-line `{zh,en,nl}` objects blown out to
+  multi-line) alongside the 5 new ones, producing a 719-line diff for what should've been a
+  ~110-line addition — caught via `git diff --stat` before committing, reverted with `git checkout
+  --`, and redid it as a text-level splice (custom formatter matching the file's existing compact
+  style exactly) that produced a clean, minimal diff instead. Introduced 2 new style-taxonomy
+  buckets, both genuine distinct regional styles not already covered: `brick-gothic` (Baksteengotiek)
+  for Groningen's Der Aa-kerk — the Northern Netherlands/Hanseatic brick-Gothic tradition, distinct
+  from the existing `gothic` bucket (Delft/Leiden/Nijmegen's stone-detailed Gothic) — and
+  `romanesque` for Maastricht's Sint-Servaasbasiliek, the first Romanesque-era building in the app's
+  taxonomy (everything else so far is Gothic-or-later); reused the existing `gothic` and
+  `brabantine-gothic` buckets for Gouda/Amersfoort/Leeuwarden and Dordrecht respectively, where the
+  style genuinely matches what's already there — safe per the standing finding (re-confirmed by grep
+  this session) that `style` ids are pure JSON data with no hardcoded legend to extend. Verified
+  before push: `landmarks.json` parses (27 items, up from 22, no duplicate ids), `postcards.json`
+  and `pmtiles/manifest.json` still parse (untouched), both inline `<script>` blocks in `index.html`
+  pass `node --check` (index.html itself wasn't touched — pure landmarks-data addition, same pattern
+  as recent B-24 passes). A real headless-Chromium pass was available this session (playwright +
+  the pre-installed `/opt/pw-browsers` Chromium) — rendered all 5 shipped cities
+  (`?city=gouda/dordrecht/groningen/leeuwarden/maastricht`) with cross-origin requests stubbed to a
+  1×1 PNG, confirmed the `#arch-grid` shows exactly one correctly-titled/attributed/styled card for
+  each, then went one step further and exercised the lightbox click-through for the Maastricht card
+  (had to first dismiss a "daily card" modal intercepting clicks and switch to the Cards tab, neither
+  of which is landmarks-specific — just how the app's UI is structured), confirming title and a
+  working Wikipedia deep-link populate correctly — zero app-specific console errors in any pass (the
+  only console noise was the test harness's own request-stubbing misserving the GoatCounter script,
+  the same artifact flagged in every recent entry). Also re-checked the standing GoatCounter
+  Operating-metrics to-do: still a login wall with no public dashboard configured (`HTTP 200` to
+  `/user/new`), unchanged since 2026-09-07 — still needs the owner to either log in and check real
+  numbers or enable GoatCounter's public-dashboard setting. Next up: retry Amersfoort's image
+  download (candidate fully verified otherwise, just needs the Commons rate-limit to clear), then
+  the 4 still-untouched candidates from this session's research batch — Zwolle (Sassenpoort or
+  Peperbus), Deventer (Lebuïnuskerk or the Waag), Arnhem (Sint-Eusebiuskerk or Duivelshuis),
+  Middelburg (Stadhuis or the Abdij) — all already researched with coordinates/licenses/facts ready,
+  just need the same independent-verification pass this session gave its 6. That would close B-24
+  entirely (21 of 21 cities covered). Blockers unchanged — see end-of-run report.
 - **2026-09-14** — Continued B-24 (landmark coverage gap): closed the "denhaag worth prioritizing
   next" gap flagged in the 2026-09-10 entry, plus finished both of this row's original Eindhoven
   candidates. Delegated initial research to a background subagent for three cities (denhaag,
