@@ -612,6 +612,116 @@
         "en": "The nave dates from the first half of the 11th century, with the church consecrated on 12 August 1039 in the presence of Emperor Henry III, who was ceremonially re-crowned here three days later; the west-work and choir followed through the 12th century. A major restoration from 1866–1900 was led by Pierre Cuypers — the same architect behind Amsterdam Central Station and the Rijksmuseum. Pope John Paul II designated it a minor basilica in 1985. It is the focal point of the once-in-seven-years Heiligdomsvaart pilgrimage and holds a treasury with reliquaries dating back to around 830.",
         "nl": "Het schip dateert uit de eerste helft van de 11e eeuw; de kerk werd op 12 augustus 1039 gewijd in aanwezigheid van keizer Hendrik III, die hier drie dagen later plechtig werd herkroond. Westbouw en koor volgden in de loop van de 12e eeuw. Een grote restauratie tussen 1866 en 1900 werd geleid door Pierre Cuypers — dezelfde architect als van het Amsterdamse Centraal Station en het Rijksmuseum. Paus Johannes Paulus II verhief de kerk in 1985 tot basilica minor. Zij is het middelpunt van de zevenjaarlijkse Heiligdomsvaart en bezit een schatkamer met reliekhouders die teruggaan tot circa 830."
       }
+    },
+    {
+      "id": "amersfoort-onze-lieve-vrouwetoren",
+      "city": "amersfoort",
+      "lat": 52.15517,
+      "lng": 5.3872,
+      "year": "1444–1470",
+      "style": "gothic",
+      "style_label": { "zh": "哥德式", "en": "Gothic", "nl": "Gotiek" },
+      "architect": { "zh": "原建築師不詳", "en": "Original architect unrecorded", "nl": "Oorspronkelijke bouwmeester onbekend" },
+      "name": { "zh": "聖母塔", "en": "Tower of Our Lady (Onze Lieve Vrouwetoren)", "nl": "Onze Lieve Vrouwetoren" },
+      "address": "Krankeledenstraat 26, Amersfoort",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Onze_Lieve_Vrouwetoren.jpg",
+      "credit": "Wikimedia Commons / Pepijntje",
+      "license": "Public Domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Onze_Lieve_Vrouwetoren.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Onze_Lieve_Vrouwetoren_(Amersfoort)", "en": "https://en.wikipedia.org/wiki/Onze_Lieve_Vrouwetoren" },
+      "desc": {
+        "zh": "98.33公尺高的晚期哥德式塔樓，工程約於1444年阿默斯福特奇踟後不久展開，1470年完工，靈感來自烏特勒支主教座堂塔，是荷蘭第三高的教堂塔樓。原附屬教堂在1787年一場火藥庫爆炸中嚴重損毀（造成17人死亡），1806年拆除，僅塔樓留存至今。塔上擁有兩座編鐘：1659–1664年由海莫尼兄弟鉟造的35口古鐘，以及1997年新增的58口。這座塔更是荷蘭國家三角測量座標系統（RD）的原點——本網站將荷蘭歷史地圖從RD座標重新投影到現代地圖時，所使用的正是以此塔尖為原點的座標定義。",
+        "en": "This 98.33 m late-Gothic tower was begun shortly after the 1444 'Miracle of Amersfoort' and completed around 1470, modeled on Utrecht's Dom tower; it is the third-tallest church tower in the Netherlands. The church it once belonged to was gutted by a gunpowder-magazine explosion in 1787 (17 killed) and demolished in 1806, leaving only the tower standing. It carries two carillons: 35 bells cast by the Hemony brothers in 1659–1664, plus 58 more added in 1997. The tower is also the literal origin point of the Dutch national coordinate grid (Rijksdriehoeksmeting, RD) — the same coordinate system this site's own map engine reprojects from when converting historical Dutch map tiles onto the modern basemap.",
+        "nl": "Deze 98,33 m hoge laatgotische toren werd kort na het 'Mirakel van Amersfoort' in 1444 begonnen en rond 1470 voltooid, geïnspireerd op de Utrechtse Domtoren; het is de op twee na hoogste kerktoren van Nederland. De bijbehorende kerk raakte in 1787 zwaar beschadigd door een explosie in het buskruitmagazijn (17 doden) en werd in 1806 gesloopt — alleen de toren bleef staan. De toren draagt twee carillons: 35 klokken, gegoten door de gebroeders Hemony in 1659–1664, aangevuld met 58 nieuwe klokken in 1997. De toren is bovendien het letterlijke nulpunt van het Nederlandse Rijksdriehoeksstelsel (RD) — hetzelfde coördinatensysteem dat deze site zelf gebruikt om historische Nederlandse kaarttegels naar de moderne basiskaart te herprojecteren."
+      }
+    },
+    {
+      "id": "zwolle-sassenpoort",
+      "city": "zwolle",
+      "lat": 52.509722,
+      "lng": 6.095278,
+      "year": "c. 1406",
+      "style": "gothic",
+      "style_label": { "zh": "哥德式", "en": "Gothic", "nl": "Gotiek" },
+      "architect": { "zh": "建築師不詳", "en": "Architect unknown", "nl": "Architect onbekend" },
+      "name": { "zh": "薩森門", "en": "Sassenpoort", "nl": "Sassenpoort" },
+      "address": "Sassenstraat, Zwolle",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/7/74/Zwolle_Sassenpoort.jpg",
+      "credit": "Wikimedia Commons / Marcel Schmeier",
+      "license": "CC-BY-SA 2.5",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zwolle_Sassenpoort.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Sassenpoort", "en": "https://en.wikipedia.org/wiki/Sassenpoort" },
+      "desc": {
+        "zh": "薩森門建於14世紀末至15世紀初，是茲沃勒城牆現存的城門，以特拉基岩與凝灰岩等大量石材建成，建築師不詳。1407年茲沃勒正式加入強大的北德漢薩同盟，這座城門的宏偉規模正反映當時城市的財富。門樓兩座尖角塔之間有一座突出的「mezekouw」（泄殺口），守軍可從樓板孔洞將滾燙瘋青傾倒於攻城者身上。1893年茲沃勒市將城門捐贈給荷蘭國家，1894至1897年整修時加裝了新哥德式尖頂鐘塔。彩繪玻璃窗上繪有13面（原應癰14面）漢薩同盟城市紋章。",
+        "en": "The Sassenpoort, built in the late 14th to early 15th century, is a surviving gate in Zwolle's city walls, built from imported stone (trachyte and tuff) by an unrecorded architect. Zwolle formally joined the powerful North German Hanseatic League in 1407, and the gate's grand scale reflected the city's wealth at the time. Between its two corner turrets projects a machicolation ('mezekouw') through which boiling pitch could be poured on attackers below. The city donated the gate to the Dutch state in 1893, and an 1894–1897 restoration added its neo-Gothic spired bell turret. Its stained-glass windows carry 13 (originally 14) coats of arms of fellow Hanseatic towns.",
+        "nl": "De Sassenpoort, gebouwd eind 14e tot begin 15e eeuw, is een bewaard gebleven stadspoort in de Zwolse stadsmuur, opgetrokken uit natuursteen (trachiet en tufsteen) door een onbekend gebleven architect. Zwolle werd in 1407 volwaardig lid van het machtige Noord-Duitse Hanzeverbond, en de imposante omvang van de poort weerspiegelde de rijkdom van de stad in die tijd. Tussen de twee hoektorens bevindt zich een mezekouw, waarvandaan kokende pek over aanvallers kon worden gegoten. De gemeente schonk de poort in 1893 aan de Staat der Nederlanden; bij de restauratie van 1894–1897 kreeg de poort haar neogotische spitse klokkentorentje. De glas-in-loodramen tonen dertien (oorspronkelijk veertien) wapenschilden van andere Hanzesteden."
+      }
+    },
+    {
+      "id": "deventer-lebuinuskerk",
+      "city": "deventer",
+      "lat": 52.251667,
+      "lng": 6.154722,
+      "year": "1450–1525",
+      "style": "gothic",
+      "style_label": { "zh": "哥德式", "en": "Gothic", "nl": "Gotiek" },
+      "architect": { "zh": "建造者不詳，橋跨多個世紀的建造階段", "en": "Builders unrecorded across multiple building campaigns spanning centuries", "nl": "Bouwmeesters onbekend, over meerdere bouwfasen door de eeuwen heen" },
+      "name": { "zh": "聖萊布伊努斯大教堂", "en": "Grote or Lebuïnuskerk (St Lebuinus' Church)", "nl": "Grote of Lebuïnuskerk" },
+      "address": "Grote Kerkhof 42, Deventer",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Deventer%2C_Lebuinuskerk_en_Mariakerk.jpg",
+      "credit": "Wikimedia Commons / PeHa",
+      "license": "CC-BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Deventer,_Lebuinuskerk_en_Mariakerk.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Grote_of_Lebuinuskerk", "en": "https://en.wikipedia.org/wiki/Lebuïnuskerk,_Deventer" },
+      "desc": {
+        "zh": "英格蘭傳教士萊布伊努斯於768年渡過艦瑟爾河，在此建立第一座木造教堂以向擒克遂人傳教。10世紀主教巴爾德里克建造首座石造教堂，1040年主教貝爾諾德下令興建大型羅馬式教堂，卻於1235與1334年兩度遭祝融焚毀。現存的哥德式廣堂式教堂建於1450至1525年間，1559至1591年代芬特爾暾短曫成為天主教教區，此教堂即為主教座堂。1580年喀爾文教徒接管教堂，內部裝飾遭大幅破壞、牆面被塗白，直到1927年整修才重新發現壁畫。地下仍保留與烏特勒支聖彼得教堂（同由主教貝爾諾德建造）極為相似的羅馬式地穴。20世紀初的整修由沃爾特·特里勒與皮埃爾·庫珀斯（同為阿姆斯特丹中央車站與馬斯埣頔聖瑞法斯聚堂的整修建築師）主持。",
+        "en": "The English missionary Lebuinus crossed the IJssel in 768 and built the first wooden church here to convert the Saxons. Bishop Balderik built the first stone church in the 10th century, and Bishop Bernold commissioned a large Romanesque basilica in 1040 — burned down twice, in 1235 and 1334. The current Gothic hall church was built between 1450 and 1525, and served as a cathedral during Deventer's short-lived Catholic diocese (1559–1591). Calvinists took over the church in 1580, stripping and whitewashing its interior; the wall paintings were only rediscovered during a 1927 restoration. A Romanesque crypt survives underneath, closely resembling the crypt of Utrecht's Pieterskerk (also built by Bernold). An early-20th-century restoration was led by Wolter te Riele and Pierre Cuypers — the same architect behind Amsterdam Central Station and the restoration of Maastricht's Basilica of Saint Servatius.",
+        "nl": "De Engelse missionaris Lebuinus stak in 768 de IJssel over en bouwde hier de eerste houten kerk om de Saksen te bekeren. Bisschop Balderik bouwde in de 10e eeuw de eerste stenen kerk, en bisschop Bernold gaf in 1040 opdracht tot een grote romaanse basiliek — die in 1235 en 1334 tweemaal door brand werd verwoest. De huidige gotische hallenkerk kwam tot stand tussen 1450 en 1525 en deed tijdens het kortstondige rooms-katholieke bisdom Deventer (1559–1591) dienst als kathedraal. In 1580 namen de calvinisten de kerk over, waarbij het interieur werd ontmanteld en witgepleisterd; de muurschilderingen kwamen pas bij een restauratie in 1927 weer tevoorschijn. Onder de kerk ligt nog een romaanse crypte die sterk lijkt op die van de Utrechtse Pieterskerk (eveneens gebouwd door Bernold). Een restauratie begin 20e eeuw stond onder leiding van Wolter te Riele en Pierre Cuypers — dezelfde architect als van het Amsterdamse Centraal Station en de restauratie van de Sint-Servaasbasiliek in Maastricht."
+      }
+    },
+    {
+      "id": "arnhem-sint-eusebiuskerk",
+      "city": "arnhem",
+      "lat": 51.978889,
+      "lng": 5.91,
+      "year": "1452–1560",
+      "style": "gothic",
+      "style_label": { "zh": "哥德式", "en": "Gothic", "nl": "Gotiek" },
+      "architect": { "zh": "原始設計者不詳；主要贊助人為海爾德公爵卡雷爾·範埃格蒙", "en": "Original architect unrecorded; chief patron Karel van Egmond, Duke of Guelders", "nl": "Oorspronkelijke architect onbekend; belangrijkste bouwheer Karel van Egmond, hertog van Gelre" },
+      "name": { "zh": "聖尤西比烏斯教堂", "en": "St Eusebius' Church (Eusebiuskerk)", "nl": "Sint-Eusebiuskerk" },
+      "address": "Kerkplein 1, Arnhem",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/5/50/Arnheim_Kirche.JPG",
+      "credit": "Wikimedia Commons / AlterVista",
+      "license": "CC-BY-SA 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arnheim_Kirche.JPG",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Sint-Eusebiuskerk", "en": "https://en.wikipedia.org/wiki/St_Eusebius'_Church,_Arnhem" },
+      "desc": {
+        "zh": "阿納姆最大、最重要的新教教堂，宗教改革前為天主教教堂，1578至1579年間的破壞聖像運動後改為新教教堂。教堂之名源自二世紀殖道聖人尤西比烏斯，其聖髄約於1453年自普魯姆修道院移至阿納姆。教堂約自1452年起興建，旨在超越原有的聖馬爾定教堂，主要贊助人為海爾德公爵兼聚特芬伯爵卡雷爾·範埃格蒙（1467–1538），死後即葬於教堂唱詩席內，其精美墓碣至今仍是重要景點。1633年6月25日雷擊「天使小塔」引發大火，損毀部分屋頂與塔尖；災後依赫爾曼·布雷克費爾德的設計重建加高，1650年完工，塔高達97公尺並裝有海莫尼鐘。教堂在二戰中（1944年阿納姆之戰，即知名的「奪橋遗恨」戰役）遭到嚴重損毀，戰後重建，2019年起轉型為多功能場館，僅偶爾舉行禮拜。",
+        "en": "Arnhem's largest and most important Protestant church, Catholic until the iconoclastic riots of 1578–1579. The church's name comes from the 2nd-century martyr Saint Eusebius, whose relics were brought to Arnhem from Prüm Abbey around 1453. Construction of the late-Gothic church began around 1452 to surpass the existing St Martin's Church, with the project's chief patron being Karel van Egmond, Duke of Guelders and Count of Zutphen (1467–1538), who was buried in the choir; his elaborate tomb monument remains a highlight. Lightning struck the 'Angel Tower' on 25 June 1633, starting a fire that damaged the roof and spire; the tower was rebuilt taller to a design by Herman Breckerveld and completed in 1650, reaching 97 m and housing Hemony bells. The church was heavily damaged during the 1944 Battle of Arnhem (of 'A Bridge Too Far' fame) in the Second World War and later rebuilt; since 2019 it has served as a multi-purpose venue, hosting services only occasionally.",
+        "nl": "De grootste en belangrijkste protestantse kerk van Arnhem, rooms-katholiek tot de beeldenstorm van 1578–1579. De naam verwijst naar de 2e-eeuwse martelaar Eusebius, wiens relieken rond 1453 vanuit de abdij van Prüm naar Arnhem kwamen. De bouw van de laatgotische kerk begon rond 1452, bedoeld om de bestaande Sint-Maartenskerk te overtreffen, met als belangrijkste bouwheer Karel van Egmond, hertog van Gelre en graaf van Zutphen (1467–1538), die in het koor werd begraven; zijn praalgraf is nog altijd een belangrijke bezienswaardigheid. Op 25 juni 1633 sloeg de bliksem in het 'Angelustorentje', wat een brand veroorzaakte die dak en spits beschadigde; de toren werd daarna hoger herbouwd naar ontwerp van Herman Breckerveld en in 1650 voltooid, 97 meter hoog met klokken van Hemony. De kerk raakte tijdens de Tweede Wereldoorlog zwaar beschadigd bij de Slag om Arnhem (1944) en werd nadien herbouwd; sinds 2019 dient het gebouw als multifunctionele locatie met slechts incidentele kerkdiensten."
+      }
+    },
+    {
+      "id": "middelburg-stadhuis",
+      "city": "middelburg",
+      "lat": 51.499,
+      "lng": 3.611111,
+      "year": "1452–1520",
+      "style": "brabantine-gothic",
+      "style_label": { "zh": "布拉班特哥德式", "en": "Brabantine Gothic", "nl": "Brabantse gotiek" },
+      "architect": { "zh": "凱爾德曼斯建築世家（來自梅赫倫），歷經數代：安德里斯一世、馬泰斯一世、揚三世、安東尼斯一世、隆博特二世", "en": "The Keldermans family of master builders from Mechelen, across generations: Andries I, Matthijs I, Jan III, Anthonis I, Rombout II", "nl": "De bouwmeestersfamilie Keldermans uit Mechelen, over meerdere generaties: Andries I, Matthijs I, Jan III, Anthonis I, Rombout II" },
+      "name": { "zh": "米德爾堡市政廳", "en": "Middelburg Town Hall", "nl": "Stadhuis van Middelburg" },
+      "address": "Markt 1, Middelburg",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/0/08/00_4641_Stadhuis_Middelburg_-_NL.jpg",
+      "credit": "Wikimedia Commons / W. Bulach",
+      "license": "CC-BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:00_4641_Stadhuis_Middelburg_-_NL.jpg",
+      "wiki": { "nl": "https://nl.wikipedia.org/wiki/Stadhuis_van_Middelburg", "en": "https://en.wikipedia.org/wiki/Middelburg_Town_Hall" },
+      "desc": {
+        "zh": "米德爾堡市政廳建於1452至1520年間，由來自梅赫倫的凱爾德曼斯建築世家歷經數代主持興建：1452年安德里斯一世率先投入石匠工程，隨後其兄弟馬泰斯一世與揚三世加入；1506至1523年的第二期工程中，塔樓由安東尼斯一世設計並於1512至1516年間建成，山牆立面則由隆博特二世於1512至1513年完工——他也是這個家族最後一位受雇於此工程的成員。市政廳塔樓當地人暥稱「瘋貝琺」（Malle Betje），因為其時鐘總是比米德爾堡另一座著名鐘塔「長約翰」（Lange Jan）慢。塔頂風標為一尊「海騎士」造型，於1560至1562年間安裝。",
+        "en": "Middelburg's town hall was built between 1452 and 1520, led across several generations by the Keldermans family of master builders from Mechelen: Andries I began the stonemasonry work in 1452, soon joined by his brothers Matthijs I and Jan III; in a second building phase (1506–1523), the tower was designed by Anthonis I and built 1512–1516, while the gabled façades were completed in 1512–1513 by Rombout II — the last family member paid for work here. Locals nicknamed the tower 'Malle Betje' ('Silly Betsy') because its clock always runs slow compared to Middelburg's other famous tower, the 'Lange Jan.' Its weathervane, in the shape of a 'sea knight,' was added in 1560–1562.",
+        "nl": "Het stadhuis van Middelburg werd gebouwd tussen 1452 en 1520, over meerdere generaties geleid door de bouwmeestersfamilie Keldermans uit Mechelen: Andries I begon in 1452 met het steenhouwwerk, al snel bijgestaan door zijn broers Matthijs I en Jan III; in een tweede bouwfase (1506–1523) werd de toren ontworpen door Anthonis I en gebouwd tussen 1512 en 1516, terwijl de topgevels in 1512–1513 werden voltooid door Rombout II — de laatste Keldermans die voor dit werk werd betaald. Middelburgers noemen de toren 'Malle Betje', omdat de klok altijd achterloopt bij die van de andere bekende Middelburgse toren, de 'Lange Jan'. De windwijzer in de vorm van een 'zeeridder' werd tussen 1560 en 1562 geplaatst."
+      }
     }
   ]
 }

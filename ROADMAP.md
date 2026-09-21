@@ -50,7 +50,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-18 | City stamps/seals for completed walks (Taiwan app's 22-county seal wall → 20 NL cities) | done | 2026-08-24 — see Loop Log |
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
-| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | doing | 2026-09-17 — shipped 5 more landmarks across 5 new cities: Gouda (Sint-Janskerk), Dordrecht (Grote Kerk), Groningen (Der Aa-kerk), Leeuwarden (Oldehove), Maastricht (Sint-Servaasbasiliek). Coverage now 16 of 21 cities, up from 11. Remaining at zero (5): amersfoort, zwolle, deventer, arnhem, middelburg — all 5 already have research-agent-sourced, Wikidata-coordinate-verified, Commons-license-verified candidates ready to write up next pass (amersfoort's Onze Lieve Vrouwetoren image just needs a re-attempted download — see Loop Log). Row stays `doing`. |
+| B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | done | 2026-09-21 — closed out. Shipped the final 5 zero-coverage cities: Amersfoort (Onze Lieve Vrouwetoren), Zwolle (Sassenpoort), Deventer (Grote of Lebuïnuskerk), Arnhem (Sint-Eusebiuskerk), Middelburg (Stadhuis). Coverage is now 21 of 21 cities — every city in the app has at least one verified architecture-walk landmark. See Loop Log for verification detail. |
 ### P2 — institutional / academic track
 | id | item | status | notes |
 |---|---|---|---|
@@ -81,6 +81,91 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-21** — Closed B-24 completely (landmark coverage gap, open since 2026-09-07, "doing"
+  since 2026-09-10): shipped the last 5 zero-coverage cities flagged "next up" in the 2026-09-17
+  entry — Amersfoort (Onze Lieve Vrouwetoren), Zwolle (Sassenpoort), Deventer (Grote of
+  Lebuïnuskerk), Arnhem (Sint-Eusebiuskerk), Middelburg (Stadhuis van Middelburg). Coverage is now
+  21 of 21 cities — every city in the app has at least one verified architecture-walk landmark, up
+  from 16/21 at the start of this session and 5/21 when the row opened. Independently verified
+  every claim rather than trusting any single source: fetched Wikidata `EntityData` directly for
+  all 5 candidates (Q2245047 OLV toren, Q2221010 Sassenpoort, Q1811227 Lebuïnuskerk, Q1378652
+  Sint-Eusebiuskerk, Q2325982 Middelburg Town Hall) for coordinates, sitelinks and inception dates;
+  independently ran the Commons `imageinfo` API on all 5 candidate images and confirmed licenses
+  directly (Amersfoort Public Domain, Zwolle CC-BY-SA 2.5, Deventer CC-BY-SA 4.0, Arnhem
+  CC-BY-SA 3.0, Middelburg CC-BY-SA 4.0 — no bad-license candidates); fetched full nl.wikipedia
+  article text for all 5 buildings directly (not summaries) and wrote copy strictly from what the
+  primary source actually says. This sandbox's shared-IP Wikimedia rate-limiting, flagged in every
+  recent B-24/B-14 entry, was unusually aggressive this session — the Wikidata search API 429'd
+  repeatedly even on single-word queries, and direct `upload.wikimedia.org` image fetches also
+  429'd (not just the API), a new variant of the pattern; resolved throughout with backgrounded
+  retry-with-backoff scripts (25–40 s between attempts) rather than treating any single 429 as
+  failure or giving up on a candidate. Caught and fixed two real mistakes of my own before they
+  shipped: (1) an initial thumbnail-URL scheme (`.../600px-Foo.jpg`) returned a *different* error
+  ("Use thumbnail sizes listed on...") that looked identical to a rate-limit page at a glance —
+  diagnosed by actually reading the HTML error body instead of assuming 429, then switched to
+  fetching original full-resolution files directly, which both fixed the bug and gave better
+  source images for visual inspection; (2) a typo carried the wrong diacritic into the Deventer
+  English Wikipedia link (`Lebuënuskerk` instead of `Lebuïnuskerk`) — caught by actually live-
+  checking all 10 wiki URLs (5 nl + 5 en) via HTTP status rather than constructing them and
+  assuming correctness, which turned up exactly this one 404 among the 10, then corrected against
+  the real Wikidata sitelink title before writing. Cross-checked a Wikidata P84 architect claim
+  against the primary source rather than taking it on faith: Wikidata credits Sassenpoort to
+  "Jacobus van Lokhorst," but the nl.wikipedia article states plainly "De architect is onbekend"
+  (architect unknown) — shipped the honest "architect unknown" per the primary source, the same
+  discipline applied to the Mauritshuis/De Witte Dame uncertain-credit cases in the 2026-09-14
+  entry. For Middelburg, wrote the architect field as the multi-generation Keldermans building
+  family (Andries I, Matthijs I, Jan III, Anthonis I, Rombout II) with each one's specific
+  contribution and years, rather than crediting just "Andries I Keldermans" per Wikidata's single
+  P84 value — the nl.wikipedia article's own three-phase construction history names all five family
+  members by role, and picking just one would have understated (and mildly misattributed) a
+  genuinely multi-generation building campaign. Found one especially strong fact worth calling out:
+  Amersfoort's Onze Lieve Vrouwetoren is the literal origin point of the Rijksdriehoeksmeting (RD)
+  national coordinate grid, and cross-checked this directly against this app's own `index.html`
+  proj4 definition (`lat_0=52.15616..., lon_0=5.38763...`, `EPSG:28992` at line ~898) rather than
+  just the Wikipedia claim — the coordinates match the tower's location almost exactly, so the
+  landmark's own description now explicitly connects the RD-origin fact to the app's own
+  RD→Web Mercator reprojection engine, a small but genuine bit of connective tissue between the
+  content and the product's own technical story (relevant to the institutional/academic
+  north-star, since this is exactly the kind of methodological detail an academic reader would
+  find credible). Also drew a Cuypers throughline: Deventer's Lebuïnuskerk restoration (early 20th
+  c., with Wolter te Riele) was led by Pierre Cuypers, the same architect already credited in the
+  app for Amsterdam Central Station and the Maastricht Sint-Servaasbasiliek restoration — the new
+  entry's copy references both existing entries by name, giving a curious reader a reason to click
+  across cities. No new style-taxonomy buckets were needed this time (unlike most recent B-24
+  passes) — 4 of 5 buildings honestly fit the existing `gothic` bucket (Amersfoort's late-Gothic
+  tower, Zwolle's Gothic gatehouse, Deventer's Gothic hall church, Arnhem's late-Gothic church) and
+  Middelburg's Keldermans-family town hall is textbook `brabantine-gothic`, the same bucket already
+  used for Den Bosch and Dordrecht — reused rather than forced apart. Verified before push:
+  `landmarks.json` parses (32 items, up from 27, no duplicate ids; `git diff --stat` confirmed a
+  clean +111/-1 line diff, not a reformat of the existing 27 entries), `postcards.json` and
+  `pmtiles/manifest.json` still parse (untouched), both inline `<script>` blocks in `index.html`
+  pass `node --check` (index.html itself wasn't touched — pure landmarks-data addition, same
+  pattern as every prior B-24 pass). A real headless-Chromium pass was available this session
+  (playwright + the pre-installed `/opt/pw-browsers` Chromium) — rendered all 5 shipped cities
+  (`?city=amersfoort/zwolle/deventer/arnhem/middelburg`) against a local static server with
+  cross-origin image requests stubbed to a 1×1 PNG, confirmed `#arch-grid` shows exactly one
+  correctly-titled/attributed/styled card for each with zero console errors in any pass, then went
+  one step further and exercised the lightbox click-through for the Middelburg card (had to target
+  `#lightbox` specifically rather than the generic `.lightbox` class, since the "about this
+  platform" modal shares the same class and sits first in DOM order — an easy false-positive this
+  session's first check selector fell into and caught by actually reading the returned text instead
+  of trusting a truthy "found" result), confirming title, architect, style tag, address, full
+  description and a working `en.wikipedia.org` deep link all populate correctly. Downloaded and
+  visually inspected all 5 images at full resolution before writing copy (all clean, unobstructed,
+  recognizable modern exteriors: Amersfoort's tower against open sky with clock face visible,
+  Zwolle's twin-turreted gatehouse with the murder-hole between them, Deventer's full church facade
+  and tower, Arnhem's tower facade with rose window, Middelburg's ornate Flamboyant Gothic
+  frontage) — none are interior shots, fragments, or old prints. This closes out the entire
+  backlog: every row in every priority tier is now `done` or `BLOCKED(user)`; nothing is left in
+  `todo`/`doing`. Next up is opening fresh backlog rows rather than continuing an existing one —
+  worth considering for the next pass: (1) refresh `docs/OUTREACH.md` and `docs/LAUNCH_COPY.md` to
+  cite "all 21 cities now have architecture-walk content" as a concrete, checkable claim for
+  outreach/launch copy that's still unposted/unsent per B-4/B-21; (2) individual long-form
+  city/landmark pages for SEO depth (each of the 32 landmarks has enough sourced narrative now to
+  support its own crawlable page, which the current single-page-app + `<noscript>` approach doesn't
+  fully surface to search engines); (3) re-check the GoatCounter dashboard now that ~5 weeks have
+  passed since instrumentation (2026-08-13) — still unresolved as a login-walled dashboard with no
+  public stats page, per every recent entry. Blockers unchanged — see end-of-run report.
 - **2026-09-17** — Continued B-24 (landmark coverage gap), same row flagged "next up" since
   2026-09-14. Delegated research on all 10 remaining zero-coverage cities (gouda, dordrecht,
   amersfoort, groningen, leeuwarden, zwolle, deventer, arnhem, maastricht, middelburg) to a
