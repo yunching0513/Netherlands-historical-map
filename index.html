@@ -754,7 +754,8 @@
         <span data-i18n="foot.made">設計・製作</span> ·
         <a href="https://github.com/yunching0513" target="_blank" rel="noopener">吳昀慶 Yunching Wu</a> ·
         <a href="#" id="about-link" data-i18n="foot.about">關於</a> ·
-        <a href="credits.html" data-i18n="foot.credits">致謝</a>
+        <a href="credits.html" data-i18n="foot.credits">致謝</a> ·
+        <a href="landmark/index.html" data-i18n="foot.landmarks">建築地標</a>
 
         <div class="foot-toggles">
           <button type="button" class="pill-toggle" id="theme-toggle" data-i18n="theme.light">紙色</button>
@@ -1134,7 +1135,7 @@
       'video.btn': 'Toen/nu-video', 'video.making': 'Video maken…', 'video.err': 'Kon video niet maken',
       'video.unsupported': 'Video-export wordt niet ondersteund in deze browser',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
-      'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding', 'foot.about': 'Over',
+      'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding', 'foot.about': 'Over', 'foot.landmarks': 'Landmarks',
       'about.kicker': 'Nederland · door de tijd', 'about.title': 'Over dit platform', 'about.colofon': 'Colofon · methode & citatie',
       'sister.label': 'Oude kaarten van Taiwan', 'sister.full': 'Zusterproject: Oude kaarten van Taiwan',
       'theme.light': 'Papier', 'theme.dark': 'Inkt', 'loading': 'Laden…', 'sheet.hint': 'Tik om te openen',
@@ -1187,7 +1188,7 @@
       'video.btn': 'Then/now video', 'video.making': 'Making video…', 'video.err': 'Could not create video',
       'video.unsupported': 'Video export not supported in this browser',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
-      'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits', 'foot.about': 'About',
+      'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits', 'foot.about': 'About', 'foot.landmarks': 'Landmarks',
       'about.kicker': 'Netherlands · through time', 'about.title': 'About this platform', 'about.colofon': 'Colophon · methodology & citation',
       'sister.label': 'Taiwan old maps', 'sister.full': 'Sister project: Taiwan historical maps',
       'theme.light': 'Paper', 'theme.dark': 'Ink', 'loading': 'Loading…', 'sheet.hint': 'Tap to open',
@@ -1240,7 +1241,7 @@
       'video.btn': '今昔動態影片', 'video.making': '製作影片中…', 'video.err': '無法製作影片',
       'video.unsupported': '此瀏覽器不支援影片匯出',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
-      'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝', 'foot.about': '關於',
+      'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝', 'foot.about': '關於', 'foot.landmarks': '建築地標',
       'about.kicker': '荷蘭 · 穿越時光', 'about.title': '關於這個平台', 'about.colofon': '學術資訊・方法與引用',
       'sister.label': '台灣舊地圖', 'sister.full': '姊妹專案：台灣舊地圖',
       'theme.light': '紙色', 'theme.dark': '墨色', 'loading': '載入中…', 'sheet.hint': '點此展開',
@@ -2730,6 +2731,11 @@
           landmarkMarkers.set(i.id, createLandmarkMarker(i));
         });
         renderLandmarkCards();
+        const wantLandmark = params.get('landmark');
+        if (wantLandmark) {
+          const item = LANDMARKS.find(i => i.id === wantLandmark);
+          if (item) { setTab('cards'); openLightbox(item); }
+        }
       })
       .catch(() => {});
   }

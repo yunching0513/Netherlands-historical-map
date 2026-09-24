@@ -51,6 +51,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-19 | β 3D walk mode ported from taiwan-historical-maps/beta: perspective canvas ground, compass rotation, GPS scroll | done | 2026-07-08, verified in headless Chromium |
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
 | B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | done | 2026-09-21 — closed out. Shipped the final 5 zero-coverage cities: Amersfoort (Onze Lieve Vrouwetoren), Zwolle (Sassenpoort), Deventer (Grote of Lebuïnuskerk), Arnhem (Sint-Eusebiuskerk), Middelburg (Stadhuis). Coverage is now 21 of 21 cities — every city in the app has at least one verified architecture-walk landmark. See Loop Log for verification detail. |
+| B-25 | Individual crawlable/citable pages per landmark for SEO depth + academic citability (idea from the 2026-09-21 Loop Log, item 2) — the 32 verified landmark entries in `landmarks/landmarks.json` have rich sourced zh/en/nl text that only ever renders client-side inside the SPA, invisible to crawlers and with no stable per-building URL to link/cite | done | 2026-09-24 — see Loop Log |
 ### P2 — institutional / academic track
 | id | item | status | notes |
 |---|---|---|---|
@@ -81,6 +82,83 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-24** — Shipped B-25 (new row, opened and closed same session): static, crawlable,
+  citable pages for every landmark — the first concrete "next up" idea flagged in the 2026-09-21
+  entry once B-24 closed out coverage at 21/21 cities. Problem: all 32 landmarks' rich, independently-
+  verified zh/en/nl text (architect, year, style, sourced description, Wikipedia links) only ever
+  rendered client-side inside the SPA's lightbox — invisible to search-engine crawlers and with no
+  stable per-building URL for an academic reader to link or cite, undercutting both north-star goals
+  (SEO surface area for pageviews; citable artifacts for the institutional track). Built
+  `tools/build_landmark_pages.py`, a small deterministic generator (same "bake static output, commit
+  it like any other asset" pattern as `tools/bake_pmtiles.py`) that reads `landmarks/landmarks.json`
+  and writes one static page per landmark to `landmark/<id>.html` (32 pages) plus a
+  `landmark/index.html` hub page grouping all landmarks by city. Deliberately used the `landmark/`
+  singular directory name (the data file lives at `landmarks/landmarks.json`, plural) to avoid any
+  path collision. Each page carries: a real `<title>`/meta-description (word-boundary-truncated, not
+  cut mid-word) and OG/Twitter tags using the licensed photo, a `LandmarksOrHistoricalBuildings`
+  JSON-LD block (name/altName/description/image/geo/address/sameAs), full NL/EN/中文 sections written
+  from the same verified copy already shipped in `landmarks.json` (no new claims — this is a
+  presentation-layer change, not new research), attribution + license + Commons source link per the
+  standing licensing rule, Wikipedia deep links where they exist, and a "view on the interactive map"
+  CTA. Closed the loop back into the live app rather than leaving these as one-way dead-end pages:
+  added `?landmark=<id>` support to `index.html` (`loadLandmarks()` now checks
+  `params.get('landmark')` after the landmark list loads, switches to the Cards tab, and opens the
+  lightbox for that exact item) — a static page's CTA link
+  (`index.html?city=X&landmark=Y`) round-trips a visitor straight to the right building's card in the
+  live app instead of dropping them at a generic city view. Wired discoverability both directions:
+  added a `landmark/index.html` footer link (with a new `foot.landmarks` i18n key in all three
+  languages) next to the existing `credits.html` link in the main app, and the same link in
+  `about.html`'s footer nav and data-sources tables (all three language sections) describing the
+  pages as citable per-building URLs — directly useful for the institutional/academic north-star,
+  since a Kadaster or university contact can now link a specific building rather than the whole SPA.
+  Added all 33 new URLs (32 landmark pages + the hub index) to `sitemap.xml` at priority 0.6, between
+  the existing city-view and city+year rows; verified the resulting file is well-formed XML via
+  `xml.etree.ElementTree` and that the URL count (60 total, 33 under `/landmark/`) matches the actual
+  file count on disk exactly. Refreshed the two "sell what the app actually has" docs the 2026-09-21
+  entry flagged as stale: `docs/LAUNCH_COPY.md` (4 occurrences) and `docs/OUTREACH.md` (2 occurrences,
+  the Kadaster NL email and the Amsterdam Time Machine/CLUE+ EN email) previously described the
+  architecture-walk feature narrowly as "Amsterdam School" — true when B-13 was the whole of it, no
+  longer accurate now that B-24 closed out 21/21-city coverage spanning Gothic, Romanesque, Brabantine
+  Gothic, Brick Gothic, Dutch Classicism, New Functionalism and De Stijl. Edited each occurrence
+  narrowly in place (not a rewrite) to name the actual span ("Gothic cathedrals to Amsterdam School to
+  De Stijl", 21 cities, 32 landmarks) so this still-unposted/unsent copy (per B-4/B-21, unchanged) is
+  accurate the day the owner uses it, and added a one-line mention of the new per-landmark citable
+  pages to the Show HN and Kadaster/CLUE+ drafts specifically, since a technical/academic audience is
+  the one likely to care. Verified before push: both inline `<script>` blocks in `index.html` pass
+  `node --check` (re-extracted and re-checked after the `?landmark=` deep-link addition, not just
+  before it); `landmarks.json`/`postcards.json`/`pmtiles/manifest.json` still parse (none touched by
+  this session — pure presentation-layer addition, no data-file edits); all 32 generated landmark
+  pages' inline JSON-LD blocks individually parse as valid JSON (scripted check via `json.loads` over
+  every file, zero failures). A real headless-Chromium pass was available this session (playwright +
+  `/opt/pw-browsers`) — served the repo over a local static HTTP server and drove
+  `index.html?city=amsterdam&landmark=amsterdam-scheepvaarthuis`: confirmed the lightbox opens
+  automatically with the correct title ("Scheepvaarthuis"), the active tab switches to "cards", the
+  new footer landmark link renders with the right label, and zero console errors/page errors fired.
+  Also spot-read the full rendered HTML of one generated landmark page and the hub index page by eye
+  (not just automated checks) to catch anything the schema-level checks wouldn't — caught and fixed
+  two real issues before considering this done: (1) the initial title/H1 logic always showed both the
+  `nl` and `en` name fields even when identical (many landmarks have the same name in both languages,
+  e.g. "Scheepvaarthuis — Scheepvaarthuis"), a visibly redundant title that would look low-effort to
+  both readers and to Google's title-rewriting heuristics — fixed by deduplicating the name list
+  before joining; (2) the initial meta-description truncation was a hard `[:300]` character slice that
+  could and did cut off mid-word ("...set the template for " with a dangling incomplete word) — fixed
+  with a word-boundary truncate-and-ellipsis helper. Deliberately scoped this to a presentation-layer
+  addition only: no new landmark research, no new licensing claims, no changes to
+  `landmarks/landmarks.json` itself — every fact on every generated page is copy-pasted verbatim from
+  data already independently verified in a prior B-24 session, so this row carries none of the
+  research/attribution risk those sessions were careful about. Also re-checked the standing
+  GoatCounter Operating-metrics to-do (unresolved since 2026-08-13): still a login-walled dashboard
+  with no public stats page — unchanged, still needs the owner's action, not re-attempted this session
+  since it's identical to every prior check. This closes the entire backlog again: B-25 opened and
+  closed in the same session, every other row remains `done`/`BLOCKED(user)`. Next up, worth
+  considering for a future pass: (1) per-city long-form landing pages in the same static-bake pattern
+  (one crawlable page per city aggregating its map history + landmarks + postcards, vs. today's single
+  `<noscript>` block covering all 21 cities in one page) — a natural follow-on to B-25's approach; (2)
+  the `about.html` colofon could link to Kadaster/Wikimedia's own citation/attribution pages more
+  directly if the owner wants a stronger "this is done right" signal for institutional reviewers; (3)
+  re-check GoatCounter once real traffic exists to actually report a pageview number against the 5M
+  goal, still blocked on the owner's own login/public-dashboard setting. Blockers unchanged — see
+  end-of-run report.
 - **2026-09-21** — Closed B-24 completely (landmark coverage gap, open since 2026-09-07, "doing"
   since 2026-09-10): shipped the last 5 zero-coverage cities flagged "next up" in the 2026-09-17
   entry — Amersfoort (Onze Lieve Vrouwetoren), Zwolle (Sassenpoort), Deventer (Grote of

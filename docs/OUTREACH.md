@@ -24,7 +24,8 @@ Beste team Topotijdreis,
 Als bedankje voor twee eeuwen prachtige open kaartdata: ik bouwde een gratis web-app
 die uw historische kaarten (1815–2021) over de straten van nu legt, met een tijdschuif,
 kunst-ansichtkaarten uit de collecties van het Rijksmuseum/Mauritshuis (publiek domein)
-en architectuurwandelingen (Amsterdamse School e.a.).
+en architectuurwandelingen door alle 21 steden (32 rijksmonumenten, van gotische
+kathedralen tot de Amsterdamse School en De Stijl), elk met een eigen bronpagina.
 
 https://yunching0513.github.io/Netherlands-historical-map/
 
@@ -47,8 +48,9 @@ Dear [name],
 I'm an independent developer/researcher from Taiwan. Over the past months I built an
 open web app that overlays the Kadaster Topotijdreis series (1815–2021) on today's
 streets: time-slider, on-location "postcard" collection of public-domain Dutch art,
-architecture walks (Amsterdam School), trilingual (NL/EN/zh-Hant), offline-first
-(pre-baked PMTiles reprojected from EPSG:28992).
+architecture walks across all 21 cities (32 verified landmarks, Gothic cathedrals to
+Amsterdam School to De Stijl, each with its own citable page), trilingual
+(NL/EN/zh-Hant), offline-first (pre-baked PMTiles reprojected from EPSG:28992).
 
 https://yunching0513.github.io/Netherlands-historical-map/
 Method & sources: see the colofon page. Code is public on GitHub.

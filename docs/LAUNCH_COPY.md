@@ -69,8 +69,9 @@ topographic surveys (Kadaster's open TOPraster series, 1815 → present), and �
 physically there — it tracks your GPS so the old map moves with you as you walk.
 
 Also has: public-domain art postcards that "appear" when you're near the real-world
-spot they were painted, Amsterdam School architecture walks with photos, and offline
-GPS walk recording with a shareable route card at the end.
+spot they were painted, architecture-walk landmarks across all 21 cities (Amsterdam
+School icons, Gothic cathedrals, De Stijl, Hanseatic town halls) with photos, and
+offline GPS walk recording with a shareable route card at the end.
 
 Data: Kadaster Topotijdreis/TOPraster (CC-BY 4.0), Wikimedia Commons for imagery, all
 attributed on the about/colofon page. Method: RD (EPSG:28992) tiles reprojected
@@ -122,8 +123,9 @@ https://yunching0513.github.io/Netherlands-historical-map/
 Walk around Amsterdam and drag a slider to see the historical Kadaster maps (going back
 to 1815) fade in over the current streets, synced to your real GPS position. Also has
 old art postcards that pop up when you're near where they were painted, and a
-self-guided Amsterdam School architecture walk (Het Schip, De Dageraad, Scheepvaarthuis,
-etc.) with photos and short histories.
+self-guided architecture walk covering all 21 cities — Amsterdam School icons (Het
+Schip, De Dageraad, Scheepvaarthuis) plus Gothic cathedrals, Hanseatic town halls and
+Rietveld's De Stijl house elsewhere — with photos and short histories.
 
 Free, no account, works offline once loaded (good for the metro). Data is Kadaster
 Topotijdreis (open license, credited in-app). If you try the architecture walk and
@@ -153,8 +155,9 @@ Technical bits that might interest this crowd:
   Kadaster has digitized.
 - A couple of "extra" layers on top of the core map: public-domain art postcards
   (Rijksmuseum etc.) geolocated to where the scene was painted, so they surface as you
-  physically approach the spot; and a self-guided Amsterdam School architecture walk with
-  photos sourced/licensed from Wikimedia Commons.
+  physically approach the spot; and a self-guided architecture walk (32 landmarks across
+  all 21 cities, Amsterdam School to Gothic to De Stijl) with photos sourced/licensed
+  from Wikimedia Commons — each landmark also gets its own static page for search/citation.
 - GPS walk recording with noise filtering (drops readings with >80m accuracy or <3m
   step), local storage of past walks, GeoJSON export, and a composited share-card image.
 - No account, no tracking beyond a cookieless pageview counter (GoatCounter). Trilingual
@@ -209,8 +212,9 @@ per-city into offline PMTiles archives.
 
 **3/**
 Extra layers: public-domain art postcards that "develop" as you walk toward the real
-spot they were painted, and a self-guided Amsterdam School architecture walk with
-photos + short histories, sourced/licensed via Wikimedia Commons.
+spot they were painted, and a self-guided architecture walk spanning all 21 cities
+(Amsterdam School, Gothic cathedrals, De Stijl) with photos + short histories,
+sourced/licensed via Wikimedia Commons.
 
 **4/**
 No account, no ads, cookieless analytics only. Free and open — methodology + full
