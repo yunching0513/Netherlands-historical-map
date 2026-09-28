@@ -52,6 +52,8 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 | B-19b | Vendor leaflet/proj4/pmtiles locally (drop unpkg CDN dependency) | done | 2026-07-08, needed for offline/app-store builds anyway |
 | B-24 | Landmark coverage is very uneven: only 5 of 21 cities (amsterdam, rotterdam, denhaag, utrecht, hilversum) have any architecture-walk landmarks; 16 have zero. Add 1–2 verified landmarks each to the strongest candidate cities first (delft: Nieuwe Kerk/Oude Kerk, denbosch: Sint-Janskathedraal, nijmegen: Waalbrug, eindhoven: Van Abbemuseum/Philips heritage, leiden: Pieterskerk) | done | 2026-09-21 — closed out. Shipped the final 5 zero-coverage cities: Amersfoort (Onze Lieve Vrouwetoren), Zwolle (Sassenpoort), Deventer (Grote of Lebuïnuskerk), Arnhem (Sint-Eusebiuskerk), Middelburg (Stadhuis). Coverage is now 21 of 21 cities — every city in the app has at least one verified architecture-walk landmark. See Loop Log for verification detail. |
 | B-25 | Individual crawlable/citable pages per landmark for SEO depth + academic citability (idea from the 2026-09-21 Loop Log, item 2) — the 32 verified landmark entries in `landmarks/landmarks.json` have rich sourced zh/en/nl text that only ever renders client-side inside the SPA, invisible to crawlers and with no stable per-building URL to link/cite | done | 2026-09-24 — see Loop Log |
+| B-26 | Bake PMTiles for the 10 cities that had landmarks/postcards (via B-24/B-14) but had never had a local offline `.pmtiles` archive baked (B-11/B-12 only covered Randstad + Amsterdam + Hilversum) — groningen, leeuwarden, zwolle, deventer, arnhem, nijmegen, denbosch, eindhoven, maastricht, middelburg | done | 2026-09-28 — see Loop Log |
+| B-27 | Static, crawlable per-city landing pages (`city/<id>.html` + hub), the natural follow-on to B-25 flagged as "next up" in the 2026-09-24 Loop Log — aggregate each city's map-year coverage, landmarks and postcards on one citable URL | done | 2026-09-28 — see Loop Log |
 ### P2 — institutional / academic track
 | id | item | status | notes |
 |---|---|---|---|
@@ -82,6 +84,72 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-09-28** — Opened and closed two new backlog rows (B-26, B-27) this session, both direct
+  follow-ons flagged as "next up" in the 2026-09-24 entry. First noticed while investigating idea
+  (1) from that entry (per-city landing pages): `pmtiles/manifest.json` only ever had archives for
+  11 of 21 cities (amsterdam + the Randstad cities from B-11 + hilversum) — the 10 cities added to
+  the app purely for landmarks/postcards by B-24/B-14 (groningen, leeuwarden, zwolle, deventer,
+  arnhem, nijmegen, denbosch, eindhoven, maastricht, middelburg) never got a baked offline archive.
+  Checked whether this was an actual broken feature before treating it as one: it isn't — the app's
+  `renderHistTileCanvas()` falls back to live on-the-fly reprojection of the same
+  `Historische_tijdreis_<service>` ArcGIS service when no local `.pmtiles` archive matches, so the
+  1900↔today compare slider already worked online for all 21 cities. What was actually missing is
+  the offline/PWA convenience layer (the "bundled downloads" list in the offline panel) and, now
+  relevant, accurate data for the new city pages below. B-26: set up a fresh `.venv-pmtiles`
+  (pyproj/pillow/pmtiles/requests), confirmed ArcGIS tile-service reachability first with a single
+  test bake (groningen, 673/673 tiles, 22s), then baked the remaining 9 in one batch run using each
+  city's existing `CITIES` array center coordinate and the same default bbox/zoom (z12–17) every
+  prior single-year city used. All 10 baked at 100% non-empty tile coverage (648–696 tiles each,
+  22–40s per city) and merged cleanly into `pmtiles/manifest.json` via the script's own
+  merge-by-id logic (no manual JSON editing). Independently verified beyond the script's own
+  "planned == non-empty" count: decoded a real, non-blank 256×256 WEBP tile via `pmtiles.reader`
+  near each of the 10 new archives' declared center point at z15 (same sandbox-independent
+  verification method as every prior PMTiles session). `pmtiles/` grew from 91MB to 134MB, still
+  comfortably under the 300MB ceiling — room for roughly another 150MB before that becomes a
+  concern. B-27: wrote `tools/build_city_pages.py` (same "bake static output, commit it like any
+  other asset" pattern as `tools/build_landmark_pages.py`/B-25) generating `city/<id>.html` for all
+  21 cities plus a `city/index.html` hub grouping by region (randstad/noord/zuid). Deliberately ran
+  this after B-26, not before, so every city page's "historical maps: X → today" stat line is
+  honest for all 21 cities rather than showing a placeholder for the 10 that used to have no
+  archive. Each page aggregates, from data already shipped and verified in prior sessions (no new
+  research, no new licensing claims — pure presentation-layer aggregation like B-25): the city's
+  map-year coverage from the manifest, its architecture-walk landmark(s) as image cards linking to
+  their own B-25 static page, and its art postcard(s) as image cards linking to the Commons source,
+  plus JSON-LD `City` markup and a CTA back into the live app (`?city=X`). The three-language history
+  blurbs are translations (EN/ZH) of the existing NL copy already shipped and reviewed for B-5's
+  shared `<noscript>` block — not new historical claims, so this carries none of the
+  research/attribution risk B-24/B-14 sessions were careful about. Cross-linked both directions:
+  changed the landmark-page breadcrumb (`tools/build_landmark_pages.py`) to link to the new city
+  guide instead of straight into the app (`../city/<id>.html` instead of
+  `../index.html?city=<id>`), regenerated all 32 landmark pages with the new crumb, added a
+  `city/index.html` footer link (new `foot.cities` i18n key, all 3 languages) next to the existing
+  landmarks link in `index.html`, and added a city-guide mention + link in all three `about.html`
+  language sections and its shared footer nav, mirroring exactly how B-25 wired in the landmark
+  pages. Added all 22 new URLs (21 city pages + hub) to `sitemap.xml` at priority 0.7/0.6,
+  immediately after the existing `?city=X` rows; verified the resulting file is well-formed XML via
+  `xml.etree.ElementTree` with the expected total (82 URLs, up from 60). Verified before push: both
+  inline `<script>` blocks in `index.html` pass `node --check`; `landmarks.json`/`postcards.json`/
+  `pmtiles/manifest.json` still parse; every one of the 21 new city pages' and all 32 regenerated
+  landmark pages' JSON-LD blocks individually parse as valid JSON (scripted `json.loads` check, zero
+  failures). A real headless-Chromium pass was available this session (playwright at
+  `/opt/pw-browsers`, `NODE_PATH` pointed at the global npm install since no local `node_modules`
+  existed) — served the repo over a local static HTTP server and confirmed two things end-to-end
+  for a newly-baked city rather than trusting the manifest edit alone: (1)
+  `city/groningen.html` renders the correct title and `<h1>`; (2) loading
+  `index.html?city=groningen` triggers a real network fetch of the updated
+  `pmtiles/manifest.json` followed by a real request for the new
+  `pmtiles/groningen-1900.pmtiles` file, proving the app's purely-manifest-driven archive discovery
+  (`pmtilesFor()`/`pmtilesCityMap()`, unchanged since B-11) picked up the new archive with zero app
+  code changes needed, exactly as the B-11/B-12 pattern promised. This closes the entire backlog
+  again: B-26 and B-27 opened and closed in the same session, every other row remains `done`/
+  `BLOCKED(user)`. Next up, worth considering for a future pass: (1) bake the 2021 (or latest
+  available) era for the 10 newly-1900-only cities too, giving them the same multi-era ladder
+  Amsterdam has, now that the bake pipeline and bbox/zoom defaults are proven fast (~30s/archive)
+  and there's ~150MB of headroom left; (2) the `about.html` colofon could link to Kadaster/
+  Wikimedia's own citation/attribution pages more directly, per the 2026-09-24 entry's idea (2),
+  still not attempted; (3) re-check GoatCounter now that ~6 weeks have passed since instrumentation
+  (2026-08-13) — still an unresolved, unchanged blocker, see below. Blockers unchanged — see
+  end-of-run report.
 - **2026-09-24** — Shipped B-25 (new row, opened and closed same session): static, crawlable,
   citable pages for every landmark — the first concrete "next up" idea flagged in the 2026-09-21
   entry once B-24 closed out coverage at 21/21 cities. Problem: all 32 landmarks' rich, independently-
