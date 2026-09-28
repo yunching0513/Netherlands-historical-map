@@ -255,6 +255,166 @@
       "maxzoom": 17,
       "format": "webp",
       "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "groningen-1900",
+      "city": "groningen",
+      "service": "1900",
+      "url": "groningen-1900.pmtiles",
+      "bounds": [
+        6.5385,
+        53.2014,
+        6.594499999999999,
+        53.2374
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "leeuwarden-1900",
+      "city": "leeuwarden",
+      "service": "1900",
+      "url": "leeuwarden-1900.pmtiles",
+      "bounds": [
+        5.7719000000000005,
+        53.1832,
+        5.8279,
+        53.2192
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "zwolle-1900",
+      "city": "zwolle",
+      "service": "1900",
+      "url": "zwolle-1900.pmtiles",
+      "bounds": [
+        6.055000000000001,
+        52.4988,
+        6.111,
+        52.534800000000004
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "deventer-1900",
+      "city": "deventer",
+      "service": "1900",
+      "url": "deventer-1900.pmtiles",
+      "bounds": [
+        6.1359,
+        52.2372,
+        6.1918999999999995,
+        52.2732
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "arnhem-1900",
+      "city": "arnhem",
+      "service": "1900",
+      "url": "arnhem-1900.pmtiles",
+      "bounds": [
+        5.8707,
+        51.9671,
+        5.926699999999999,
+        52.0031
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "nijmegen-1900",
+      "city": "nijmegen",
+      "service": "1900",
+      "url": "nijmegen-1900.pmtiles",
+      "bounds": [
+        5.809200000000001,
+        51.7946,
+        5.8652,
+        51.830600000000004
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "denbosch-1900",
+      "city": "denbosch",
+      "service": "1900",
+      "url": "denbosch-1900.pmtiles",
+      "bounds": [
+        5.2757000000000005,
+        51.6798,
+        5.3317,
+        51.7158
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "eindhoven-1900",
+      "city": "eindhoven",
+      "service": "1900",
+      "url": "eindhoven-1900.pmtiles",
+      "bounds": [
+        5.4417,
+        51.4236,
+        5.497699999999999,
+        51.4596
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "maastricht-1900",
+      "city": "maastricht",
+      "service": "1900",
+      "url": "maastricht-1900.pmtiles",
+      "bounds": [
+        5.663,
+        50.8334,
+        5.718999999999999,
+        50.8694
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "middelburg-1900",
+      "city": "middelburg",
+      "service": "1900",
+      "url": "middelburg-1900.pmtiles",
+      "bounds": [
+        3.5831,
+        51.4808,
+        3.6391,
+        51.5168
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
     }
   ]
 }

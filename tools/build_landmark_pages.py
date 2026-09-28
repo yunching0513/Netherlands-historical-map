@@ -161,7 +161,7 @@ def build_landmark_page(item, city_name):
 <body>
   <div class="crumb"><a href="../index.html">Oude-Kaart Wandeling</a> &rsaquo;
     <a href="index.html">Landmarks</a> &rsaquo;
-    <a href="../index.html?city={esc(city)}">{esc(city_name['en'])}</a> &rsaquo;
+    <a href="../city/{esc(city)}.html">{esc(city_name['en'])}</a> &rsaquo;
     {esc(name_en)}</div>
   <h1>{esc(name_nl)}{h1_variant}</h1>
   <div class="h1-sub">{esc(name_zh)} · {esc(city_name['en'])}, the Netherlands</div>
