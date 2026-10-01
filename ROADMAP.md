@@ -84,6 +84,7 @@ Status: `todo` / `doing` / `done` / `BLOCKED(user)` — keep sorted by priority.
 
 ## Loop Log
 
+- **2026-10-01** — Multi-era ladder beyond Amsterdam (follow-on idea (1) from 2026-09-28, adapted). Baked an 1850 Topotijdreis archive (z12–17, same bbox/zoom defaults, via `tools/bake_pmtiles.py`) for six Randstad cities — rotterdam, denhaag, utrecht, leiden, delft, haarlem — chosen over a redundant 2021 era (the app's "today" basemap already covers that side of the compare slider; 1850 adds a genuinely new pre-industrial layer, the strongest "then/now" shareability hook). All six decoded to real non-blank 256×256 tiles at z15 near each city centre; manifest merged by the script's own logic; `pmtiles/` now ~150 MB of the 300 MB budget (~3 MB per archive). Regenerated `city/*.html` so the "historical maps" stat line lists the new years. Verified: both inline scripts `node --check` OK, JSON files parse. Next: 1850 for the remaining cities (~45 MB more); about.html colofon links to Kadaster/Wikimedia attribution pages; GoatCounter check still needs the owner. Blockers unchanged.
 - **2026-09-28** — Opened and closed two new backlog rows (B-26, B-27) this session, both direct
   follow-ons flagged as "next up" in the 2026-09-24 entry. First noticed while investigating idea
   (1) from that entry (per-city landing pages): `pmtiles/manifest.json` only ever had archives for

@@ -415,6 +415,102 @@
       "maxzoom": 17,
       "format": "webp",
       "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "rotterdam-1850",
+      "city": "rotterdam",
+      "service": "1850",
+      "url": "rotterdam-1850.pmtiles",
+      "bounds": [
+        4.4512,
+        51.9045,
+        4.507199999999999,
+        51.9405
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "denhaag-1850",
+      "city": "denhaag",
+      "service": "1850",
+      "url": "denhaag-1850.pmtiles",
+      "bounds": [
+        4.2833000000000006,
+        52.0619,
+        4.3393,
+        52.0979
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "utrecht-1850",
+      "city": "utrecht",
+      "service": "1850",
+      "url": "utrecht-1850.pmtiles",
+      "bounds": [
+        5.094200000000001,
+        52.0728,
+        5.1502,
+        52.1088
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "leiden-1850",
+      "city": "leiden",
+      "service": "1850",
+      "url": "leiden-1850.pmtiles",
+      "bounds": [
+        4.4657,
+        52.1409,
+        4.521699999999999,
+        52.1769
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "delft-1850",
+      "city": "delft",
+      "service": "1850",
+      "url": "delft-1850.pmtiles",
+      "bounds": [
+        4.3291,
+        51.9936,
+        4.3850999999999996,
+        52.0296
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
+    },
+    {
+      "id": "haarlem-1850",
+      "city": "haarlem",
+      "service": "1850",
+      "url": "haarlem-1850.pmtiles",
+      "bounds": [
+        4.609500000000001,
+        52.3634,
+        4.6655,
+        52.3994
+      ],
+      "minzoom": 12,
+      "maxzoom": 17,
+      "format": "webp",
+      "attribution": "© Kadaster, CC-BY 4.0"
     }
   ]
 }
