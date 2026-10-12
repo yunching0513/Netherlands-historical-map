@@ -269,6 +269,7 @@ def build_city_page(city_id, cname, blurb, years, landmarks, postcards):
         '  <h2>Art postcards</h2>\n  <p class="empty">None catalogued yet for this city.</p>'
     )
 
+    og_image = canonical.rsplit("/city/", 1)[0] + f"/assets/og/{city_id}.jpg"
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -282,7 +283,12 @@ def build_city_page(city_id, cname, blurb, years, landmarks, postcards):
 <meta property="og:title" content="{esc(cname['en'])} — Oude-Kaart Wandeling">
 <meta property="og:description" content="{esc(description)}" />
 <meta property="og:url" content="{esc(canonical)}" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="{esc(og_image)}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="{esc(cname['en'])}: Kadaster Topotijdreis map c. 1900">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{esc(og_image)}" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@300;400;500&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <style>{PAGE_CSS}</style>
