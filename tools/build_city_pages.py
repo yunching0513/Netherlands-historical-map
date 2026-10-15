@@ -269,6 +269,10 @@ def build_city_page(city_id, cname, blurb, years, landmarks, postcards):
         '  <h2>Art postcards</h2>\n  <p class="empty">None catalogued yet for this city.</p>'
     )
 
+    related = " · ".join(
+        f'<a href="{esc(cid)}.html">{esc(c["en"])}</a>'
+        for cid, c in CITIES.items() if c["region"] == cname["region"] and cid != city_id
+    ) or "—"
     og_image = canonical.rsplit("/city/", 1)[0] + f"/assets/og/{city_id}.jpg"
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -316,6 +320,9 @@ def build_city_page(city_id, cname, blurb, years, landmarks, postcards):
 
 {postcards_section}
 
+  <h2>Other cities in {esc(region['en'])}</h2>
+  <p class="desc">{related}</p>
+
   <div class="cta">
     <a href="{esc(app_link)}">→ Explore {esc(cname['en'])} on the interactive historical map ↗</a>
   </div>
@@ -362,6 +369,15 @@ def build_index_page(rows_by_region, totals):
 <title>City guides index | Oude-Kaart Wandeling</title>
 <meta name="description" content="{esc(description)}" />
 <link rel="canonical" href="{esc(canonical)}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="City guides index — Oude-Kaart Wandeling" />
+<meta property="og:description" content="{esc(description)}" />
+<meta property="og:url" content="{esc(canonical)}" />
+<meta property="og:image" content="https://yunching0513.github.io/Netherlands-historical-map/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://yunching0513.github.io/Netherlands-historical-map/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="../icons/icon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>{PAGE_CSS}

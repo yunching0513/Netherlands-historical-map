@@ -154,6 +154,7 @@ def build_landmark_page(item, city_name):
 <meta property="og:image" content="{esc(img)}" />
 <meta property="og:url" content="{esc(canonical)}" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{esc(img)}" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@300;400;500&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <style>{PAGE_CSS}</style>
@@ -237,6 +238,15 @@ def build_index_page(items_by_city):
 <title>Architecture landmarks index | Oude-Kaart Wandeling</title>
 <meta name="description" content="{esc(description)}" />
 <link rel="canonical" href="{esc(canonical)}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Architecture landmarks index — Oude-Kaart Wandeling" />
+<meta property="og:description" content="{esc(description)}" />
+<meta property="og:url" content="{esc(canonical)}" />
+<meta property="og:image" content="https://yunching0513.github.io/Netherlands-historical-map/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://yunching0513.github.io/Netherlands-historical-map/assets/og-image.jpg" />
 <link rel="icon" type="image/svg+xml" href="../icons/icon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>{PAGE_CSS}
