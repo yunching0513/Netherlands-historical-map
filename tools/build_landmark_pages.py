@@ -95,7 +95,19 @@ def loc3(obj, key):
     return zh, en, nl
 
 
-def build_landmark_page(item, city_name):
+def nearby_items(item, all_items, n=3):
+    import math
+    def dist(a, b):
+        la1, lo1, la2, lo2 = map(math.radians, (a["lat"], a["lng"], b["lat"], b["lng"]))
+        h = math.sin((la2-la1)/2)**2 + math.cos(la1)*math.cos(la2)*math.sin((lo2-lo1)/2)**2
+        return 6371 * 2 * math.asin(math.sqrt(h))
+    others = [o for o in all_items if o["id"] != item["id"] and o.get("lat") and o.get("lng")]
+    if not (item.get("lat") and item.get("lng")):
+        return []
+    return [(o, dist(item, o)) for o in sorted(others, key=lambda o: dist(item, o))[:n]]
+
+
+def build_landmark_page(item, city_name, all_items=()):
     lid = item["id"]
     city = item["city"]
     name_zh, name_en, name_nl = loc3(item.get("name"), "name")
@@ -119,6 +131,15 @@ def build_landmark_page(item, city_name):
     canonical = f"{SITE}/landmark/{lid}.html"
     app_link = f"{SITE}/?city={city}&landmark={lid}"
     h1_variant = f' <span style="color:#807C73;font-weight:300;">/ {esc(name_en)}</span>' if name_en and name_en != name_nl else ""
+
+    nb = nearby_items(item, all_items)
+    nearby_html = ""
+    if nb:
+        lis = "".join(
+            f'<li><a href="{esc(o["id"])}.html">{esc(loc3(o.get("name"), "name")[2] or loc3(o.get("name"), "name")[1])}</a>'
+            f' &middot; {esc(CITIES.get(o["city"], {"en": o["city"]})["en"])} &middot; {d:.1f} km</li>'
+            for o, d in nb)
+        nearby_html = f'  <h2>Nearby landmarks</h2>\n  <ul class="desc">{lis}</ul>\n'
 
     wiki_links = []
     for code, label in (("nl", "Wikipedia (NL)"), ("en", "Wikipedia (EN)")):
@@ -189,7 +210,7 @@ def build_landmark_page(item, city_name):
   <p class="desc"><em>建築師：</em>{esc(arch_zh)} &middot; <em>風格：</em>{esc(style_zh)}</p>
 
   <div class="links">{' · '.join(wiki_links) if wiki_links else ''}</div>
-
+{nearby_html}
   <div class="cta">
     <a href="{esc(app_link)}">→ View {esc(name_en)} on the interactive historical map ↗</a>
   </div>
@@ -279,7 +300,7 @@ def main():
     for item in items:
         by_city.setdefault(item["city"], []).append(item)
         city_name = CITIES.get(item["city"], {"zh": item["city"], "en": item["city"]})
-        page = build_landmark_page(item, city_name)
+        page = build_landmark_page(item, city_name, items)
         out_path = os.path.join(OUT_DIR, f"{item['id']}.html")
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(page)
