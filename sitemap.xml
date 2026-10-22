@@ -2,330 +2,417 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/about.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/press.html</loc>
+    <lastmod>2026-10-22</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=amsterdam</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=rotterdam</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=denhaag</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=utrecht</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=leiden</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=delft</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=haarlem</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=gouda</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=dordrecht</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=amersfoort</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=hilversum</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=groningen</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=leeuwarden</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=zwolle</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=deventer</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=arnhem</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=nijmegen</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=denbosch</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=eindhoven</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=maastricht</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=middelburg</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/index.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/amsterdam.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/rotterdam.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/denhaag.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/utrecht.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/leiden.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/delft.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/haarlem.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/gouda.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/dordrecht.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/amersfoort.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/hilversum.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/groningen.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/leeuwarden.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/zwolle.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/deventer.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/arnhem.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/nijmegen.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/denbosch.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/eindhoven.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/maastricht.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/middelburg.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=amsterdam&amp;year=1900</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=rotterdam&amp;year=1900</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=denhaag&amp;year=1900</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/?city=utrecht&amp;year=1900</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/index.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/amersfoort-onze-lieve-vrouwetoren.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/amsterdam-beurs-van-berlage.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/amsterdam-de-dageraad.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/amsterdam-eigen-haard-zaanstraat.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/amsterdam-het-schip.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/amsterdam-scheepvaarthuis.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/amsterdam-tuschinski.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/arnhem-sint-eusebiuskerk.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/delft-nieuwe-kerk.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/denbosch-sint-jan.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/denhaag-mauritshuis.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/denhaag-vredespaleis.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/deventer-lebuinuskerk.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/dordrecht-grote-kerk.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/eindhoven-van-abbemuseum.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/eindhoven-witte-dame.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/gouda-sint-janskerk.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/groningen-der-aa-kerk.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/haarlem-stadhuis.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/hilversum-dudok-raadhuis.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/hilversum-zonnestraal.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/leeuwarden-oldehove.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/leiden-pieterskerk.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/maastricht-sint-servaasbasiliek.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/middelburg-stadhuis.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/nijmegen-sint-stevenskerk.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/rotterdam-kiefhoek.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/rotterdam-sonneveld-house.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/rotterdam-van-nelle-fabriek.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/rotterdam-witte-huis.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/utrecht-rietveld-schroderhuis.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/zwolle-sassenpoort.html</loc>
+    <lastmod>2026-10-22</lastmod>
     <priority>0.6</priority>
   </url>
 </urlset>
