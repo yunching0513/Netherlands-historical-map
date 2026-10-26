@@ -219,12 +219,14 @@ def build_city_page(city_id, cname, blurb, years, landmarks, postcards):
     canonical = f"{SITE}/city/{city_id}.html"
     app_link = f"{SITE}/?city={city_id}"
     region = REGION_LABEL.get(cname["region"], {"zh": "", "en": ""})
-    page_title = f"{cname['en']} — historical maps, landmarks & postcards | Oude-Kaart Wandeling"
+    page_title = f"{cname['en']} — historische kaarten, bezienswaardigheden & ansichtkaarten | Oude-Kaart Wandeling"
     description = truncate(
-        f"{blurb['en']} Historical topographic maps ({'–'.join(years) if len(years) > 1 else years[0]}) "
+        f"{cname['en']}: historische topografische kaarten ({'–'.join(years) if len(years) > 1 else years[0]}) "
+        f"over de huidige kaart, met {len(landmarks)} architectuurwandeling-bezienswaardigheden en "
+        f"{len(postcards)} kunstansichtkaarten. {blurb['nl']} / Historical topographic maps ({'–'.join(years) if len(years) > 1 else years[0]}) "
         f"overlaid on {cname['en']}, with {len(landmarks)} architecture-walk landmark(s) and "
         f"{len(postcards)} art postcard(s).",
-        300,
+        320,
     )
 
     landmark_cards = "\n".join(
