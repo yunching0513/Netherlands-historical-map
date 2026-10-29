@@ -126,8 +126,9 @@ def build_landmark_page(item, city_name, all_items=()):
     for n in names_for_title:
         if n not in seen:
             seen.append(n)
-    page_title = f"{' — '.join(seen)} | {city_name['en']} · Oude-Kaart Wandeling"
-    description = truncate(desc_en or desc_nl or desc_zh, 300)
+    page_title = f"{' — '.join(seen)} | {city_name['en']} — architectuur & historische kaart"
+    # Dutch-first snippet (target search audience), English as fallback
+    description = truncate(desc_nl or desc_en or desc_zh, 300)
     canonical = f"{SITE}/landmark/{lid}.html"
     app_link = f"{SITE}/?city={city}&landmark={lid}"
     h1_variant = f' <span style="color:#807C73;font-weight:300;">/ {esc(name_en)}</span>' if name_en and name_en != name_nl else ""
