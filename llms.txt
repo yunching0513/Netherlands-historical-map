@@ -1,0 +1,10 @@
+# Old-Map Stroll / Oude-Kaart Wandeling / 荷蘭古地圖散策
+> Free, open web app overlaying historical Dutch topographic maps (1815–2021, Kadaster Topotijdreis, CC-BY 4.0) on today's map for 21 Dutch cities, with architecture landmarks, art postcards and walk recording. Trilingual NL/EN/ZH.
+
+- [App](https://yunching0513.github.io/Netherlands-historical-map/): interactive map with then/now slider
+- [City guides](https://yunching0513.github.io/Netherlands-historical-map/city/index.html): per-city map years, landmarks, postcards
+- [Landmarks](https://yunching0513.github.io/Netherlands-historical-map/landmark/index.html): 32 sourced architecture pages
+- [Colofon / method / citation](https://yunching0513.github.io/Netherlands-historical-map/about.html): RD→Web Mercator method, licences, BibTeX
+- [Press kit](https://yunching0513.github.io/Netherlands-historical-map/press.html)
+- Cite: Wu, Y. Old Map Stroll. Zenodo. https://doi.org/10.5281/zenodo.21924251
+- Licences: map data © Kadaster CC-BY 4.0; images CC0/PD/CC-BY with per-item attribution; code MIT.
