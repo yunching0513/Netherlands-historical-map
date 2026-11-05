@@ -640,6 +640,11 @@
         <span data-i18n="video.btn">今昔動態影片</span>
         <span class="en">export</span>
       </button>
+      <button type="button" class="btn" id="btn-sharelink">
+        <span class="dot"></span>
+        <span data-i18n="share.btn">分享此畫面連結</span>
+        <span class="en">link</span>
+      </button>
       <div class="opa-row">
         <span class="lbl" data-i18n="opacity">透明度</span>
         <input type="range" class="opa" id="opa-slider" min="0" max="100" value="85" step="1" />
@@ -1133,7 +1138,7 @@
       'sec.time': 'Tijdreis', 'sec.time.en': 'tijdreis',
       'sec.locate': 'Locatie', 'sec.locate.en': 'locatie',
       'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
-      'video.btn': 'Toen/nu-video', 'video.making': 'Video maken…', 'video.err': 'Kon video niet maken',
+      'share.btn': 'Deel deze kaartweergave', 'share.copied': 'Link gekopieerd ✓', 'share.title': 'Oude kaart — Old-Map Stroll', 'video.btn': 'Toen/nu-video', 'video.making': 'Video maken…', 'video.err': 'Kon video niet maken',
       'video.unsupported': 'Video-export wordt niet ondersteund in deze browser',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
       'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding', 'foot.about': 'Over', 'foot.landmarks': 'Landmarks', 'foot.cities': 'Stedengidsen',
@@ -1186,7 +1191,7 @@
       'sec.time': 'Time travel', 'sec.time.en': 'time travel',
       'sec.locate': 'Locate', 'sec.locate.en': 'locate',
       'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
-      'video.btn': 'Then/now video', 'video.making': 'Making video…', 'video.err': 'Could not create video',
+      'share.btn': 'Share this view', 'share.copied': 'Link copied ✓', 'share.title': 'Old map — Old-Map Stroll', 'video.btn': 'Then/now video', 'video.making': 'Making video…', 'video.err': 'Could not create video',
       'video.unsupported': 'Video export not supported in this browser',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
       'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits', 'foot.about': 'About', 'foot.landmarks': 'Landmarks', 'foot.cities': 'City guides',
@@ -1239,7 +1244,7 @@
       'sec.time': '時光', 'sec.time.en': '時光旅行',
       'sec.locate': '定位', 'sec.locate.en': '定位',
       'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
-      'video.btn': '今昔動態影片', 'video.making': '製作影片中…', 'video.err': '無法製作影片',
+      'share.btn': '分享此畫面連結', 'share.copied': '已複製連結 ✓', 'share.title': '荷蘭古地圖散策', 'video.btn': '今昔動態影片', 'video.making': '製作影片中…', 'video.err': '無法製作影片',
       'video.unsupported': '此瀏覽器不支援影片匯出',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
       'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝', 'foot.about': '關於', 'foot.landmarks': '建築地標', 'foot.cities': '城市導覽',
@@ -1347,6 +1352,13 @@
   const CITY_ZOOM = 15;
   const map = L.map('map', { zoomControl: false, attributionControl: true, maxZoom: 19, minZoom: 7 })
     .setView(state.city.center, CITY_ZOOM);
+  // Deep-link: ?lat=&lng=&z= restore the exact shared viewport (city/year handled above).
+  (function () {
+    const la = parseFloat(params.get('lat')), ln = parseFloat(params.get('lng')), z = parseInt(params.get('z'), 10);
+    if (isFinite(la) && isFinite(ln) && la > 50 && la < 54 && ln > 3 && ln < 8) {
+      map.setView([la, ln], (z >= 7 && z <= 19) ? z : CITY_ZOOM);
+    }
+  })();
 
   map.createPane('basePane');   map.getPane('basePane').style.zIndex = 200;
   map.createPane('histPane');   map.getPane('histPane').style.zIndex = 350;
@@ -1531,6 +1543,7 @@
     divider.classList.toggle('show', state.compare);
     if (state.compare) { comparePct = 50; divider.style.left = '50%'; }
     applyCompareClip();
+    syncURL();
   }
   function dragDivider(clientX) {
     const pct = Math.max(4, Math.min(96, (clientX / window.innerWidth) * 100));
@@ -2549,7 +2562,28 @@
     const u = new URL(location.href);
     u.searchParams.set('city', state.city.id);
     u.searchParams.set('year', state.year);
-    history.replaceState(null, '', u);
+    const c = map.getCenter();
+    u.searchParams.set('lat', c.lat.toFixed(5));
+    u.searchParams.set('lng', c.lng.toFixed(5));
+    u.searchParams.set('z', map.getZoom());
+    if (state.compare) u.searchParams.set('compare', '1'); else u.searchParams.delete('compare');
+    try { history.replaceState(null, '', u); } catch (e) {}
+  }
+  map.on('moveend', syncURL);
+  async function shareView() {
+    syncURL();
+    const url = location.href, title = t('share.title');
+    const btn = document.getElementById('btn-sharelink');
+    try {
+      if (navigator.share) { await navigator.share({ title: title, url: url }); return; }
+    } catch (e) { if (e && e.name === 'AbortError') return; }
+    try { await navigator.clipboard.writeText(url); } catch (e) {
+      const ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta);
+      ta.select(); try { document.execCommand('copy'); } catch (e2) {} ta.remove();
+    }
+    const lbl = btn.querySelector('[data-i18n]'), old = lbl.textContent;
+    lbl.textContent = t('share.copied');
+    setTimeout(() => { lbl.textContent = t('share.btn'); }, 1800);
   }
 
   const panel = document.getElementById('panel');
@@ -2631,6 +2665,8 @@
 
   document.getElementById('btn-compare').addEventListener('click', toggleCompare);
   document.getElementById('btn-video').addEventListener('click', exportThenNowVideo);
+  document.getElementById('btn-sharelink').addEventListener('click', shareView);
+  if (params.get('compare') === '1' && !state.compare) toggleCompare();
   document.getElementById('btn-locate').addEventListener('click', toggleLocate);
 
   document.querySelectorAll('#lang-switch button').forEach(b =>
