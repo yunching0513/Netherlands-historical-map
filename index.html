@@ -302,6 +302,14 @@
     .city-search { font-size:16px; padding:11px 12px; }
     .city-list.open { max-height:50vh; }
   }
+  /* Embed mode (?embed=1): map-only iframe view for blogs, press and heritage sites */
+  .embed .panel, .embed .walk-fab, .embed .daily-fab, .embed .legend, .embed .daily { display:none !important; }
+  .embed-bar { display:none; }
+  .embed .embed-bar { display:flex; position:absolute; left:10px; right:10px; bottom:22px; z-index:1000; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; background:var(--paper-2); border:1px solid var(--stone); box-shadow:0 10px 30px -18px rgba(31,29,25,0.4); }
+  .embed .embed-bar .era-chips { margin-top:0; flex:1 1 auto; }
+  .embed-open { font-family:var(--serif); font-size:13px; color:var(--vermilion); text-decoration:none; white-space:nowrap; }
+  .embed-open:hover { text-decoration:underline; }
+  .embed .zoom-ctl { left:10px; top:10px; }
   .zoom-ctl { position:absolute; left:20px; top:20px; z-index:900; display:flex; flex-direction:column; border:1px solid var(--stone); background:var(--paper-2); }
   .zoom-ctl button { width:38px; height:38px; border:none; background:transparent; cursor:pointer; font-family:var(--mono); font-size:18px; color:var(--graphite); border-bottom:1px solid var(--mist); -webkit-tap-highlight-color:transparent; }
   .zoom-ctl button:last-child { border-bottom:none; }
@@ -574,6 +582,10 @@
   <div class="legend-body" id="legend-body"></div>
 </aside>
 
+<div class="embed-bar" id="embed-bar">
+  <a class="embed-open" id="embed-open" href="./" target="_blank" rel="noopener">—</a>
+</div>
+
 <aside class="panel grain" id="panel">
   <div class="sheet-handle" id="sheet-handle" role="button" aria-label="Paneel wisselen">
     <span class="grip"></span>
@@ -649,6 +661,11 @@
         <span class="dot"></span>
         <span data-i18n="cite.btn">引用此畫面 (APA)</span>
         <span class="en">cite</span>
+      </button>
+      <button type="button" class="btn" id="btn-embed">
+        <span class="dot"></span>
+        <span data-i18n="embed.btn">嵌入此地圖 (iframe)</span>
+        <span class="en">embed</span>
       </button>
       <div class="opa-row">
         <span class="lbl" data-i18n="opacity">透明度</span>
@@ -1143,7 +1160,7 @@
       'sec.time': 'Tijdreis', 'sec.time.en': 'tijdreis',
       'sec.locate': 'Locatie', 'sec.locate.en': 'locatie',
       'opacity': 'Dekking', 'compare.btn': 'Toen & nu', 'compare.then': 'TOEN', 'compare.now': 'NU',
-      'cite.btn': 'Citeer deze weergave (APA)', 'cite.copied': 'Citatie gekopieerd ✓', 'cite.fmt': (n,y,u,d)=>'Wu, Y. (2026). Oude-Kaart Wandeling: '+n+', kaartjaar '+y+' [Webapplicatie, kaartweergave]. Kaartdata © Kadaster, CC-BY 4.0. https://doi.org/10.5281/zenodo.21924251 — '+u+' (geraadpleegd '+d+')', 'share.btn': 'Deel deze kaartweergave', 'share.copied': 'Link gekopieerd ✓', 'share.title': 'Oude kaart — Old-Map Stroll', 'video.btn': 'Toen/nu-video', 'video.making': 'Video maken…', 'video.err': 'Kon video niet maken',
+      'cite.btn': 'Citeer deze weergave (APA)', 'cite.copied': 'Citatie gekopieerd ✓', 'cite.fmt': (n,y,u,d)=>'Wu, Y. (2026). Oude-Kaart Wandeling: '+n+', kaartjaar '+y+' [Webapplicatie, kaartweergave]. Kaartdata © Kadaster, CC-BY 4.0. https://doi.org/10.5281/zenodo.21924251 — '+u+' (geraadpleegd '+d+')', 'embed.btn': 'Kaart insluiten (iframe)', 'embed.copied': 'Insluitcode gekopieerd ✓', 'embed.open': (n,y)=>n+' · '+y+' — open volledige kaart ↗', 'share.btn': 'Deel deze kaartweergave', 'share.copied': 'Link gekopieerd ✓', 'share.title': 'Oude kaart — Old-Map Stroll', 'video.btn': 'Toen/nu-video', 'video.making': 'Video maken…', 'video.err': 'Kon video niet maken',
       'video.unsupported': 'Video-export wordt niet ondersteund in deze browser',
       'locate.btn': 'Vind mijn locatie', 'loc.fix': 'HUIDIGE POSITIE',
       'foot.maps': 'Historie', 'foot.base': 'Basiskaart', 'foot.made': 'Ontwerp & bouw', 'foot.credits': 'Bronvermelding', 'foot.about': 'Over', 'foot.landmarks': 'Landmarks', 'foot.cities': 'Stedengidsen',
@@ -1196,7 +1213,7 @@
       'sec.time': 'Time travel', 'sec.time.en': 'time travel',
       'sec.locate': 'Locate', 'sec.locate.en': 'locate',
       'opacity': 'Opacity', 'compare.btn': 'Then & now', 'compare.then': 'THEN', 'compare.now': 'NOW',
-      'cite.btn': 'Cite this view (APA)', 'cite.copied': 'Citation copied ✓', 'cite.fmt': (n,y,u,d)=>'Wu, Y. (2026). Old-Map Stroll: '+n+', map year '+y+' [Web application, map view]. Map data © Kadaster, CC-BY 4.0. https://doi.org/10.5281/zenodo.21924251 — '+u+' (accessed '+d+')', 'share.btn': 'Share this view', 'share.copied': 'Link copied ✓', 'share.title': 'Old map — Old-Map Stroll', 'video.btn': 'Then/now video', 'video.making': 'Making video…', 'video.err': 'Could not create video',
+      'cite.btn': 'Cite this view (APA)', 'cite.copied': 'Citation copied ✓', 'cite.fmt': (n,y,u,d)=>'Wu, Y. (2026). Old-Map Stroll: '+n+', map year '+y+' [Web application, map view]. Map data © Kadaster, CC-BY 4.0. https://doi.org/10.5281/zenodo.21924251 — '+u+' (accessed '+d+')', 'embed.btn': 'Embed this map (iframe)', 'embed.copied': 'Embed code copied ✓', 'embed.open': (n,y)=>n+' · '+y+' — open full map ↗', 'share.btn': 'Share this view', 'share.copied': 'Link copied ✓', 'share.title': 'Old map — Old-Map Stroll', 'video.btn': 'Then/now video', 'video.making': 'Making video…', 'video.err': 'Could not create video',
       'video.unsupported': 'Video export not supported in this browser',
       'locate.btn': 'Find my location', 'loc.fix': 'CURRENT FIX',
       'foot.maps': 'History', 'foot.base': 'Base map', 'foot.made': 'Design & build', 'foot.credits': 'Credits', 'foot.about': 'About', 'foot.landmarks': 'Landmarks', 'foot.cities': 'City guides',
@@ -1249,7 +1266,7 @@
       'sec.time': '時光', 'sec.time.en': '時光旅行',
       'sec.locate': '定位', 'sec.locate.en': '定位',
       'opacity': '透明度', 'compare.btn': '今昔對照', 'compare.then': '昔', 'compare.now': '今',
-      'cite.btn': '引用此畫面 (APA)', 'cite.copied': '已複製引用格式 ✓', 'cite.fmt': (n,y,u,d)=>'Wu, Y. (2026). 荷蘭古地圖散策：'+n+'，地圖年份 '+y+' [網頁應用程式，地圖畫面]. 地圖資料 © Kadaster, CC-BY 4.0. https://doi.org/10.5281/zenodo.21924251 — '+u+'（擷取日期 '+d+'）', 'share.btn': '分享此畫面連結', 'share.copied': '已複製連結 ✓', 'share.title': '荷蘭古地圖散策', 'video.btn': '今昔動態影片', 'video.making': '製作影片中…', 'video.err': '無法製作影片',
+      'cite.btn': '引用此畫面 (APA)', 'cite.copied': '已複製引用格式 ✓', 'cite.fmt': (n,y,u,d)=>'Wu, Y. (2026). 荷蘭古地圖散策：'+n+'，地圖年份 '+y+' [網頁應用程式，地圖畫面]. 地圖資料 © Kadaster, CC-BY 4.0. https://doi.org/10.5281/zenodo.21924251 — '+u+'（擷取日期 '+d+'）', 'embed.btn': '嵌入此地圖 (iframe)', 'embed.copied': '已複製嵌入碼 ✓', 'embed.open': (n,y)=>n+' · '+y+' — 開啟完整地圖 ↗', 'share.btn': '分享此畫面連結', 'share.copied': '已複製連結 ✓', 'share.title': '荷蘭古地圖散策', 'video.btn': '今昔動態影片', 'video.making': '製作影片中…', 'video.err': '無法製作影片',
       'video.unsupported': '此瀏覽器不支援影片匯出',
       'locate.btn': '找我的位置', 'loc.fix': '目前定位',
       'foot.maps': '歷史圖資', 'foot.base': '底圖', 'foot.made': '設計・製作', 'foot.credits': '致謝', 'foot.about': '關於', 'foot.landmarks': '建築地標', 'foot.cities': '城市導覽',
@@ -1336,6 +1353,8 @@
   }
 
   const params = new URLSearchParams(location.search);
+  const EMBED = params.get('embed') === '1';
+  if (EMBED) document.documentElement.classList.add('embed');
   let storedCity = null, storedYear = null;
   try { storedCity = localStorage.getItem('nlOldMaps.city'); storedYear = localStorage.getItem('nlOldMaps.year'); } catch (e) {}
 
@@ -2573,6 +2592,35 @@
     u.searchParams.set('z', map.getZoom());
     if (state.compare) u.searchParams.set('compare', '1'); else u.searchParams.delete('compare');
     try { history.replaceState(null, '', u); } catch (e) {}
+    if (EMBED) updateEmbedBar();
+  }
+  function fullViewURL() {
+    const u = new URL(location.href);
+    u.searchParams.delete('embed');
+    return u.toString();
+  }
+  function updateEmbedBar() {
+    const a = document.getElementById('embed-open');
+    const nm = (lang === 'zh' ? state.city.zh : state.city.en) || state.city.id;
+    a.href = fullViewURL();
+    a.textContent = t('embed.open')(nm, state.year);
+  }
+  if (EMBED) document.getElementById('embed-bar').insertBefore(document.getElementById('era-chips'), document.getElementById('embed-open'));
+  async function embedView() {
+    syncURL();
+    const full = fullViewURL();
+    const u = new URL(full); u.searchParams.set('embed', '1');
+    const nm = (lang === 'zh' ? state.city.zh : state.city.en) || state.city.id;
+    const title = 'Old-Map Stroll — ' + nm + ' ' + state.year;
+    const code = '<iframe src="' + u.toString().replace(/&/g, '&amp;') + '" width="100%" height="480" style="border:0" loading="lazy" allowfullscreen title="' + title + '"></iframe>\n' +
+      '<p style="font-size:12px"><a href="' + full.replace(/&/g, '&amp;') + '">' + title + '</a> · Wu, Y. (2026), https://doi.org/10.5281/zenodo.21924251 · Kaartdata © Kadaster, CC-BY 4.0</p>';
+    try { await navigator.clipboard.writeText(code); } catch (e) {
+      const ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta);
+      ta.select(); try { document.execCommand('copy'); } catch (e2) {} ta.remove();
+    }
+    const lbl = document.getElementById('btn-embed').querySelector('[data-i18n]');
+    lbl.textContent = t('embed.copied');
+    setTimeout(() => { lbl.textContent = t('embed.btn'); }, 1800);
   }
   map.on('moveend', syncURL);
   async function shareView() {
@@ -2685,6 +2733,7 @@
   document.getElementById('btn-video').addEventListener('click', exportThenNowVideo);
   document.getElementById('btn-sharelink').addEventListener('click', shareView);
   document.getElementById('btn-cite').addEventListener('click', citeView);
+  document.getElementById('btn-embed').addEventListener('click', embedView);
   if (params.get('compare') === '1' && !state.compare) toggleCompare();
   document.getElementById('btn-locate').addEventListener('click', toggleLocate);
 
@@ -3205,7 +3254,7 @@
     document.getElementById('daily-open').addEventListener('click', () => { closeDaily(); if (dailyCard) openLightbox(dailyCard); });
     updateDailyFab();
     let seen = null; try { seen = localStorage.getItem('nlOldMaps.dailySeen'); } catch (e) {}
-    if (seen !== todayStr()) setTimeout(openDaily, 650);
+    if (seen !== todayStr() && !EMBED) setTimeout(openDaily, 650);
   }
 
   (function initCards() {

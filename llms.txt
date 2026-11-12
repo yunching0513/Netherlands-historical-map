@@ -5,6 +5,7 @@
 - [City guides](https://yunching0513.github.io/Netherlands-historical-map/city/index.html): per-city map years, landmarks, postcards
 - [Landmarks](https://yunching0513.github.io/Netherlands-historical-map/landmark/index.html): 32 sourced architecture pages
 - [Colofon / method / citation](https://yunching0513.github.io/Netherlands-historical-map/about.html): RD→Web Mercator method, licences, BibTeX
-- [Press kit](https://yunching0513.github.io/Netherlands-historical-map/press.html)
+- [Press kit](https://yunching0513.github.io/Netherlands-historical-map/press.html): headline numbers, licences, iframe embed code
+- Embed: add `&embed=1` to any app URL (e.g. `?city=rotterdam&year=1900&embed=1`) for a map-only iframe view with era timeline and Kadaster attribution
 - Cite: Wu, Y. Old Map Stroll. Zenodo. https://doi.org/10.5281/zenodo.21924251
 - Licences: map data © Kadaster CC-BY 4.0; images CC0/PD/CC-BY with per-item attribution; code MIT.
