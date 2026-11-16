@@ -86,3 +86,20 @@ Groet, Yunching
 - **r/thenetherlands (NL text!):** focus on "loop door je eigen straat in 1850/1900/1950"; ask which city to bake offline next (engagement hook).
 - **r/MapPorn / r/dataisbeautiful:** lead with a then/now GIF (B-10), link in comment.
 - Best posting windows: Tue–Thu 17:00–21:00 CET for NL subs; weekday morning US/PT for HN.
+
+## Email 4 — heritage organisations / local history societies (NL, embed + map story)
+
+Targets: Stadsarchief Rotterdam, Het Utrechts Archief, Zeeuws Archief (Middelburg), Regionaal Archief Nijmegen, Erfgoedvereniging Heemschut afdelingen, local historische verenigingen. One email per org, linking the matching map story.
+
+> **Onderwerp:** Gratis interactieve kaart "toen en nu" voor [stad] — in te sluiten op uw website
+>
+> Beste [naam],
+>
+> Ik heb een open, gratis webkaart gemaakt die de historische topografische kaarten van het Kadaster (Topotijdreis, CC-BY 4.0) over de huidige kaart legt, met een schuifregelaar tussen toen en nu. Voor [stad] heb ik een kort verhaal geschreven met directe links naar de juiste kaartbeelden: [story-URL, bv. https://yunching0513.github.io/Netherlands-historical-map/stories/rotterdam-1940.html].
+>
+> U kunt de kaart ook met één regel code op uw eigen website insluiten (zie https://yunching0513.github.io/Netherlands-historical-map/press.html#embed); bronvermelding van het Kadaster zit er automatisch in. Het project is citeerbaar via DOI 10.5281/zenodo.21924251.
+>
+> Correcties of aanvullingen op het verhaal vanuit uw collectie zijn zeer welkom — ik vermeld uw organisatie dan graag als bron.
+>
+> Met vriendelijke groet,
+> Yunching Wu

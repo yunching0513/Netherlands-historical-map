@@ -1,0 +1,125 @@
+{
+  "_schema": "Map stories: short trilingual then/now narratives. Each 'view' is a deep link into index.html (city, year, lat, lng, z, compare). Facts limited to well-established dates; map imagery is Kadaster Topotijdreis (CC-BY 4.0). Rendered to stories/<id>.html by tools/build_story_pages.py.",
+  "items": [
+    {
+      "id": "rotterdam-1940",
+      "city": "rotterdam",
+      "landmarks": ["rotterdam-witte-huis"],
+      "title": {
+        "nl": "Rotterdam vóór en na het bombardement van 14 mei 1940",
+        "en": "Rotterdam before and after the bombing of 14 May 1940",
+        "zh": "1940年5月14日轟炸前後的鹿特丹"
+      },
+      "lede": {
+        "nl": "Op 14 mei 1940 werd de historische binnenstad van Rotterdam door een Duits bombardement en de branden die volgden grotendeels verwoest. Leg de kaart van rond 1900 over de huidige stad en het dichte middeleeuwse stratenpatroon rond de Laurenskerk verschijnt waar nu brede naoorlogse straten lopen.",
+        "en": "On 14 May 1940 a German air raid and the fires that followed destroyed most of Rotterdam's historic city centre. Lay the c. 1900 map over today's city and the dense medieval street pattern around the Laurenskerk reappears beneath the wide post-war streets.",
+        "zh": "1940年5月14日，德軍轟炸及隨後的大火摧毀了鹿特丹大部分的歷史市中心。把約1900年的地圖疊在今天的城市上，聖勞倫斯教堂周圍密集的中世紀街廓，便浮現在戰後寬闊的街道底下。"
+      },
+      "body": {
+        "nl": "De wederopbouw volgde het Basisplan (1946), dat de stad niet reconstrueerde maar opnieuw ontwierp, met onder meer de Lijnbaan (1953) van Van den Broek en Bakema als autovrije winkelstraat. Enkele gebouwen overleefden, zoals het Witte Huis (1898) en de zwaar beschadigde Laurenskerk, die na de oorlog werd hersteld. De kaart van rond 1950 toont het tussenstadium: een grotendeels leeg centrum.",
+        "en": "Reconstruction followed the Basisplan (1946), which did not rebuild the old city but redesigned it, including the Lijnbaan (1953) by Van den Broek and Bakema as a car-free shopping street. A few buildings survived, such as the Witte Huis (1898) and the badly damaged Laurenskerk, restored after the war. The c. 1950 map shows the in-between moment: a largely cleared centre.",
+        "zh": "戰後重建依循1946年的「基本計畫」(Basisplan)：不是復原舊城，而是重新設計，其中包括范登布魯克與巴克馬設計、1953年啟用的無車購物街林拜恩(Lijnbaan)。少數建築倖存，例如1898年的白屋(Witte Huis)，以及嚴重受損、戰後修復的聖勞倫斯教堂。約1950年的地圖則記錄了中間狀態：一個大半被清空的市中心。"
+      },
+      "views": [
+        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 51.9214, "lng": 4.4860, "z": 16, "compare": true},
+        {"label": {"nl": "Rond 1950: het lege centrum", "en": "c. 1950: the cleared centre", "zh": "約1950年：清空的市中心"}, "year": 1950, "lat": 51.9214, "lng": 4.4860, "z": 16, "compare": false}
+      ]
+    },
+    {
+      "id": "amsterdam-plan-zuid",
+      "city": "amsterdam",
+      "landmarks": ["amsterdam-de-dageraad"],
+      "title": {
+        "nl": "Plan Zuid: hoe Berlage weilanden in stad veranderde",
+        "en": "Plan Zuid: how Berlage turned meadows into city",
+        "zh": "南區計畫：貝爾拉赫如何把草地變成城市"
+      },
+      "lede": {
+        "nl": "Op de kaart van rond 1900 ligt ten zuiden van de Amstel-bocht vooral polderland. Met H.P. Berlages Plan Zuid, in 1917 door de gemeenteraad vastgesteld, werd dit gebied in de jaren twintig en dertig volgebouwd met monumentale woonblokken.",
+        "en": "On the c. 1900 map, the area south of the city is still mostly polder land. H.P. Berlage's Plan Zuid, adopted by the city council in 1917, filled it in the 1920s and 1930s with monumental housing blocks.",
+        "zh": "在約1900年的地圖上，阿姆斯特丹南邊大多仍是圩田。貝爾拉赫(H.P. Berlage)的「南區計畫」於1917年經市議會通過，1920至30年代間，這片土地被一座座紀念性的集合住宅街廓填滿。"
+      },
+      "body": {
+        "nl": "Veel van die blokken werden ontworpen in de stijl van de Amsterdamse School, zoals De Dageraad van Michel de Klerk en Piet Kramer. Schakel tussen 1900, 1925 en vandaag om te zien hoe het stratenplan in een generatie ontstond.",
+        "en": "Many of those blocks were designed in the Amsterdam School style, such as De Dageraad by Michel de Klerk and Piet Kramer. Switch between 1900, 1925 and today to watch the street plan appear within one generation.",
+        "zh": "其中許多街廓採阿姆斯特丹學派風格，例如德·克萊克(Michel de Klerk)與克拉默(Piet Kramer)設計的「黎明」(De Dageraad)住宅。在1900、1925與今日之間切換，可以看見整片街道格局在一個世代內成形。"
+      },
+      "views": [
+        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 52.3510, "lng": 4.8930, "z": 15, "compare": true},
+        {"label": {"nl": "Rond 1925: in aanbouw", "en": "c. 1925: under construction", "zh": "約1925年：興建中"}, "year": 1925, "lat": 52.3510, "lng": 4.8930, "z": 15, "compare": false}
+      ]
+    },
+    {
+      "id": "middelburg-1940",
+      "city": "middelburg",
+      "landmarks": ["middelburg-stadhuis"],
+      "title": {
+        "nl": "Middelburg: de brand van 17 mei 1940 en de wederopbouw",
+        "en": "Middelburg: the fire of 17 May 1940 and the rebuilding",
+        "zh": "米德爾堡：1940年5月17日的大火與重建"
+      },
+      "lede": {
+        "nl": "Op 17 mei 1940 brandde na beschietingen en bombardementen een groot deel van de binnenstad van Middelburg af, waaronder het gotische stadhuis aan de Markt en de abdijtoren Lange Jan.",
+        "en": "On 17 May 1940, after shelling and bombing, a large part of Middelburg's inner city burned down, including the Gothic town hall on the Markt and the abbey tower Lange Jan.",
+        "zh": "1940年5月17日，在砲擊與轟炸之後，米德爾堡內城大片焚毀，包括市集廣場上的哥德式市政廳與修道院塔樓「長揚」(Lange Jan)。"
+      },
+      "body": {
+        "nl": "Anders dan in Rotterdam werd hier grotendeels in historiserende vorm herbouwd: het stratenpatroon bleef, en het stadhuis en de abdij werden gerestaureerd. Vergelijk de kaart van rond 1900 met die van rond 1950 en met vandaag: het grondplan is opvallend gelijk gebleven.",
+        "en": "Unlike Rotterdam, Middelburg was largely rebuilt in historicising form: the street pattern was kept, and the town hall and abbey were restored. Compare the c. 1900 map with c. 1950 and with today: the ground plan has stayed remarkably the same.",
+        "zh": "與鹿特丹不同，米德爾堡大多以仿歷史的方式重建：街道格局被保留，市政廳與修道院也獲修復。比較約1900年、約1950年與今天的地圖，會發現城市平面幾乎沒變。"
+      },
+      "views": [
+        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 51.4990, "lng": 3.6111, "z": 16, "compare": true},
+        {"label": {"nl": "Rond 1950", "en": "c. 1950", "zh": "約1950年"}, "year": 1950, "lat": 51.4990, "lng": 3.6111, "z": 16, "compare": false}
+      ]
+    },
+    {
+      "id": "nijmegen-1944",
+      "city": "nijmegen",
+      "landmarks": ["nijmegen-sint-stevenskerk"],
+      "title": {
+        "nl": "Nijmegen 1944: het bombardement van 22 februari en de Waalbrug",
+        "en": "Nijmegen 1944: the bombing of 22 February and the Waal bridge",
+        "zh": "1944年的奈梅亨：2月22日的轟炸與瓦爾河大橋"
+      },
+      "lede": {
+        "nl": "Op 22 februari 1944 bombardeerden Amerikaanse vliegtuigen per vergissing het centrum van Nijmegen; honderden burgers kwamen om en een groot deel van de binnenstad rond de Grote Markt werd verwoest.",
+        "en": "On 22 February 1944 American aircraft bombed the centre of Nijmegen by mistake; hundreds of civilians were killed and much of the inner city around the Grote Markt was destroyed.",
+        "zh": "1944年2月22日，美軍飛機誤炸奈梅亨市中心，數百名平民罹難，大市集廣場(Grote Markt)一帶的內城大半被毀。"
+      },
+      "body": {
+        "nl": "In september 1944 stond de stad opnieuw in het middelpunt, toen geallieerde troepen tijdens Operatie Market Garden de Waalbrug (geopend in 1936) intact veroverden. De kaart van rond 1900 toont de stad nog zonder vaste verkeersbrug over de Waal; die van rond 1950 de brug en de beschadigde binnenstad.",
+        "en": "In September 1944 the city was again at the centre of events, when Allied troops captured the Waal bridge (opened 1936) intact during Operation Market Garden. The c. 1900 map shows the city still without a fixed road bridge over the Waal; the c. 1950 map shows the bridge and the damaged centre.",
+        "zh": "1944年9月，奈梅亨再度成為焦點：盟軍在「市場花園行動」中完整奪下1936年啟用的瓦爾河大橋。約1900年的地圖上，城市還沒有跨越瓦爾河的固定公路橋；約1950年的地圖則同時呈現大橋與受損的內城。"
+      },
+      "views": [
+        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 51.8470, "lng": 5.8640, "z": 15, "compare": true},
+        {"label": {"nl": "Rond 1950: brug en binnenstad", "en": "c. 1950: bridge and centre", "zh": "約1950年：大橋與內城"}, "year": 1950, "lat": 51.8470, "lng": 5.8640, "z": 15, "compare": false}
+      ]
+    },
+    {
+      "id": "utrecht-catharijnesingel",
+      "city": "utrecht",
+      "landmarks": [],
+      "title": {
+        "nl": "Utrecht: de Catharijnesingel — gedempt voor de auto, terug als water",
+        "en": "Utrecht: the Catharijnesingel — filled in for cars, returned as water",
+        "zh": "烏特勒支：卡塔琳娜運河——為汽車填平，又重新成為水道"
+      },
+      "lede": {
+        "nl": "Op de kaarten van rond 1850 en 1900 loopt de stadsbuitengracht als een doorlopende ring om de Utrechtse binnenstad. Begin jaren zeventig werd het westelijke deel, de Catharijnesingel, gedempt voor een autoweg bij het nieuwe Hoog Catharijne.",
+        "en": "On the c. 1850 and 1900 maps, the outer moat runs as a continuous ring around Utrecht's inner city. In the early 1970s its western stretch, the Catharijnesingel, was filled in for a motorway beside the new Hoog Catharijne complex.",
+        "zh": "在約1850與1900年的地圖上，外護城河像一道完整的環圈繞著烏特勒支內城。1970年代初，西段的卡塔琳娜運河(Catharijnesingel)被填平，改建為新購物中心Hoog Catharijne旁的快速道路。"
+      },
+      "body": {
+        "nl": "In 2020 kwam het water terug en was de singelring weer rond. Vergelijk rond 1900, rond 1975 en vandaag: drie momenten van hetzelfde tracé, als gracht, als weg en weer als gracht.",
+        "en": "In 2020 the water returned and the ring was complete again. Compare c. 1900, c. 1975 and today: three moments of the same line, as a moat, as a road and as a moat again.",
+        "zh": "2020年，河水重新回來，運河環再度完整。比較約1900年、約1975年與今天：同一條路線的三個時刻——護城河、道路、再度成為護城河。"
+      },
+      "views": [
+        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 52.0895, "lng": 5.1120, "z": 16, "compare": true},
+        {"label": {"nl": "Rond 1975: de autoweg", "en": "c. 1975: the motorway", "zh": "約1975年：快速道路"}, "year": 1975, "lat": 52.0895, "lng": 5.1120, "z": 16, "compare": false}
+      ]
+    }
+  ]
+}

@@ -25,6 +25,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LANDMARKS_JSON = os.path.join(ROOT, "landmarks", "landmarks.json")
 POSTCARDS_JSON = os.path.join(ROOT, "postcards", "postcards.json")
 MANIFEST_JSON = os.path.join(ROOT, "pmtiles", "manifest.json")
+STORIES_JSON = os.path.join(ROOT, "stories", "stories.json")
+
+
+def stories_for(city_id):
+    try:
+        with open(STORIES_JSON, encoding="utf-8") as f:
+            return [x for x in json.load(f)["items"] if x["city"] == city_id]
+    except (OSError, ValueError, KeyError):
+        return []
 OUT_DIR = os.path.join(ROOT, "city")
 SITE = "https://yunching0513.github.io/Netherlands-historical-map"
 
@@ -271,6 +280,13 @@ def build_city_page(city_id, cname, blurb, years, landmarks, postcards):
         '  <h2>Art postcards</h2>\n  <p class="empty">None catalogued yet for this city.</p>'
     )
 
+    st = stories_for(city_id)
+    stories_section = (
+        f'  <h2>Map stories · Kaartverhalen ({len(st)})</h2>\n  <ul>\n' + "\n".join(
+            f'    <li><a href="../stories/{esc(x["id"])}.html">{esc(x["title"]["nl"])}</a> · {esc(x["title"]["en"])}</li>'
+            for x in st) + '\n  </ul>\n'
+        if st else ''
+    )
     related = " · ".join(
         f'<a href="{esc(cid)}.html">{esc(c["en"])}</a>'
         for cid, c in CITIES.items() if c["region"] == cname["region"] and cid != city_id
@@ -322,6 +338,7 @@ def build_city_page(city_id, cname, blurb, years, landmarks, postcards):
 
 {postcards_section}
 
+{stories_section}
   <h2>Other cities in {esc(region['en'])}</h2>
   <p class="desc">{related}</p>
 
