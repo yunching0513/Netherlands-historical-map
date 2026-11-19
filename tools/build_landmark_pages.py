@@ -95,6 +95,18 @@ def loc3(obj, key):
     return zh, en, nl
 
 
+STORIES_JSON = os.path.join(ROOT, "stories", "stories.json")
+
+
+def stories_for_landmark(lm_id):
+    """Map stories (stories/stories.json) that reference this landmark id."""
+    try:
+        with open(STORIES_JSON, "r", encoding="utf-8") as f:
+            return [s for s in json.load(f)["items"] if lm_id in s.get("landmarks", [])]
+    except (OSError, ValueError, KeyError):
+        return []
+
+
 def nearby_items(item, all_items, n=3):
     import math
     def dist(a, b):
@@ -141,6 +153,13 @@ def build_landmark_page(item, city_name, all_items=()):
             f' &middot; {esc(CITIES.get(o["city"], {"en": o["city"]})["en"])} &middot; {d:.1f} km</li>'
             for o, d in nb)
         nearby_html = f'  <h2>Nearby landmarks</h2>\n  <ul class="desc">{lis}</ul>\n'
+
+    st = stories_for_landmark(item["id"])
+    if st:
+        lis = "".join(
+            f'<li><a href="../stories/{esc(x["id"])}.html">{esc(x["title"]["nl"])}</a> &middot; {esc(x["title"]["en"])}</li>'
+            for x in st)
+        nearby_html = f'  <h2>Map stories · Kaartverhalen</h2>\n  <ul class="desc">{lis}</ul>\n' + nearby_html
 
     wiki_links = []
     for code, label in (("nl", "Wikipedia (NL)"), ("en", "Wikipedia (EN)")):

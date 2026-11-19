@@ -4,7 +4,9 @@
     {
       "id": "rotterdam-1940",
       "city": "rotterdam",
-      "landmarks": ["rotterdam-witte-huis"],
+      "landmarks": [
+        "rotterdam-witte-huis"
+      ],
       "title": {
         "nl": "Rotterdam vóór en na het bombardement van 14 mei 1940",
         "en": "Rotterdam before and after the bombing of 14 May 1940",
@@ -21,14 +23,38 @@
         "zh": "戰後重建依循1946年的「基本計畫」(Basisplan)：不是復原舊城，而是重新設計，其中包括范登布魯克與巴克馬設計、1953年啟用的無車購物街林拜恩(Lijnbaan)。少數建築倖存，例如1898年的白屋(Witte Huis)，以及嚴重受損、戰後修復的聖勞倫斯教堂。約1950年的地圖則記錄了中間狀態：一個大半被清空的市中心。"
       },
       "views": [
-        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 51.9214, "lng": 4.4860, "z": 16, "compare": true},
-        {"label": {"nl": "Rond 1950: het lege centrum", "en": "c. 1950: the cleared centre", "zh": "約1950年：清空的市中心"}, "year": 1950, "lat": 51.9214, "lng": 4.4860, "z": 16, "compare": false}
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 51.9214,
+          "lng": 4.486,
+          "z": 16,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1950: het lege centrum",
+            "en": "c. 1950: the cleared centre",
+            "zh": "約1950年：清空的市中心"
+          },
+          "year": 1950,
+          "lat": 51.9214,
+          "lng": 4.486,
+          "z": 16,
+          "compare": false
+        }
       ]
     },
     {
       "id": "amsterdam-plan-zuid",
       "city": "amsterdam",
-      "landmarks": ["amsterdam-de-dageraad"],
+      "landmarks": [
+        "amsterdam-de-dageraad"
+      ],
       "title": {
         "nl": "Plan Zuid: hoe Berlage weilanden in stad veranderde",
         "en": "Plan Zuid: how Berlage turned meadows into city",
@@ -45,14 +71,38 @@
         "zh": "其中許多街廓採阿姆斯特丹學派風格，例如德·克萊克(Michel de Klerk)與克拉默(Piet Kramer)設計的「黎明」(De Dageraad)住宅。在1900、1925與今日之間切換，可以看見整片街道格局在一個世代內成形。"
       },
       "views": [
-        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 52.3510, "lng": 4.8930, "z": 15, "compare": true},
-        {"label": {"nl": "Rond 1925: in aanbouw", "en": "c. 1925: under construction", "zh": "約1925年：興建中"}, "year": 1925, "lat": 52.3510, "lng": 4.8930, "z": 15, "compare": false}
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 52.351,
+          "lng": 4.893,
+          "z": 15,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1925: in aanbouw",
+            "en": "c. 1925: under construction",
+            "zh": "約1925年：興建中"
+          },
+          "year": 1925,
+          "lat": 52.351,
+          "lng": 4.893,
+          "z": 15,
+          "compare": false
+        }
       ]
     },
     {
       "id": "middelburg-1940",
       "city": "middelburg",
-      "landmarks": ["middelburg-stadhuis"],
+      "landmarks": [
+        "middelburg-stadhuis"
+      ],
       "title": {
         "nl": "Middelburg: de brand van 17 mei 1940 en de wederopbouw",
         "en": "Middelburg: the fire of 17 May 1940 and the rebuilding",
@@ -69,14 +119,38 @@
         "zh": "與鹿特丹不同，米德爾堡大多以仿歷史的方式重建：街道格局被保留，市政廳與修道院也獲修復。比較約1900年、約1950年與今天的地圖，會發現城市平面幾乎沒變。"
       },
       "views": [
-        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 51.4990, "lng": 3.6111, "z": 16, "compare": true},
-        {"label": {"nl": "Rond 1950", "en": "c. 1950", "zh": "約1950年"}, "year": 1950, "lat": 51.4990, "lng": 3.6111, "z": 16, "compare": false}
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 51.499,
+          "lng": 3.6111,
+          "z": 16,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1950",
+            "en": "c. 1950",
+            "zh": "約1950年"
+          },
+          "year": 1950,
+          "lat": 51.499,
+          "lng": 3.6111,
+          "z": 16,
+          "compare": false
+        }
       ]
     },
     {
       "id": "nijmegen-1944",
       "city": "nijmegen",
-      "landmarks": ["nijmegen-sint-stevenskerk"],
+      "landmarks": [
+        "nijmegen-sint-stevenskerk"
+      ],
       "title": {
         "nl": "Nijmegen 1944: het bombardement van 22 februari en de Waalbrug",
         "en": "Nijmegen 1944: the bombing of 22 February and the Waal bridge",
@@ -93,8 +167,30 @@
         "zh": "1944年9月，奈梅亨再度成為焦點：盟軍在「市場花園行動」中完整奪下1936年啟用的瓦爾河大橋。約1900年的地圖上，城市還沒有跨越瓦爾河的固定公路橋；約1950年的地圖則同時呈現大橋與受損的內城。"
       },
       "views": [
-        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 51.8470, "lng": 5.8640, "z": 15, "compare": true},
-        {"label": {"nl": "Rond 1950: brug en binnenstad", "en": "c. 1950: bridge and centre", "zh": "約1950年：大橋與內城"}, "year": 1950, "lat": 51.8470, "lng": 5.8640, "z": 15, "compare": false}
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 51.847,
+          "lng": 5.864,
+          "z": 15,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1950: brug en binnenstad",
+            "en": "c. 1950: bridge and centre",
+            "zh": "約1950年：大橋與內城"
+          },
+          "year": 1950,
+          "lat": 51.847,
+          "lng": 5.864,
+          "z": 15,
+          "compare": false
+        }
       ]
     },
     {
@@ -117,8 +213,220 @@
         "zh": "2020年，河水重新回來，運河環再度完整。比較約1900年、約1975年與今天：同一條路線的三個時刻——護城河、道路、再度成為護城河。"
       },
       "views": [
-        {"label": {"nl": "Rond 1900 vs. nu (vergelijk)", "en": "c. 1900 vs today (compare)", "zh": "約1900年 vs 今日（對照）"}, "year": 1900, "lat": 52.0895, "lng": 5.1120, "z": 16, "compare": true},
-        {"label": {"nl": "Rond 1975: de autoweg", "en": "c. 1975: the motorway", "zh": "約1975年：快速道路"}, "year": 1975, "lat": 52.0895, "lng": 5.1120, "z": 16, "compare": false}
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 52.0895,
+          "lng": 5.112,
+          "z": 16,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1975: de autoweg",
+            "en": "c. 1975: the motorway",
+            "zh": "約1975年：快速道路"
+          },
+          "year": 1975,
+          "lat": 52.0895,
+          "lng": 5.112,
+          "z": 16,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "amsterdam-centraal",
+      "city": "amsterdam",
+      "landmarks": [],
+      "title": {
+        "nl": "Centraal Station: hoe Amsterdam zijn open IJ-front verloor",
+        "en": "Centraal Station: how Amsterdam lost its open IJ waterfront",
+        "zh": "中央車站：阿姆斯特丹如何失去開闊的IJ灣水岸"
+      },
+      "lede": {
+        "nl": "Op de kaart van rond 1875 grenst de binnenstad van Amsterdam nog direct aan het open water van het IJ. Rond 1900 ligt daar het Centraal Station, gebouwd op drie kunstmatige eilanden in het IJ en in 1889 geopend.",
+        "en": "On the c. 1875 map, Amsterdam's old centre still opens directly onto the water of the IJ. By c. 1900 Centraal Station stands there, built on three artificial islands in the IJ and opened in 1889.",
+        "zh": "在約1875年的地圖上，阿姆斯特丹舊城仍直接面向IJ灣的開闊水面。到了約1900年，那裡已矗立著中央車站——它建在IJ灣中的三座人工島上，於1889年啟用。"
+      },
+      "body": {
+        "nl": "Het station werd ontworpen door P.J.H. Cuypers, die ook het Rijksmuseum ontwierp; de stationsoverkapping kwam van A.L. van Gendt. De keuze voor deze plek was destijds omstreden, omdat het gebouw de stad van haar haven en het IJ afsneed. Vergelijk 1875 met vandaag en zie hoe de oude waterkant achter een spoordijk verdween.",
+        "en": "The station was designed by P.J.H. Cuypers, architect of the Rijksmuseum; the train shed was by A.L. van Gendt. The location was controversial at the time because the building cut the city off from its harbour and the IJ. Compare 1875 with today and watch the old waterfront disappear behind a railway embankment.",
+        "zh": "車站由設計國家博物館的建築師奎伯斯(P.J.H. Cuypers)設計，月台大棚則出自范亨特(A.L. van Gendt)之手。選址在當時頗具爭議，因為這座建築把城市與港口和IJ灣隔開。對照1875年與今日，可以看到舊水岸如何消失在鐵路堤後方。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1875 vs. nu (vergelijk)",
+            "en": "c. 1875 vs today (compare)",
+            "zh": "約1875年 vs 今日（對照）"
+          },
+          "year": 1875,
+          "lat": 52.3791,
+          "lng": 4.9003,
+          "z": 16,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1900: het station staat er",
+            "en": "c. 1900: the station is in place",
+            "zh": "約1900年：車站落成"
+          },
+          "year": 1900,
+          "lat": 52.3791,
+          "lng": 4.9003,
+          "z": 16,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "denhaag-vredespaleis",
+      "city": "denhaag",
+      "landmarks": [
+        "denhaag-vredespaleis"
+      ],
+      "title": {
+        "nl": "Het Vredespaleis: van landgoed Zorgvliet tot wereldhof",
+        "en": "The Peace Palace: from the Zorgvliet estate to a world court",
+        "zh": "和平宮：從佐格夫利特莊園到國際法庭"
+      },
+      "lede": {
+        "nl": "Op de kaart van rond 1900 is de plek van het Vredespaleis nog groen terrein aan de rand van landgoed Zorgvliet. Rond 1925 staat er het paleis dat in 1913 werd geopend als zetel van het Permanent Hof van Arbitrage.",
+        "en": "On the c. 1900 map, the site of the Peace Palace is still green ground on the edge of the Zorgvliet estate. By c. 1925 the palace stands there, opened in 1913 as the seat of the Permanent Court of Arbitration.",
+        "zh": "在約1900年的地圖上，和平宮的位置仍是佐格夫利特(Zorgvliet)莊園邊緣的綠地。到了約1925年，那裡已立起1913年啟用、作為常設仲裁法院所在地的宮殿。"
+      },
+      "body": {
+        "nl": "Het hof kwam voort uit de Haagse Vredesconferentie van 1899. Andrew Carnegie financierde het gebouw; de Franse architect Louis Cordonnier won de ontwerpwedstrijd van 1905. Sinds 1946 is het paleis ook de zetel van het Internationaal Gerechtshof van de Verenigde Naties. Vergelijk 1900 met vandaag om te zien hoe Den Haag rond het paleis groeide.",
+        "en": "The court grew out of the Hague Peace Conference of 1899. Andrew Carnegie funded the building; the French architect Louis Cordonnier won the 1905 design competition. Since 1946 the palace has also housed the United Nations' International Court of Justice. Compare 1900 with today to see how The Hague grew up around it.",
+        "zh": "常設仲裁法院源自1899年的海牙和平會議。建築由卡內基(Andrew Carnegie)出資，法國建築師科多尼耶(Louis Cordonnier)贏得1905年的設計競圖。自1946年起，這裡也是聯合國國際法院的所在地。對照1900年與今日，看海牙如何圍繞著和平宮發展。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 52.0866,
+          "lng": 4.2955,
+          "z": 16,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1925: het paleis staat er",
+            "en": "c. 1925: the palace is built",
+            "zh": "約1925年：宮殿落成"
+          },
+          "year": 1925,
+          "lat": 52.0866,
+          "lng": 4.2955,
+          "z": 16,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "eindhoven-groot-eindhoven",
+      "city": "eindhoven",
+      "landmarks": [
+        "eindhoven-witte-dame"
+      ],
+      "title": {
+        "nl": "Groot-Eindhoven: hoe Philips een dorpenkrans tot stad maakte",
+        "en": "Greater Eindhoven: how Philips turned a ring of villages into a city",
+        "zh": "大埃因霍溫：飛利浦如何把一圈村莊變成城市"
+      },
+      "lede": {
+        "nl": "Rond 1900 is Eindhoven op de kaart een klein stadje, omringd door de afzonderlijke dorpen Woensel, Stratum, Strijp, Gestel en Tongelre. Op 1 januari 1920 werden die vijf gemeenten met Eindhoven samengevoegd tot Groot-Eindhoven.",
+        "en": "Around 1900 the map shows Eindhoven as a small town ringed by the separate villages of Woensel, Stratum, Strijp, Gestel and Tongelre. On 1 January 1920 those five municipalities were merged with Eindhoven into Greater Eindhoven.",
+        "zh": "約1900年的地圖上，埃因霍溫只是個小鎮，四周環繞著獨立的村莊沃恩瑟爾、斯特拉圖姆、斯特賴普、赫斯特爾與通厄爾雷。1920年1月1日，這五個自治市與埃因霍溫合併為「大埃因霍溫」。"
+      },
+      "body": {
+        "nl": "De drijvende kracht was de groei van Philips, in 1891 in Eindhoven opgericht als gloeilampenfabriek. Fabrieken en arbeiderswijken zoals Philipsdorp vulden de ruimte tussen de dorpen. Een herkenbaar overblijfsel is De Witte Dame (1928–1931), een voormalige Philipsfabriek die nu onder meer de Design Academy huisvest. Vergelijk 1900 en 1950 om de dorpen aan elkaar te zien groeien.",
+        "en": "The driving force was the growth of Philips, founded in Eindhoven in 1891 as a light-bulb factory. Factories and workers' districts such as Philipsdorp filled the space between the villages. A recognisable survivor is De Witte Dame (1928–1931), a former Philips factory that now houses the Design Academy among others. Compare 1900 and 1950 to watch the villages grow together.",
+        "zh": "背後的推力是飛利浦的擴張：該公司1891年在埃因霍溫以燈泡工廠起家。工廠與飛利浦村(Philipsdorp)等工人住宅區逐漸填滿村莊之間的空地。可辨認的遺存之一是白衣女士(De Witte Dame，1928–1931)，這座飛利浦舊廠房如今是埃因霍溫設計學院等機構的所在。對照1900年與1950年，看村莊如何長成一座城市。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 51.4416,
+          "lng": 5.4697,
+          "z": 14,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1950: één aaneengegroeide stad",
+            "en": "c. 1950: one grown-together city",
+            "zh": "約1950年：連成一片的城市"
+          },
+          "year": 1950,
+          "lat": 51.4416,
+          "lng": 5.4697,
+          "z": 14,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "groningen-vestingwet",
+      "city": "groningen",
+      "landmarks": [
+        "groningen-der-aa-kerk"
+      ],
+      "title": {
+        "nl": "Groningen na de Vestingwet van 1874: van wallen naar plantsoen",
+        "en": "Groningen after the 1874 Fortifications Act: from ramparts to parks",
+        "zh": "1874年《要塞法》後的格羅寧根：從城牆到公園"
+      },
+      "lede": {
+        "nl": "Op de kaart van rond 1850 ligt Groningen nog binnen een gordel van vestingwallen en grachten. Na de Vestingwet van 1874 verloor de stad haar status als vesting en werden de wallen in de decennia daarna grotendeels afgegraven.",
+        "en": "On the c. 1850 map, Groningen still sits inside a belt of ramparts and moats. After the Fortifications Act of 1874 the city lost its fortress status, and in the following decades most of the ramparts were levelled.",
+        "zh": "在約1850年的地圖上，格羅寧根仍被一圈城牆與護城河包圍。1874年《要塞法》(Vestingwet)通過後，城市失去要塞地位，此後數十年間城牆大多被剷平。"
+      },
+      "body": {
+        "nl": "Op de vrijgekomen grond verrezen nieuwe woonwijken, en een deel van de noordelijke vestingwerken werd omgevormd tot het Noorderplantsoen. Het middeleeuwse centrum rond de Der Aa-kerk en de Martinitoren bleef intact. Vergelijk 1850 met vandaag om de oude vestinglijn terug te vinden in het stratenpatroon.",
+        "en": "New residential districts rose on the freed land, and part of the northern fortifications became the Noorderplantsoen park. The medieval centre around the Der Aa-kerk and the Martinitoren stayed intact. Compare 1850 with today to trace the old fortress line in the street pattern.",
+        "zh": "騰出的土地上蓋起新的住宅區，北側的部分防禦工事則改造成北方公園(Noorderplantsoen)。亞教堂與馬丁尼塔周圍的中世紀市中心完整保留下來。對照1850年與今日，可在街道紋理中找回舊城牆的輪廓。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1850 vs. nu (vergelijk)",
+            "en": "c. 1850 vs today (compare)",
+            "zh": "約1850年 vs 今日（對照）"
+          },
+          "year": 1850,
+          "lat": 53.2194,
+          "lng": 6.5665,
+          "z": 15,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1900: de wallen verdwijnen",
+            "en": "c. 1900: the ramparts disappear",
+            "zh": "約1900年：城牆消失中"
+          },
+          "year": 1900,
+          "lat": 53.2194,
+          "lng": 6.5665,
+          "z": 15,
+          "compare": false
+        }
       ]
     }
   ]

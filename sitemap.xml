@@ -127,7 +127,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/amsterdam.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -137,7 +137,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/denhaag.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -182,7 +182,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/groningen.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -217,7 +217,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/eindhoven.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -267,7 +267,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/amsterdam-de-dageraad.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -312,7 +312,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/denhaag-vredespaleis.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -332,7 +332,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/eindhoven-witte-dame.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -342,7 +342,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/groningen-der-aa-kerk.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -377,12 +377,12 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/middelburg-stadhuis.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/nijmegen-sint-stevenskerk.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -402,7 +402,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/rotterdam-witte-huis.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -417,7 +417,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/index.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -443,6 +443,26 @@
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/utrecht-catharijnesingel.html</loc>
     <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/amsterdam-centraal.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/denhaag-vredespaleis.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/eindhoven-groot-eindhoven.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/groningen-vestingwet.html</loc>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>
