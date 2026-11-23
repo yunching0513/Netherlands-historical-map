@@ -4,7 +4,7 @@
 - [App](https://yunching0513.github.io/Netherlands-historical-map/): interactive map with then/now slider
 - [City guides](https://yunching0513.github.io/Netherlands-historical-map/city/index.html): per-city map years, landmarks, postcards
 - [Landmarks](https://yunching0513.github.io/Netherlands-historical-map/landmark/index.html): 32 sourced architecture pages
-- [Map stories](https://yunching0513.github.io/Netherlands-historical-map/stories/index.html): short NL/EN/ZH then/now narratives (Rotterdam 1940, Plan Zuid, Middelburg 1940, Nijmegen 1944, Utrecht Catharijnesingel, Amsterdam Centraal 1889, Peace Palace 1913, Greater Eindhoven 1920, Groningen after the 1874 Fortifications Act) with deep links into exact map views
+- [Map stories](https://yunching0513.github.io/Netherlands-historical-map/stories/index.html): short NL/EN/ZH then/now narratives (Rotterdam 1940, Plan Zuid, Middelburg 1940, Nijmegen 1944, Utrecht Catharijnesingel, Amsterdam Centraal 1889, Peace Palace 1913, Greater Eindhoven 1920, Groningen after the 1874 Fortifications Act, Haarlemmermeer drainage 1849–52, Scheveningen & the Kurhaus, Maastricht after 1867, Delft university campus) with deep links into exact map views
 - [Colofon / method / citation](https://yunching0513.github.io/Netherlands-historical-map/about.html): RD→Web Mercator method, licences, BibTeX
 - [Press kit](https://yunching0513.github.io/Netherlands-historical-map/press.html): headline numbers, licences, iframe embed code
 - Embed: add `&embed=1` to any app URL (e.g. `?city=rotterdam&year=1900&embed=1`) for a map-only iframe view with era timeline and Kadaster attribution

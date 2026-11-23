@@ -428,6 +428,194 @@
           "compare": false
         }
       ]
+    },
+    {
+      "id": "haarlem-haarlemmermeer",
+      "city": "haarlem",
+      "landmarks": [],
+      "title": {
+        "nl": "De Haarlemmermeer drooggelegd (1849–1852): van waterwolf tot polder",
+        "en": "Draining the Haarlemmermeer (1849–1852): from 'water wolf' to polder",
+        "zh": "哈倫湖抽乾（1849–1852）：從「水狼」到圩田"
+      },
+      "lede": {
+        "nl": "Op de oudste kaartlagen ligt tussen Haarlem, Leiden en Amsterdam nog een groot binnenmeer: de Haarlemmermeer, die door afslag steeds verder groeide. Tussen 1849 en 1852 werd het meer met drie stoomgemalen leeggepompt.",
+        "en": "On the oldest map layers a large inland lake still lies between Haarlem, Leiden and Amsterdam: the Haarlemmermeer, which kept growing as its shores eroded. Between 1849 and 1852 the lake was pumped dry by three steam pumping stations.",
+        "zh": "在最早的地圖圖層上，哈倫、萊登與阿姆斯特丹之間仍是一大片內陸湖——哈倫湖(Haarlemmermeer)，湖岸不斷崩蝕、湖面持續擴大。1849至1852年間，三座蒸汽抽水站把整座湖抽乾。"
+      },
+      "body": {
+        "nl": "Na zware stormen in 1836, waarbij het water tot aan Amsterdam en Leiden kwam, besloot men tot drooglegging. De gemalen Leeghwater, Cruquius en Lynden pompten het meer leeg; De Cruquius is nu een museum met de oorspronkelijke stoommachine. Op de nieuwe bodem ontstond een rechthoekig polderlandschap van wegen en tochten, en later ook luchthaven Schiphol. Vergelijk 1815 met vandaag om de oude oevers terug te zien in de Ringvaart rond de polder.",
+        "en": "After severe storms in 1836 drove the water up to Amsterdam and Leiden, the decision to drain it was taken. The Leeghwater, Cruquius and Lynden pumping stations emptied the lake; De Cruquius is now a museum housing its original steam engine. On the new land a rectilinear polder grid of roads and drainage ditches was laid out, and later Schiphol airport. Compare 1815 with today to see the old shoreline preserved in the Ringvaart canal around the polder.",
+        "zh": "1836年的暴風雨讓湖水一路逼近阿姆斯特丹與萊登城下，政府因此決定抽乾此湖。利格瓦特(Leeghwater)、克魯基烏斯(Cruquius)與林登(Lynden)三座抽水站把湖水抽乾；克魯基烏斯站如今是保存原始蒸汽機的博物館。新生地上規劃出棋盤狀的道路與排水渠，後來史基浦機場也落腳於此。對照1815年與今日，可看到環繞圩田的環形運河(Ringvaart)保留了舊湖岸線。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1815 vs. nu (vergelijk)",
+            "en": "c. 1815 vs today (compare)",
+            "zh": "約1815年 vs 今日（對照）"
+          },
+          "year": 1815,
+          "lat": 52.33,
+          "lng": 4.68,
+          "z": 11,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1875: de nieuwe polder",
+            "en": "c. 1875: the new polder",
+            "zh": "約1875年：新生的圩田"
+          },
+          "year": 1875,
+          "lat": 52.33,
+          "lng": 4.68,
+          "z": 11,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "denhaag-scheveningen",
+      "city": "denhaag",
+      "landmarks": [],
+      "title": {
+        "nl": "Scheveningen: van vissersdorp tot badplaats met Kurhaus (1885)",
+        "en": "Scheveningen: from fishing village to seaside resort with the Kurhaus (1885)",
+        "zh": "斯海弗寧恩：從漁村到擁有庫爾豪斯(1885)的海濱度假地"
+      },
+      "lede": {
+        "nl": "Scheveningen was eeuwenlang een vissersdorp aan zee, met Den Haag verbonden door de rechte Scheveningseweg die Constantijn Huygens in 1665 liet aanleggen. In de negentiende eeuw groeide het uit tot een internationale badplaats.",
+        "en": "For centuries Scheveningen was a fishing village on the coast, linked to The Hague by the straight Scheveningseweg that Constantijn Huygens had laid out in 1665. In the nineteenth century it grew into an international seaside resort.",
+        "zh": "斯海弗寧恩數百年來是海邊的漁村，經由康斯坦丁．惠更斯於1665年規劃的筆直道路 Scheveningseweg 與海牙相連。十九世紀，它發展成國際知名的海濱度假勝地。"
+      },
+      "body": {
+        "nl": "Het grand hotel Kurhaus opende in 1885, brandde in 1886 grotendeels af en werd snel herbouwd. Langs de boulevard verrezen hotels en villa's, en tramlijnen bonden de badplaats aan de stad. Vergelijk de kaart van rond 1900 met vandaag om te zien hoe het oude dorp en de badplaats aan elkaar en aan Den Haag zijn gegroeid.",
+        "en": "The Kurhaus grand hotel opened in 1885, was largely destroyed by fire in 1886 and was quickly rebuilt. Hotels and villas lined the boulevard, and tram lines tied the resort to the city. Compare the c. 1900 map with today to see how the old village and the resort grew into each other and into The Hague.",
+        "zh": "庫爾豪斯(Kurhaus)大飯店於1885年開幕，1886年大半毀於火災，隨即重建。海濱大道旁旅館與別墅林立，電車路線把度假區與城市串連起來。對照約1900年的地圖與今日，可看出舊漁村、度假區與海牙如何逐漸連成一片。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 52.108,
+          "lng": 4.282,
+          "z": 14,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1850: het vissersdorp",
+            "en": "c. 1850: the fishing village",
+            "zh": "約1850年：漁村時期"
+          },
+          "year": 1850,
+          "lat": 52.105,
+          "lng": 4.29,
+          "z": 14,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "maastricht-vesting",
+      "city": "maastricht",
+      "landmarks": [
+        "maastricht-sint-servaasbasiliek"
+      ],
+      "title": {
+        "nl": "Maastricht na 1867: een vestingstad legt haar wallen af",
+        "en": "Maastricht after 1867: a fortress city sheds its walls",
+        "zh": "1867年後的馬斯垂克：要塞城市卸下城牆"
+      },
+      "lede": {
+        "nl": "Rond 1850 is Maastricht op de kaart nog een zwaar versterkte vestingstad aan de Maas, omringd door wallen, bastions en buitenwerken. In 1867 verloor de stad haar vestingstatus en kon ze buiten de wallen groeien.",
+        "en": "Around 1850 the map still shows Maastricht as a heavily fortified city on the Maas, ringed by walls, bastions and outworks. In 1867 the city lost its fortress status and could grow beyond its walls.",
+        "zh": "約1850年的地圖上，馬斯垂克仍是默茲河畔重兵設防的要塞城市，被城牆、稜堡與外圍工事層層包圍。1867年城市失去要塞地位，終於能向城牆外擴張。"
+      },
+      "body": {
+        "nl": "Een groot deel van de buitenwerken werd daarna geslecht, maar delen van de middeleeuwse stadsmuur bleven bewaard, zoals in het Jekerkwartier met de Helpoort, de oudste nog bestaande stadspoort van Nederland. Het oude centrum rond de Sint-Servaasbasiliek bleef de kern. Vergelijk 1850 met vandaag om de verdwenen vestinggordel terug te vinden in parken en straten.",
+        "en": "Much of the outworks was levelled afterwards, but stretches of the medieval town wall survived, such as in the Jekerkwartier with the Helpoort, the oldest surviving town gate in the Netherlands. The old centre around the Basilica of Saint Servatius remained the core. Compare 1850 with today to find the vanished fortress belt in today's parks and streets.",
+        "zh": "此後外圍工事大多被夷平，但部分中世紀城牆得以保存，例如耶克區(Jekerkwartier)的地獄門(Helpoort)——荷蘭現存最古老的城門。聖瑟法斯大教堂周圍的舊城區依然是城市核心。對照1850年與今日，可在公園與街道中找回消失的要塞帶。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1850 vs. nu (vergelijk)",
+            "en": "c. 1850 vs today (compare)",
+            "zh": "約1850年 vs 今日（對照）"
+          },
+          "year": 1850,
+          "lat": 50.849,
+          "lng": 5.69,
+          "z": 14,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1900: groei buiten de wallen",
+            "en": "c. 1900: growth beyond the walls",
+            "zh": "約1900年：向城牆外擴張"
+          },
+          "year": 1900,
+          "lat": 50.849,
+          "lng": 5.69,
+          "z": 14,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "delft-tu-wijk",
+      "city": "delft",
+      "landmarks": [
+        "delft-nieuwe-kerk"
+      ],
+      "title": {
+        "nl": "Delft en de TU-wijk: een campus in de weilanden (1950–1970)",
+        "en": "Delft and its university district: a campus in the meadows (1950–1970)",
+        "zh": "台夫特與台夫特理工大學校區：草地上長出的校園（1950–1970）"
+      },
+      "lede": {
+        "nl": "De Delftse ingenieursopleiding begon in 1842 als Koninklijke Akademie in de binnenstad. Na de Tweede Wereldoorlog groeide de Technische Hogeschool zo snel dat ten zuidoosten van de oude stad een nieuwe campus werd aangelegd.",
+        "en": "Delft's engineering school began in 1842 as the Royal Academy in the old town. After the Second World War the Technische Hogeschool grew so fast that a new campus was laid out south-east of the historic city.",
+        "zh": "台夫特的工程教育始於1842年，當時是位於舊城區的皇家學院。二戰後理工學院(Technische Hogeschool)迅速擴張，於是在舊城東南方另闢新校區。"
+      },
+      "body": {
+        "nl": "Rond de Mekelweg verrezen faculteitsgebouwen en in 1966 de Aula van Van den Broek en Bakema, een icoon van het naoorlogse modernisme. In 1986 werd de Technische Hogeschool de Technische Universiteit Delft. Vergelijk 1950 met vandaag: waar nu de campus ligt, toont de oude kaart nog vooral polderland.",
+        "en": "Faculty buildings rose along the Mekelweg, and in 1966 the Aula by Van den Broek and Bakema, an icon of post-war modernism. In 1986 the Technische Hogeschool became Delft University of Technology. Compare 1950 with today: where the campus now stands, the old map still shows mostly polder land.",
+        "zh": "梅克爾路(Mekelweg)沿線陸續蓋起各學院大樓，1966年更落成由范登布魯克與巴克馬設計的大禮堂(Aula)，成為戰後現代主義的代表作。1986年理工學院正式更名為台夫特理工大學。對照1950年與今日：今日校園所在處，舊地圖上大多仍是圩田。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1950 vs. nu (vergelijk)",
+            "en": "c. 1950 vs today (compare)",
+            "zh": "約1950年 vs 今日（對照）"
+          },
+          "year": 1950,
+          "lat": 52.0,
+          "lng": 4.372,
+          "z": 15,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1975: de nieuwe campus",
+            "en": "c. 1975: the new campus",
+            "zh": "約1975年：新校園成形"
+          },
+          "year": 1975,
+          "lat": 52.0,
+          "lng": 4.372,
+          "z": 15,
+          "compare": false
+        }
+      ]
     }
   ]
 }

@@ -137,7 +137,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/denhaag.html</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -152,12 +152,12 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/delft.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/haarlem.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -222,7 +222,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/maastricht.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -297,7 +297,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/delft-nieuwe-kerk.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -372,7 +372,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/maastricht-sint-servaasbasiliek.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -417,7 +417,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/index.html</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -463,6 +463,26 @@
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/groningen-vestingwet.html</loc>
     <lastmod>2026-11-19</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/haarlem-haarlemmermeer.html</loc>
+    <lastmod>2026-11-23</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/denhaag-scheveningen.html</loc>
+    <lastmod>2026-11-23</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/maastricht-vesting.html</loc>
+    <lastmod>2026-11-23</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/delft-tu-wijk.html</loc>
+    <lastmod>2026-11-23</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>
