@@ -616,6 +616,151 @@
           "compare": false
         }
       ]
+    },
+    {
+      "id": "arnhem-1944",
+      "city": "arnhem",
+      "landmarks": [
+        "arnhem-sint-eusebiuskerk"
+      ],
+      "title": {
+        "nl": "Arnhem 1944: de brug te ver",
+        "en": "Arnhem 1944: the bridge too far",
+        "zh": "阿納姆1944：遙遠的橋"
+      },
+      "lede": {
+        "nl": "Op 17 september 1944 begon Operatie Market Garden: geallieerde luchtlandingstroepen moesten de bruggen tussen Eindhoven en Arnhem veroveren. Bij Arnhem hield een kleine Britse eenheid enkele dagen het noordelijke bruggenhoofd van de Rijnbrug vast, maar de brug bleef in Duitse handen.",
+        "en": "On 17 September 1944 Operation Market Garden began: Allied airborne troops were to seize the bridges between Eindhoven and Arnhem. At Arnhem a small British force held the northern end of the Rhine bridge for several days, but the bridge stayed in German hands.",
+        "zh": "1944年9月17日，市場花園行動展開：盟軍空降部隊奉命奪取從恩荷芬到阿納姆之間的一連串橋梁。在阿納姆，一支英軍小部隊堅守萊茵河大橋北端數日，但大橋終究仍落在德軍手中。"
+      },
+      "body": {
+        "nl": "Na de slag werd Arnhem door de bezetter ontruimd en raakte de binnenstad zwaar beschadigd, ook de Sint-Eusebiuskerk. De verwoeste brug werd na de oorlog herbouwd en in 1977 omgedoopt tot John Frostbrug, naar de Britse bataljonscommandant. Vergelijk de kaart van rond 1925 met vandaag: de vooroorlogse stad rond de Eusebiuskerk en de Rijnoever tegenover het naoorlogse stratenpatroon.",
+        "en": "After the battle the occupiers evacuated Arnhem and the town centre was badly damaged, the Sint-Eusebiuskerk included. The destroyed bridge was rebuilt after the war and in 1977 renamed John Frostbrug, after the British battalion commander. Compare the map of c. 1925 with today: the pre-war town around the Eusebiuskerk and the Rhine bank against the post-war street pattern.",
+        "zh": "戰役結束後，佔領軍強制疏散阿納姆居民，市中心嚴重受損，聖尤西比烏斯教堂也未能倖免。被毀的大橋於戰後重建，並在1977年以英軍營長之名更名為「約翰·弗羅斯特橋」。對照約1925年的地圖與今日：可看出尤西比烏斯教堂與萊茵河岸一帶的戰前市街，與戰後重建的街道格局之差異。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1925 vs. nu (vergelijk)",
+            "en": "c. 1925 vs today (compare)",
+            "zh": "約1925年 vs 今日（對照）"
+          },
+          "year": 1925,
+          "lat": 51.9775,
+          "lng": 5.9105,
+          "z": 16,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1950: na de oorlog",
+            "en": "c. 1950: after the war",
+            "zh": "約1950年：戰後"
+          },
+          "year": 1950,
+          "lat": 51.9775,
+          "lng": 5.9105,
+          "z": 15,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "leiden-buskruitramp",
+      "city": "leiden",
+      "landmarks": [
+        "leiden-pieterskerk"
+      ],
+      "title": {
+        "nl": "Leiden en de buskruitramp van 1807: van ruïne tot park",
+        "en": "Leiden's gunpowder disaster of 1807: from ruin to park",
+        "zh": "萊登1807年火藥爆炸：從廢墟到公園"
+      },
+      "lede": {
+        "nl": "Op 12 januari 1807 ontplofte midden in Leiden een schip met buskruit dat aan het Rapenburg/Steenschuur lag. Ruim 150 mensen kwamen om en een hele buurt werd weggevaagd.",
+        "en": "On 12 January 1807 a ship loaded with gunpowder, moored on the Rapenburg/Steenschuur in the heart of Leiden, exploded. More than 150 people were killed and an entire neighbourhood was wiped out.",
+        "zh": "1807年1月12日，一艘停靠在萊登市中心拉彭堡運河(Steenschuur段)、滿載火藥的船隻爆炸，150多人罹難，整個街區被夷為平地。"
+      },
+      "body": {
+        "nl": "De vrijgekomen ruimte werd lange tijd niet herbouwd en heette in de volksmond 'de Ruïne'. Aan het eind van de 19e eeuw werd het een park, genoemd naar Pieter Adriaansz. van der Werff, de burgemeester tijdens het beleg van 1574. Op de kaart van 1815 is de open plek in het dichte stadsweefsel nog goed te zien; vergelijk met het huidige Van der Werfpark.",
+        "en": "The cleared site was left unbuilt for a long time and was known locally as 'the Ruin'. At the end of the 19th century it became a park named after Pieter Adriaansz. van der Werff, the burgomaster during the siege of 1574. On the 1815 map the open space in the dense town fabric is still clearly visible; compare it with today's Van der Werfpark.",
+        "zh": "爆炸後的空地長年未再重建，當地人稱之為「廢墟」(de Ruïne)。19世紀末這裡改建為公園，以1574年萊登圍城時的市長范德韋爾夫(Pieter Adriaansz. van der Werff)命名。在1815年的地圖上，仍能清楚看見緊密市街中的這塊空地；可與今日的范德韋爾夫公園對照。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "1815 vs. nu (vergelijk)",
+            "en": "1815 vs today (compare)",
+            "zh": "1815年 vs 今日（對照）"
+          },
+          "year": 1815,
+          "lat": 52.1556,
+          "lng": 4.4878,
+          "z": 17,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1900: het park",
+            "en": "c. 1900: the park",
+            "zh": "約1900年：公園落成"
+          },
+          "year": 1900,
+          "lat": 52.1556,
+          "lng": 4.4878,
+          "z": 16,
+          "compare": false
+        }
+      ]
+    },
+    {
+      "id": "hilversum-dudok",
+      "city": "hilversum",
+      "landmarks": [
+        "hilversum-dudok-raadhuis",
+        "hilversum-zonnestraal"
+      ],
+      "title": {
+        "nl": "Hilversum: van dorp tot tuinstad van Dudok (1915–1931)",
+        "en": "Hilversum: from village to Dudok's garden town (1915–1931)",
+        "zh": "希爾弗瑟姆：從村莊到杜多克的花園城市（1915–1931）"
+      },
+      "lede": {
+        "nl": "In 1915 werd Willem Marinus Dudok directeur Publieke Werken van Hilversum. In de jaren daarna gaf hij de snel groeiende forensengemeente in het Gooi haar vorm: woonwijken met groen, scholen, badhuizen en ten slotte het raadhuis.",
+        "en": "In 1915 Willem Marinus Dudok became director of public works in Hilversum. Over the following years he shaped the fast-growing commuter town in the Gooi: green residential districts, schools, bathhouses and finally the town hall.",
+        "zh": "1915年，杜多克(Willem Marinus Dudok)出任希爾弗瑟姆公共工程局局長。此後數年間，他為這座在戈伊地區(Gooi)快速成長的通勤城鎮塑造樣貌：綠意盎然的住宅區、學校、澡堂，最後是市政廳。"
+      },
+      "body": {
+        "nl": "Het raadhuis (1928–1931), met zijn baksteenvolumes en hoge toren, werd internationaal een voorbeeld van modern bouwen. Aan de rand van Hilversum ontwierp Jan Duiker sanatorium Zonnestraal (1926–1928). Vergelijk de kaart van rond 1900 met die van rond 1950: het dorp rond de Brink groeit uit tot een stad van tuinwijken die het heidelandschap opvult.",
+        "en": "The town hall (1928–1931), with its brick volumes and tall tower, became an international model of modern architecture. On the edge of Hilversum, Jan Duiker designed the Zonnestraal sanatorium (1926–1928). Compare the map of c. 1900 with that of c. 1950: the village around the Brink grows into a town of garden districts that fills the heathland.",
+        "zh": "市政廳(1928–1931)以磚造量體與高塔聞名，成為國際上現代建築的典範。希爾弗瑟姆市郊另有杜克(Jan Duiker)設計的陽光療養院(Zonnestraal, 1926–1928)。對照約1900年與約1950年的地圖：以布林克廣場(Brink)為中心的村莊，逐漸長成填滿石楠荒地的花園住宅城市。"
+      },
+      "views": [
+        {
+          "label": {
+            "nl": "Rond 1900 vs. nu (vergelijk)",
+            "en": "c. 1900 vs today (compare)",
+            "zh": "約1900年 vs 今日（對照）"
+          },
+          "year": 1900,
+          "lat": 52.2265,
+          "lng": 5.1725,
+          "z": 14,
+          "compare": true
+        },
+        {
+          "label": {
+            "nl": "Rond 1950: de tuinstad",
+            "en": "c. 1950: the garden town",
+            "zh": "約1950年：花園城市"
+          },
+          "year": 1950,
+          "lat": 52.2265,
+          "lng": 5.1725,
+          "z": 14,
+          "compare": false
+        }
+      ]
     }
   ]
 }

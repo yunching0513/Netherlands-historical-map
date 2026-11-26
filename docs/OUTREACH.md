@@ -91,6 +91,25 @@ Groet, Yunching
 
 Targets: Stadsarchief Rotterdam, Het Utrechts Archief, Zeeuws Archief (Middelburg), Regionaal Archief Nijmegen, Erfgoedvereniging Heemschut afdelingen, local historische verenigingen. One email per org, linking the matching map story.
 
+Story ↔ archive pairing (send Email 4 with the matching URL, base `https://yunching0513.github.io/Netherlands-historical-map/stories/`):
+
+| Archive / organisation | Story file(s) |
+|---|---|
+| Stadsarchief Rotterdam | `rotterdam-1940.html` |
+| Stadsarchief Amsterdam | `amsterdam-plan-zuid.html`, `amsterdam-centraal.html` |
+| Het Utrechts Archief | `utrecht-catharijnesingel.html` |
+| Zeeuws Archief (Middelburg) | `middelburg-1940.html` |
+| Regionaal Archief Nijmegen | `nijmegen-1944.html` |
+| Haags Gemeentearchief | `denhaag-vredespaleis.html`, `denhaag-scheveningen.html` |
+| Regionaal Historisch Centrum Eindhoven | `eindhoven-groot-eindhoven.html` |
+| Groninger Archieven | `groningen-vestingwet.html` |
+| Noord-Hollands Archief (Haarlem) | `haarlem-haarlemmermeer.html` |
+| Regionaal Historisch Centrum Limburg (Maastricht) | `maastricht-vesting.html` |
+| Stadsarchief Delft / TU Delft Library | `delft-tu-wijk.html` |
+| Gelders Archief (Arnhem) / Airborne Museum Hartenstein | `arnhem-1944.html` |
+| Erfgoed Leiden en Omstreken | `leiden-buskruitramp.html` |
+| Gemeentearchief Hilversum / Museum Hilversum | `hilversum-dudok.html` |
+
 > **Onderwerp:** Gratis interactieve kaart "toen en nu" voor [stad] — in te sluiten op uw website
 >
 > Beste [naam],

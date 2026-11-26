@@ -21,7 +21,7 @@ DOI = "10.5281/zenodo.21924251"
 CITY_NAMES = {
     "amsterdam": "Amsterdam", "rotterdam": "Rotterdam", "utrecht": "Utrecht",
     "middelburg": "Middelburg", "nijmegen": "Nijmegen", "denhaag": "Den Haag",
-    "leiden": "Leiden", "delft": "Delft", "haarlem": "Haarlem", "arnhem": "Arnhem",
+    "leiden": "Leiden", "delft": "Delft", "haarlem": "Haarlem", "arnhem": "Arnhem", "hilversum": "Hilversum",
 }
 
 STYLE = """  body { font-family:'Noto Sans TC',system-ui,sans-serif; max-width:760px; margin:0 auto;

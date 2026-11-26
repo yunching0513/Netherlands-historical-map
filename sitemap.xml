@@ -147,7 +147,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/leiden.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -177,7 +177,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/hilversum.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -202,7 +202,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/city/arnhem.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -292,7 +292,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/arnhem-sint-eusebiuskerk.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -352,12 +352,12 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/hilversum-dudok-raadhuis.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/hilversum-zonnestraal.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -367,7 +367,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/landmark/leiden-pieterskerk.html</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -417,7 +417,7 @@
   </url>
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/index.html</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -483,6 +483,21 @@
   <url>
     <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/delft-tu-wijk.html</loc>
     <lastmod>2026-11-23</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/arnhem-1944.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/leiden-buskruitramp.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yunching0513.github.io/Netherlands-historical-map/stories/hilversum-dudok.html</loc>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>
